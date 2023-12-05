@@ -1,0 +1,30 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#975614",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveBackground": "#8a530f",
+    "sideBar.background": "#1d1813",
+    "sideBar.foreground": "#dfd7ce"
+  },
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
+}
