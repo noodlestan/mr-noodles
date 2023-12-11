@@ -41,7 +41,8 @@ interface Methods {
 
 interface IModel extends Model<PhotoSchema, object, Methods> {
     findByHash: (hash: string) => Promise<PhotoDocument>;
-    findByHashOrFilename: (hash: string, filename: string) => Promise<PhotoDocument>;
+    findByFilename: (filename: string) => Promise<PhotoDocument>;
+    findByFilenameOrHash: (filename: string, hash: string) => Promise<PhotoDocument>;
     fromData: (json: Partial<PhotoData>) => PhotoDocument;
 }
 
@@ -165,11 +166,21 @@ schema.static('findByHash', async (hash: string): Promise<PhotoDocument | undefi
     return results && results[0];
 });
 
+schema.static('findByFilename', async (filename: string): Promise<PhotoDocument | undefined> => {
+    const results = await PhotoModel.find({ filename }).exec();
+    return results && results[0];
+});
+
 schema.static(
-    'findByHashOrFilename',
-    async (hash: string, filename: string): Promise<PhotoDocument | undefined> => {
-        const results = await PhotoModel.find({ $or: [{ hash }, { filename }] }).exec();
-        return results && results[0];
+    'findByFilenameOrHash',
+    async (filename: string, hash: string): Promise<PhotoDocument | undefined> => {
+        const byFilename = await PhotoModel.findByFilename(filename);
+        if (byFilename) {
+            return byFilename;
+        } else {
+            const results = await PhotoModel.find({ hash }).exec();
+            return results && results[0];
+        }
     },
 );
 

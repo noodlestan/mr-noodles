@@ -23,7 +23,7 @@ export const processScanFile = async (event: EventScanFile): Promise<void> => {
         const buff = await file.toBuffer();
         const hash = hashFile(buff);
 
-        const photo = await Photo.findByHashOrFilename(hash, event.filename);
+        const photo = await Photo.findByFilename(event.filename);
 
         if (!photo) {
             await createPhotoFromScanEvent(event, hash, meta, exif);

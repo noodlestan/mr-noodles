@@ -11,4 +11,6 @@ const {
     SCAN_DIR = '../../demo/good',
 } = process.env;
 
-export { NODE_ENV, LOG_FILE, PORT, MONGODB_URI, SCAN_DIR, SCAN_NOW };
+const SCAN_EXTENSIONS = (process.env.SCAN_EXTENSIONS || '.jpg,.jpeg,.png,.gif').split(',');
+
+export { NODE_ENV, LOG_FILE, PORT, MONGODB_URI, SCAN_DIR, SCAN_NOW, SCAN_EXTENSIONS };

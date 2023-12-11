@@ -2,7 +2,7 @@
 import { lstat, readdir } from 'fs/promises';
 import path from 'path';
 
-import { SCAN_DIR } from '../../env';
+import { SCAN_DIR, SCAN_EXTENSIONS } from '../../env';
 import { publish, subscribe } from '../../events';
 import {
     EVENT_SCAN_ERROR,
@@ -13,11 +13,9 @@ import {
 import { logger } from '../../logger';
 import { defer } from '../../utils/flow';
 
-const SUPPORTED_FORMATS = ['.jpeg', '.jpg'];
-
 const isImageFile = (filename: string): boolean => {
     const parts = path.parse(filename);
-    return SUPPORTED_FORMATS.includes(parts.ext);
+    return SCAN_EXTENSIONS.includes(parts.ext.toLowerCase());
 };
 
 const scanFile = async (dir: string, file: string, base: string | undefined) => {
