@@ -2,6 +2,7 @@ import { ExifData } from 'exif';
 import { Metadata } from 'sharp';
 
 import { EventScanFile } from '../../events/scan';
+import { logger } from '../../logger';
 import { Photo } from '../../models/photo';
 import { createAlbumFromSlugAndPhotoId } from '../albums/createAlbumFromSlugAndPhotoId';
 import { ensurePhotoInAlbum } from '../albums/ensurePhotoInAlbum';
@@ -14,17 +15,17 @@ export const createPhotoFromScanEvent = async (
     event: EventScanFile,
     hash: string,
     meta: Metadata,
-    exif: ExifData,
+    exif?: ExifData,
 ): Promise<void> => {
     const albumSlug = albumNameFromRelativePath(event.relativePath);
 
-    const location = latLongFromExifGps(exif);
+    const location = exif && latLongFromExifGps(exif);
     const photo = Photo.fromData({
-        dateCreated: dateFromExifDate(exif),
+        dateCreated: new Date(),
         hash,
         filename: event.filename,
         album: albumSlug,
-        date: new Date(),
+        date: exif && dateFromExifDate(exif),
         orientation: meta.orientation || 0,
         width: meta.width,
         height: meta.height,
@@ -32,6 +33,11 @@ export const createPhotoFromScanEvent = async (
     });
 
     await photo.save();
+
+    logger.debug('controller:photos:create-from-scan', {
+        filename: photo.filename,
+        album: albumSlug,
+    });
 
     if (albumSlug) {
         try {

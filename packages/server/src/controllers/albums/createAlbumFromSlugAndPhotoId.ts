@@ -1,10 +1,11 @@
-import { ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 
-import { Album, AlbumDocument } from '../../models/album';
+import type { AlbumDocument } from '../../models/album';
+import { Album } from '../../models/album';
 
 export const createAlbumFromSlugAndPhotoId = async (
     slug: string,
-    photoId: ObjectId,
+    photoId: Types.ObjectId,
 ): Promise<AlbumDocument> => {
     const album = Album.fromData({
         dateCreated: new Date(),

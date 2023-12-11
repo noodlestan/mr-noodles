@@ -23,7 +23,7 @@ export const detectPhotoUpdates = (
     photo: PhotoDocument,
     hash: string,
     meta: Metadata,
-    exif: ExifData,
+    exif?: ExifData,
 ): UpdateFields | undefined => {
     const set: Updates = {};
     const unset: Updates = {};
@@ -55,7 +55,7 @@ export const detectPhotoUpdates = (
         set.height = height;
     }
 
-    const location = latLongFromExifGps(exif);
+    const location = exif && latLongFromExifGps(exif);
     if (
         location &&
         (location.lat !== photo.location?.coordinates[0] ||

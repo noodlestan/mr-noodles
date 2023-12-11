@@ -61,13 +61,13 @@ const middleware = (req: Request, res: Response, next: NextFunction): void => {
 
     res.locals.timing = Date.now();
     const reqData = { id: res.locals.id, method: req.method, path: req.path };
-    res.locals.logger.debug('http.request', reqData);
+    res.locals.logger.debug('http:request', reqData);
 
     const handleResponse = () => {
         const severity = mapSeverity(res) || 'error';
         const elapsed = Date.now() - res.locals.timing;
         const resData = { ...reqData, elapsed, code: res.statusCode };
-        res.locals.logger[severity]('http.response', resData);
+        res.locals.logger[severity]('http:response', resData);
     };
 
     res.on('finish', handleResponse);

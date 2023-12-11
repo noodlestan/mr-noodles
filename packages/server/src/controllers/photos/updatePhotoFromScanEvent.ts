@@ -2,6 +2,7 @@ import { ExifData } from 'exif';
 import { Metadata } from 'sharp';
 
 import { EventScanFile } from '../../events/scan';
+import { logger } from '../../logger';
 import { Photo, PhotoDocument } from '../../models/photo';
 import { ensurePhotoInAlbum, ensurePhotoNotInAlbum } from '../albums/ensurePhotoInAlbum';
 
@@ -12,11 +13,16 @@ export const updatePhotoFromScanEvent = async (
     photo: PhotoDocument,
     hash: string,
     meta: Metadata,
-    exif: ExifData,
+    exif?: ExifData,
 ): Promise<void> => {
     const updates = detectPhotoUpdates(event, photo, hash, meta, exif);
     if (updates) {
         await Photo.findByIdAndUpdate(photo._id, updates);
+
+        logger.debug('controller:photos:update-from-scan', {
+            filename: photo.filename,
+        });
+
         if (
             (updates.$set && 'album' in updates.$set) ||
             (updates.$unset && 'album' in updates.$unset)

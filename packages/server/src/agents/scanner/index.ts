@@ -11,22 +11,47 @@ import {
     EventScanFile,
 } from '../../events/scan';
 import { logger } from '../../logger';
+import { defer } from '../../utils/flow';
 
-const scanDir = async (dir: string, base?: string): Promise<void> => {
-    const files = await readdir(dir);
+const SUPPORTED_FORMATS = ['.jpeg', '.jpg'];
 
-    files.forEach(async file => {
+const isImageFile = (filename: string): boolean => {
+    const parts = path.parse(filename);
+    return SUPPORTED_FORMATS.includes(parts.ext);
+};
+
+const scanFile = async (dir: string, file: string, base: string | undefined) => {
+    try {
         const filename = path.join(dir, file);
         const baseDir = base || dir;
         const relativePath = base ? dir.substring(base?.length || 0) : '.';
 
         const stat = await lstat(filename);
         if (stat.isDirectory()) {
-            scanDir(filename, base || dir);
-        } else {
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            await defer(() => scanDir(filename, base || dir));
+        } else if (isImageFile(filename)) {
             publish<EventScanFile>(EVENT_SCAN_FILE, { filename, baseDir, relativePath });
         }
-    });
+    } catch (err) {
+        const error = err as Error;
+        publish<EventScanError>(EVENT_SCAN_ERROR, { filename: path.join(dir, file), error });
+    }
+};
+
+const scanDir = async (dir: string, base?: string): Promise<void> => {
+    try {
+        const files = await readdir(dir);
+
+        logger.debug('agent:scanner:scan-dir', { dir });
+
+        files.forEach(async file => {
+            await scanFile(dir, file, base);
+        });
+    } catch (err) {
+        const error = err as Error;
+        publish<EventScanError>(EVENT_SCAN_ERROR, { filename: dir, error });
+    }
 };
 
 const scanNow = async (): Promise<void> => {
@@ -49,5 +74,12 @@ const startScanAgent = (): void => {
 export { startScanAgent };
 
 subscribe(EVENT_SCAN_ERROR, (event: EventScanError) => {
-    logger.error(EVENT_SCAN_ERROR, event);
+    const error = {
+        message: event.error.message,
+        stack: event.error.stack,
+    };
+    logger.error('agent:scanner:error', {
+        filename: event.filename,
+        error,
+    });
 });
