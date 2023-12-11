@@ -1,23 +1,13 @@
+import http from 'http';
 import path from 'path';
 
 import bodyParser from 'body-parser';
 import express from 'express';
 import lusca from 'lusca';
-import mongoose from 'mongoose';
 
-import * as photosController from './controllers/photos';
-import { MONGODB_URI, PORT } from './env';
+import { PORT } from './env';
 import { logger, middleware } from './logger';
-
-mongoose
-    .connect(MONGODB_URI, {})
-    .then(() => {
-        logger.info('db');
-    })
-    .catch(err => {
-        logger.error('db', err);
-        process.exit();
-    });
+import { photosRouter } from './routes/photos';
 
 const app = express();
 app.set('port', PORT);
@@ -29,6 +19,19 @@ const publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath, { maxAge: 31557600000 }));
 app.use(middleware);
 
-app.get('/photos', photosController.getPhotos);
+app.use('/photos', photosRouter);
 
-export default app;
+const server = http.createServer(app);
+
+const start = async (): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+        server.listen(app.get('port'), () => {
+            logger.info('server', { port: app.get('port'), env: app.get('env') });
+            resolve();
+        });
+
+        server.on('error', reject);
+    });
+};
+
+export { start };

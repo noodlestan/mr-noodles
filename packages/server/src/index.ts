@@ -1,8 +1,22 @@
-import app from './app';
+import { startPhotosAgent } from './agents/photos';
+import { startScanAgent } from './agents/scanner';
+import { start } from './app';
+import { connect } from './db';
+import { SCAN_NOW } from './env';
 import { logger } from './logger';
 
-const server = app.listen(app.get('port'), () => {
-    logger.info('server', { port: app.get('port'), env: app.get('env') });
-});
+const main = async () => {
+    try {
+        await connect();
+        await startPhotosAgent();
+        if (SCAN_NOW) {
+            await startScanAgent();
+        }
+        await start();
+        logger.info('boot');
+    } catch (err) {
+        logger.error('boot', err);
+    }
+};
 
-export default server;
+main();
