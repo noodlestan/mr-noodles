@@ -1,4 +1,3 @@
-/* eslint-disable security/detect-non-literal-fs-filename */
 import { lstat, readdir } from 'fs/promises';
 import path from 'path';
 

@@ -1,5 +1,3 @@
-/* eslint-disable security/detect-object-injection */
-/* eslint-disable security/detect-non-literal-fs-filename */
 import { closeSync, openSync, utimesSync } from 'fs';
 
 import { NextFunction, Request, Response } from 'express';

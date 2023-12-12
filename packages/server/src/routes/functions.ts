@@ -1,6 +1,6 @@
 import { Request } from 'express';
 
-import { IPagination, ISort } from '../models/photo/types';
+import { IPagination, ISort } from '../models/types';
 
 export const paginationFromQuery = (
     query: Request['query'],

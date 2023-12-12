@@ -1,4 +1,3 @@
-/* eslint-disable security/detect-object-injection */
 import { readFile } from 'fs/promises';
 
 import { connect } from '../src/db';

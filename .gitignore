@@ -37,6 +37,8 @@ pids
 # Build directories
 **/dist
 
+# Asset directories
+assets/
 
 # Environment variable files
 .env

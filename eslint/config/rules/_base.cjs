@@ -18,7 +18,8 @@ const rules = {
     ],
     // security
     'no-console': [ERROR, { allow: ['info', 'warn', 'error'] }],
-    // X 'security/detect-object-injection': OFF,
+    'security/detect-non-literal-fs-filename': OFF,
+    'security/detect-object-injection': OFF,
     // X 'security/detect-possible-timing-attacks': OFF,
 };
 

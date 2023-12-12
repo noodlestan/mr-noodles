@@ -40,10 +40,10 @@ interface Methods {
 }
 
 interface IModel extends Model<PhotoSchema, object, Methods> {
+    fromData: (json: Partial<PhotoData>) => PhotoDocument;
     findByHash: (hash: string) => Promise<PhotoDocument>;
     findByFilename: (filename: string) => Promise<PhotoDocument>;
     findByFilenameOrHash: (filename: string, hash: string) => Promise<PhotoDocument>;
-    fromData: (json: Partial<PhotoData>) => PhotoDocument;
 }
 
 export type PhotoDocument = HydratedDocument<PhotoSchema> & Methods & { _id: Types.ObjectId };

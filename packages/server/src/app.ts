@@ -7,6 +7,7 @@ import lusca from 'lusca';
 
 import { PORT } from './env';
 import { logger, middleware } from './logger';
+import { albumsRouter } from './routes/albums';
 import { photosRouter } from './routes/photos';
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.static(publicPath, { maxAge: 31557600000 }));
 app.use(middleware);
 
 app.use('/photos', photosRouter);
+app.use('/albums', albumsRouter);
 
 const server = http.createServer(app);
 

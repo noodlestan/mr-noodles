@@ -2,7 +2,7 @@ import { QueryOptions } from 'mongoose';
 
 import type { PhotoData, PhotoDocument, PhotoSchema } from '../../models/photo';
 import { Photo } from '../../models/photo';
-import { IPagination, ISort, MongoSort } from '../../models/photo/types';
+import { IPagination, ISort, MongoSort } from '../../models/types';
 
 export const getPhotos = async (
     filter: Partial<PhotoData>,
