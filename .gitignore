@@ -34,11 +34,12 @@ pids
 .npm
 .eslintcache
 
+# Environment variable files
+.env
+
 # Build directories
 **/dist
 
 # Asset directories
-assets/
+resources/assets
 
-# Environment variable files
-.env

@@ -11,7 +11,7 @@ export const readExif = async (filename: string): Promise<ExifData | undefined> 
                 if (error) {
                     publish<PhotoProcessWarning>(PHOTO_PROCESS_WARNING, {
                         filename,
-                        message: error.message,
+                        reason: error.message,
                     });
                     resolve(undefined);
                 } else {
@@ -22,7 +22,7 @@ export const readExif = async (filename: string): Promise<ExifData | undefined> 
             const err = error as Error;
             publish<PhotoProcessWarning>(PHOTO_PROCESS_WARNING, {
                 filename,
-                message: err.message,
+                reason: err.message,
             });
         }
     });

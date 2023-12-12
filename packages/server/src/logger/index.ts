@@ -50,6 +50,7 @@ logger.info('logger', { level });
 const middleware = (req: Request, res: Response, next: NextFunction): void => {
     res.locals.id = uuidv4();
     res.locals.logger = {};
+    res.setHeader('x-request-id', res.locals.id);
     for (const severity of Severities) {
         res.locals.logger[severity] = (message: string, data: LogData = {}) => {
             const logData = { id: res.locals.id, ...data };

@@ -72,11 +72,9 @@ export { startScanAgent };
 
 subscribe(EVENT_SCAN_ERROR, (event: EventScanError) => {
     const error = {
-        message: event.error.message,
+        filename: event.filename,
+        reason: event.error.message,
         stack: event.error.stack,
     };
-    logger.error('agent:scanner:error', {
-        filename: event.filename,
-        error,
-    });
+    logger.error('agent:scanner:error', error);
 });

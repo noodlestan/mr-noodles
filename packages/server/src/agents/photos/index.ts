@@ -28,23 +28,19 @@ export { startPhotosAgent };
 
 subscribe(PHOTO_PROCESS_ERROR, (event: PhotoProcessError) => {
     const error = {
-        message: event.error.message,
+        filename: event.filename,
+        reason: event.error.message,
         stack: event.error.stack,
     };
-
-    createPhotoMessage('error', error.message, event.filename);
-
-    logger.error('agent:photos:error', {
-        filename: event.filename,
-        error,
-    });
+    logger.error('agent:photos:error', error);
+    createPhotoMessage('error', error.reason, event.filename);
 });
 
 subscribe(PHOTO_PROCESS_WARNING, (event: PhotoProcessWarning) => {
-    createPhotoMessage('warning', event.message, event.filename);
+    createPhotoMessage('warning', event.reason, event.filename);
 
     logger.warn('agent:photos:warning', {
         filename: event.filename,
-        message: event.message,
+        reason: event.reason,
     });
 });

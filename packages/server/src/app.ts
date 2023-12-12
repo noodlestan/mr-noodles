@@ -9,6 +9,7 @@ import { PORT } from './env';
 import { logger, middleware } from './logger';
 import { albumsRouter } from './routes/albums';
 import { photosRouter } from './routes/photos';
+import { exceptionHandler, notFoundHandler } from './routes/responses';
 
 const app = express();
 app.set('port', PORT);
@@ -22,6 +23,9 @@ app.use(middleware);
 
 app.use('/photos', photosRouter);
 app.use('/albums', albumsRouter);
+
+app.use(notFoundHandler);
+app.use(exceptionHandler);
 
 const server = http.createServer(app);
 
