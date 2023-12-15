@@ -1,0 +1,52 @@
+.TextInput {
+    --input-length-s: var(--size-2xl);
+    --input-length-m: var(--size-3xl);
+    --input-length-l: var(--size-4xl);
+    width: var(--input-length);
+    height: var(--size-m);
+    margin: 0;
+    padding: 0 var(--space-pad-0);
+    font-family: var(--data-type-family);
+    line-height: 1;
+    text-align: left;
+    color: var(--color-fg-satecondary);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    border-style: dotted;
+    border-color: var(--surface-fg);
+}
+
+.TextInput-size-s {
+    height: var(--size-s);
+    font-size: var(--data-type-size-s);
+    font-weight: var(--data-type-weight-s);
+}
+
+.TextInput-size-m {
+    height: var(--size-m);
+    font-size: var(--data-type-size-m);
+    font-weight: var(--data-type-weight-m);
+}
+
+.TextInput-size-l {
+    height: var(--size-l);
+    font-size: var(--data-type-size-l);
+    font-weight: var(--data-type-weight-l);
+}
+
+.TextInput:not(.TextInput-is-disabled):hover {
+    border-style: solid;
+}
+
+.TextInput-is-modified:not(.TextInput-is-disabled):focus {
+    color: var(--data-color-modified-fg);
+    border-color: var(--data-modified-color-border);
+}
+
+.TextInput:focus,
+.TextInput:focus-visible {
+    color: var(--data-focus-color);
+    border-style: solid;
+    border-color: var(--color-interactive);
+    outline: none;
+}

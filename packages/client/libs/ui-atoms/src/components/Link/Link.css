@@ -1,0 +1,25 @@
+.Link {
+    color: hsl(var(--color-i-rest-hue-sat), var(--color-i-rest-light));
+    cursor: default;
+    text-decoration: underline;
+}
+
+.Link:not(.Link-is-disabled) {
+    cursor: pointer;
+}
+
+.Link:not(.Link-is-disabled):hover {
+    color: hsl(var(--color-i-hover-hue-sat), var(--color-i-hover-light));
+    text-decoration: underline;
+}
+
+.Link-is-disabled {
+    color: hsl(var(--color-i-disabled-hue-sat), var(--color-i-disabled-light));
+    cursor: not-allowed;
+}
+
+.Link:focus-visible {
+    outline: var(--outline-base);
+    outline-offset: var(--space-gap-0);
+    z-index: 2;
+}

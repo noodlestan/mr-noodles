@@ -10,7 +10,9 @@ const base = {
     ],
     parserOptions: {
         sourceType: 'module',
-        ecmaVersion: 2020,
+        ecmaFeatures: {
+            jsx: true,
+        },
     },
     env: {
         node: true,
@@ -18,9 +20,6 @@ const base = {
         browser: true,
     },
     settings: {
-        react: {
-            version: '16.8',
-        },
         'import/resolver': {
             node: {
                 extensions: ['.js', '.cjs', '.jsx', '.ts', '.tsx'],

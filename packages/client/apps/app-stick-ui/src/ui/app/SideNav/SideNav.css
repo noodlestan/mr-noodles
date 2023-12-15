@@ -1,0 +1,21 @@
+.SideNav {
+    height: min-content;
+}
+
+.SideNav--container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.SideNav--container > .Flex {
+    padding-top: var(--space-pad-1);
+    border-top: var(--divider-border);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media screen and (min-width: 800px) {
+    .SideNav--container > .Flex {
+        flex-direction: column;
+    }
+}

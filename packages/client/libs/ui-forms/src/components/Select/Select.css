@@ -1,0 +1,52 @@
+.Select {
+    --select-length-s: var(--size-2xl);
+    --select-length-m: var(--size-3xl);
+    --select-length-l: var(--size-4xl);
+    width: var(--select-length);
+    height: var(--size-m);
+    margin: 0;
+    padding: 0 var(--space-pad-0);
+    font-family: var(--data-type-family);
+    line-height: 1;
+    text-align: left;
+    color: var(--surface-fg);
+    background: var(--surface-bg);
+    border-width: 1px;
+    border-style: dotted;
+    border-color: var(--surface-fg);
+}
+
+.Select option {
+    color: var(--surface-fg);
+    background: var(--surface--bg);
+}
+
+.Select-size-s {
+    height: var(--size-s);
+    font-size: var(--data-type-size-s);
+    font-weight: var(--data-type-weight-s);
+}
+
+.Select-size-m {
+    height: var(--size-m);
+    font-size: var(--data-type-size-m);
+    font-weight: var(--data-type-weight-m);
+}
+
+.Select-size-l {
+    height: var(--size-l);
+    font-size: var(--data-type-size-l);
+    font-weight: var(--data-type-weight-l);
+}
+
+.Select:not(.Select-is-disabled):hover {
+    border-style: solid;
+}
+
+.Select:focus,
+.Select:focus-visible {
+    color: var(--data-focus-color);
+    border-style: solid;
+    border-color: var(--data-focus-color);
+    outline: none;
+}

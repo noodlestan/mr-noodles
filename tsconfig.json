@@ -25,5 +25,5 @@
       "*": ["./node_modules/*"]
     }
   },
-  "include": ["packages/"]
+  "include": ["packages/", "vitest.workspace.ts"]
 }

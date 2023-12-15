@@ -1,0 +1,20 @@
+.Label {
+    color: var(--label-fg-color);
+    font-family: var(--label-type-family);
+    text-transform: uppercase;
+}
+
+.Label-size-s {
+    font-size: var(--label-type-size-s);
+    font-weight: var(--label-type-weight-s);
+}
+
+.Label-size-m {
+    font-size: var(--label-type-size-m);
+    font-weight: var(--label-type-weight-m);
+}
+
+.Label-size-l {
+    font-size: var(--label-type-size-l);
+    font-weight: var(--label-type-weight-l);
+}

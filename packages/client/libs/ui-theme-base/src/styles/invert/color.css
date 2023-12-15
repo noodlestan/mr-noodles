@@ -1,0 +1,42 @@
+@media (prefers-color-scheme: light) {
+    .Theme--base {
+        /* globals: saturation and levels */
+
+        --color-sat: 60%;
+
+        --color-light-max: 98%;
+        --color-light-9: 90%;
+        --color-light-8: 82%;
+        --color-light-7: 76%;
+        --color-light-6: 68%;
+        --color-light-5: 59%;
+        --color-light-4: 50%;
+        --color-light-3: 41%;
+        --color-light-2: 32%;
+        --color-light-1: 23%;
+        --color-light-0: 15%;
+        --color-light-min: 2%;
+
+        /* A - bg */
+
+        --color-bg-light-0: 99%;
+        --color-bg-light-1: 97%;
+        --color-bg-light-2: 94%;
+        --color-bg-light-3: 91%;
+        --color-bg-light-4: 87%;
+        --color-bg-light-5: 83%;
+        --color-bg-light-6: 77%;
+
+        /* B - fg */
+
+        --color-fg-light-mute: 55%;
+
+        --color-fg-light-0: 2%;
+        --color-fg-light-1: 6%;
+        --color-fg-light-2: 10%;
+        --color-fg-light-3: 15%;
+        --color-fg-light-4: 22%;
+        --color-fg-light-5: 29%;
+        --color-fg-light-6: 36%;
+    }
+}

@@ -1,0 +1,45 @@
+.DataValue {
+    --data-value-length-s: var(--size-s);
+    --data-value-length-m: var(--size-xl);
+    --data-value-length-l: var(--size-3xl);
+    width: var(--data-value-length);
+    margin: 0;
+    padding: 0;
+    font-family: var(--data-type-family);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.DataValue-size-s {
+    font-size: var(--data-type-size-s);
+    font-weight: var(--data-type-weight-s);
+}
+
+.DataValue-size-m {
+    font-size: var(--data-type-size-m);
+    font-weight: var(--data-type-weight-m);
+}
+
+.DataValue-size-l {
+    font-size: var(--data-type-size-l);
+    font-weight: var(--data-type-weight-l);
+}
+
+.DataValue-is-interactive {
+    cursor: pointer;
+    border-radius: var(--outline-radius);
+}
+
+.DataValue-is-interactive:hover {
+    color: var(--outline-color);
+    text-decoration: underline;
+}
+
+.DataValue-is-interactive:focus,
+.DataValue-is-interactive:focus-visible {
+    text-decoration: underline;
+    outline: var(--outline-base);
+    outline-offset: var(--space-gap-0);
+}

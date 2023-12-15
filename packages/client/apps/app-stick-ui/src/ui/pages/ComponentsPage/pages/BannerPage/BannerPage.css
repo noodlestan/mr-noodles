@@ -1,0 +1,10 @@
+.BannerPage .override {
+    color: crimson !important;
+    background-color: white;
+    border: 2px solid red;
+}
+
+.BannerPageContents > p {
+    white-space: nowrap;
+    width: min-content;
+}

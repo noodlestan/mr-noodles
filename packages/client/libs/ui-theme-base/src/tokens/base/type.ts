@@ -1,0 +1,113 @@
+import { TokenMap } from '@noodlestan/ui-tokens';
+
+export const type: TokenMap = {
+    /* size */
+    '--type-size-2xs': 'var(--type-step--2)',
+    '--type-size-xs': 'var(--type-step--1)',
+    '--type-size-s': 'var(--type-step-0)',
+    '--type-size-m': 'var(--type-step-1)',
+    '--type-size-l': 'var(--type-step-2)',
+    '--type-size-xl': 'var(--type-step-3)',
+    '--type-size-2xl': 'var(--type-step-4)',
+    '--type-size-3xl': 'var(--type-step-5)',
+
+    /* text */
+
+    '--text-type-family': 'Georgia, serif',
+    '--text-type-height-base': '1.5',
+    '--text-type-weight-base': '300',
+    '--text-type-weight-strong': '400',
+    '--text-type-size-base': 'var(--text-type-size-s)',
+    '--text-type-size-xs': 'var(--type-size-xs)',
+    '--text-type-size-s': 'var(--type-size-s)',
+    '--text-type-size-m': 'var(--type-size-m)',
+    '--text-type-size-l': 'var(--type-size-l)',
+    '--text-type-weight-xs': '300',
+    '--text-type-weight-s': '300',
+    '--text-type-weight-m': '300',
+    '--text-type-weight-l': '300',
+
+    /* display */
+
+    '--display-type-family': 'Helvetica, Arial, sans-serif',
+    '--display-type-height-base': '1.5',
+    '--display-type-weight-base': '300',
+    '--display-type-weight-strong': '400',
+    '--display-type-size-s': 'var(--type-size-m)',
+    '--display-type-size-m': 'var(--type-size-l)',
+    '--display-type-size-l': 'var(--type-size-xl)',
+    '--display-type-size-xl': 'var(--type-size-2xl)',
+    '--display-type-weight-s': '400',
+    '--display-type-weight-m': '400',
+    '--display-type-weight-l': '300',
+    '--display-type-weight-xl': '300',
+
+    /* deco */
+
+    '--deco-type-family': 'Geneva, Tahoma, sans-serif',
+    '--deco-type-height-base': '1.5',
+    '--deco-type-weight-base': '400',
+    '--deco-type-size-s': 'var(--type-size-m)',
+    '--deco-type-size-m': 'var(--type-size-xl)',
+    '--deco-type-size-l': 'var(--type-size-3xl)',
+    '--deco-type-weight-s': '400',
+    '--deco-type-weight-m': '400',
+    '--deco-type-weight-l': '400',
+
+    /* action */
+
+    '--action-type-family': 'Helvetica, Arial, sans-serif',
+    '--action-type-height-base': '1',
+    '--action-type-weight-base': '400',
+    '--action-type-size-s': 'var(--type-size-xs)',
+    '--action-type-size-m': 'var(--type-size-s)',
+    '--action-type-size-l': 'var(--type-size-m)',
+    '--action-type-weight-s': '400',
+    '--action-type-weight-m': '400',
+    '--action-type-weight-l': '400',
+
+    /* label */
+
+    '--label-type-family': 'Helvetica, Arial, sans-serif',
+    '--label-type-height-base': '1',
+    '--label-type-size-s': 'var(--type-size-2xs)',
+    '--label-type-size-m': 'var(--type-size-xs)',
+    '--label-type-size-l': 'var(--type-size-s)',
+    '--label-type-weight-s': '100',
+    '--label-type-weight-m': '200',
+    '--label-type-weight-l': '300',
+
+    /* data */
+
+    '--data-type-family': "'Consolas', 'Andale Mono', monospace",
+    '--data-type-height-base': '1',
+    '--data-type-size-s': 'var(--type-size-2xs)',
+    '--data-type-size-m': 'var(--type-size-s)',
+    '--data-type-size-l': 'var(--type-size-l)',
+    '--data-type-weight-s': '300',
+    '--data-type-weight-m': '400',
+    '--data-type-weight-l': '500',
+
+    /* @link https://utopia.fyi/type/calculator?c=375,15,1.2,1200,18,1.25,7,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+    /* Step -2: 10.42px → 11.52px */
+    '--type-step--2': 'clamp(0.65rem, calc(0.62rem + 0.13vw), 0.72rem)',
+    /* Step -1: 12.50px → 14.40px */
+    '--type-step--1': 'clamp(0.78rem, calc(0.73rem + 0.23vw), 0.9rem)',
+    /* Step 0: 15.00px → 18.00px */
+    '--type-step-0': 'clamp(0.94rem, calc(0.85rem + 0.36vw), 1.13rem)',
+    /* Step 1: 18.00px → 22.50px */
+    '--type-step-1': 'clamp(1.13rem, calc(1rem + 0.55vw), 1.41rem)',
+    /* Step 2: 21.60px → 28.13px */
+    '--type-step-2': 'clamp(1.35rem, calc(1.16rem + 0.79vw), 1.76rem)',
+    /* Step 3: 25.92px → 35.16px */
+    '--type-step-3': 'clamp(1.62rem, calc(1.36rem + 1.12vw), 2.2rem)',
+    /* Step 4: 31.10px → 43.95px */
+    '--type-step-4': 'clamp(1.94rem, calc(1.58rem + 1.56vw), 2.75rem)',
+    /* Step 5: 37.32px → 54.93px */
+    '--type-step-5': 'clamp(2.33rem, calc(1.83rem + 2.13vw), 3.43rem)',
+    /* Step 6: 44.79px → 68.66px */
+    '--type-step-6': 'clamp(2.8rem, calc(2.12rem + 2.89vw), 4.29rem)',
+    /* Step 7: 53.75px → 85.83px */
+    '--type-step-7': 'clamp(3.36rem, calc(2.45rem + 3.89vw), 5.36rem)',
+};

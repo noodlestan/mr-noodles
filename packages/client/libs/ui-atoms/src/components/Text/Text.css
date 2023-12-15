@@ -1,0 +1,25 @@
+.Text {
+    margin: 0;
+    font-family: var(--text-type-family);
+    line-height: var(--text-type-height-base);
+}
+
+.Text--size-xs {
+    font-size: var(--text-type-size-xs);
+    font-weight: var(--text-type-weight-xs);
+}
+
+.Text--size-s {
+    font-size: var(--text-type-size-s);
+    font-weight: var(--text-type-weight-s);
+}
+
+.Text--size-m {
+    font-size: var(--text-type-size-m);
+    font-weight: var(--text-type-weight-m);
+}
+
+.Text--size-l {
+    font-size: var(--text-type-size-l);
+    font-weight: var(--text-type-weight-l);
+}

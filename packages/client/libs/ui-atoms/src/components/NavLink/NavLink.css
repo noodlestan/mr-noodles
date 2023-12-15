@@ -1,0 +1,26 @@
+.NavLink {
+    font-family: var(--action-type-family);
+    font-weight: var(--action-type-weight-base);
+    line-height: 1;
+    user-select: none;
+}
+
+.NavLink-is-active {
+    color: hsl(var(--color-i-active-hue-sat), var(--color-i-active-light));
+    text-decoration: underline;
+}
+
+.NavLink-size-s {
+    font-size: var(--action-type-size-s);
+    font-weight: var(--action-type-weight-s);
+}
+
+.NavLink-size-m {
+    font-size: var(--action-type-size-m);
+    font-weight: var(--action-type-weight-m);
+}
+
+.NavLink-size-l {
+    font-size: var(--action-type-size-l);
+    font-weight: var(--action-type-weight-l);
+}

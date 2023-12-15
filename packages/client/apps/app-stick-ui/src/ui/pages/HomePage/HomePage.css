@@ -1,0 +1,10 @@
+.HomePage .PageLayout--content > * {
+    max-width: 50em;
+    padding-bottom: var(--scale-xl);
+}
+
+@media (min-width: 800px) {
+    .HomePage--cards {
+        flex-direction: row;
+    }
+}

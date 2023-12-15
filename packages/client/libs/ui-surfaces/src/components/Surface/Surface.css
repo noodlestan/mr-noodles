@@ -1,0 +1,24 @@
+.Surface {
+    --surface-fg: hsl(var(--color-primary-hue-sat), var(--color-primary-light));
+    --surface-bg: hsl(var(--surface-bg-hue-sat), var(--surface-bg-light-alpha));
+    color: var(--surface-fg);
+    background-color: var(--surface-bg);
+    border-width: var(--surface-border-width);
+    border-style: var(--surface-border-style);
+    border-color: hsl(var(--surface-border-hue-sat), var(--surface-border-light));
+    border-radius: var(--surface-border-radius);
+}
+
+.Surface *::selection {
+    color: var(--surface-bg);
+    background-color: var(--surface-fg);
+}
+
+.Surface--is-interactive:hover {
+    background-color: hsl(var(--surface-hover-hue-sat), var(--surface-hover-light-alpha));
+    border: 1px solid blue;
+}
+
+.Surface--is-active {
+    border: 1px solid red;
+}

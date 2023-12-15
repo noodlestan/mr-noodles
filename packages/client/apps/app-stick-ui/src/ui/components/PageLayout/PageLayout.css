@@ -1,0 +1,32 @@
+.PageLayout {
+}
+
+.PageLayout .PageLayout--content {
+    flex: 1;
+}
+
+.PageLayout--content {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    min-height: 60vh;
+}
+
+.PageLayout--content > * {
+    flex: 1;
+}
+
+@media screen and (min-width: 800px) {
+    .PageLayout {
+        flex-direction: row;
+        justify-content: stretch;
+    }
+
+    .PageLayout--nav {
+        width: 16em;
+    }
+
+    .PageLayout--content {
+        flex: 1;
+    }
+}

@@ -1,0 +1,18 @@
+.Button.IconButton {
+    padding: 0;
+}
+
+.Button.IconButton-size-s {
+    width: var(--size-s);
+    height: var(--size-s);
+}
+
+.Button.IconButton-size-m {
+    width: var(--size-m);
+    height: var(--size-m);
+}
+
+.Button.IconButton-size-l {
+    width: var(--size-l);
+    height: var(--size-l);
+}

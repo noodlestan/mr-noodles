@@ -1,0 +1,56 @@
+.Banner {
+    padding: var(--space-pad-0) var(--space-pad-1);
+}
+
+.Banner.Surface {
+    --banner-fg-light: var(--color-light-max);
+    --surface-fg: hsl(var(--banner-bg-hue-sat), var(--banner-fg-light));
+    --surface-bg: hsl(var(--banner-bg-hue-sat), var(--surface-bg-light-alpha));
+    display: flex;
+    width: var(--banner-width);
+}
+
+.Banner--contents {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: var(--space-gap-0);
+    min-height: var(--banner-height);
+}
+
+.Banner-length-full {
+    --banner-width: 100%;
+}
+
+.Banner-length-compact {
+    --banner-width: min-content;
+}
+
+.Banner-size-s {
+    --banner-height: var(--size-2);
+}
+
+.Banner-size-m {
+    --banner-height: var(--size-m);
+}
+
+.Banner-variant-passive {
+    --banner-bg-hue-sat: var(--color-passive-hue-sat);
+}
+
+.Banner-variant-info {
+    --banner-bg-hue-sat: var(--color-neutral-hue-sat);
+}
+
+.Banner-variant-success {
+    --banner-bg-hue-sat: var(--color-good-hue-sat);
+}
+
+.Banner-variant-warning {
+    --banner-bg-hue-sat: var(--color-meh-hue-sat);
+}
+
+.Banner-variant-danger {
+    --banner-bg-hue-sat: var(--color-bad-hue-sat);
+}
