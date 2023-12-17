@@ -1,41 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { PhotoData, PhotoDataPublic, PhotoSchema } from '@noodlestan/shared-types';
 import type { HydratedDocument, Model } from 'mongoose';
 import { Schema, Types, model } from 'mongoose';
 
 import { makeThumbPublicUrl } from '../../services/thumbs/makeThumbPublicUrl';
-
-export interface PhotoSchema {
-    dateCreated: Date;
-    dateUpdated?: Date;
-    hash: string;
-    filename: string;
-    album?: string;
-    title?: string;
-    thumb?: string;
-    date?: Date;
-    orientation: number;
-    width: number;
-    height: number;
-    location?: {
-        type: string;
-        coordinates: Array<number>;
-    };
-}
-
-export interface PhotoData extends Omit<PhotoSchema, 'location'> {
-    id: string;
-    location?: {
-        lat: number;
-        long: number;
-    };
-}
-
-export interface PhotoDataPublic
-    extends Omit<PhotoData, 'filename' | 'dateCreated' | 'dateUpdated' | 'date'> {
-    dateCreated: string;
-    dateUpdated?: string;
-    date?: string;
-}
 
 interface Methods {
     toData: () => PhotoData;
@@ -120,7 +88,7 @@ schema.method('toData', function (): PhotoData {
 schema.method('toDataPublic', function (): PhotoDataPublic {
     const data = this.toData();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, dateCreated, dateUpdated, date, filename, ...rest } = data;
+    const { id, dateCreated, dateUpdated, date, ...rest } = data;
     return {
         id,
         dateCreated: dateCreated.toISOString(),

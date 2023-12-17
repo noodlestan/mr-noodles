@@ -9,7 +9,7 @@ const { env } = process;
 const {
     NODE_ENV,
     LOG_FILE,
-    PORT = 8008,
+    API_PORT = 8008,
     MONGODB_URI = 'mongodb://localhost:27017',
     SCAN_NOW,
 } = env;
@@ -17,16 +17,18 @@ const {
 const SCAN_DIR = path.resolve(env.SCAN_DIR || '../../resources/example-media/good');
 const SCAN_EXTENSIONS = (env.SCAN_EXTENSIONS || '.jpg,.jpeg,.png,.gif').split(',');
 const PUBLIC_ASSETS_DIR = path.resolve(env.PUBLIC_ASSETS_DIR || '../../resources/assets');
-const PUBLIC_ASSETS_BASE_URL = env.PUBLIC_ASSETS_BASE_URL || `http://localhost:${PORT}/assets`;
+const PUBLIC_ASSETS_BASE_URL = env.PUBLIC_ASSETS_BASE_URL || `http://localhost:${API_PORT}/assets`;
+const API_BASE_URL = env.API_BASE_URL || `http://localhost:${API_PORT}`;
 
 export {
     NODE_ENV,
     LOG_FILE,
-    PORT,
+    API_PORT,
     MONGODB_URI,
     SCAN_DIR,
     SCAN_NOW,
     SCAN_EXTENSIONS,
     PUBLIC_ASSETS_DIR,
     PUBLIC_ASSETS_BASE_URL,
+    API_BASE_URL,
 };

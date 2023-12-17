@@ -15,8 +15,7 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
         res.setHeader('x-meta-page-size', `${page?.size}`);
 
         const sort = sortFromQuery(filter, 'title', 'desc');
-        res.setHeader('x-meta-sort-by', `${sort?.field}`);
-        res.setHeader('x-meta-sort-dir', `${sort?.dir}`);
+        res.setHeader('x-meta-sort-by', `${sort}`);
 
         res.setHeader('x-meta-filter', `${querystring.encode(filter as ParsedUrlQueryInput)}`);
 

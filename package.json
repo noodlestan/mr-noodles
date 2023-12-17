@@ -3,7 +3,8 @@
   "workspaces": [
     "packages/server",
     "packages/client/apps/*",
-    "packages/client/libs/*"
+    "packages/client/libs/*",
+    "packages/shared/*"
   ],
   "description": "Mr.Noodles says hello",
   "repository": {

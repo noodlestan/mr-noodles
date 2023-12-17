@@ -1,19 +1,22 @@
+import { IPagination, ISort } from '@noodlestan/shared-types';
 import { QueryOptions } from 'mongoose';
 
 import type { AlbumData, AlbumDocument, AlbumSchema } from '../../models/album';
 import { Album } from '../../models/album';
-import { IPagination, ISort, MongoSort } from '../../models/types';
+import { MongoSort } from '../../models/types';
 
 export const getAlbums = async (
-    filter: Partial<AlbumData>,
+    filterBy: Partial<AlbumData>,
     page?: IPagination,
-    sort?: ISort,
+    sort?: ISort[],
 ): Promise<AlbumDocument[]> => {
     const limit = page?.size;
     const skip = page ? (page.page - 1) * page.size : 0;
 
     const s: MongoSort = {};
-    s[sort?.field || 'title'] = sort?.dir === 'desc' ? -1 : 1;
+    sort?.forEach(({ field, dir }) => {
+        s[field] = dir === 'desc' ? -1 : 1;
+    });
 
     const options: QueryOptions<AlbumSchema> = {
         skip,
@@ -21,5 +24,5 @@ export const getAlbums = async (
         sort: s,
     };
 
-    return Album.find(filter, undefined, options);
+    return Album.find(filterBy, undefined, options);
 };

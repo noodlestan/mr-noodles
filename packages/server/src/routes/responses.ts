@@ -1,7 +1,9 @@
+// import { queryToParams } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
 export const notFoundHandler = (req: Request, res: Response, next: NextFunction): void => {
     try {
+        // console.log(queryToParams(req.query));
         const error = {
             reason: 'Resource not found ;-)',
         };

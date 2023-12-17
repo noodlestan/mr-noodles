@@ -1,6 +1,5 @@
+import { IPagination, ISort } from '@noodlestan/shared-types';
 import { Request } from 'express';
-
-import { IPagination, ISort } from '../models/types';
 
 export const paginationFromQuery = (
     query: Request['query'],
@@ -25,15 +24,20 @@ export const sortFromQuery = (
     query: Request['query'],
     defaultSortBy?: string,
     defaultSortDir?: ISort['dir'],
-): ISort | undefined => {
-    const { sortBy, sortDir } = query;
+): ISort[] | undefined => {
+    const { sortBy } = query;
     delete query.sortBy;
-    delete query.sortDir;
 
-    const field = String(sortBy || defaultSortBy);
-    const dir = String(sortDir || defaultSortDir || 'desc') as ISort['dir'];
-
-    const sort = field ? { field, dir } : undefined;
-
-    return sort;
+    const def = defaultSortBy
+        ? [{ field: defaultSortBy, dir: defaultSortDir || 'desc' }]
+        : undefined;
+    try {
+        const sort = JSON.parse(decodeURIComponent(String(sortBy)));
+        if (!Array.isArray(sort) || !sort.length) {
+            return def;
+        }
+        return sort;
+    } catch (error) {
+        return def;
+    }
 };
