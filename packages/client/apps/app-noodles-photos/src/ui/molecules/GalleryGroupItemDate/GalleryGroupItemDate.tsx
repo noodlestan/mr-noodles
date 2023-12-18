@@ -26,8 +26,8 @@ export const GalleryGroupItemDate: Component<GalleryGroupItemDateProps> = props 
         <Surface variant="stage">
             <Flex classList={classList()} direction="column" gap="m" padding="l">
                 <GalleryGroupHeader group={props.group}>
-                    <Display level={2}>by {attributes().group}</Display>
-                    <Display level={2}>{attributes().value || 'no date'}</Display>
+                    <Display level={3}>{attributes().group}:</Display>
+                    <Display level={3}>{attributes().value || 'no date'}</Display>
                 </GalleryGroupHeader>
                 {props.children}
             </Flex>

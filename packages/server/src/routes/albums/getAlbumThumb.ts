@@ -3,8 +3,10 @@ import { NextFunction, Request, Response } from 'express';
 import { getAlbumById } from '../../controllers/albums/getAlbumById';
 import { getPhotoById } from '../../controllers/photos/getPhotoById';
 import { Album } from '../../models/album';
+import { THUMB_HEIGHT_BIG, THUMB_HEIGHT_SMALL } from '../../services/thumbs/constants';
 import { makeThumb } from '../../services/thumbs/makeThumb';
 import { readThumb } from '../../services/thumbs/readThumb';
+import { selectThumbByHeight } from '../../services/thumbs/selectThumbByHeight';
 import { thumbExists } from '../../services/thumbs/thumbExists';
 import { notFoundHandler } from '../responses';
 
@@ -20,10 +22,12 @@ export const getAlbumThumb = async (
             return;
         }
 
-        const exists = album.thumb && (await thumbExists(album.thumb));
+        const height = Number(req.query.h);
+        const thumb = selectThumbByHeight(album.thumbs, height);
+        const exists = thumb && (await thumbExists(thumb.f));
 
-        if (album.thumb && exists) {
-            const image = await readThumb(album.thumb);
+        if (album.thumbs && exists) {
+            const image = await readThumb(thumb.f);
             res.setHeader('content-type', 'image/jpg');
             res.send(image);
             return;
@@ -40,10 +44,16 @@ export const getAlbumThumb = async (
             return;
         }
 
-        const thumb = await makeThumb(photo.filename, photo.id);
-        await Album.addThumbToAlbum(album.id, thumb);
+        const thumbBig = await makeThumb(photo.filename, photo.id, THUMB_HEIGHT_BIG);
+        const thumbSmall = await makeThumb(photo.filename, photo.id, THUMB_HEIGHT_SMALL);
+        const thumbs = [
+            { h: THUMB_HEIGHT_SMALL, f: thumbSmall.f },
+            { h: THUMB_HEIGHT_BIG, f: thumbBig.f },
+        ];
+        await Album.addThumbsToAlbum(photo.id, thumbs);
 
-        const image = await readThumb(thumb);
+        const matchingThumb = selectThumbByHeight(thumbs, height);
+        const image = matchingThumb && (await readThumb(matchingThumb.f));
         res.setHeader('content-type', 'image/jpg');
         res.send(image);
     } catch (error) {

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { PhotoData, PhotoDataPublic, PhotoSchema } from '@noodlestan/shared-types';
+import { PhotoData, PhotoDataPublic, PhotoSchema, Thumb } from '@noodlestan/shared-types';
 import type { HydratedDocument, Model } from 'mongoose';
 import { Schema, Types, model } from 'mongoose';
 
-import { makeThumbPublicUrl } from '../../services/thumbs/makeThumbPublicUrl';
+import { mapThumbs } from '../../services/thumbs/makeThumbPublicUrl';
 
 interface Methods {
     toData: () => PhotoData;
@@ -15,7 +15,7 @@ interface IModel extends Model<PhotoSchema, object, Methods> {
     findByHash: (hash: string) => Promise<PhotoDocument>;
     findByFilename: (filename: string) => Promise<PhotoDocument>;
     findByFilenameOrHash: (filename: string, hash: string) => Promise<PhotoDocument>;
-    addThumbToPhoto(id: Types.ObjectId, thumb: string): Promise<void>;
+    addThumbsToPhoto(id: Types.ObjectId, thumbs: Thumb[]): Promise<void>;
 }
 
 export type PhotoDocument = HydratedDocument<PhotoSchema> & Methods & { _id: Types.ObjectId };
@@ -27,7 +27,12 @@ const schema = new Schema<PhotoSchema, IModel, Methods>({
     filename: { type: String, required: true },
     album: { type: String },
     title: { type: String, max: 100 },
-    thumb: { type: String },
+    thumbs: [
+        {
+            h: Number,
+            f: String,
+        },
+    ],
     date: { type: Date },
     orientation: { type: Number, required: true },
     width: { type: Number, required: true },
@@ -58,7 +63,7 @@ schema.method('toData', function (): PhotoData {
         filename,
         album,
         title,
-        thumb,
+        thumbs,
         date,
         orientation,
         width,
@@ -76,7 +81,7 @@ schema.method('toData', function (): PhotoData {
         filename,
         album,
         title,
-        thumb: thumb && makeThumbPublicUrl(thumb),
+        thumbs: thumbs && mapThumbs(thumbs),
         date,
         orientation,
         width,
@@ -107,7 +112,7 @@ schema.static('fromData', (partial: Partial<PhotoData>): PhotoDocument => {
         filename,
         album,
         title,
-        thumb,
+        thumbs,
         date,
         orientation,
         width,
@@ -122,7 +127,7 @@ schema.static('fromData', (partial: Partial<PhotoData>): PhotoDocument => {
         filename,
         album,
         title,
-        thumb,
+        thumbs,
         date,
         orientation,
         width,
@@ -161,8 +166,8 @@ schema.static(
     },
 );
 
-schema.static('addThumbToPhoto', async (id: Types.ObjectId, thumb: string): Promise<void> => {
-    await PhotoModel.findByIdAndUpdate(id, { thumb }).exec();
+schema.static('addThumbsToPhoto', async (id: Types.ObjectId, thumbs: Thumb[]): Promise<void> => {
+    await PhotoModel.findByIdAndUpdate(id, { thumbs }).exec();
 });
 
 const PhotoModel = model<PhotoSchema, IModel>('Photo', schema);

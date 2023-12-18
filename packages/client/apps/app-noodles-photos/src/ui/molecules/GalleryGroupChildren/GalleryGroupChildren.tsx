@@ -10,7 +10,7 @@ type GalleryGroupChildrenProps = {
 };
 export const GalleryGroupChildren: Component<GalleryGroupChildrenProps> = props => {
     const groups = () => (props.group() as GalleryGroupItem).groups;
-    const items = () => (props.group() as GallerySubGroupItem).items;
+    const items = () => (props.group() as GallerySubGroupItem).rows;
     return (
         <>
             <Show when={groups()}>

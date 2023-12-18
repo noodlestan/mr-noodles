@@ -1,40 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { AlbumData, AlbumDataPublic, AlbumSchema, Thumb } from '@noodlestan/shared-types';
 import type { HydratedDocument, Model } from 'mongoose';
 import { Schema, Types, model } from 'mongoose';
 
-import { makeThumbPublicUrl } from '../../services/thumbs/makeThumbPublicUrl';
-
-export interface AlbumSchema {
-    dateCreated: Date;
-    dateUpdated?: Date;
-    slug: string;
-    title?: string;
-    thumb?: string;
-    photos: Types.Array<Types.ObjectId>;
-    dateFrom?: Date;
-    dateUntil?: Date;
-    location?: {
-        type: string;
-        coordinates: Array<number>;
-    };
-}
-
-export interface AlbumData extends Omit<AlbumSchema, 'photos' | 'location'> {
-    id: string;
-    photos: string[];
-    location?: {
-        lat: number;
-        long: number;
-    };
-}
-
-export interface AlbumDataPublic
-    extends Omit<AlbumData, 'dateCreated' | 'dateUpdated' | 'dateFrom' | 'dateUntil'> {
-    dateCreated: string;
-    dateUpdated?: string;
-    dateFrom?: string;
-    dateUntil?: string;
-}
+import { mapThumbs } from '../../services/thumbs/makeThumbPublicUrl';
 
 interface Methods {
     toData: () => AlbumData;
@@ -44,7 +13,7 @@ interface Methods {
 interface IModel extends Model<AlbumSchema, object, Methods> {
     fromData: (json: Partial<AlbumData>) => AlbumDocument;
     findBySlug: (slug: string) => Promise<AlbumDocument>;
-    addThumbToAlbum(id: Types.ObjectId, thumb: string): Promise<void>;
+    addThumbsToAlbum(id: Types.ObjectId, thumbs: Thumb[]): Promise<void>;
 }
 
 export type AlbumDocument = HydratedDocument<AlbumSchema> & Methods & { _id: Types.ObjectId };
@@ -54,7 +23,12 @@ const schema = new Schema<AlbumSchema, IModel, Methods>({
     dateUpdated: { type: Date },
     slug: { type: String, required: true, unique: true },
     title: { type: String, required: true, max: 100 },
-    thumb: { type: String },
+    thumbs: [
+        {
+            h: Number,
+            f: String,
+        },
+    ],
     photos: [Types.ObjectId],
     dateFrom: { type: Date },
     dateUntil: { type: Date },
@@ -82,7 +56,7 @@ schema.method('toData', function (): AlbumData {
         dateUpdated,
         slug,
         title,
-        thumb,
+        thumbs,
         photos,
         dateFrom,
         dateUntil,
@@ -91,13 +65,14 @@ schema.method('toData', function (): AlbumData {
     const lat = location?.coordinates[0];
     const long = location?.coordinates[0];
     const loc = lat && long ? { lat, long } : undefined;
+
     return {
         id,
         dateCreated,
         dateUpdated,
         slug,
         title,
-        thumb: thumb && makeThumbPublicUrl(thumb),
+        thumbs: thumbs && mapThumbs(thumbs),
         photos: photos.map(i => i.toString()),
         dateFrom,
         dateUntil,
@@ -119,7 +94,7 @@ schema.method('toDataPublic', function (): AlbumDataPublic {
 });
 
 schema.static('fromData', (partial: Partial<AlbumData>): AlbumDocument => {
-    const { id, dateCreated, dateUpdated, slug, title, thumb, dateFrom, dateUntil, location } =
+    const { id, dateCreated, dateUpdated, slug, title, thumbs, dateFrom, dateUntil, location } =
         partial;
     const { lat, long } = location || {};
     const data: Partial<AlbumSchema> = {
@@ -127,8 +102,8 @@ schema.static('fromData', (partial: Partial<AlbumData>): AlbumDocument => {
         dateUpdated,
         slug,
         title,
-        thumb,
-        photos: new Types.Array(),
+        thumbs,
+        photos: [],
         dateFrom,
         dateUntil,
     };
@@ -147,8 +122,8 @@ schema.static('findBySlug', async (slug: string): Promise<AlbumDocument | undefi
     return results && results[0];
 });
 
-schema.static('addThumbToAlbum', async (id: Types.ObjectId, thumb: string): Promise<void> => {
-    await AlbumModel.findByIdAndUpdate(id, { thumb }).exec();
+schema.static('addThumbsToAlbum', async (id: Types.ObjectId, thumbs: Thumb[]): Promise<void> => {
+    await AlbumModel.findByIdAndUpdate(id, { thumbs }).exec();
 });
 
 const AlbumModel = model<AlbumSchema, IModel>('Album', schema);

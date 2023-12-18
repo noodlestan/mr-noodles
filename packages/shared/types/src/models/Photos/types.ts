@@ -1,9 +1,5 @@
 import { ISort } from '../../query';
-
-export type LocationData = {
-    lat: number;
-    long: number;
-};
+import { Thumb } from '../Thumbs/types';
 
 export interface PhotoSchema {
     dateCreated: Date;
@@ -12,7 +8,7 @@ export interface PhotoSchema {
     filename: string;
     album?: string;
     title?: string;
-    thumb?: string;
+    thumbs?: Thumb[];
     date?: Date;
     orientation: number;
     width: number;
@@ -25,7 +21,10 @@ export interface PhotoSchema {
 
 export interface PhotoData extends Omit<PhotoSchema, 'location'> {
     id: string;
-    location?: LocationData;
+    location?: {
+        lat: number;
+        long: number;
+    };
 }
 
 export interface PhotoDataPublic extends Omit<PhotoData, 'dateCreated' | 'dateUpdated' | 'date'> {
@@ -39,14 +38,16 @@ export interface PhotoFilter {
     filename?: string;
     album?: string;
     title?: string;
-    thumb?: boolean;
     dateFrom?: Date;
     dateUntil?: Date;
     orientation?: number;
     minSize?: number;
     maxSize?: number;
     aspectRatio?: number;
-    location?: LocationData;
+    location?: {
+        lat: number;
+        long: number;
+    };
 }
 
 export interface PhotoQuery {

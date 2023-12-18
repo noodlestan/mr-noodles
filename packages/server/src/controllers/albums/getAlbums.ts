@@ -1,7 +1,7 @@
-import { IPagination, ISort } from '@noodlestan/shared-types';
+import { AlbumData, AlbumSchema, IPagination, ISort } from '@noodlestan/shared-types';
 import { QueryOptions } from 'mongoose';
 
-import type { AlbumData, AlbumDocument, AlbumSchema } from '../../models/album';
+import type { AlbumDocument } from '../../models/album';
 import { Album } from '../../models/album';
 import { MongoSort } from '../../models/types';
 

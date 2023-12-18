@@ -99,23 +99,39 @@ const reducePhotosToRecords = (
     }, {} as GalleryGroupRecord);
 };
 
+const makeRows = (items: PhotoData[]): PhotoData[][] => {
+    return items.reduce(
+        (acc, item) => {
+            const lastRow = acc[acc.length - 1];
+            const fits = lastRow.length < 3;
+            if (fits) {
+                lastRow.push(item);
+            } else {
+                acc.push([item]);
+            }
+            return acc;
+        },
+        [[]] as PhotoData[][],
+    );
+};
+
 const recordsToGroups = (
     records: GalleryGroupRecord,
     groupBy1: IGroup,
     groupBy2?: IGroup | undefined,
 ): GalleryGroup[] => {
     const is2levels = !!groupBy2;
-    return Object.entries(records).map(([key1, itemsOrMap]) => {
+    return Object.entries(records).map(([key1, subGroupOrItems]) => {
         const attributes = getGalleryGroupItemAttributes(groupBy1, key1);
         if (is2levels) {
             return {
                 attributes,
-                groups: recordsToGroups(itemsOrMap as GallerySubGroupRecord, groupBy2),
+                groups: recordsToGroups(subGroupOrItems as GallerySubGroupRecord, groupBy2),
             } as GalleryGroupItem;
         }
         return {
             attributes,
-            items: itemsOrMap as PhotoData[],
+            rows: makeRows(subGroupOrItems as PhotoData[]),
         } as GallerySubGroupItem;
     });
 };

@@ -1,0 +1,11 @@
+.GalleryItemRow {
+    min-width: min-content;
+}
+
+.GalleryItemRow .GalleryItem {
+    position: relative;
+}
+
+.GalleryItemRow .GalleryItem p {
+    position: absolute;
+}

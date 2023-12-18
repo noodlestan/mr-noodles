@@ -12,7 +12,7 @@ export const createAlbumFromSlugAndPhotoId = async (
         slug,
         title: slug,
     });
-    album.photos.push(photoId);
+    album.photos.push(photoId.toString());
 
     await album.save();
 

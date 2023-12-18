@@ -22,7 +22,7 @@ export type GalleryGroupItem = {
 };
 
 export type GallerySubGroupItem = {
-    items?: PhotoData[];
+    rows?: PhotoData[][];
     attributes: GalleryGroupAttributes;
 };
 
