@@ -1,7 +1,13 @@
 pre-commit:
-    parallel: true
+    parallel: false
     commands:
-        lint:
-            run: npm run lint
-        build:
-            run: npm run build
+        '0-lint':
+            run: npm run lint:silent
+        '1-build-global':
+            run: npm run build:global
+        '2-build-shared':
+            run: npm run build:shared
+        '3-build-server':
+            run: npm run build:server
+        '4-build-app-ui':
+            run: npm run build:apps

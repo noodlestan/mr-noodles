@@ -1,45 +1,27 @@
-# Mr. Noodles
+# Mr. Noodles Shared lib
 
-This is Mr Noodles server.
+This is Mr Noodles shared library.
+
+These (simple) types and functions exist because they are needed both in the server (typically `node-ts/express` environment) and browser (typically `vite/solidjs` apps)
 
 ## Development
 
-### Requirements
+Read first: [Mr Noodles README](../../../README.md)
 
-Install [Docker](https://docs.docker.com/desktop/, get the [MongoDB image](https://hub.docker.com/_/mongo), and create a container exposing the MongoDB port to the host.
+### Building
+
+Single build
 
 ```
-docker pull mongo:jammy
-docker run -p 27017:27017 --name mongo -d mongo:jammy
+npm install
+npm run build
 ```
-
-### Running the server
 
 In watch mode
 
 ```
 npm install
 npm run watch
-```
-
-In static mode
-
-```
-npm run build && npm run serve
-```
-
-## Troubleshooting
-
-Is the MongoDB instance up?
-
-```
-docker logs mongo -f
-```
-
-Can you connect to it via [shell](https://www.mongodb.com/docs/mongodb-shell/install/#std-label-macos-install-archive)?
-
-```
-mongosh
 ```
 
 ## License

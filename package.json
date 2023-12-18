@@ -14,8 +14,15 @@
   "author": "Andre Torgal",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --build tsconfig.build.json",
-    "lint": "prettier . -c && eslint ."
+    "lint": "prettier . -c && eslint .",
+    "lint:silent": "prettier . -c --log-level silent && eslint .",
+    "build:global": "tsc --build tsconfig.build.json",
+    "build:shared": "npm run --prefix packages/shared/types build",
+    "build:server": "npm run --prefix packages/server build",
+    "build:app-ui": "npm run --prefix packages/client/apps/app-ui-system build",
+    "build:app-gallery": "npm run --prefix packages/client/apps/app-noodles-gallery build",
+    "build:apps": "npm run build:app-ui && npm run build:app-gallery",
+    "build": "npm run build:global && npm run build:server && npm run build:apps"
   },
   "devDependencies": {
     "@solidjs/testing-library": "0.7.1",

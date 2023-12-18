@@ -37,7 +37,7 @@
     --display-type-size-l: var(--type-size-xl);
     --display-type-size-xl: var(--type-size-2xl);
     --display-type-weight-s: var(--display-type-weight-strong);
-    --display-type-weight-m: var(--display-type-weight-strong);
+    --display-type-weight-m: var(--display-type-weight-base);
     --display-type-weight-l: var(--display-type-weight-base);
     --display-type-weight-xl: var(--display-type-weight-base);
 

@@ -1,12 +1,11 @@
 import http from 'http';
-import path from 'path';
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import lusca from 'lusca';
 
-import { API_PORT } from './env';
+import { API_PORT, PUBLIC_ASSETS_DIR } from './env';
 import { logger, middleware as loggerMiddleware } from './logger';
 import { albumsRouter } from './routes/albums';
 import { photosRouter } from './routes/photos';
@@ -18,8 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
-const publicPath = path.join(__dirname, 'public');
-app.use(express.static(publicPath, { maxAge: 31557600000 }));
+app.use('/assets', express.static(PUBLIC_ASSETS_DIR, { maxAge: 31557600000 }));
 app.use(loggerMiddleware);
 app.use(cors());
 

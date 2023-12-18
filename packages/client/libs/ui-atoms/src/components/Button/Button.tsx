@@ -1,5 +1,7 @@
 import { Component, JSX } from 'solid-js';
 
+import './Button.css';
+
 type ButtonVariant = 'primary' | 'secondary' | 'plain' | 'danger';
 type ButtonSize = 's' | 'm' | 'l';
 type ButtonLength = 's' | 'm' | 'l' | 'full' | 'auto';

@@ -1,0 +1,30 @@
+{
+  "name": "@noodlestan/app-noodles-gallery",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "csstype": "3.1.2",
+    "typescript": "4.9.5",
+    "vite": "4.5.1",
+    "vite-plugin-solid": "2.5.0",
+    "vite-plugin-solid-svg": "0.6.1"
+  },
+  "dependencies": {
+    "@noodlestan/shared-types": "0.0.1",
+    "@noodlestan/ui-atoms": "0.0.1",
+    "@noodlestan/ui-layouts": "0.0.1",
+    "@noodlestan/ui-services": "0.0.1",
+    "@noodlestan/ui-surfaces": "0.0.1",
+    "@noodlestan/ui-theme-base": "0.0.1",
+    "@noodlestan/ui-themes": "0.0.1",
+    "solid-js": "1.7.3",
+    "solid-services": "4.3.2"
+  }
+}

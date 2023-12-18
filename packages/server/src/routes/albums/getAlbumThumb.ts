@@ -1,3 +1,4 @@
+import { selectThumbByHeight } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getAlbumById } from '../../controllers/albums/getAlbumById';
@@ -6,7 +7,6 @@ import { Album } from '../../models/album';
 import { THUMB_HEIGHT_BIG, THUMB_HEIGHT_SMALL } from '../../services/thumbs/constants';
 import { makeThumb } from '../../services/thumbs/makeThumb';
 import { readThumb } from '../../services/thumbs/readThumb';
-import { selectThumbByHeight } from '../../services/thumbs/selectThumbByHeight';
 import { thumbExists } from '../../services/thumbs/thumbExists';
 import { notFoundHandler } from '../responses';
 

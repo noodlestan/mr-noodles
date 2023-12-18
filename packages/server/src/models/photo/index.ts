@@ -3,7 +3,7 @@ import { PhotoData, PhotoDataPublic, PhotoSchema, Thumb } from '@noodlestan/shar
 import type { HydratedDocument, Model } from 'mongoose';
 import { Schema, Types, model } from 'mongoose';
 
-import { mapThumbs } from '../../services/thumbs/makeThumbPublicUrl';
+import { mapThumbFilenamesToUrls } from '../../services/thumbs/makeThumbPublicUrl';
 
 interface Methods {
     toData: () => PhotoData;
@@ -81,7 +81,7 @@ schema.method('toData', function (): PhotoData {
         filename,
         album,
         title,
-        thumbs: thumbs && mapThumbs(thumbs),
+        thumbs: thumbs && mapThumbFilenamesToUrls(thumbs),
         date,
         orientation,
         width,

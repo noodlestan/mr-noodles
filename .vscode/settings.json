@@ -30,5 +30,7 @@
   },
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  },
+  "spellright.language": [],
+  "spellright.documentTypes": ["latex", "plaintext"]
 }
