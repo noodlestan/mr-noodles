@@ -12,8 +12,6 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 
 - render a list of images grouped by album and day
 
-- TODO calculate/re-calculate rows based on screen width vs content height and ratio
-- TODO test at scale
 - TODO incremental render
 - TODO filter
 - TODO list virtualization (fixed heights)

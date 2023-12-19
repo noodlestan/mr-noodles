@@ -4,11 +4,13 @@ import { Accessor, Component, For } from 'solid-js';
 import { GallerySubGroup } from '../GallerySubGroup/GallerySubGroup';
 
 import { GalleryGroupItem } from '@/ui/models/gallery/types';
+import { GalleryOptions } from '@/ui/organisms/Gallery/types';
 
 import './GallerySubGroups.css';
 
 type GallerySubGroupsProps = {
     group: Accessor<GalleryGroupItem>;
+    options: Accessor<GalleryOptions>;
 };
 
 export const GallerySubGroups: Component<GallerySubGroupsProps> = props => {
@@ -20,7 +22,9 @@ export const GallerySubGroups: Component<GallerySubGroupsProps> = props => {
 
     return (
         <Flex direction="column" classList={classList()}>
-            <For each={groups()}>{group => <GallerySubGroup group={() => group} />}</For>
+            <For each={groups()}>
+                {group => <GallerySubGroup group={() => group} options={props.options} />}
+            </For>
         </Flex>
     );
 };

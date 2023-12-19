@@ -4,9 +4,11 @@ import { GallerySubGroups } from '../GallerySubGroups/GallerySubGroups';
 import { GallerySubItems } from '../GallerySubItems/GallerySubItems';
 
 import { GalleryGroupItem, GallerySubGroupItem } from '@/ui/models/gallery/types';
+import { GalleryOptions } from '@/ui/organisms/Gallery/types';
 
 type GalleryGroupChildrenProps = {
     group: Accessor<GalleryGroupItem>;
+    options: Accessor<GalleryOptions>;
 };
 export const GalleryGroupChildren: Component<GalleryGroupChildrenProps> = props => {
     const groups = () => (props.group() as GalleryGroupItem).groups;
@@ -14,10 +16,10 @@ export const GalleryGroupChildren: Component<GalleryGroupChildrenProps> = props 
     return (
         <>
             <Show when={groups()}>
-                <GallerySubGroups group={props.group} />
+                <GallerySubGroups group={props.group} options={props.options} />
             </Show>
             <Show when={items()}>
-                <GallerySubItems group={props.group} />
+                <GallerySubItems group={props.group} options={props.options} />
             </Show>
         </>
     );

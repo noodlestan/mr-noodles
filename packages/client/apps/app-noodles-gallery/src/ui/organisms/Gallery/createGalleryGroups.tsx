@@ -1,5 +1,7 @@
 import type { IGroup, PhotoData } from '@noodlestan/shared-types';
 
+import { GalleryOptions, GalleryRowOptions } from './types';
+
 import {
     GalleryGroup,
     GalleryGroupAttributesAlbum,
@@ -102,11 +104,39 @@ const reducePhotosToRecords = (
     }, {} as GalleryGroupRecord);
 };
 
-const makeRows = (items: PhotoData[]): PhotoData[][] => {
+const MAX_ITEMS = 10;
+
+const calcWidth = (items: PhotoData[], height: number): number => {
+    return items.reduce((acc, item) => {
+        const ratio = item.width / item.height;
+        return acc + height * ratio;
+    }, 0);
+};
+
+const itemFitsInRow = (
+    lastRow: PhotoData[],
+    item: PhotoData,
+    options: GalleryRowOptions,
+): boolean => {
+    const { height, maxItems = MAX_ITEMS, maxWidth } = options;
+    if (lastRow.length >= maxItems) {
+        return false;
+    }
+    if (maxWidth) {
+        const currentWidth = calcWidth(lastRow, height);
+        const itemWidth = calcWidth([item], height);
+        if (currentWidth + itemWidth >= maxWidth) {
+            return false;
+        }
+    }
+    return true;
+};
+
+const makeRows = (items: PhotoData[], options: GalleryRowOptions): PhotoData[][] => {
     return items.reduce(
         (acc, item) => {
             const lastRow = acc[acc.length - 1];
-            const fits = lastRow.length < 3;
+            const fits = itemFitsInRow(lastRow, item, options);
             if (fits) {
                 lastRow.push(item);
             } else {
@@ -121,28 +151,36 @@ const makeRows = (items: PhotoData[]): PhotoData[][] => {
 const recordsToGroups = (
     records: GalleryGroupRecord,
     groupBy1: IGroup,
-    groupBy2?: IGroup | undefined,
+    groupBy2: IGroup | undefined,
+    options: GalleryOptions,
 ): GalleryGroup[] => {
     const is2levels = !!groupBy2;
     return Object.entries(records).map(([key1, subGroupOrItems]) => {
         const attributes = getGalleryGroupItemAttributes(groupBy1, key1);
         if (is2levels) {
+            const subGroups = recordsToGroups(
+                subGroupOrItems as GallerySubGroupRecord,
+                groupBy2,
+                undefined,
+                options,
+            );
             return {
                 attributes,
-                groups: recordsToGroups(subGroupOrItems as GallerySubGroupRecord, groupBy2),
+                groups: subGroups,
             } as GalleryGroupItem;
         }
         return {
             attributes,
-            rows: makeRows(subGroupOrItems as PhotoData[]),
+            rows: makeRows(subGroupOrItems as PhotoData[], options.rows),
         } as GallerySubGroupItem;
     });
 };
 
 const createGalleryGroups = (
-    groupBy: IGroup[] | undefined,
     items: PhotoData[] | undefined,
+    options: GalleryOptions,
 ): GalleryGroupItem[] => {
+    const { groupBy } = options;
     const groupBy1 = groupBy && groupBy[0];
     const groupBy2 = groupBy && groupBy[1];
     if (!groupBy1) {
@@ -150,7 +188,7 @@ const createGalleryGroups = (
     }
     if (items) {
         const records = reducePhotosToRecords(items, groupBy1, groupBy2);
-        return recordsToGroups(records, groupBy1, groupBy2);
+        return recordsToGroups(records, groupBy1, groupBy2, options);
     }
     return [];
 };

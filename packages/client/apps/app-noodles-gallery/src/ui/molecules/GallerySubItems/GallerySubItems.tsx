@@ -3,9 +3,11 @@ import { Accessor, Component } from 'solid-js';
 
 import { GalleryGroupItem, GallerySubGroupItem } from '@/ui/models/gallery/types';
 import { GalleryItemRows } from '@/ui/molecules/GalleryItemRows/GalleryItemRows';
+import { GalleryOptions } from '@/ui/organisms/Gallery/types';
 
 type GallerySubItemsProps = {
     group: Accessor<GalleryGroupItem>;
+    options: Accessor<GalleryOptions>;
 };
 
 export const GallerySubItems: Component<GallerySubItemsProps> = props => {
@@ -13,7 +15,7 @@ export const GallerySubItems: Component<GallerySubItemsProps> = props => {
 
     return (
         <Flex direction="column">
-            <GalleryItemRows rows={() => items()} />
+            <GalleryItemRows rows={() => items()} options={props.options} />
         </Flex>
     );
 };

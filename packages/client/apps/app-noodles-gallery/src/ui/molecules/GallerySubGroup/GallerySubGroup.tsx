@@ -5,11 +5,13 @@ import { GalleryGroupItem } from '../GalleryGroupItem/GalleryGroupItem';
 import { GallerySubItems } from '../GallerySubItems/GallerySubItems';
 
 import { GalleryGroup } from '@/ui/models/gallery/types';
+import { GalleryOptions } from '@/ui/organisms/Gallery/types';
 
 import './GallerySubGroup.css';
 
 type GallerySubGroupProps = {
     group: Accessor<GalleryGroup>;
+    options: Accessor<GalleryOptions>;
 };
 
 export const GallerySubGroup: Component<GallerySubGroupProps> = props => {
@@ -20,7 +22,7 @@ export const GallerySubGroup: Component<GallerySubGroupProps> = props => {
     return (
         <Flex classList={classList()}>
             <GalleryGroupItem group={props.group}>
-                <GallerySubItems group={props.group} />
+                <GallerySubItems group={props.group} options={props.options} />
             </GalleryGroupItem>
         </Flex>
     );

@@ -4,6 +4,7 @@ import { Metadata } from 'sharp';
 import { EventScanFile } from '../../events/scan';
 import { logger } from '../../logger';
 import { Photo, PhotoDocument } from '../../models/photo';
+import { createAlbumFromSlugAndPhotoId } from '../albums/createAlbumFromSlugAndPhotoId';
 import { ensurePhotoInAlbum, ensurePhotoNotInAlbum } from '../albums/ensurePhotoInAlbum';
 
 import { detectPhotoUpdates } from './utils/detectPhotoUpdates';
@@ -31,7 +32,17 @@ export const updatePhotoFromScanEvent = async (
                 ensurePhotoNotInAlbum(photo._id, photo.album);
             }
             if (updates?.$set?.album) {
-                ensurePhotoInAlbum(photo._id, updates.$set.album as string);
+                const slug = updates?.$set?.album as string;
+                try {
+                    await createAlbumFromSlugAndPhotoId(slug, photo.id);
+                } catch (err) {
+                    const message = (err as Error).message;
+                    if (!/duplicate key error collection/.test(message)) {
+                        throw err;
+                    }
+                }
+
+                await ensurePhotoInAlbum(photo._id, slug as string);
             }
         }
     }
