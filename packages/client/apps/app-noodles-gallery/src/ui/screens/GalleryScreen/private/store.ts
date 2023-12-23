@@ -4,14 +4,14 @@ import { Accessor, createSignal } from 'solid-js';
 const [groupBy, setGroupBy] = createSignal<IGroup[]>([]);
 const [sortBy, setSortBy] = createSignal<IGroup[]>([]);
 
-type appStore = {
+type GalleryStore = {
     groupBy: Accessor<IGroup[]>;
     setGroupBy: (loading: IGroup[]) => void;
     sortBy: Accessor<ISort[]>;
     setSortBy: (loading: ISort[]) => void;
 };
 
-export const appStore = {
+export const galleryStore: GalleryStore = {
     groupBy,
     setGroupBy,
     sortBy,
