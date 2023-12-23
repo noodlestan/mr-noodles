@@ -23,7 +23,7 @@
     "jsdom": "^22.1.0",
     "vitest": "^0.32.0"
   },
-  "dependencies": {
-    "solid-js": "^1.7.3"
+  "peerDependencies": {
+    "solid-js": "1.8.4"
   }
 }

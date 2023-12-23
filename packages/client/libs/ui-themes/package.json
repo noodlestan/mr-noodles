@@ -23,11 +23,13 @@
     "jsdom": "^22.1.0",
     "vitest": "^0.32.0"
   },
+  "peerDependencies": {
+    "solid-js": "1.8.4"
+  },
   "dependencies": {
     "@noodlestan/ui-dark-mode": "0.0.1",
     "@noodlestan/ui-styles": "0.0.1",
     "@noodlestan/ui-services": "0.0.1",
-    "@noodlestan/ui-tokens": "0.0.1",
-    "solid-js": "^1.7.3"
+    "@noodlestan/ui-tokens": "0.0.1"
   }
 }
