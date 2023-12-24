@@ -19,6 +19,6 @@
     border: 1px solid blue;
 }
 
-.Surface--is-active {
+.Surface--is-interactive.Surface--is-active {
     border: 1px solid red;
 }

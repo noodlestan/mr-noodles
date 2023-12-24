@@ -4,9 +4,9 @@ import { Dynamic } from 'solid-js/web';
 import { ThemesError } from '../../errors';
 import { surfaceClassList } from '../../private/functions/surfaceClassList';
 import { themeClassList } from '../../private/functions/themeClassList';
+import { ThemeTokensProvider } from '../../private/providers/ThemeTokensProvider';
 import { surfacesStore } from '../../private/stores/surfacesStore';
 import { Surface } from '../../types';
-import { ThemeTokensProvider } from '../ThemeTokensProvider';
 
 type SurfaceContextState = { surface: () => Surface };
 

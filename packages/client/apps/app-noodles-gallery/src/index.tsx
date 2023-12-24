@@ -1,6 +1,5 @@
-import { ServiceProvider } from '@noodlestan/ui-services';
+import { RootProvider } from '@noodlestan/ui-root';
 import { BaseTheme } from '@noodlestan/ui-theme-base';
-import { RootProvider } from '@noodlestan/ui-themes';
 import { render } from 'solid-js/web';
 
 import { App } from '@/ui/app/App';
@@ -17,11 +16,9 @@ const themes = () => [BaseTheme];
 
 render(
     () => (
-        <ServiceProvider>
-            <RootProvider themes={themes()} theme="base" surface="stage">
-                <App />
-            </RootProvider>
-        </ServiceProvider>
+        <RootProvider themes={themes()} theme="base" surface="stage">
+            <App />
+        </RootProvider>
     ),
     root,
 );

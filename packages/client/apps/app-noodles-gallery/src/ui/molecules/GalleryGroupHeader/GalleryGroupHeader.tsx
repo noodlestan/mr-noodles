@@ -12,5 +12,5 @@ type GalleryGroupHeaderProps = {
 };
 
 export const GalleryGroupHeader: Component<GalleryGroupHeaderProps> = props => {
-    return <Flex direction="row"> {props.children}</Flex>;
+    return <Flex direction="row">{props.children}</Flex>;
 };

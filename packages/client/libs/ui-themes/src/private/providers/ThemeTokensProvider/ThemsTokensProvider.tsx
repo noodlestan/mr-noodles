@@ -3,10 +3,10 @@ import { inject } from '@noodlestan/ui-services';
 import { TokensProvider } from '@noodlestan/ui-tokens';
 import { Component, JSX, createMemo } from 'solid-js';
 
-import { surfaceTokens } from '../../private/functions/surfaceTokens';
-import { themeTokens } from '../../private/functions/themeTokens';
-import { useSurfacesContext } from '../SurfaceProvider';
-import { useThemeContext } from '../ThemeProvider';
+import { useSurfacesContext } from '../../../providers/SurfaceProvider';
+import { useThemeContext } from '../../../providers/ThemeProvider';
+import { surfaceTokens } from '../../functions/surfaceTokens';
+import { themeTokens } from '../../functions/themeTokens';
 
 type ThemeTokensProviderProps = {
     children?: JSX.Element;

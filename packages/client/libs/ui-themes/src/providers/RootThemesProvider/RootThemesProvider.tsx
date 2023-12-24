@@ -1,16 +1,16 @@
 import { GlobalStyleProvider } from '@noodlestan/ui-styles';
 import { Component, JSX } from 'solid-js';
 
-import { RootStyleProvider } from '../../private/providers/RootStyleProvider';
+import { ThemsStylesProvider } from '../../private/providers/ThemsStylesProvider/StylesProvider';
 
-export type RootProviderProps = {
+export type RootThemesProviderProps = {
     themes: Component[];
     theme: string;
     surface: string;
     children?: JSX.Element;
 };
 
-export const RootProvider: Component<RootProviderProps> = props => {
+export const RootThemesProvider: Component<RootThemesProviderProps> = props => {
     // console.info('RootProvider - instance'); TODO profile
 
     return (
@@ -19,9 +19,9 @@ export const RootProvider: Component<RootProviderProps> = props => {
             {props.themes.map(ThemeComponent => (
                 <ThemeComponent />
             ))}
-            <RootStyleProvider theme={props.theme} surface={props.surface}>
+            <ThemsStylesProvider theme={props.theme} surface={props.surface}>
                 {props.children}
-            </RootStyleProvider>
+            </ThemsStylesProvider>
         </>
     );
 };

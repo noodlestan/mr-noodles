@@ -1,12 +1,12 @@
 import { Component, JSX, createEffect } from 'solid-js';
 
-import { SurfaceProvider } from '../../providers/SurfaceProvider';
-import { ThemeProvider } from '../../providers/ThemeProvider';
-import { ThemeTokensProvider } from '../../providers/ThemeTokensProvider';
-import { surfaceClassNames } from '../functions/surfaceClassNames';
-import { themeClassNames } from '../functions/themeClassNames';
-import { surfacesStore } from '../stores/surfacesStore';
-import { themesStore } from '../stores/themesStore';
+import { SurfaceProvider } from '../../../providers/SurfaceProvider';
+import { ThemeProvider } from '../../../providers/ThemeProvider';
+import { surfaceClassNames } from '../../functions/surfaceClassNames';
+import { themeClassNames } from '../../functions/themeClassNames';
+import { surfacesStore } from '../../stores/surfacesStore';
+import { themesStore } from '../../stores/themesStore';
+import { ThemeTokensProvider } from '../ThemeTokensProvider';
 
 const isStickClassName = (className: string): boolean =>
     className.startsWith('Theme--') || className.startsWith('Surface--');
@@ -29,13 +29,13 @@ const BaseProvider: Component<BaseProviderProps> = props => {
     return <ThemeTokensProvider>{props.children}</ThemeTokensProvider>;
 };
 
-export type RootStyleProviderProps = {
+export type ThemsStylesProviderProps = {
     theme: string;
     surface: string;
     children?: JSX.Element;
 };
 
-export const RootStyleProvider: Component<RootStyleProviderProps> = props => {
+export const ThemsStylesProvider: Component<ThemsStylesProviderProps> = props => {
     const { theme, setTheme } = themesStore;
     const { surface, setSurface } = surfacesStore;
 

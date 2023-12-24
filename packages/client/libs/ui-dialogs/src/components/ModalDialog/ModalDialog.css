@@ -1,0 +1,22 @@
+.ModalDialog {
+    min-width: min-content;
+    padding: 10px;
+    background-color: white;
+    border: none;
+    border-radius: 16px;
+}
+
+.ModalDialog-size-s {
+    width: 30%;
+    min-height: 20%;
+}
+
+.ModalDialog-size-m {
+    width: 60%;
+    min-height: 40%;
+}
+
+.ModalDialog-size-l {
+    width: 90%;
+    min-height: 80%;
+}
