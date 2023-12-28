@@ -1,17 +1,16 @@
 import { Component, Show } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
-import { dialogsStore } from '../../private/stores/dialogs';
-
-import './ModalOverlay.css';
+import { modalsStore } from '../../private/stores/ModalsStore';
+import { Overlay } from '../Overlay';
 
 export const ModalOverlay: Component = () => {
-    const { dialogs } = dialogsStore;
+    const { modals: dialogs } = modalsStore;
 
     return (
         <Show when={dialogs().length}>
             <Portal>
-                <div class="ModalOverlay" />
+                <Overlay />
             </Portal>
         </Show>
     );

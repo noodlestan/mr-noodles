@@ -1,0 +1,6 @@
+.Overlay {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    background-color: hsla(var(--color-black-hue-sat), var(--color-light-min), 0.5);
+}

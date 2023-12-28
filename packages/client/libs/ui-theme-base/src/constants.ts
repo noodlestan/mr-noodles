@@ -23,6 +23,11 @@ const page: Surface = {
     extends: ['stage'],
 };
 
+const dialog: Surface = {
+    name: 'dialog',
+    extends: ['page'],
+};
+
 const card: Surface = {
     name: 'card',
     extends: ['page'],
@@ -38,4 +43,4 @@ const inverse: Surface = {
     extends: ['stage'],
 };
 
-export const surfaces = [stage, page, card, banner, inverse];
+export const surfaces = [stage, page, dialog, card, banner, inverse];

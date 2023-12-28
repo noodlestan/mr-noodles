@@ -5,11 +5,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
 }
 
-.Modal--dim {
-    position: absolute;
-    z-index: 11;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+.Modal-is-current {
+    pointer-events: unset;
+}
+
+.Modal-transition {
+    transition: opacity 0.2s ease-in;
+}
+
+.Modal-transition-in-start,
+.Modal-transition-unhide-start {
+    opacity: 0;
+}
+
+.Modal-transition-in-active,
+.Modal-transition-unhide-active {
+    opacity: 1;
+}
+
+.Modal-transition-out-start,
+.Modal-transition-hide-start {
+    opacity: 0.8;
+}
+
+.Modal-transition-out-active,
+.Modal-transition-hide-active {
+    opacity: 0;
 }

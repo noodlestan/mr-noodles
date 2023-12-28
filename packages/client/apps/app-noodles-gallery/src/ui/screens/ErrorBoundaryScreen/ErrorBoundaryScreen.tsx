@@ -5,6 +5,14 @@ type ErrorBoundaryScreenProps = {
     children?: JSX.Element;
 };
 
+const logError = (error: Error) => {
+    console.error(error);
+};
+
 export const ErrorBoundaryScreen: Component<ErrorBoundaryScreenProps> = props => {
-    return <Boundary fallback="ouch">{props.children}</Boundary>;
+    return (
+        <Boundary fallback="ouch" onError={logError}>
+            {props.children}
+        </Boundary>
+    );
 };

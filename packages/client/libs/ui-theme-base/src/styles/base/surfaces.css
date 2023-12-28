@@ -1,9 +1,8 @@
 .Theme--base.Surface--stage {
-    --color-black-hue-sat: var(--color-fg-hue), 3%;
     --color-white-hue-sat: var(--color-fg-hue), 3%;
-
-    --surface-dark-hue-sat: var(--color-bg-hue), var(--color-bg-sat);
-    --surface-light-hue-sat: var(--color-bg-hue), var(--color-bg-sat);
+    --color-white: hsl(var(--color-black-hue-sat), var(--color-light-max));
+    --color-black-hue-sat: var(--color-fg-hue), 3%;
+    --color-black: hsl(var(--color-black-hue-sat), var(--color-light-min));
 
     --surface-bg-hue-sat: var(--color-bg-hue), var(--color-bg-sat);
     --surface-bg-light-alpha: var(--color-bg-light-3), 1;
@@ -13,6 +12,8 @@
     --surface-border-style: solid;
     --surface-border-width: 0;
     --surface-border-radius: 0;
+
+    --surface-box-shadow: none;
 
     --color-primary-hue-sat: var(--color-fg-hue), var(--color-fg-sat);
     --color-primary-light: var(--color-fg-light-4);
@@ -37,6 +38,16 @@
 
 .Theme--base.Surface--page {
     --surface-bg-light-alpha: var(--color-bg-light-2), 1;
+}
+
+.Theme--base.Surface--dialog {
+    --surface-border-hue-sat: var(--color-fg-hue), var(--color-fg-sat);
+    --surface-border-light: var(--color-fg-light-3);
+    --surface-border-style: solid;
+    --surface-border-width: 1px;
+    --surface-border-radius: var(--radius-m);
+    --surface-box-shadow: 0px 2px 5px 2px
+        hsla(var(--surface-border-hue-sat), var(--color-fg-light-3), 0.3);
 }
 
 .Theme--base.Surface--card {

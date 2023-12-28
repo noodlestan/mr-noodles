@@ -1,7 +1,7 @@
 import { Component, JSX, createContext, createMemo, useContext } from 'solid-js';
 
-import { getToken } from '../private/functions/getToken';
-import { TokenMap } from '../types';
+import { getToken } from '../../private/functions/getToken';
+import { TokenMap } from '../../types';
 
 type TokensProviderProps = {
     tokens: TokenMap;

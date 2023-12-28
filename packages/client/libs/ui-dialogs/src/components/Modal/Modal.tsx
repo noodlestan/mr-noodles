@@ -1,7 +1,12 @@
-import { Component, JSX, Show, createRenderEffect, createUniqueId } from 'solid-js';
+import { inject } from '@noodlestan/ui-services';
+import { Component, JSX, Show, createUniqueId, untrack } from 'solid-js';
 import { Portal } from 'solid-js/web';
 
-import { dialogsStore } from '../../private/stores/dialogs';
+import { useModalShowEffect, useTransitionClassList } from '../../hooks/';
+import { MODAL_Z_INDEX } from '../../private/constants';
+import { ModalProvider } from '../../private/providers/ModalProvider';
+import { ModalsService } from '../../services';
+import { Overlay } from '../Overlay';
 
 import './Modal.css';
 
@@ -12,36 +17,38 @@ export type ModalProps = {
 };
 
 export const Modal: Component<ModalProps> = props => {
-    const { addDialog, removeDialog, isDialogOpen, isDialogActive } = dialogsStore;
+    const { getModalIndex, getModalTransition, isModalCurrent, isModalDimmed, isModalVisible } =
+        inject(ModalsService);
 
     const id = createUniqueId();
 
-    const show = () => (props.sticky ? isDialogOpen(id) : isDialogActive(id));
+    const getIndex = () => getModalIndex(id);
+    const isCurrent = () => isModalCurrent(id);
+    const getTransition = () => getModalTransition(id);
+    const isVisible = () => isModalVisible(id) || getTransition();
 
-    const dim = () => props.sticky && !isDialogActive(id);
+    const classList = () => ({ Modal: true, 'Modal-is-current': isCurrent() });
+    const transitionClassList = useTransitionClassList('Modal', getTransition);
 
-    const classList = () => ({
-        Modal: true,
-        'Modal-is-dimmed': dim(),
-    });
-
-    createRenderEffect(() => {
-        if (props.show) {
-            addDialog(id);
-        } else {
-            removeDialog(id);
-        }
-    });
+    const options = untrack(() => ({ sticky: !!props.sticky }));
+    useModalShowEffect(() => props.show, id, options);
 
     return (
-        <Show when={props.show}>
+        <Show when={isVisible()}>
             <Portal>
-                <Show when={show()}>
-                    <div classList={classList()}>{props.children}</div>
-                    <Show when={dim()}>
-                        <div class="Modal--dim" />
-                    </Show>
-                </Show>
+                <div classList={classList()} style={{ 'z-index': getIndex() + MODAL_Z_INDEX }}>
+                    <ModalProvider
+                        id={id}
+                        options={options}
+                        current={isCurrent}
+                        transition={getTransition}
+                    >
+                        <div classList={transitionClassList()}>{props.children}</div>
+                        <Show when={isModalDimmed(id)}>
+                            <Overlay />
+                        </Show>
+                    </ModalProvider>
+                </div>
             </Portal>
         </Show>
     );

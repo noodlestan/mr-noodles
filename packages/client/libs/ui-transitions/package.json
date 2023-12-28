@@ -1,5 +1,5 @@
 {
-  "name": "@noodlestan/ui-dialogs",
+  "name": "@noodlestan/ui-transitions",
   "private": true,
   "version": "0.0.1",
   "license": "MIT",
@@ -25,10 +25,5 @@
   },
   "peerDependencies": {
     "solid-js": "1.8.4"
-  },
-  "dependencies": {
-    "@noodlestan/ui-services": "0.0.1",
-    "@noodlestan/ui-surfaces": "0.0.1",
-    "@noodlestan/ui-transitions": "0.0.1"
   }
 }

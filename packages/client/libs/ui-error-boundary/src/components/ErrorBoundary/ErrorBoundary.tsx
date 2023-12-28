@@ -13,7 +13,12 @@ export const ErrorBoundary: Component<ErrorBoundaryProps> = props => {
     return (
         <Boundary
             fallback={(err, reset) => (
-                <FallbackWrapperHandler fallback={props.fallback} err={err} reset={reset} />
+                <FallbackWrapperHandler
+                    fallback={props.fallback}
+                    onError={props.onError}
+                    err={err}
+                    reset={reset}
+                />
             )}
         >
             {props.children}
