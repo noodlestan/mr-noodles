@@ -1,9 +1,8 @@
 import { Accessor, Component, JSX, Show } from 'solid-js';
 
-import { GalleryGroupItemAlbum } from '../GalleryGroupItemAlbum/GalleryGroupItemAlbum';
-import { GalleryGroupItemDate } from '../GalleryGroupItemDate/GalleryGroupItemDate';
-
 import { GalleryGroup, GalleryGroupAttributes } from '@/ui/models/gallery/types';
+import { GalleryGroupItemAlbum } from '@/ui/molecules/GalleryGroupItemAlbum/GalleryGroupItemAlbum';
+import { GalleryGroupItemDate } from '@/ui/molecules/GalleryGroupItemDate/GalleryGroupItemDate';
 
 type GalleryGroupItemProps = {
     group: Accessor<GalleryGroup>;

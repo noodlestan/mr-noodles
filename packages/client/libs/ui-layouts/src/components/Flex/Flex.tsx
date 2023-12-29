@@ -40,14 +40,14 @@ export const Flex: Component<FlexProps> = props => {
     const classList = () => ({
         ...props.classList,
         Flex: true,
-        'Flex--inline': props.inline,
-        'Flex--full': props.full,
-        'Flex--wrap': props.wrap,
-        [`Flex--direction-${direction()}`]: true,
-        [`Flex--align-${align()}`]: true,
-        [`Flex--justify-${justify()}`]: true,
-        [`Flex--gap-${gap()}`]: true,
-        [`Flex--padding-${padding()}`]: true,
+        'Flex-inline': props.inline,
+        'Flex-full': props.full,
+        'Flex-wrap': props.wrap,
+        [`Flex-direction-${direction()}`]: true,
+        [`Flex-align-${align()}`]: true,
+        [`Flex-justify-${justify()}`]: true,
+        [`Flex-gap-${gap()}`]: true,
+        [`Flex-padding-${padding()}`]: true,
     });
 
     return (

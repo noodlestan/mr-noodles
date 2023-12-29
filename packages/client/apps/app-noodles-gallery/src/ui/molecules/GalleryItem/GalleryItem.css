@@ -1,3 +1,19 @@
 .GalleryItem {
     width: auto;
 }
+
+.GalleryItem--button {
+    display: inline-flex;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    border-radius: var(--outline-radius);
+}
+
+.GalleryItem--button:focus,
+.GalleryItem--button:focus-visible {
+    outline-offset: var(--outline-offset);
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--outline-color);
+}

@@ -1,7 +1,6 @@
 import type { PhotoData } from '@noodlestan/shared-types';
+import { inject } from '@noodlestan/ui-services';
 import { Accessor } from 'solid-js';
-
-import { inject } from '../inject';
 
 import { PhotosService } from '@/services/Photos';
 

@@ -1,4 +1,4 @@
-.Theme--base.Surface--stage {
+.Theme-base.Surface-stage {
     --color-white-hue-sat: var(--color-fg-hue), 3%;
     --color-white: hsl(var(--color-black-hue-sat), var(--color-light-max));
     --color-black-hue-sat: var(--color-fg-hue), 3%;
@@ -24,6 +24,8 @@
     --color-meh-hue-sat: var(--color-sw-14-hue), var(--color-sw-14-sat); /* orange */
     --color-bad-hue-sat: var(--color-sw-2-hue), var(--color-sw-2-sat); /* red */
 
+    --color-selected-hue-sat: var(--color-sw-8-hue), var(--color-sw-8-sat); /* indigo */
+
     --color-i-rest-hue-sat: var(--color-sw-13-hue), var(--color-sw-13-sat); /* lime */
     --color-i-rest-light: var(--color-fg-light-6);
     --color-i-hover-hue-sat: var(--color-i-rest-hue-sat); /* cyan */
@@ -34,13 +36,15 @@
 
     --color-i-disabled-hue-sat: var(--color-sw-0-hue), var(--color-sw-0-sat);
     --color-i-disabled-light: var(--color-fg-light-mute);
+
+    --outline-color: hsl(var(--color-selected-hue-sat), var(--color-fg-light-mute));
 }
 
-.Theme--base.Surface--page {
+.Theme-base.Surface-page {
     --surface-bg-light-alpha: var(--color-bg-light-2), 1;
 }
 
-.Theme--base.Surface--dialog {
+.Theme-base.Surface-dialog {
     --surface-border-hue-sat: var(--color-fg-hue), var(--color-fg-sat);
     --surface-border-light: var(--color-fg-light-3);
     --surface-border-style: solid;
@@ -50,17 +54,17 @@
         hsla(var(--surface-border-hue-sat), var(--color-fg-light-3), 0.3);
 }
 
-.Theme--base.Surface--card {
+.Theme-base.Surface-card {
     --surface-bg-light-alpha: var(--color-bg-light-0), 1;
     --surface-hover-light-alpha: var(--color-bg-light-2), 1;
     border-radius: var(--radius-m); /* TODO move to card pattern */
 }
 
-.Theme--base.Surface--banner {
+.Theme-base.Surface-banner {
     --surface-bg-hue-sat: var(--color-passive-hue-sat);
     --surface-bg-light-alpha: var(--color-light-1), 0.9;
 }
 
-.Theme--base.Surface--inverse {
+.Theme-base.Surface-inverse {
     --surface-bg-light-alpha: var(--color-bg-light-0), 1;
 }

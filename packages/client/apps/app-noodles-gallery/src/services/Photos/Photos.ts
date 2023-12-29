@@ -17,7 +17,7 @@ const fetchPhotos = async (query: PhotoQuery): Promise<APIResponse<PhotoData[]>>
     const { sortBy, filterBy } = query;
     const params: QueryParams = {
         pageSize: 2000,
-        sortyBy: sortBy && JSON.stringify(sortBy),
+        sortBy: sortBy && JSON.stringify(sortBy),
         filterBy: filterBy && JSON.stringify(filterBy),
     };
     const { data, meta } = await apiGet<PhotoData[]>(API_BASE_URL, `photos`, params);

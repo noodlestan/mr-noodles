@@ -11,5 +11,5 @@ const surfaceNames = (surface: Surface): string[] => {
 export const surfaceClassNames = (): string[] => {
     const { surface } = useSurfacesContext();
 
-    return ['Surface', ...surfaceNames(surface()).map(s => `Surface--${s}`)];
+    return ['Surface', ...surfaceNames(surface()).map(s => `Surface-${s}`)];
 };

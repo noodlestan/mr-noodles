@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: light) {
-    .Theme--base {
+    .Theme-base {
         /* globals: saturation and levels */
 
         --color-sat: 60%;

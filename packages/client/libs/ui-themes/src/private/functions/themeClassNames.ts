@@ -11,5 +11,5 @@ const themeNames = (theme: Theme): string[] => {
 export const themeClassNames = (): string[] => {
     const { theme } = useThemeContext();
 
-    return ['Theme', ...themeNames(theme()).map(t => `Theme--${t}`)];
+    return ['Theme', ...themeNames(theme()).map(t => `Theme-${t}`)];
 };

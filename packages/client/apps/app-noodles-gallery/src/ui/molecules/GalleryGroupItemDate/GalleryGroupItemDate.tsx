@@ -3,9 +3,8 @@ import { Flex } from '@noodlestan/ui-layouts';
 import { Surface } from '@noodlestan/ui-surfaces';
 import { Accessor, Component, JSX } from 'solid-js';
 
-import { GalleryGroupHeader } from '../GalleryGroupHeader/GalleryGroupHeader';
-
 import { GalleryGroup, GalleryGroupAttributesDate } from '@/ui/models/gallery/types';
+import { GalleryGroupHeader } from '@/ui/molecules//GalleryGroupHeader/GalleryGroupHeader';
 
 import './GalleryGroupItemDate.css';
 

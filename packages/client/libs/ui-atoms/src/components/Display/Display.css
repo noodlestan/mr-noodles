@@ -5,22 +5,22 @@
     line-height: var(--display-type-height-base);
 }
 
-.Display--size-s {
+.Display-size-s {
     font-size: var(--display-type-size-s);
     font-weight: var(--display-type-weight-s);
 }
 
-.Display--size-m {
+.Display-size-m {
     font-size: var(--display-type-size-m);
     font-weight: var(--display-type-weight-m);
 }
 
-.Display--size-l {
+.Display-size-l {
     font-size: var(--display-type-size-l);
     font-weight: var(--display-type-weight-l);
 }
 
-.Display--size-xl {
+.Display-size-xl {
     font-size: var(--display-type-size-xl);
     font-weight: var(--display-type-weight-xl);
 }

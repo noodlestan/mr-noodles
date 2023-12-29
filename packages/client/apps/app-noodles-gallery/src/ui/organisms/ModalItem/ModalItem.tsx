@@ -1,43 +1,28 @@
-import { Modal } from '@noodlestan/ui-dialogs';
 import { Component } from 'solid-js';
 
 import './ModalItem.css';
 
 export type ModalItemProps = {
-    show: boolean;
+    id: string;
 };
 
-const ModalItemContents: Component<ModalItemProps> = () => {
+export const ModalItem: Component<ModalItemProps> = props => {
     const classList = () => ({
         ModalItem: true,
     });
 
-    const dialogClassList = () => ({
-        'ModalItem--dialog': true,
-    });
+    const url = () => {
+        const id = props.id;
+        const a = id.substring(0, 2);
+        const b = id.substring(2, 4);
+        const c = id.substring(4, 6);
+        const r = id.substring(6);
+        return `http://localhost:8008/assets/${a}/${b}/${c}/${r}.thumb.200.jpg`;
+    };
 
     return (
         <div classList={classList()}>
-            <div
-                role="dialog"
-                aria-hidden={false}
-                aria-modal="true"
-                tabindex="-1"
-                classList={dialogClassList()}
-            >
-                <img
-                    alt=""
-                    src="http://localhost:8008/assets/65/80/5b/c402b47f970b423068.thumb.200.jpg"
-                />
-            </div>
+            <img alt="" src={url()} />
         </div>
-    );
-};
-
-export const ModalItem: Component<ModalItemProps> = props => {
-    return (
-        <Modal show={props.show} sticky>
-            <ModalItemContents {...props} />
-        </Modal>
     );
 };

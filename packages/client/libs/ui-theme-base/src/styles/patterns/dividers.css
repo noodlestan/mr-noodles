@@ -1,4 +1,4 @@
-.Theme--base.Surface--stage {
+.Theme-base.Surface-stage {
     --color-divider-hue-sat: var(--color-sw-13-hue), var(--color-sw-13-sat);
     --divider-color: hsl(var(--color-divider-hue-sat), var(--color-fg-light-6));
     --divider-border: 2px solid var(--divider-color);

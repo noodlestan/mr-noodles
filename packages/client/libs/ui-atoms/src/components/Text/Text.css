@@ -4,22 +4,22 @@
     line-height: var(--text-type-height-base);
 }
 
-.Text--size-xs {
+.Text-size-xs {
     font-size: var(--text-type-size-xs);
     font-weight: var(--text-type-weight-xs);
 }
 
-.Text--size-s {
+.Text-size-s {
     font-size: var(--text-type-size-s);
     font-weight: var(--text-type-weight-s);
 }
 
-.Text--size-m {
+.Text-size-m {
     font-size: var(--text-type-size-m);
     font-weight: var(--text-type-weight-m);
 }
 
-.Text--size-l {
+.Text-size-l {
     font-size: var(--text-type-size-l);
     font-weight: var(--text-type-weight-l);
 }

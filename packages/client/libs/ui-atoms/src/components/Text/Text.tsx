@@ -22,7 +22,7 @@ export const Text: Component<TextProps> = props => {
 
     const classList = () => ({
         Text: true,
-        [`Text--size-${size()}`]: true,
+        [`Text-size-${size()}`]: true,
     });
 
     return (

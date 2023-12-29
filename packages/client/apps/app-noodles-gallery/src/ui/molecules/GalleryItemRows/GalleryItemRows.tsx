@@ -2,8 +2,7 @@ import type { PhotoData } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For, Show } from 'solid-js';
 
-import { GalleryItemRow } from '../GalleryItemRow/GalleryItemRow';
-
+import { GalleryItemRow } from '@/ui/molecules/GalleryItemRow/GalleryItemRow';
 import { GalleryOptions } from '@/ui/organisms/Gallery/types';
 
 import './GalleryItemRows.css';

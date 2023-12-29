@@ -46,9 +46,9 @@ export const Surface: Component<SurfaceProps> = props => {
     const classList = () => ({
         ...props.classList,
         Surface: true,
-        'Surface--is-interactive': !!tabindex(),
-        'Surface--is-active': isActive(),
-        'Surface--is-disabled': !!props.disabled,
+        'Surface-is-interactive': !!tabindex(),
+        'Surface-is-active': isActive(),
+        'Surface-is-disabled': !!props.disabled,
     });
 
     return (

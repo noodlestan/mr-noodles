@@ -1,4 +1,4 @@
-.Theme--base.Surface--stage {
+.Theme-base.Surface-stage {
     --action-border-radius: var(--radius-s);
     --action-border-light: var(--color-fg-light-4);
 
@@ -38,6 +38,6 @@
     --action-disabled-bg-color: hsl(var(--color-i-disabled-hue-sat), var(--color-fg-light-6));
 }
 
-.Theme--base.Surface--banner {
+.Theme-base.Surface-banner {
     --action-border-light: var(--color-light-0);
 }

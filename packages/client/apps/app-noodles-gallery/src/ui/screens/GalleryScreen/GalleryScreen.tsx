@@ -1,12 +1,15 @@
 import type { IGroup, ISort } from '@noodlestan/shared-types';
+import { inject } from '@noodlestan/ui-services';
 import { Component, Show, createRenderEffect } from 'solid-js';
 
 import { galleryStore } from './private/store';
 
 import { PhotosService } from '@/services/Photos';
-import { inject } from '@/services/inject';
-import { QueryBar } from '@/ui/molecules/QueryBar/QueryBar';
+import { GalleryBar } from '@/ui/molecules/GalleryBar/GalleryBar';
 import { Gallery } from '@/ui/organisms/Gallery/Gallery';
+import { ModalView } from '@/ui/organisms/ModalView/ModalView';
+import { GallerySelectionProvider } from '@/ui/providers/GallerySelection/GallerySelection';
+import { GallerySelectionService } from '@/ui/services/GallerySelection';
 
 const groupByToSortBy = (group: IGroup[]): ISort[] => {
     return group.map(({ field, dir }) => {
@@ -20,6 +23,10 @@ export const GalleryScreen: Component = () => {
 
     const sort = () => groupByToSortBy(groupBy());
 
+    const { createSelectionContext } = inject(GallerySelectionService);
+    const selectionContext = createSelectionContext(photos);
+    const { bus, isModal, current } = selectionContext;
+
     createRenderEffect(() => {
         setGroupBy([
             { field: 'album', dir: 'asc' },
@@ -31,15 +38,26 @@ export const GalleryScreen: Component = () => {
         });
     });
 
+    const handleKeyDown = (ev: KeyboardEvent) => {
+        if (ev.code === 'ArrowLeft') {
+            bus?.emit({ name: 'goToPreviousItem' });
+        }
+        if (ev.code === 'ArrowRight') {
+            bus?.emit({ name: 'goToNextItem' });
+        }
+    };
+
     return (
-        <main>
-            <Show when={loading()}>Loading</Show>
-            <Show when={!loading()}>
-                <QueryBar query={query} />
-            </Show>
-            <Show when={!loading()}>
-                <Gallery items={photos} groupBy={groupBy} query={query} />
-            </Show>
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+        <main tab-index="0" onKeyDown={handleKeyDown}>
+            <GallerySelectionProvider context={selectionContext}>
+                <GalleryBar />
+                <Show when={loading()}>Loading</Show>
+                <Show when={!loading()}>
+                    <Gallery items={photos} groupBy={groupBy} query={query} />
+                </Show>
+                <ModalView show={isModal() && !!current()} />
+            </GallerySelectionProvider>
         </main>
     );
 };

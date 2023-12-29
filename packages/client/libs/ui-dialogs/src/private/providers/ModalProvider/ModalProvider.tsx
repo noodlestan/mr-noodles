@@ -1,6 +1,7 @@
+import { TransitionState } from '@noodlestan/ui-transitions';
 import { Accessor, Component, JSX, createContext } from 'solid-js';
 
-import { ModalOptions, TransitionState } from '../../../types';
+import { ModalOptions } from '../../../types';
 
 export type ModalContextState = {
     id: string;

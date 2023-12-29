@@ -41,7 +41,7 @@ export const Display: Component<DisplayProps> = props => {
 
     const classList = () => ({
         Display: true,
-        [`Display--size-${size()}`]: true,
+        [`Display-size-${size()}`]: true,
     });
 
     return (

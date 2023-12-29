@@ -1,4 +1,4 @@
-.Theme--base.Surface--stage {
+.Theme-base.Surface-stage {
     --data-focus-color: var(--outline-color);
     --data-hover-border-color: var(--outline-color);
     --data-modified-color-fg: var(--color-meh);

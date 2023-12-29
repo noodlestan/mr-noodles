@@ -1,7 +1,7 @@
 import { Component } from 'solid-js';
 
-import { ErrorBoundaryScreen } from '../screens/ErrorBoundaryScreen/ErrorBoundaryScreen';
-import { GalleryScreen } from '../screens/GalleryScreen/GalleryScreen';
+import { ErrorBoundaryScreen } from '@/ui/screens/ErrorBoundaryScreen/ErrorBoundaryScreen';
+import { GalleryScreen } from '@/ui/screens/GalleryScreen/GalleryScreen';
 
 import './App.css';
 

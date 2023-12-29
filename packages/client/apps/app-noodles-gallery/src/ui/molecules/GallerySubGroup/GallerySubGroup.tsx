@@ -1,10 +1,9 @@
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component } from 'solid-js';
 
-import { GalleryGroupItem } from '../GalleryGroupItem/GalleryGroupItem';
-import { GallerySubItems } from '../GallerySubItems/GallerySubItems';
-
 import { GalleryGroup } from '@/ui/models/gallery/types';
+import { GalleryGroupItem } from '@/ui/molecules//GalleryGroupItem/GalleryGroupItem';
+import { GallerySubItems } from '@/ui/molecules//GallerySubItems/GallerySubItems';
 import { GalleryOptions } from '@/ui/organisms/Gallery/types';
 
 import './GallerySubGroup.css';

@@ -2,10 +2,10 @@ import type { PhotoData } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For } from 'solid-js';
 
-import './GalleryItemRow.css';
-import { GalleryItem } from '../GalleryItem/GalleryItem';
-
+import { GalleryItem } from '@/ui/molecules//GalleryItem/GalleryItem';
 import { GalleryOptions } from '@/ui/organisms/Gallery/types';
+
+import './GalleryItemRow.css';
 
 export type GalleryItemRowProps = {
     row: Accessor<PhotoData[]>;

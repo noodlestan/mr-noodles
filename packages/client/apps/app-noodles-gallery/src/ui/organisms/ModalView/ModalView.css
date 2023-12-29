@@ -1,0 +1,17 @@
+.ModalView {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    display: flex;
+    transition: all 1s ease-in-out;
+    background-color: var(--color-black);
+}
+
+.ModalView--dialog {
+    position: absolute;
+    z-index: 11;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}

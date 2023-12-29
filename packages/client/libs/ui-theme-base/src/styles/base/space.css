@@ -1,6 +1,7 @@
-.Theme--base {
+.Theme-base {
     /* gaps */
 
+    --space-gap--1: var(--scale-4xs);
     --space-gap-0: var(--scale-3xs);
     --space-gap-1: var(--scale-2xs);
     --space-gap-2: var(--scale-xs);
@@ -39,6 +40,8 @@
 
     /* @link https://utopia.fyi/space/calculator/?c=375,24,1.25,1200,29,1.333,7,2,&s=0.75|0.5|0.255,1.5|2|3.5|5.5|9|14.5|23.5,s-l&g=s,l,xl,12 */
 
+    /* Space 4xs: 2px → 4px */
+    --scale-4xs: clamp(0.1rem, calc(0.05rem + 0.1vw), 0.3rem);
     /* Space 3xs: 6px → 7px */
     --scale-3xs: clamp(0.38rem, calc(0.35rem + 0.12vw), 0.44rem);
     /* Space 2xs: 12px → 15px */

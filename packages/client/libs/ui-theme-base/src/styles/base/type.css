@@ -1,4 +1,4 @@
-.Theme--base {
+.Theme-base {
     /* size */
     --type-size-2xs: var(--type-step--2);
     --type-size-xs: var(--type-step--1);

@@ -3,111 +3,111 @@
     flex-wrap: nowrap;
 }
 
-.Flex--direction-row {
+.Flex-direction-row {
     flex-direction: row;
 }
 
-.Flex--direction-row-reverse {
+.Flex-direction-row-reverse {
     flex-direction: row-reverse;
 }
 
-.Flex--direction-column {
+.Flex-direction-column {
     flex-direction: column;
 }
 
-.Flex--direction-column-reverse {
+.Flex-direction-column-reverse {
     flex-direction: column-reverse;
 }
 
-.Flex--align-start {
+.Flex-align-start {
     align-items: flex-start;
 }
 
-.Flex--align-center {
+.Flex-align-center {
     align-items: center;
 }
 
-.Flex--align-end {
+.Flex-align-end {
     align-items: flex-end;
 }
 
-.Flex--align-stretch {
+.Flex-align-stretch {
     align-items: stretch;
 }
 
-.Flex--justify-start {
+.Flex-justify-start {
     justify-content: flex-start;
 }
 
-.Flex--justify-center {
+.Flex-justify-center {
     justify-content: center;
 }
 
-.Flex--justify-end {
+.Flex-justify-end {
     justify-content: flex-end;
 }
 
-.Flex--justify-between {
+.Flex-justify-between {
     justify-content: space-between;
 }
 
-.Flex--justify-around {
+.Flex-justify-around {
     justify-content: space-around;
 }
 
-.Flex--padding-none {
+.Flex-padding-none {
     padding: 0;
 }
 
-.Flex--padding-s {
+.Flex-padding-s {
     padding: var(--space-pad-0);
 }
 
-.Flex--padding-m {
+.Flex-padding-m {
     padding: var(--space-pad-1);
 }
 
-.Flex--padding-l {
+.Flex-padding-l {
     padding: var(--space-pad-2);
 }
 
-.Flex--padding-xl {
+.Flex-padding-xl {
     padding: var(--space-pad-3);
 }
 
-.Flex--gap-none {
+.Flex-gap-none {
     gap: 0;
 }
 
-.Flex--gap-s {
+.Flex-gap-s {
     gap: var(--space-gap-0);
 }
 
-.Flex--gap-m {
+.Flex-gap-m {
     gap: var(--space-gap-1);
 }
 
-.Flex--gap-l {
+.Flex-gap-l {
     gap: var(--space-gap-2);
 }
 
-.Flex--gap-xl {
+.Flex-gap-xl {
     gap: var(--space-gap-3);
 }
 
-.Flex--gap-2xl {
+.Flex-gap-2xl {
     gap: var(--space-gap-4);
 }
 
-.Flex--inline {
+.Flex-inline {
     display: inline-flex;
 }
 
-.Flex--full {
+.Flex-full {
     width: 100%;
     flex: 1;
 }
 
-.Flex--wrap {
+.Flex-wrap {
     flex-wrap: wrap;
 }

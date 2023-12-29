@@ -1,4 +1,4 @@
-.Theme--base {
+.Theme-base {
     --radius-xs: 3px;
     --radius-s: var(--scale-3xs);
     --radius-m: var(--scale-2xs);

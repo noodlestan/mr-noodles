@@ -15,11 +15,11 @@
     background-color: var(--surface-fg);
 }
 
-.Surface--is-interactive:hover {
+.Surface-is-interactive:hover {
     background-color: hsl(var(--surface-hover-hue-sat), var(--surface-hover-light-alpha));
     border: 1px solid blue;
 }
 
-.Surface--is-interactive.Surface--is-active {
+.Surface-is-interactive.Surface-is-active {
     border: 1px solid red;
 }

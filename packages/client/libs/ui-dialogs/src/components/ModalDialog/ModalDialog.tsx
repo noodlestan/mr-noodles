@@ -1,7 +1,7 @@
 import { Surface } from '@noodlestan/ui-surfaces';
 import { Component, JSX } from 'solid-js';
 
-import { useModalsContext } from '../../contexts/Modals/useModalsContext';
+import { useModalContext } from '../../hooks/useModalContext';
 import { Modal } from '../Modal/Modal';
 
 import './ModalDialog.css';
@@ -21,7 +21,7 @@ const defaultProps: Pick<ModalDialogProps, 'size'> = {
 const Dialog: Component<ModalDialogProps> = props => {
     const size = () => props.size || defaultProps.size;
 
-    const context = useModalsContext();
+    const context = useModalContext();
 
     const classList = () => ({
         ModalDialog: true,
