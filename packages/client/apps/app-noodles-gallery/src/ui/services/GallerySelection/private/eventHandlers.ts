@@ -1,8 +1,8 @@
 import { PhotoData } from '@noodlestan/shared-types';
 import { Accessor, Setter } from 'solid-js';
 
-import { SelectionContext } from './private/busEventHandlers';
-import { GallerySelectionEvent } from './types';
+import { SelectionContext } from '../createSelectionContext';
+import { GallerySelectionEvent } from '../types';
 
 export const handleOnSelect = (
     context: SelectionContext,
@@ -29,25 +29,21 @@ export const handleOnSelect = (
     }
 };
 
+export const handleClearSelection = (
+    context: SelectionContext,
+    evt: GallerySelectionEvent,
+    setSelection: Setter<Set<string>>,
+): void => {
+    setSelection(new Set<string>());
+};
+
 export const handleOnClick = (
     context: SelectionContext,
     evt: GallerySelectionEvent,
     setCurrent: Setter<string | undefined>,
     setIsModal: Setter<boolean>,
-    setSelection: Setter<Set<string>>,
 ): void => {
-    const { target: id = '' } = evt;
-    const items = context.selection();
-    setCurrent(id);
-    if (items.size < 1) {
-        setIsModal(true);
-    } else if (id) {
-        setSelection(prev => {
-            const next = new Set(prev);
-            next.add(id);
-            return next;
-        });
-    }
+    setIsModal(true);
 };
 
 export const handleOnFocus = (
@@ -103,5 +99,17 @@ export const handleGoToPreviousItem = (
         setCurrent(newCurrent.id);
     } else {
         context.bus.emit({ name: 'onEnd' });
+    }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const handleCloseModal = (
+    context: SelectionContext,
+    evt: GallerySelectionEvent,
+    setIsModal: Setter<boolean>,
+): void => {
+    const { isModal } = context;
+    if (isModal()) {
+        setIsModal(false);
     }
 };

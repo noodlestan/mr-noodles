@@ -5,7 +5,9 @@ export type GallerySelectionEventType =
     | 'setFocus'
     | 'goToPreviousItem'
     | 'goToNextItem'
-    | 'onEnd';
+    | 'onEnd'
+    | 'closeModal'
+    | 'clearSelection';
 
 export type GallerySelectionEvent = {
     name: GallerySelectionEventType;

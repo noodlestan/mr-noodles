@@ -1,1 +1,1 @@
-export { createGallerySelectionService as GallerySelectionService } from './private/busEventHandlers';
+export { createGallerySelectionService as GallerySelectionService } from './createSelectionContext';

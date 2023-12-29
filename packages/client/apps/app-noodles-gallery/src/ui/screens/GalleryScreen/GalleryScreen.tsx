@@ -39,6 +39,9 @@ export const GalleryScreen: Component = () => {
     });
 
     const handleKeyDown = (ev: KeyboardEvent) => {
+        if (ev.code === 'Escape') {
+            bus?.emit({ name: 'closeModal' });
+        }
         if (ev.code === 'ArrowLeft') {
             bus?.emit({ name: 'goToPreviousItem' });
         }

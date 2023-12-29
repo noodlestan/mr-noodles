@@ -3,6 +3,7 @@ import type { PhotoData, Thumb } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Component, createEffect } from 'solid-js';
 
+import { ItemCheckbox } from '@/ui/atoms/ItemCheckbox/ItemCheckbox';
 import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
 
 import './GalleryItem.css';
@@ -43,10 +44,6 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Space') {
             ev.preventDefault();
-        }
-    };
-    const handleKeyUp = (ev: KeyboardEvent) => {
-        if (ev.code === 'Space') {
             emitOnSelect();
         }
     };
@@ -69,8 +66,8 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                 onFocus={emitOnFocus}
                 onClick={emitOnClick}
                 onKeyDown={handleKeyDown}
-                onKeyPress={handleKeyUp}
             >
+                <ItemCheckbox id={props.item.id} />
                 <img alt="" src={thumb()} />
             </button>
             {/* <Text size="s">Date:{date()}</Text> */}

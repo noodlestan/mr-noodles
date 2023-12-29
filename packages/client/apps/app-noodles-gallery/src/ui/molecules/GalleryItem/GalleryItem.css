@@ -8,6 +8,7 @@
     padding: 0;
     background-color: transparent;
     border-radius: var(--outline-radius);
+    cursor: zoom-in;
 }
 
 .GalleryItem--button:focus,

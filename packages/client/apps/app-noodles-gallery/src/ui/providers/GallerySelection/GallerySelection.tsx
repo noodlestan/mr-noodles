@@ -1,7 +1,7 @@
 import { createEventBus } from '@solid-primitives/event-bus';
 import { Component, JSX, createContext, useContext } from 'solid-js';
 
-import { SelectionContext } from '@/ui/services/GallerySelection/private/busEventHandlers';
+import { SelectionContext } from '@/ui/services/GallerySelection/createSelectionContext';
 import { GallerySelectionEvent } from '@/ui/services/GallerySelection/types';
 
 export type GallerySelectionContextState = {

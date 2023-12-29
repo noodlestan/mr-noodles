@@ -1,3 +1,4 @@
+import { Button } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Component, createEffect } from 'solid-js';
 
@@ -10,15 +11,20 @@ export const GallerySelectionBar: Component = () => {
         GallerySelectionBar: true,
     });
 
-    const { selection } = useGallerySelectionContext();
+    const { bus, selection } = useGallerySelectionContext();
 
     createEffect(() => {
         console.info('GallerySelectionBar:props.Selection', selection());
     });
 
+    const handleClearClick = () => bus?.emit({ name: 'clearSelection' });
+
     return (
         <Flex classList={classList()} gap="m" align="center">
-            Selection: {Object.values(selection()).length}
+            Selection: {selection().size}
+            <Button variant="plain" size="s" onClick={handleClearClick}>
+                Clear
+            </Button>
         </Flex>
     );
 };

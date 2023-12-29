@@ -3,14 +3,16 @@ import { EventBus, createEventBus } from '@solid-primitives/event-bus';
 import { Accessor, createEffect, createSignal } from 'solid-js';
 
 import {
+    handleClearSelection,
+    handleCloseModal,
     handleGoToNextItem,
     handleGoToPreviousItem,
     handleOnClick,
     handleOnEnd,
     handleOnFocus,
     handleOnSelect,
-} from '../handleGoToPreviousItem';
-import { GallerySelectionEvent } from '../types';
+} from './private/eventHandlers';
+import { GallerySelectionEvent } from './types';
 
 export type SelectionContext = {
     bus: EventBus<GallerySelectionEvent>;
@@ -52,6 +54,8 @@ const createSelectionContext = (photos: Accessor<PhotoData[]>): SelectionContext
     bus.listen(evt => {
         const { name } = evt;
         switch (name) {
+            case 'closeModal':
+                return handleCloseModal(context, evt, setIsModal);
             case 'goToPreviousItem':
                 return handleGoToPreviousItem(context, evt, photos, setCurrent);
             case 'goToNextItem':
@@ -61,9 +65,11 @@ const createSelectionContext = (photos: Accessor<PhotoData[]>): SelectionContext
             case 'onFocus':
                 return handleOnFocus(context, evt, photos, setCurrent);
             case 'onClick':
-                return handleOnClick(context, evt, setCurrent, setIsModal, setSelection);
+                return handleOnClick(context, evt, setCurrent, setIsModal);
             case 'onSelect':
                 return handleOnSelect(context, evt, setSelection);
+            case 'clearSelection':
+                return handleClearSelection(context, evt, setSelection);
         }
     });
 

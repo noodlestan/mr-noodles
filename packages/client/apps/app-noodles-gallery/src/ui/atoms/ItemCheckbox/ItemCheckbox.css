@@ -1,0 +1,38 @@
+.ItemCheckbox {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: flex-end;
+    transition: opacity 0.05s linear;
+}
+
+.ItemCheckbox--control {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    height: var(--scale-m);
+    width: var(--scale-m);
+    background-color: hsl(var(--color-meh-hue-sat), 50%);
+    border-bottom-left-radius: var(--radius-xl);
+    box-shadow: 0px 1px 1px 1px hsla(var(--surface-border-hue-sat), var(--color-fg-light-6), 1);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.ItemCheckbox-is-checked .ItemCheckbox--control,
+.ItemCheckbox:hover .ItemCheckbox--control {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.ItemCheckbox--control input {
+    padding: none;
+    width: var(--scale-xs);
+    height: var(--scale-xs);
+    pointer-events: none;
+}

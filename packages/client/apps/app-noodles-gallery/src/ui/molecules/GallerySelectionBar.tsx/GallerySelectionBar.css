@@ -1,3 +1,5 @@
 .GallerySelectionBar {
-    width: auto;
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-gap-1);
 }
