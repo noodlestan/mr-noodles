@@ -4,6 +4,7 @@ import './ModalItem.css';
 
 export type ModalItemProps = {
     id: string;
+    onClick: () => void;
 };
 
 export const ModalItem: Component<ModalItemProps> = props => {
@@ -21,8 +22,9 @@ export const ModalItem: Component<ModalItemProps> = props => {
     };
 
     return (
-        <div classList={classList()}>
-            <img alt="" src={url()} />
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div classList={classList()} onMouseDown={() => props.onClick()}>
+            <img alt="" src={url()} width="100%" />
         </div>
     );
 };
