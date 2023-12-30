@@ -5,8 +5,8 @@ import { MAX_ITEMS } from '../createGalleryGroups';
 
 const calcWidth = (items: PhotoData[], height: number): number => {
     return items.reduce((acc, item) => {
-        const ratio = item.width / item.height;
-        return acc + height * ratio;
+        const ratio = item.height / item.width;
+        return acc + height / ratio;
     }, 0);
 };
 

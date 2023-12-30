@@ -12,7 +12,7 @@ This is Mr Noodles server.
 - indexes all images in the database
 - stores dimensions metadata and geo location extracted from exif
 - when a scan finds that a photo attributes have changed updates them automatically
-- TODO invalidate thumbmnail automatically
+- TODO invalidate image automatically
 - TODO detect if new scanned files actually already exist under a different filename
 - TODO check for duplicates and expose `/photos/duplicates`
 - stores messages about new scanned files, including processing errors and warnings
@@ -21,16 +21,16 @@ This is Mr Noodles server.
 
 - `/photos`
 - `/photos/<id>`
-- `/photos/<id>/thumb`
-- `/photos/<id>/thumb?h=500`
+- `/photos/<id>/img`
+- `/photos/<id>/img?h=500`
 - `/albums`
 - `/albums/<id>`
-- `/albums/<id>/thumb`
-- `/albums/<id>/thumb?h=500`
+- `/albums/<id>/img`
+- `/albums/<id>/img?h=500`
 
-Note: the thumb endpoints update the parent document with thumb data after these are generated. The endpoints are idempotent
+Note: the image endpoints update the parent document with image data after these are generated. The endpoints are idempotent
 
-TODO invalidate thumbmnails on request
+TODO invalidate images on request
 
 ## Development
 

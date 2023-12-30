@@ -5,7 +5,8 @@ import { EventScanFile } from '../../events/scan';
 import { logger } from '../../logger';
 import { Photo, PhotoDocument } from '../../models/photo';
 import { createAlbumFromSlugAndPhotoId } from '../albums/createAlbumFromSlugAndPhotoId';
-import { ensurePhotoInAlbum, ensurePhotoNotInAlbum } from '../albums/ensurePhotoInAlbum';
+import { ensurePhotoInAlbum } from '../albums/ensurePhotoInAlbum';
+import { ensurePhotoNotInAlbum } from '../albums/ensurePhotoNotInAlbum';
 
 import { detectPhotoUpdates } from './utils/detectPhotoUpdates';
 

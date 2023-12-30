@@ -1,12 +1,11 @@
+import { ImageFile } from '../Images/types';
+
 export interface AlbumSchema {
     dateCreated: Date;
     dateUpdated?: Date;
     slug: string;
     title?: string;
-    thumbs?: Array<{
-        h: number;
-        f: string;
-    }>;
+    images?: ImageFile[];
     photos: Array<string>;
     dateFrom?: Date;
     dateUntil?: Date;

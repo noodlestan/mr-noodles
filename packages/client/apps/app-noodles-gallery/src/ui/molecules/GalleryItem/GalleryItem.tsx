@@ -1,7 +1,9 @@
-import type { PhotoData, Thumb } from '@noodlestan/shared-types';
+import type { PhotoData } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Component, createEffect } from 'solid-js';
+
+import { makeImageUrl } from '../../services/Images/makeImageUrl';
 
 import { ItemCheckbox } from '@/ui/atoms/ItemCheckbox/ItemCheckbox';
 import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
@@ -10,21 +12,6 @@ import './GalleryItem.css';
 
 export type GalleryItemProps = {
     item: PhotoData;
-};
-
-export const selectThumbByHeight = (
-    thumbs: Thumb[] | undefined,
-    height: number,
-): Thumb | undefined => {
-    const first = thumbs && thumbs[0];
-    const last = thumbs && thumbs[thumbs.length - 1];
-    const fallbackThumb = height > 0 ? last : first;
-    return thumbs?.find(item => item.h >= height) || fallbackThumb;
-};
-
-const thumbUrl = (item: PhotoData) => {
-    const thumb = selectThumbByHeight(item.thumbs, 200);
-    return thumb ? thumb.f : `http://localhost:8008/photos/${item.id}/thumb?h=200`;
 };
 
 export const GalleryItem: Component<GalleryItemProps> = props => {
@@ -49,13 +36,13 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     };
 
     createEffect(() => {
-        if (!isModal() && current() === props.item.id && buttonRef) {
+        if (!isModal() && current()?.id === props.item.id && buttonRef) {
             buttonRef.focus();
             // TODO set focus when modal closes
         }
     });
 
-    const thumb = () => thumbUrl(props.item);
+    const url = () => makeImageUrl(props.item);
 
     return (
         <Flex gap="m" classList={classList()}>
@@ -68,7 +55,7 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                 onKeyDown={handleKeyDown}
             >
                 <ItemCheckbox id={props.item.id} />
-                <img alt="" src={thumb()} />
+                <img alt="" src={url()} />
             </button>
             {/* <Text size="s">Date:{date()}</Text> */}
         </Flex>

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { AlbumData, AlbumDataPublic, AlbumSchema, Thumb } from '@noodlestan/shared-types';
+import { AlbumData, AlbumDataPublic, AlbumSchema, ImageFile } from '@noodlestan/shared-types';
 import type { HydratedDocument, Model } from 'mongoose';
 import { Schema, Types, model } from 'mongoose';
 
-import { mapThumbFilenamesToUrls } from '../../services/thumbs/makeThumbPublicUrl';
+import { mapImagesToEndpointUrls } from '../../services/images/mapImagesToEndpointUrls';
 
 interface Methods {
     toData: () => AlbumData;
@@ -13,7 +13,7 @@ interface Methods {
 interface IModel extends Model<AlbumSchema, object, Methods> {
     fromData: (json: Partial<AlbumData>) => AlbumDocument;
     findBySlug: (slug: string) => Promise<AlbumDocument>;
-    addThumbsToAlbum(id: Types.ObjectId, thumbs: Thumb[]): Promise<void>;
+    addImageToAlbum(id: Types.ObjectId, images: ImageFile): Promise<void>;
 }
 
 export type AlbumDocument = HydratedDocument<AlbumSchema> & Methods & { _id: Types.ObjectId };
@@ -23,10 +23,12 @@ const schema = new Schema<AlbumSchema, IModel, Methods>({
     dateUpdated: { type: Date },
     slug: { type: String, required: true, unique: true },
     title: { type: String, required: true, max: 100 },
-    thumbs: [
+    images: [
         {
+            w: Number,
             h: Number,
             f: String,
+            p: String,
         },
     ],
     photos: [Types.ObjectId],
@@ -56,7 +58,7 @@ schema.method('toData', function (): AlbumData {
         dateUpdated,
         slug,
         title,
-        thumbs,
+        images,
         photos,
         dateFrom,
         dateUntil,
@@ -72,7 +74,7 @@ schema.method('toData', function (): AlbumData {
         dateUpdated,
         slug,
         title,
-        thumbs: thumbs && mapThumbFilenamesToUrls(thumbs),
+        images: images && mapImagesToEndpointUrls(images),
         photos: photos.map(i => i.toString()),
         dateFrom,
         dateUntil,
@@ -94,7 +96,7 @@ schema.method('toDataPublic', function (): AlbumDataPublic {
 });
 
 schema.static('fromData', (partial: Partial<AlbumData>): AlbumDocument => {
-    const { id, dateCreated, dateUpdated, slug, title, thumbs, dateFrom, dateUntil, location } =
+    const { id, dateCreated, dateUpdated, slug, title, images, dateFrom, dateUntil, location } =
         partial;
     const { lat, long } = location || {};
     const data: Partial<AlbumSchema> = {
@@ -102,7 +104,7 @@ schema.static('fromData', (partial: Partial<AlbumData>): AlbumDocument => {
         dateUpdated,
         slug,
         title,
-        thumbs,
+        images,
         photos: [],
         dateFrom,
         dateUntil,
@@ -122,8 +124,8 @@ schema.static('findBySlug', async (slug: string): Promise<AlbumDocument | undefi
     return results && results[0];
 });
 
-schema.static('addThumbsToAlbum', async (id: Types.ObjectId, thumbs: Thumb[]): Promise<void> => {
-    await AlbumModel.findByIdAndUpdate(id, { thumbs }).exec();
+schema.static('addImageToAlbum', async (id: Types.ObjectId, image: ImageFile): Promise<void> => {
+    await AlbumModel.findByIdAndUpdate(id, { orientation: 3, $push: { images: image } });
 });
 
 const AlbumModel = model<AlbumSchema, IModel>('Album', schema);

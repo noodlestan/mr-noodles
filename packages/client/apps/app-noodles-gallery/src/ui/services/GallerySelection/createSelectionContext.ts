@@ -18,9 +18,9 @@ export type SelectionContext = {
     bus: EventBus<GallerySelectionEvent>;
     selection: Accessor<Set<string>>;
     isModal: Accessor<boolean>;
-    previous: Accessor<string | undefined>;
-    current: Accessor<string | undefined>;
-    next: Accessor<string | undefined>;
+    previous: Accessor<PhotoData | undefined>;
+    current: Accessor<PhotoData | undefined>;
+    next: Accessor<PhotoData | undefined>;
 };
 
 type GallerySelectionService = {
@@ -31,7 +31,7 @@ const createSelectionContext = (photos: Accessor<PhotoData[]>): SelectionContext
     const bus = createEventBus<GallerySelectionEvent>();
     const [selection, setSelection] = createSignal<Set<string>>(new Set());
     const [isModal, setIsModal] = createSignal<boolean>(false);
-    const [current, setCurrent] = createSignal<string | undefined>();
+    const [current, setCurrent] = createSignal<PhotoData | undefined>();
 
     createEffect(() => {
         // TODO reset selection and current
@@ -39,14 +39,14 @@ const createSelectionContext = (photos: Accessor<PhotoData[]>): SelectionContext
 
     const previous = () => {
         const items = photos();
-        const index = items.findIndex(photo => photo.id === current());
-        return items[index - 1]?.id;
+        const index = items.findIndex(photo => photo.id === current()?.id);
+        return items[index - 1];
     };
 
     const next = () => {
         const items = photos();
-        const index = items.findIndex(photo => photo.id === current());
-        return items[index + 1]?.id;
+        const index = items.findIndex(photo => photo.id === current()?.id);
+        return items[index + 1];
     };
 
     const context = { bus, selection, isModal, previous, current, next };

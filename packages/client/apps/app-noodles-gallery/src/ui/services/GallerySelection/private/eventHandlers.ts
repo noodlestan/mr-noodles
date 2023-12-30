@@ -40,7 +40,7 @@ export const handleClearSelection = (
 export const handleOnClick = (
     context: SelectionContext,
     evt: GallerySelectionEvent,
-    setCurrent: Setter<string | undefined>,
+    setCurrent: Setter<PhotoData | undefined>,
     setIsModal: Setter<boolean>,
 ): void => {
     setIsModal(true);
@@ -50,13 +50,13 @@ export const handleOnFocus = (
     context: SelectionContext,
     evt: GallerySelectionEvent,
     photos: Accessor<PhotoData[]>,
-    setCurrent: Setter<string | undefined>,
+    setCurrent: Setter<PhotoData | undefined>,
 ): void => {
     const { target: id = '' } = evt;
     const items = photos();
     const index = items.findIndex(photo => photo.id === id);
     const newCurrent = items[index];
-    setCurrent(newCurrent?.id);
+    setCurrent(newCurrent);
 };
 
 export const handleOnEnd = (
@@ -74,13 +74,13 @@ export const handleGoToNextItem = (
     context: SelectionContext,
     evt: GallerySelectionEvent,
     photos: Accessor<PhotoData[]>,
-    setCurrent: Setter<string | undefined>,
+    setCurrent: Setter<PhotoData | undefined>,
 ): void => {
     const items = photos();
-    const index = items.findIndex(photo => photo.id === context.current());
+    const index = items.findIndex(photo => photo.id === context.current()?.id);
     const newCurrent = items[index + 1];
     if (newCurrent) {
-        setCurrent(newCurrent.id);
+        setCurrent(newCurrent);
     } else {
         context.bus.emit({ name: 'onEnd' });
     }
@@ -90,13 +90,13 @@ export const handleGoToPreviousItem = (
     context: SelectionContext,
     evt: GallerySelectionEvent,
     photos: Accessor<PhotoData[]>,
-    setCurrent: Setter<string | undefined>,
+    setCurrent: Setter<PhotoData | undefined>,
 ): void => {
     const items = photos();
-    const index = items.findIndex(photo => photo.id === context.current());
+    const index = items.findIndex(photo => photo.id === context.current()?.id);
     const newCurrent = items[index - 1];
     if (newCurrent) {
-        setCurrent(newCurrent.id);
+        setCurrent(newCurrent);
     } else {
         context.bus.emit({ name: 'onEnd' });
     }

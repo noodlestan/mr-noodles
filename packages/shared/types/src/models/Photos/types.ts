@@ -1,5 +1,5 @@
 import { ISort } from '../../query';
-import { Thumb } from '../Thumbs/types';
+import { ImageFile } from '../Images/types';
 
 export interface PhotoSchema {
     dateCreated: Date;
@@ -8,7 +8,7 @@ export interface PhotoSchema {
     filename: string;
     album?: string;
     title?: string;
-    thumbs?: Thumb[];
+    images?: ImageFile[];
     date?: Date;
     orientation: number;
     width: number;

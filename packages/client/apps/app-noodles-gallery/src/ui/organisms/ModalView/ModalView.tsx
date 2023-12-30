@@ -1,3 +1,4 @@
+import { PhotoData } from '@noodlestan/shared-types';
 import { Modal } from '@noodlestan/ui-dialogs';
 import { Component, createSignal } from 'solid-js';
 
@@ -35,7 +36,7 @@ const ModalViewContents: Component<ModalViewProps> = () => {
 
     const { current } = useGallerySelectionContext();
     // const previousId = () => previous() || '';
-    const id = () => current() || '';
+    const item = () => current() as PhotoData;
     // const nextId = () => next() || '';
 
     // createEffect(
@@ -71,7 +72,7 @@ const ModalViewContents: Component<ModalViewProps> = () => {
                 <ModalItemHeader show={!quiet()} />
                 <ModalItemRail>
                     {/* <ModalItem id={previousId()} /> */}
-                    <ModalItem id={id()} onClick={handleClick} />
+                    <ModalItem item={item()} onClick={handleClick} />
                     {/* <ModalItem id={nextId()} /> */}
                 </ModalItemRail>
             </div>

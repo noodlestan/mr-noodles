@@ -12,7 +12,10 @@ export const GallerySelectionContext = createContext<GallerySelectionContextStat
     context: {
         bus: createEventBus<GallerySelectionEvent>(),
         selection: () => new Set<string>(),
-        current: () => '',
+        isModal: () => false,
+        previous: () => undefined,
+        current: () => undefined,
+        next: () => undefined,
     },
 });
 
