@@ -15,34 +15,43 @@ export type GalleryItemProps = {
 };
 
 export const GalleryItem: Component<GalleryItemProps> = props => {
-    const classList = () => ({
-        GalleryItem: true,
-    });
-
     let buttonRef: HTMLButtonElement | undefined;
-
-    // const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
 
     const { bus, isModal, current } = useGallerySelectionContext();
 
-    const emitOnFocus = () => bus?.emit({ name: 'onFocus', target: props.item.id });
-    const emitOnClick = () => bus?.emit({ name: 'onClick', target: props.item.id });
-    const emitOnSelect = () => bus?.emit({ name: 'onSelect', target: props.item.id });
+    const isCurrent = () => current()?.id === props.item.id;
+
+    const handleOnFocus = () => bus?.emit({ name: 'onFocus', target: props.item.id });
+    const handleOnClick = () => {
+        if (current()) {
+            bus?.emit({ name: 'onClick', target: props.item.id });
+        } else {
+            bus?.emit({ name: 'onSelect', target: props.item.id });
+        }
+    };
+    const handleOnSelect = () => bus?.emit({ name: 'onSelect', target: props.item.id });
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Space') {
             ev.preventDefault();
-            emitOnSelect();
+            handleOnSelect();
         }
     };
 
     createEffect(() => {
-        if (!isModal() && current()?.id === props.item.id && buttonRef) {
+        if (!isModal() && isCurrent() && buttonRef) {
             buttonRef.focus();
             // TODO set focus when modal closes
         }
     });
 
     const url = () => makeImageUrl(props.item);
+    const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
+    const label = () => `Gaallery item. ${date()}. Press to open details.`;
+
+    const classList = () => ({
+        GalleryItem: true,
+        'GalleryItem-is-current': isCurrent(),
+    });
 
     return (
         <Flex gap="m" classList={classList()}>
@@ -50,14 +59,14 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                 ref={buttonRef}
                 tabindex="0"
                 class="GalleryItem--button"
-                onFocus={emitOnFocus}
-                onClick={emitOnClick}
+                onFocus={handleOnFocus}
+                onClick={handleOnClick}
                 onKeyDown={handleKeyDown}
+                aria-label={label()}
             >
-                <ItemCheckbox id={props.item.id} />
+                <ItemCheckbox id={props.item.id} onFocus={handleOnFocus} />
                 <img alt="" src={url()} />
             </button>
-            {/* <Text size="s">Date:{date()}</Text> */}
         </Flex>
     );
 };

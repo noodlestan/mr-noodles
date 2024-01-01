@@ -12,7 +12,8 @@
 }
 
 .GalleryItem--button:focus,
-.GalleryItem--button:focus-visible {
+.GalleryItem--button:focus-visible,
+.GalleryItem-is-current .GalleryItem--button {
     outline-offset: var(--outline-offset);
     outline-style: var(--outline-style);
     outline-width: var(--outline-width);
