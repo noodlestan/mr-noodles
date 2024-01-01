@@ -40,6 +40,8 @@
 .DataValue-is-interactive:focus,
 .DataValue-is-interactive:focus-visible {
     text-decoration: underline;
-    outline: var(--outline-base);
-    outline-offset: var(--space-gap-0);
+    outline-offset: var(--outline-offset);
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--outline-color);
 }

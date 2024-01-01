@@ -9,8 +9,8 @@ type ExampleSmallProps = { title?: string };
 
 export const ExampleTiny: Component<ExampleSmallProps> = props => (
     <>
-        <Icon size="s" svg={ClockSvg} />
+        <Icon size="s" icon={ClockSvg} />
         <Display level={4}>{props.title || 'Foobar'}</Display>
-        <IconButton size="s" variant="primary" svg={SettingsSvg} />
+        <IconButton size="s" variant="primary" icon={SettingsSvg} />
     </>
 );

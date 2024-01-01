@@ -13,7 +13,7 @@ export const ExampleMedium: Component<ExampleMediumProps> = props => (
     <Flex gap="l" padding="l" classList={{ ExampleSmall: true }}>
         <Flex gap="m">
             <Flex direction="row" align="center">
-                <Icon size="s" svg={LockOnSvg} />
+                <Icon size="s" icon={LockOnSvg} />
                 <Display level={3}>{props.title}</Display>
             </Flex>
         </Flex>
@@ -22,8 +22,8 @@ export const ExampleMedium: Component<ExampleMediumProps> = props => (
             <TextInput size="s" length="m" value="password" type="password" />
         </Flex>
         <Flex direction="row" gap="m" align="center">
-            <IconButton variant="primary" svg={LockOnSvg} />
-            <IconButton variant="secondary" svg={LockOffSvg} />
+            <IconButton variant="primary" icon={LockOnSvg} />
+            <IconButton variant="secondary" icon={LockOffSvg} />
             <Button variant="plain">Plain</Button>
         </Flex>
         <Text>

@@ -1,5 +1,5 @@
 import { Icon } from '@noodlestan/ui-atoms';
-import InfoSvg from '@noodlestan/ui-icons/src/assets/icons/info.svg';
+import ClockSvg from '@noodlestan/ui-icons/src/assets/icons/clock.svg';
 import { Component } from 'solid-js';
 
 import { findComponent } from '@/data/components';
@@ -18,28 +18,28 @@ export const IconPage: Component = () => {
             <ComponentMeta component={COMPONENT} />
             <DemoGroup title="defaults">
                 <DemoItem>
-                    <Icon svg={InfoSvg} />
+                    <Icon icon={ClockSvg} />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="size">
                 <DemoItem title="l">
-                    <Icon svg={InfoSvg} size="l" />
+                    <Icon icon={ClockSvg} size="l" />
                 </DemoItem>
                 <DemoItem title="m">
-                    <Icon svg={InfoSvg} size="m" />
+                    <Icon icon={ClockSvg} size="m" />
                 </DemoItem>
                 <DemoItem title="s">
-                    <Icon svg={InfoSvg} size="s" />
+                    <Icon icon={ClockSvg} size="s" />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="recoloring">
                 <div class="IconPage--recoloring">
-                    <Icon svg={InfoSvg} size="s" />
+                    <Icon icon={ClockSvg} size="s" />
                 </div>
             </DemoGroup>
             <DemoGroup title="classList">
                 <DemoItem note="Should override icon color">
-                    <Icon svg={InfoSvg} classList={{ override: true }} />
+                    <Icon icon={ClockSvg} classList={{ override: true }} />
                 </DemoItem>
             </DemoGroup>
         </DemoPage>

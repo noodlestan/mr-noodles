@@ -27,6 +27,7 @@
     "@noodlestan/ui-surfaces": "0.0.1",
     "@noodlestan/ui-theme-base": "0.0.1",
     "@solid-primitives/event-bus": "1.0.8",
+    "lucide-solid": "^0.303.0",
     "solid-js": "1.8.4",
     "solid-services": "4.3.2"
   }

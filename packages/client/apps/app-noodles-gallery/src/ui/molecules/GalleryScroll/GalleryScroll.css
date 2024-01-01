@@ -1,0 +1,8 @@
+.GalleryScroll {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: var(--space-pad-2) var(--space-pad-0);
+    height: 100%;
+    overflow-y: auto;
+}

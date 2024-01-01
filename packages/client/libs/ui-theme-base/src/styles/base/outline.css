@@ -1,6 +1,6 @@
 .Theme-base {
     --outline-radius: var(--radius-xs);
-    --outline-offset: var(--space-gap-0);
-    --outline-width: var(--space-gap-0);
+    --outline-offset: var(--scale-4xs);
+    --outline-width: var(--scale-4xs);
     --outline-style: solid;
 }

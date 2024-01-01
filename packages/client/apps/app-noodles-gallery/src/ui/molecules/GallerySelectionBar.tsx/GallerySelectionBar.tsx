@@ -1,6 +1,7 @@
-import { Button } from '@noodlestan/ui-atoms';
+import { IconButton, Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
-import { Component, createEffect } from 'solid-js';
+import { CircleOff } from 'lucide-solid';
+import { Component, Show, createEffect } from 'solid-js';
 
 import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
 
@@ -21,10 +22,16 @@ export const GallerySelectionBar: Component = () => {
 
     return (
         <Flex classList={classList()} gap="m" align="center">
-            Selection: {selection().size}
-            <Button variant="plain" size="s" onClick={handleClearClick}>
-                Clear
-            </Button>
+            <Show when={selection().size}>
+                <Text size="m">{selection().size} selected</Text>
+                <IconButton
+                    variant="plain"
+                    size="s"
+                    onClick={handleClearClick}
+                    icon={CircleOff}
+                    label="Clear selection"
+                />
+            </Show>
         </Flex>
     );
 };

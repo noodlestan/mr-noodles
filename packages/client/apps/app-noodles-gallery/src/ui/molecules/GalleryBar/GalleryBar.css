@@ -1,3 +1,4 @@
 .GalleryBar {
-    width: auto;
+    height: var(--scale-l);
+    box-shadow: 0px 2px 5px 2px hsla(var(--surface-border-hue-sat), var(--color-fg-light-3), 0.3);
 }

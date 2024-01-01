@@ -1,0 +1,11 @@
+.FocusTrap--input {
+    width: 0px;
+    height: 0px;
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: 50px;
+    position: absolute;
+    top: -200px;
+    opacity: 0;
+}

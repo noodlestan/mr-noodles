@@ -1,5 +1,5 @@
 import { IconButton } from '@noodlestan/ui-atoms';
-import InfoSvg from '@noodlestan/ui-icons/src/assets/icons/info.svg';
+import PlusSvg from '@noodlestan/ui-icons/src/assets/icons/plus.svg';
 import { Component } from 'solid-js';
 
 import { findComponent } from '@/data/components';
@@ -21,61 +21,61 @@ export const IconButtonPage: Component = () => {
             <ComponentMeta component={COMPONENT} />
             <DemoGroup title="defaults">
                 <DemoItem row>
-                    <IconButton svg={InfoSvg} />
+                    <IconButton icon={PlusSvg} />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="variant">
                 <DemoItem row title="primary">
-                    <IconButton svg={InfoSvg} variant="primary" />
+                    <IconButton icon={PlusSvg} variant="primary" />
                 </DemoItem>
                 <DemoItem row title="secondary">
-                    <IconButton svg={InfoSvg} variant="secondary" />
+                    <IconButton icon={PlusSvg} variant="secondary" />
                 </DemoItem>
                 <DemoItem row title="plain">
-                    <IconButton svg={InfoSvg} variant="plain" />
+                    <IconButton icon={PlusSvg} variant="plain" />
                 </DemoItem>
                 <DemoItem row title="danger">
-                    <IconButton svg={InfoSvg} variant="danger" />
+                    <IconButton icon={PlusSvg} variant="danger" />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="size">
                 <DemoItem row title="l">
-                    <IconButton svg={InfoSvg} size="l" />
+                    <IconButton icon={PlusSvg} size="l" />
                 </DemoItem>
                 <DemoItem row title="m">
-                    <IconButton svg={InfoSvg} size="m" />
+                    <IconButton icon={PlusSvg} size="m" />
                 </DemoItem>
                 <DemoItem row title="s">
-                    <IconButton svg={InfoSvg} size="s" />
+                    <IconButton icon={PlusSvg} size="s" />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="disabled">
                 <DemoItem row title="primary">
-                    <IconButton svg={InfoSvg} variant="primary" disabled />
+                    <IconButton icon={PlusSvg} variant="primary" disabled />
                 </DemoItem>
                 <DemoItem row title="secondary">
-                    <IconButton svg={InfoSvg} variant="secondary" disabled />
+                    <IconButton icon={PlusSvg} variant="secondary" disabled />
                 </DemoItem>
                 <DemoItem row title="plain">
-                    <IconButton svg={InfoSvg} variant="plain" disabled />
+                    <IconButton icon={PlusSvg} variant="plain" disabled />
                 </DemoItem>
                 <DemoItem row title="danger">
-                    <IconButton svg={InfoSvg} variant="danger" disabled />
+                    <IconButton icon={PlusSvg} variant="danger" disabled />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="onClick">
                 <DemoItem row note="see console log">
-                    <IconButton svg={InfoSvg} onClick={handleClick} />
+                    <IconButton icon={PlusSvg} onClick={handleClick} />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="onTap">
                 <DemoItem row note="see console log">
-                    <IconButton svg={InfoSvg} onTap={handleTap} />
+                    <IconButton icon={PlusSvg} onTap={handleTap} />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="classList">
                 <DemoItem row note="Should override background color">
-                    <IconButton svg={InfoSvg} classList={{ override: true }} />
+                    <IconButton icon={PlusSvg} classList={{ override: true }} />
                 </DemoItem>
             </DemoGroup>
         </DemoPage>

@@ -121,8 +121,10 @@
     cursor: not-allowed;
 }
 
+.Button:focus,
 .Button:focus-visible {
-    outline: var(--outline-base);
-    outline-offset: var(--space-gap-0);
-    z-index: 2;
+    outline-offset: var(--outline-offset);
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--outline-color);
 }

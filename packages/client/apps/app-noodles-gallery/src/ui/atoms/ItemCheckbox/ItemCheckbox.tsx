@@ -10,6 +10,7 @@ import './ItemCheckbox.css';
 export type ItemCheckboxProps = {
     id: string;
     onFocus: () => void;
+    onKeyDown: (ev: KeyboardEvent) => void;
 };
 export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -28,13 +29,17 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
 
     let inputRef: HTMLInputElement | undefined;
 
-    const handleClick = (ev: MouseEvent) => {
-        ev.stopPropagation();
+    const emitSelect = () => {
         bus?.emit({ name: 'onSelect', target: props.id });
     };
 
+    const handleClick = (ev: MouseEvent) => {
+        ev.stopPropagation();
+        emitSelect();
+    };
+
     const handleOnChange = () => {
-        bus?.emit({ name: 'onSelect', target: props.id });
+        emitSelect();
     };
 
     const handleFocus = () => {
@@ -44,6 +49,12 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
     const handleBlur = () => setFocus(false);
 
     const label = () => (checked() ? 'unselect item' : 'select item');
+
+    const handleKeyDown = (ev: KeyboardEvent) => {
+        if (ev.code !== 'Space') {
+            props.onKeyDown(ev);
+        }
+    };
 
     return (
         <Flex gap="m" classList={classList()}>
@@ -56,6 +67,7 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
                     checked={checked()}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onKeyDown={handleKeyDown}
                     aria-label={label()}
                 />
             </div>

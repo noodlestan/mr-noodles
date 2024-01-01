@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { inject } from '@noodlestan/ui-services';
 import { Component, JSX, Show, createUniqueId, untrack } from 'solid-js';
 import { Portal } from 'solid-js/web';
@@ -6,6 +7,7 @@ import { useModalShowEffect, useTransitionClassList } from '../../hooks/';
 import { MODAL_Z_INDEX } from '../../private/constants';
 import { ModalProvider } from '../../private/providers/ModalProvider';
 import { ModalsService } from '../../services';
+import { FocusTrap } from '../FocusTrap';
 import { Overlay } from '../Overlay';
 
 import './Modal.css';
@@ -25,7 +27,8 @@ export const Modal: Component<ModalProps> = props => {
     const getIndex = () => getModalIndex(id);
     const isCurrent = () => isModalCurrent(id);
     const getTransition = () => getModalTransition(id);
-    const isVisible = () => isModalVisible(id) || getTransition();
+    const isTransition = () => !!getTransition();
+    const isVisible = () => isModalVisible(id) || !!isTransition();
 
     const classList = () => ({ Modal: true, 'Modal-is-current': isCurrent() });
     const transitionClassList = useTransitionClassList('Modal', getTransition);
@@ -43,7 +46,9 @@ export const Modal: Component<ModalProps> = props => {
                         current={isCurrent}
                         transition={getTransition}
                     >
-                        <div classList={transitionClassList()}>{props.children}</div>
+                        <FocusTrap show={isModalVisible(id) && !isTransition()} autoFocus={true}>
+                            <div classList={transitionClassList()}>{props.children}</div>
+                        </FocusTrap>
                         <Show when={isModalDimmed(id)}>
                             <Overlay />
                         </Show>

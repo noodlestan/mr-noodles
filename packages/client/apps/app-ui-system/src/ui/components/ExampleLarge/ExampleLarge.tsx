@@ -15,7 +15,7 @@ type ExampleLargeProps = {
 export const ExampleLargeHeader: Component<ExampleLargeProps> = props => (
     <Flex gap="s">
         <Flex direction="row" align="center" gap="m">
-            <Icon size="m" svg={LockOnSvg} />
+            <Icon size="m" icon={LockOnSvg} />
             <Display level={3}>{props.title}</Display>
         </Flex>
         <Text>
@@ -30,7 +30,7 @@ export const ExampleLargeBody: Component<ExampleLargeProps> = () => (
     <Flex gap="m">
         <Flex gap="m" direction="row" justify="between">
             <Display level={3}>Lorem ipsum dolor</Display>
-            <IconButton variant="secondary" svg={LockOnSvg} />
+            <IconButton variant="secondary" icon={LockOnSvg} />
         </Flex>
         <Flex gap="xl">
             <Flex gap="l">
@@ -54,7 +54,7 @@ export const ExampleLargeBody: Component<ExampleLargeProps> = () => (
 export const ExampleLargeFooter: Component<ExampleLargeProps> = () => (
     <Flex direction="row" align="center" gap="l">
         <Flex direction="row" align="center" gap="s">
-            <Icon size="s" svg={ClockSvg} />
+            <Icon size="s" icon={ClockSvg} />
             <Text>Lorem ipsum dolor sit amet</Text>
             <Button size="s" variant="plain">
                 Plain

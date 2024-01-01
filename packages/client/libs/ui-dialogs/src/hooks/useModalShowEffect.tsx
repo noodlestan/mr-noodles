@@ -13,9 +13,9 @@ export const useModalShowEffect = (
 
     createEffect(
         on(show, (value, previous) => {
-            if (value) {
+            if (value && !previous) {
                 addModal(id, options);
-            } else if (previous !== undefined) {
+            } else if (!value && previous) {
                 deleteModal(id);
             }
         }),

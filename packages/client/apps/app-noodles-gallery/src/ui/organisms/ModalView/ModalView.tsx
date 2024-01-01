@@ -1,16 +1,18 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { PhotoData } from '@noodlestan/shared-types';
 import { Modal } from '@noodlestan/ui-dialogs';
 import { Component, createSignal } from 'solid-js';
 
 import { ModalItem } from '@/ui/molecules/ModalItem/ModalItem';
 import { ModalItemHeader } from '@/ui/molecules/ModalItemHeader/ModalItemHeader';
+import { ModalItemNavigation } from '@/ui/molecules/ModalItemNavigation/ModalItemNavigation';
 import { ModalItemRail } from '@/ui/molecules/ModalItemRail/ModalItemRail';
 import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
 
 import './ModalView.css';
 
-const SHOW_HEADER_DURATION_INITIAL = 500;
-const SHOW_HEADER_DURATION_SUBSQUENT = 2500;
+const SHOW_HEADER_DURATION_INITIAL = 1000;
+const SHOW_HEADER_DURATION_SUBSQUENT = 3000;
 
 export type ModalViewProps = {
     show: boolean;
@@ -46,10 +48,13 @@ const ModalViewContents: Component<ModalViewProps> = () => {
     //     }),
     // );
 
-    const handleMouseMove = () => {
+    const notQuiet = () => {
         resetQuiet(SHOW_HEADER_DURATION_SUBSQUENT);
         setQuiet(false);
     };
+
+    const handleMouseMove = notQuiet;
+    const handleKeyDown = notQuiet;
 
     // eslint-disable-next-line solid/reactivity
     resetQuiet();
@@ -68,13 +73,15 @@ const ModalViewContents: Component<ModalViewProps> = () => {
                 tabindex="-1"
                 classList={dialogClassList()}
                 onMouseMove={handleMouseMove}
+                onKeyDown={handleKeyDown}
             >
-                <ModalItemHeader show={!quiet()} />
+                <ModalItemHeader item={item()} show={!quiet()} />
                 <ModalItemRail>
                     {/* <ModalItem id={previousId()} /> */}
                     <ModalItem item={item()} onClick={handleClick} />
                     {/* <ModalItem id={nextId()} /> */}
                 </ModalItemRail>
+                <ModalItemNavigation show={!quiet()} />
             </div>
         </div>
     );

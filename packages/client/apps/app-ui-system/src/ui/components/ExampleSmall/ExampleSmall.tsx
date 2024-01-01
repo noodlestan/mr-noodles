@@ -11,7 +11,7 @@ export const ExampleSmall: Component<ExampleSmallProps> = props => (
     <Flex direction="column" gap="l" padding="m" classList={{ ExampleSmall: true }}>
         <Flex gap="m">
             <Flex direction="row" align="center" gap="s">
-                <Icon size="s" svg={ClockSvg} />
+                <Icon size="s" icon={ClockSvg} />
                 <Display level={3}>{props.title}</Display>
             </Flex>
             <Text>

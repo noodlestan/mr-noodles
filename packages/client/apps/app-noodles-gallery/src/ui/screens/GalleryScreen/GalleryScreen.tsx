@@ -6,10 +6,13 @@ import { galleryStore } from './private/store';
 
 import { PhotosService } from '@/services/Photos';
 import { GalleryBar } from '@/ui/molecules/GalleryBar/GalleryBar';
+import { GalleryScroll } from '@/ui/molecules/GalleryScroll/GalleryScroll';
 import { Gallery } from '@/ui/organisms/Gallery/Gallery';
 import { ModalView } from '@/ui/organisms/ModalView/ModalView';
 import { GallerySelectionProvider } from '@/ui/providers/GallerySelection/GallerySelection';
 import { GallerySelectionService } from '@/ui/services/GallerySelection';
+
+import './GalleryScreen.css';
 
 const groupByToSortBy = (group: IGroup[]): ISort[] => {
     return group.map(({ field, dir }) => {
@@ -54,12 +57,16 @@ export const GalleryScreen: Component = () => {
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <main tab-index="0" onKeyDown={handleKeyDown}>
             <GallerySelectionProvider context={selectionContext}>
-                <GalleryBar />
-                <Show when={loading()}>Loading</Show>
-                <Show when={!loading()}>
-                    <Gallery items={photos} groupBy={groupBy} query={query} />
-                </Show>
-                <ModalView show={isModal() && !!current()} />
+                <div class="GalleryScreen">
+                    <GalleryBar />
+                    <GalleryScroll>
+                        <Show when={loading()}>Loading</Show>
+                        <Show when={!loading()}>
+                            <Gallery items={photos} groupBy={groupBy} query={query} />
+                        </Show>
+                    </GalleryScroll>
+                    <ModalView show={isModal() && !!current()} />
+                </div>
             </GallerySelectionProvider>
         </main>
     );

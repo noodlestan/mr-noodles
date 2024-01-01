@@ -30,6 +30,7 @@
     "@noodlestan/ui-tokens": "0.0.1",
     "@solid-primitives/resize-observer": "2.0.18",
     "@solid-primitives/scheduled": "1.3.2",
+    "lucide-solid": "^0.303.0",
     "solid-js": "1.8.4"
   }
 }

@@ -34,17 +34,21 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
         if (ev.code === 'Space') {
             ev.preventDefault();
             handleOnSelect();
+        } else if (ev.code === 'Enter') {
+            handleOnClick();
         }
     };
 
     createEffect(() => {
         if (!isModal() && isCurrent() && buttonRef) {
             buttonRef.focus();
+            buttonRef.scrollIntoView({ block: 'center', behavior: 'instant' });
             // TODO set focus when modal closes
         }
     });
 
     const url = () => makeImageUrl(props.item);
+    // TODO abstract
     const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
     const label = () => `Gaallery item. ${date()}. Press to open details.`;
 
@@ -64,7 +68,11 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                 onKeyDown={handleKeyDown}
                 aria-label={label()}
             >
-                <ItemCheckbox id={props.item.id} onFocus={handleOnFocus} />
+                <ItemCheckbox
+                    id={props.item.id}
+                    onFocus={handleOnFocus}
+                    onKeyDown={handleKeyDown}
+                />
                 <img alt="" src={url()} />
             </button>
         </Flex>

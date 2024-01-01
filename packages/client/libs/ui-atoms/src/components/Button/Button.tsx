@@ -14,6 +14,7 @@ export type ButtonProps = {
     onClick?: () => void;
     onTap?: () => void;
     classList?: { [key: string]: boolean };
+    label?: string;
     children?: JSX.Element;
 };
 
@@ -69,6 +70,7 @@ export const Button: Component<ButtonProps> = props => {
 
     return (
         <button
+            aria-label={props.label}
             disabled={props.disabled}
             onClick={() => props.onClick && props.onClick()}
             onMouseDown={() => props.onTap && props.onTap()}

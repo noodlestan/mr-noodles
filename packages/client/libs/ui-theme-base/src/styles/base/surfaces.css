@@ -7,11 +7,11 @@
     --surface-bg-hue-sat: var(--color-bg-hue), var(--color-bg-sat);
     --surface-bg-light-alpha: var(--color-bg-light-3), 1;
 
-    --surface-bg-screen: hsla(
+    --surface-bg-overlay: hsla(
         var(--color-sw-0-hue),
         var(--color-sw-0-sat),
-        var(--color-light-4),
-        0.5
+        var(--color-bg-light-5),
+        0.8
     );
 
     --surface-border-hue-sat: var(--color-fg-hue), var(--color-fg-sat);

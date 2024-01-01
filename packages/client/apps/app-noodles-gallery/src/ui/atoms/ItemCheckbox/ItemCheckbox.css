@@ -33,7 +33,7 @@
 
 .ItemCheckbox:hover .ItemCheckbox--control,
 .ItemCheckbox-is-selecting .ItemCheckbox--control {
-    background-color: var(--surface-bg-screen);
+    background-color: var(--surface-bg-overlay);
 }
 
 .ItemCheckbox.ItemCheckbox-is-checked .ItemCheckbox--control {
