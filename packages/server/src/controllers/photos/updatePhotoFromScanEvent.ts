@@ -4,7 +4,7 @@ import { Metadata } from 'sharp';
 import { EventScanFile } from '../../events/scan';
 import { logger } from '../../logger';
 import { Photo, PhotoDocument } from '../../models/photo';
-import { createAlbumFromSlugAndPhotoId } from '../albums/createAlbumFromSlugAndPhotoId';
+import { createAlbumFromSlugTitleAndPhotoId } from '../albums/createAlbumFromSlugTitleAndPhotoId';
 import { ensurePhotoInAlbum } from '../albums/ensurePhotoInAlbum';
 import { ensurePhotoNotInAlbum } from '../albums/ensurePhotoNotInAlbum';
 
@@ -17,8 +17,9 @@ export const updatePhotoFromScanEvent = async (
     meta: Metadata,
     exif?: ExifData,
 ): Promise<void> => {
-    const updates = detectPhotoUpdates(event, photo, hash, meta, exif);
-    if (updates) {
+    const info = detectPhotoUpdates(event, photo, hash, meta, exif);
+    if (info) {
+        const { updates, album } = info;
         await Photo.findByIdAndUpdate(photo._id, updates);
 
         logger.debug('controller:photos:update-from-scan', {
@@ -32,10 +33,10 @@ export const updatePhotoFromScanEvent = async (
             if (photo.album) {
                 ensurePhotoNotInAlbum(photo._id, photo.album);
             }
-            if (updates?.$set?.album) {
-                const slug = updates?.$set?.album as string;
+            if (updates?.$set?.album && album) {
+                const { slug, title } = album;
                 try {
-                    await createAlbumFromSlugAndPhotoId(slug, photo.id);
+                    await createAlbumFromSlugTitleAndPhotoId(slug, title, photo.id);
                 } catch (err) {
                     const message = (err as Error).message;
                     if (!/duplicate key error collection/.test(message)) {

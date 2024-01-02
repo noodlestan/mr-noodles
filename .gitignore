@@ -42,4 +42,5 @@ pids
 
 # Asset directories
 resources/assets
+resources/example-media/good/pictures
 

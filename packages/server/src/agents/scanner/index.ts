@@ -10,7 +10,7 @@ import {
     EventScanFile,
 } from '../../events/scan';
 import { logger } from '../../logger';
-import { defer } from '../../utils/flow';
+import { defer } from '../../utils/flow/defer';
 
 const isImageFile = (filename: string): boolean => {
     const parts = path.parse(filename);

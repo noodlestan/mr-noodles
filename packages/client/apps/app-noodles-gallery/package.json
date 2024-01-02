@@ -24,6 +24,7 @@
     "@noodlestan/ui-layouts": "0.0.1",
     "@noodlestan/ui-root": "0.0.1",
     "@noodlestan/ui-services": "0.0.1",
+    "@noodlestan/ui-skeletons": "0.0.1",
     "@noodlestan/ui-surfaces": "0.0.1",
     "@noodlestan/ui-theme-base": "0.0.1",
     "@solid-primitives/event-bus": "1.0.8",

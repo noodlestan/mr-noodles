@@ -4,18 +4,26 @@ import { Metadata } from 'sharp';
 import { EventScanFile } from '../../../events/scan';
 import { PhotoDocument } from '../../../models/photo';
 import { MongoPoint } from '../../../models/types';
+import { albumSlugFromRelativePath } from '../../albums/albumSlugFromRelativePath';
+import { albumTitleFromRelativePath } from '../../albums/albumTitleFromRelativePath';
 
-import { albumNameFromRelativePath } from './albumNameFromRelativePath';
 import { latLongFromExifGps } from './latLongFromExifGps';
 
 type Updates = {
     [key: string]: string | number | boolean | undefined | MongoPoint;
 };
 
-// type UpdateQuery<PhotoDocument>
 type UpdateFields = {
     $set?: Updates;
     $unset?: Updates;
+};
+
+type UpdateInfo = {
+    updates: UpdateFields;
+    album?: {
+        slug: string;
+        title: string;
+    };
 };
 
 export const detectPhotoUpdates = (
@@ -24,7 +32,7 @@ export const detectPhotoUpdates = (
     hash: string,
     meta: Metadata,
     exif?: ExifData,
-): UpdateFields | undefined => {
+): UpdateInfo | undefined => {
     const set: Updates = {};
     const unset: Updates = {};
 
@@ -35,7 +43,8 @@ export const detectPhotoUpdates = (
         set.hash = hash;
     }
 
-    const albumSlug = albumNameFromRelativePath(event.relativePath);
+    const albumSlug = albumSlugFromRelativePath(event.relativePath);
+    const albumTitle = albumTitleFromRelativePath(event.relativePath);
     if (albumSlug !== photo.album) {
         if (albumSlug) {
             set.album = albumSlug;
@@ -69,9 +78,16 @@ export const detectPhotoUpdates = (
     }
 
     if (set || unset) {
+        const album = {
+            slug: albumSlug,
+            title: albumTitle,
+        };
         return {
-            $set: set,
-            $unset: unset,
+            updates: {
+                $set: set,
+                $unset: unset,
+            },
+            album: albumSlug && albumTitle ? album : undefined,
         };
     }
 };

@@ -4,10 +4,11 @@ import { Metadata } from 'sharp';
 import { EventScanFile } from '../../events/scan';
 import { logger } from '../../logger';
 import { Photo } from '../../models/photo';
-import { createAlbumFromSlugAndPhotoId } from '../albums/createAlbumFromSlugAndPhotoId';
+import { albumSlugFromRelativePath } from '../albums/albumSlugFromRelativePath';
+import { albumTitleFromRelativePath } from '../albums/albumTitleFromRelativePath';
+import { createAlbumFromSlugTitleAndPhotoId } from '../albums/createAlbumFromSlugTitleAndPhotoId';
 import { ensurePhotoInAlbum } from '../albums/ensurePhotoInAlbum';
 
-import { albumNameFromRelativePath } from './utils/albumNameFromRelativePath';
 import { dateFromExifDate } from './utils/dateFromExifDate';
 import { latLongFromExifGps } from './utils/latLongFromExifGps';
 
@@ -17,7 +18,8 @@ export const createPhotoFromScanEvent = async (
     meta: Metadata,
     exif?: ExifData,
 ): Promise<void> => {
-    const albumSlug = albumNameFromRelativePath(event.relativePath);
+    const albumSlug = albumSlugFromRelativePath(event.relativePath);
+    const albumTitle = albumTitleFromRelativePath(event.relativePath);
 
     const location = exif && latLongFromExifGps(exif);
     const photo = Photo.fromData({
@@ -41,7 +43,7 @@ export const createPhotoFromScanEvent = async (
 
     if (albumSlug) {
         try {
-            await createAlbumFromSlugAndPhotoId(albumSlug, photo.id);
+            await createAlbumFromSlugTitleAndPhotoId(albumSlug, albumTitle, photo.id);
         } catch (err) {
             const message = (err as Error).message;
             if (!/duplicate key error collection/.test(message)) {
