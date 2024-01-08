@@ -1,0 +1,4 @@
+.MainNav {
+    height: 100vh;
+    box-shadow: 2px 0px 0px hsla(var(--surface-border-hue-sat), var(--color-fg-light-3), 0.1);
+}

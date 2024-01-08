@@ -9,7 +9,9 @@ import { GalleryBar } from '@/ui/molecules/GalleryBar/GalleryBar';
 import { GalleryScroll } from '@/ui/molecules/GalleryScroll/GalleryScroll';
 import { Gallery } from '@/ui/organisms/Gallery/Gallery';
 import { ModalView } from '@/ui/organisms/ModalView/ModalView';
-import { GallerySelectionProvider } from '@/ui/providers/GallerySelection/GallerySelection';
+import { GalleryNavigationProvider } from '@/ui/providers/GalleryNavigation';
+import { GallerySelectionProvider } from '@/ui/providers/GallerySelection';
+import { GalleryNavigationService } from '@/ui/services/GalleryNavigation';
 import { GallerySelectionService } from '@/ui/services/GallerySelection';
 
 import './GalleryScreen.css';
@@ -27,8 +29,11 @@ export const GalleryScreen: Component = () => {
     const sort = () => groupByToSortBy(groupBy());
 
     const { createSelectionContext } = inject(GallerySelectionService);
-    const selectionContext = createSelectionContext(photos);
-    const { bus, isModal, current } = selectionContext;
+    const selectionContext = createSelectionContext();
+
+    const { createNavigationContext } = inject(GalleryNavigationService);
+    const navigationContext = createNavigationContext(photos);
+    const { bus: navigationBus, isModal, current } = navigationContext;
 
     createRenderEffect(() => {
         setGroupBy([
@@ -43,31 +48,33 @@ export const GalleryScreen: Component = () => {
 
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Escape') {
-            bus?.emit({ name: 'closeModal' });
+            navigationBus?.emit({ name: 'closeModal' });
         }
         if (ev.code === 'ArrowLeft') {
-            bus?.emit({ name: 'goToPreviousItem' });
+            navigationBus?.emit({ name: 'goToPreviousItem' });
         }
         if (ev.code === 'ArrowRight') {
-            bus?.emit({ name: 'goToNextItem' });
+            navigationBus?.emit({ name: 'goToNextItem' });
         }
     };
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <main tab-index="0" onKeyDown={handleKeyDown}>
-            <GallerySelectionProvider context={selectionContext}>
-                <div class="GalleryScreen">
-                    <GalleryBar />
-                    <GalleryScroll>
-                        <Show when={loading()}>Loading</Show>
-                        <Show when={!loading()}>
-                            <Gallery items={photos} groupBy={groupBy} query={query} />
-                        </Show>
-                    </GalleryScroll>
-                    <ModalView show={isModal() && !!current()} />
-                </div>
-            </GallerySelectionProvider>
+            <GalleryNavigationProvider context={navigationContext}>
+                <GallerySelectionProvider context={selectionContext}>
+                    <div class="GalleryScreen">
+                        <GalleryBar />
+                        <GalleryScroll>
+                            <Show when={loading()}>Loading</Show>
+                            <Show when={!loading()}>
+                                <Gallery items={photos} groupBy={groupBy} query={query} />
+                            </Show>
+                        </GalleryScroll>
+                        <ModalView show={isModal() && !!current()} />
+                    </div>
+                </GallerySelectionProvider>
+            </GalleryNavigationProvider>
         </main>
     );
 };

@@ -9,7 +9,7 @@ export const IMAGE_FULL_MAX: ImageProfile = {
 
 export const IMAGE_FULL_FAST: ImageProfile = {
     name: 'full.fast',
-    width: 2000,
+    width: 3000,
     height: 2000,
     fit: 'inside',
 };
@@ -26,9 +26,18 @@ export const IMAGE_THUMB_SMALL: ImageProfile = {
     fit: 'contain',
 };
 
-export const IMAGE_PROFILES: Array<ImageProfile> = [
+export const IMAGE_THUMB_MEDIUM_SQUARE: ImageProfile = {
+    name: 'thumb.medium.square',
+    height: 300,
+    width: 300,
+    fit: 'cover',
+};
+
+export const GALLERY_IMAGE_PROFILES: Array<ImageProfile> = [
     IMAGE_FULL_MAX,
     IMAGE_FULL_FAST,
     IMAGE_THUMB_BIG,
     IMAGE_THUMB_SMALL,
 ];
+
+export const ALBUM_IMAGE_PROFILES: Array<ImageProfile> = [IMAGE_THUMB_MEDIUM_SQUARE];

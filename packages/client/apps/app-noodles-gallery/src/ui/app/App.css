@@ -11,3 +11,7 @@ main {
     place-items: stretch;
     gap: var(--space-gap-1);
 }
+
+.App-Main {
+    flex: 1;
+}

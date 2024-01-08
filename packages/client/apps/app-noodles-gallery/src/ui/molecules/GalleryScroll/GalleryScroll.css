@@ -2,7 +2,19 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding: var(--space-pad-2) var(--space-pad-0);
+    padding: 16px var(--space-pad-1);
     height: 100%;
     overflow-y: auto;
 }
+
+.GalleryScroll:focus-visible {
+    outline: none;
+}
+
+/*
+.GalleryScroll:focus-visible {
+    outline-offset: var(--outline-offset);
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--outline-color);
+} */

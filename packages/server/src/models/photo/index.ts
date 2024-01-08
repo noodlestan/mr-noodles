@@ -169,7 +169,7 @@ schema.static(
 );
 
 schema.static('addImageToPhoto', async (id: Types.ObjectId, image: ImageFile): Promise<void> => {
-    await PhotoModel.findByIdAndUpdate(id, { orientation: 3, $push: { images: image } });
+    await PhotoModel.findByIdAndUpdate(id, { $push: { images: image } });
 });
 
 const PhotoModel = model<PhotoSchema, IModel>('Photo', schema);

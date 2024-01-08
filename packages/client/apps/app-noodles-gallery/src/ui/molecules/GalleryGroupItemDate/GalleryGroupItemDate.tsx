@@ -38,8 +38,10 @@ export const GalleryGroupItemDate: Component<GalleryGroupItemDateProps> = props 
             <Flex classList={classList()} direction="column" padding="m">
                 <GalleryGroupHeader group={props.group}>
                     <Flex direction="row" gap="s">
-                        {/* <Display level={3}>{attributes().group}</Display> */}
-                        <Display level={3}>{date()}</Display>
+                        {/* <Display level={3} size="s">{attributes().group}</Display> */}
+                        <Display level={3} size="s">
+                            {date()}
+                        </Display>
                     </Flex>
                 </GalleryGroupHeader>
                 {props.children}

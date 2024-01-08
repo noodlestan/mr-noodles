@@ -63,6 +63,14 @@ export const DisplayPage: Component = () => {
                     </Display>
                 </DemoItem>
             </DemoGroup>
+            <DemoGroup title="nowrap">
+                <DemoItem title="true" maxWidth={'500px'}>
+                    <Display level={1} size="l" nowrap>
+                        Nam scelerisque, lectus sed pulvinar aliquet turpis quis nulla dapibus
+                        vulputate in a justo duis fermentum faucibus est non semper nisl
+                    </Display>
+                </DemoItem>
+            </DemoGroup>
             <DemoGroup title="tag">
                 <DemoItem note="Should render a <p>">
                     <Display level={3} tag="p">

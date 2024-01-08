@@ -1,0 +1,4 @@
+.AlbumLink {
+    display: flex;
+    gap: var(--space-gap-0);
+}

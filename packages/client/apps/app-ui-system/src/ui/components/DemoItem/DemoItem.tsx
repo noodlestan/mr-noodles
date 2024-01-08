@@ -9,22 +9,27 @@ type DemoItemProps = {
     title?: string;
     note?: string;
     row?: boolean;
+    maxWidth?: string;
     children?: JSX.Element;
 };
 
 export const DemoItem: Component<DemoItemProps> = props => {
+    const style = () => (props.maxWidth ? { 'max-width': props.maxWidth } : {});
+
     return (
         <Surface tag="section" variant="card" classList={{ DemoItem: true }}>
             <Flex gap="s" padding="m">
-                <Show when={props.title}>
-                    <Label>{props.title}</Label>
-                </Show>
-                <Flex gap="m" direction={props.row ? 'row' : 'column'}>
-                    {props.children}
-                </Flex>
-                <Show when={props.note}>
-                    <Text size="xs">{props.note}</Text>
-                </Show>
+                <div style={style()}>
+                    <Show when={props.title}>
+                        <Label>{props.title}</Label>
+                    </Show>
+                    <Flex gap="m" direction={props.row ? 'row' : 'column'}>
+                        {props.children}
+                    </Flex>
+                    <Show when={props.note}>
+                        <Text size="xs">{props.note}</Text>
+                    </Show>
+                </div>
             </Flex>
         </Surface>
     );

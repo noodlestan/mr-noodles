@@ -3,11 +3,13 @@ import type { PhotoData } from '@noodlestan/shared-types';
 import { GalleryRowOptions } from '../../types';
 import { MAX_ITEMS } from '../createGalleryGroups';
 
+const GAP_SIZE = 8;
+
 const calcWidth = (items: PhotoData[], height: number): number => {
     return items.reduce((acc, item) => {
         const ratio = item.height / item.width;
         return acc + height / ratio;
-    }, 0);
+    }, GAP_SIZE * items.length);
 };
 
 const itemFitsInRow = (

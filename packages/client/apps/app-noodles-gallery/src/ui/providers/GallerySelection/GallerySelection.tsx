@@ -1,8 +1,12 @@
-import { createEventBus } from '@solid-primitives/event-bus';
-import { Component, JSX, createContext, useContext } from 'solid-js';
+import { EventBus, createEventBus } from '@solid-primitives/event-bus';
+import { Accessor, Component, JSX, createContext, useContext } from 'solid-js';
 
-import { SelectionContext } from '@/ui/services/GallerySelection/createSelectionContext';
 import { GallerySelectionEvent } from '@/ui/services/GallerySelection/types';
+
+export type SelectionContext = {
+    bus: EventBus<GallerySelectionEvent>;
+    selection: Accessor<Set<string>>;
+};
 
 export type GallerySelectionContextState = {
     context: SelectionContext;
@@ -12,10 +16,6 @@ export const GallerySelectionContext = createContext<GallerySelectionContextStat
     context: {
         bus: createEventBus<GallerySelectionEvent>(),
         selection: () => new Set<string>(),
-        isModal: () => false,
-        previous: () => undefined,
-        current: () => undefined,
-        next: () => undefined,
     },
 });
 

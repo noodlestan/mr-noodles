@@ -24,7 +24,8 @@
     "vitest": "^0.32.0"
   },
   "peerDependencies": {
-    "solid-js": "1.8.4"
+    "solid-js": "1.8.6",
+    "@solidjs/router": "0.10.6"
   },
   "dependencies": {
     "@noodlestan/ui-icons": "0.0.1",

@@ -8,6 +8,9 @@ This is Mr Noodles server.
 
 - scans a folder in the local filesystem for images
 - TODO scan for videos as well
+- TODO delete item
+- TODO list deleted items
+- TODO restore item
 - TODO request scan via API (block certain operations while scanning, report on progress back to the UI)
 - indexes all images in the database
 - stores dimensions metadata and geo location extracted from exif
@@ -23,10 +26,12 @@ This is Mr Noodles server.
 - `/photos/<id>`
 - `/photos/<id>/img`
 - `/photos/<id>/img?h=500`
+- `/photos/<id>/img?p=thumb.small`
 - `/albums`
 - `/albums/<id>`
 - `/albums/<id>/img`
 - `/albums/<id>/img?h=500`
+- `/albums/<id>/img?p=thumb.small`
 
 Note: the image endpoints update the parent document with image data after these are generated. The endpoints are idempotent
 

@@ -3,7 +3,7 @@ import { Flex } from '@noodlestan/ui-layouts';
 import { CircleOff } from 'lucide-solid';
 import { Component, Show, createEffect } from 'solid-js';
 
-import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
+import { useGallerySelectionContext } from '@/ui/providers/GallerySelection';
 
 import './GallerySelectionBar.css';
 

@@ -1,0 +1,29 @@
+.BreadcrumbFolderIcon {
+    position: relative;
+    display: block;
+    width: var(--scale-s);
+    height: 10px;
+}
+
+.BreadcrumbFolderIcon-has-link {
+    cursor: pointer;
+}
+
+.BreadcrumbFolderIcon .Icon {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.BreadcrumbFolderIcon .Icon:first-child {
+    opacity: 1;
+}
+
+.BreadcrumbFolderIcon-is-open .Icon:first-child {
+    opacity: 0;
+}
+
+.BreadcrumbFolderIcon-is-open .Icon:last-child {
+    opacity: 1;
+}

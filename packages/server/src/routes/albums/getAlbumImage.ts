@@ -1,10 +1,14 @@
-import { selectImageByProfile, selectProfileByHeight } from '@noodlestan/shared-types';
+import {
+    selectImageByProfile,
+    selectProfileByHeight,
+    selectProfileByName,
+} from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
 import { getAlbumById } from '../../controllers/albums/getAlbumById';
 import { getPhotoById } from '../../controllers/photos/getPhotoById';
 import { Album } from '../../models/album';
-import { IMAGE_PROFILES } from '../../services/images/constants';
+import { ALBUM_IMAGE_PROFILES } from '../../services/images/constants';
 import { imageFileExists } from '../../services/images/imageFileExists';
 import { makeImage } from '../../services/images/makeImage';
 import { readImageFile } from '../../services/images/readImageFile';
@@ -23,7 +27,10 @@ export const getAlbumImage = async (
         }
 
         const height = Number(req.query.h);
-        const profile = selectProfileByHeight(IMAGE_PROFILES, height);
+        const profileName = String(req.query.p);
+        const profile =
+            selectProfileByName(ALBUM_IMAGE_PROFILES, profileName) ||
+            selectProfileByHeight(ALBUM_IMAGE_PROFILES, height);
 
         const imageFile = selectImageByProfile(album.images, profile);
         const exists = imageFile && (await imageFileExists(imageFile.f));

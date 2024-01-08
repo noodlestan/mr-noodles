@@ -1,4 +1,5 @@
 import { Component, JSX } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 import './Button.css';
 
@@ -15,6 +16,7 @@ export type ButtonProps = {
     onTap?: () => void;
     classList?: { [key: string]: boolean };
     label?: string;
+    href?: string;
     children?: JSX.Element;
 };
 
@@ -44,17 +46,14 @@ export const Button: Component<ButtonProps> = props => {
     const variant = () => props.variant || defaultProps.variant;
     const size = () => props.size || defaultProps.size;
     const length = () => props.length || defaultProps.length;
-
-    const classList = () => ({
-        ...props.classList,
-        Button: true,
-        'Button-is-disabled': props.disabled,
-        [`Button-size-${size()}`]: true,
-        [`Button-variant-${variant()}`]: true,
-    });
+    const tag = () => (props.href ? 'a' : 'button');
+    const style = () => makeStyle(length());
 
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.key === 'Enter') {
+            if (tag() === 'a') {
+                props.onClick?.();
+            }
             props.onTap?.();
         }
     };
@@ -66,10 +65,17 @@ export const Button: Component<ButtonProps> = props => {
         }
     };
 
-    const style = () => makeStyle(length());
+    const classList = () => ({
+        ...props.classList,
+        Button: true,
+        'Button-is-disabled': props.disabled,
+        [`Button-size-${size()}`]: true,
+        [`Button-variant-${variant()}`]: true,
+    });
 
     return (
-        <button
+        <Dynamic
+            component={tag()}
             aria-label={props.label}
             disabled={props.disabled}
             onClick={() => props.onClick && props.onClick()}
@@ -79,8 +85,9 @@ export const Button: Component<ButtonProps> = props => {
             onKeyPress={handleKeyPress}
             classList={classList()}
             style={style()}
+            href={props.href}
         >
             {props.children}
-        </button>
+        </Dynamic>
     );
 };

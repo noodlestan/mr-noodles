@@ -21,6 +21,7 @@
     "@noodlestan/ui-atoms": "0.0.1",
     "@noodlestan/ui-dialogs": "0.0.1",
     "@noodlestan/ui-error-boundary": "0.0.1",
+    "@noodlestan/ui-forms": "0.0.1",
     "@noodlestan/ui-layouts": "0.0.1",
     "@noodlestan/ui-root": "0.0.1",
     "@noodlestan/ui-services": "0.0.1",
@@ -28,8 +29,9 @@
     "@noodlestan/ui-surfaces": "0.0.1",
     "@noodlestan/ui-theme-base": "0.0.1",
     "@solid-primitives/event-bus": "1.0.8",
+    "@solidjs/router": "^0.10.6",
     "lucide-solid": "^0.303.0",
-    "solid-js": "1.8.4",
+    "solid-js": "1.8.6",
     "solid-services": "4.3.2"
   }
 }

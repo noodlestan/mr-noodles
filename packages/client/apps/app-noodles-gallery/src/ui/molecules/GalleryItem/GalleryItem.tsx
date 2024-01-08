@@ -3,10 +3,10 @@ import type { PhotoData } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Component, createEffect } from 'solid-js';
 
-import { makeImageUrl } from '../../services/Images/makeImageUrl';
-
 import { ItemCheckbox } from '@/ui/atoms/ItemCheckbox/ItemCheckbox';
-import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
+import { useGalleryNavigationContext } from '@/ui/providers/GalleryNavigation';
+import { useGallerySelectionContext } from '@/ui/providers/GallerySelection';
+import { makeImageUrl } from '@/ui/services/Images/makeImageUrl';
 
 import './GalleryItem.css';
 
@@ -17,19 +17,20 @@ export type GalleryItemProps = {
 export const GalleryItem: Component<GalleryItemProps> = props => {
     let buttonRef: HTMLButtonElement | undefined;
 
-    const { bus, isModal, current } = useGallerySelectionContext();
+    const { bus: navigationBus, isModal, current } = useGalleryNavigationContext();
+    const { bus: selectionBus } = useGallerySelectionContext();
 
     const isCurrent = () => current()?.id === props.item.id;
 
-    const handleOnFocus = () => bus?.emit({ name: 'onFocus', target: props.item.id });
+    const handleOnFocus = () => navigationBus?.emit({ name: 'onFocus', target: props.item.id });
     const handleOnClick = () => {
         if (current()) {
-            bus?.emit({ name: 'onClick', target: props.item.id });
+            navigationBus?.emit({ name: 'onClick', target: props.item.id });
         } else {
-            bus?.emit({ name: 'onSelect', target: props.item.id });
+            selectionBus?.emit({ name: 'onSelect', target: props.item.id });
         }
     };
-    const handleOnSelect = () => bus?.emit({ name: 'onSelect', target: props.item.id });
+    const handleOnSelect = () => selectionBus?.emit({ name: 'onSelect', target: props.item.id });
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Space') {
             ev.preventDefault();
@@ -47,10 +48,10 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
         }
     });
 
-    const url = () => makeImageUrl(props.item);
+    const url = () => makeImageUrl('photos', props.item, 'thumb.small');
     // TODO abstract
     const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
-    const label = () => `Gaallery item. ${date()}. Press to open details.`;
+    const label = () => `Gallery item. ${date()}. Press to open details.`;
 
     const classList = () => ({
         GalleryItem: true,

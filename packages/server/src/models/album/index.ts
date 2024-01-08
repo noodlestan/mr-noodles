@@ -125,7 +125,7 @@ schema.static('findBySlug', async (slug: string): Promise<AlbumDocument | undefi
 });
 
 schema.static('addImageToAlbum', async (id: Types.ObjectId, image: ImageFile): Promise<void> => {
-    await AlbumModel.findByIdAndUpdate(id, { orientation: 3, $push: { images: image } });
+    await AlbumModel.findByIdAndUpdate(id, { $push: { images: image } });
 });
 
 const AlbumModel = model<AlbumSchema, IModel>('Album', schema);

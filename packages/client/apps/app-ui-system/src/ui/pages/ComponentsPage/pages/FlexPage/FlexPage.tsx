@@ -56,6 +56,11 @@ export const FlexPage: Component = () => {
                         <ExampleTiny />
                     </Flex>
                 </DemoItem>
+                <DemoItem title="baseline">
+                    <Flex align="baseline">
+                        <ExampleTiny />
+                    </Flex>
+                </DemoItem>
                 <DemoItem title="end">
                     <Flex align="end">
                         <ExampleTiny />

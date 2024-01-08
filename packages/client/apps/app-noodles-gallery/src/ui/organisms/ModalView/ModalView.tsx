@@ -7,7 +7,7 @@ import { ModalItem } from '@/ui/molecules/ModalItem/ModalItem';
 import { ModalItemHeader } from '@/ui/molecules/ModalItemHeader/ModalItemHeader';
 import { ModalItemNavigation } from '@/ui/molecules/ModalItemNavigation/ModalItemNavigation';
 import { ModalItemRail } from '@/ui/molecules/ModalItemRail/ModalItemRail';
-import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
+import { useGalleryNavigationContext } from '@/ui/providers/GalleryNavigation';
 
 import './ModalView.css';
 
@@ -36,7 +36,7 @@ const ModalViewContents: Component<ModalViewProps> = () => {
         setQuietTimeoutId(setTimeout(() => setQuiet(true), time));
     };
 
-    const { current } = useGallerySelectionContext();
+    const { current } = useGalleryNavigationContext();
     // const previousId = () => previous() || '';
     const item = () => current() as PhotoData;
     // const nextId = () => next() || '';

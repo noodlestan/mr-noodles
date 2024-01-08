@@ -27,6 +27,10 @@
     align-items: center;
 }
 
+.Flex-align-baseline {
+    align-items: baseline;
+}
+
 .Flex-align-end {
     align-items: flex-end;
 }

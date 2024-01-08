@@ -5,7 +5,7 @@ import { Component } from 'solid-js';
 
 import { GallerySelectionBar } from '../GallerySelectionBar.tsx/GallerySelectionBar';
 
-import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
+import { useGalleryNavigationContext } from '@/ui/providers/GalleryNavigation';
 
 import './ModalItemHeader.css';
 
@@ -15,7 +15,7 @@ export type ModalItemHeaderProps = {
 };
 
 export const ModalItemHeader: Component<ModalItemHeaderProps> = props => {
-    const { bus } = useGallerySelectionContext();
+    const { bus } = useGalleryNavigationContext();
 
     const handleCloseClick = () => bus?.emit({ name: 'closeModal' });
 
@@ -30,7 +30,7 @@ export const ModalItemHeader: Component<ModalItemHeaderProps> = props => {
 
     return (
         <div classList={classList()}>
-            <Display level={4}>{name()}</Display>
+            <Display level={4}> size="m"{name()}</Display>
             <GallerySelectionBar />
             <IconButton variant="plain" size="s" onClick={handleCloseClick} icon={X} />
         </div>

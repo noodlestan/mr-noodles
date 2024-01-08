@@ -2,7 +2,7 @@ import { IconButton } from '@noodlestan/ui-atoms';
 import { ArrowLeft, ArrowRight } from 'lucide-solid';
 import { Component, Show } from 'solid-js';
 
-import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
+import { useGalleryNavigationContext } from '@/ui/providers/GalleryNavigation/GalleryNavigation';
 
 import './ModalItemNavigation.css';
 
@@ -11,7 +11,7 @@ export type ModalItemNavigationProps = {
 };
 
 export const ModalItemNavigation: Component<ModalItemNavigationProps> = props => {
-    const { bus, previous, next } = useGallerySelectionContext();
+    const { bus, previous, next } = useGalleryNavigationContext();
 
     const handlePreviousClick = () => {
         bus?.emit({ name: 'goToPreviousItem' });

@@ -5,6 +5,13 @@
     line-height: var(--display-type-height-base);
 }
 
+.Display-nowrap {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .Display-size-s {
     font-size: var(--display-type-size-s);
     font-weight: var(--display-type-weight-s);

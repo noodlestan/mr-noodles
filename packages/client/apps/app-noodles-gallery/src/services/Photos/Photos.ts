@@ -16,7 +16,7 @@ type PhotosService = {
 const fetchPhotos = async (query: PhotoQuery): Promise<APIResponse<PhotoData[]>> => {
     const { sortBy, filterBy } = query;
     const params: QueryParams = {
-        pageSize: 2000,
+        pageSize: 200,
         sortBy: sortBy && JSON.stringify(sortBy),
         filterBy: filterBy && JSON.stringify(filterBy),
     };

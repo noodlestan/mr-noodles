@@ -11,12 +11,21 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 ### Media list
 
 - render a list of images grouped by album and day
+- navigates items with keyboard
+- selects and deselects items, clears selection
+- modal view per item
+- TODO select/deselect from with modal view
+- TODO show item details
+- TODO delete item
+- full keyboard support
 
 - TODO incremental render
-- TODO filter
+- TODO select album
 - TODO list virtualization (fixed heights)
 - TODO list albums
-- TODO play album slide-show
+- TODO filter albums
+- TODO create slideshow from album
+- TODO list slideshows album slide-show
 
 ## Development
 

@@ -11,7 +11,7 @@
 .SkeletonText--highlight {
     display: inline-block;
     width: 100%;
-    height: 60%;
+    height: 75%;
     background: linear-gradient(
             to left,
             var(--skeleton-dark),

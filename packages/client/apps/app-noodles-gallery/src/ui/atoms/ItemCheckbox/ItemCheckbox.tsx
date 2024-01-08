@@ -3,7 +3,7 @@
 import { Flex } from '@noodlestan/ui-layouts';
 import { Component, createSignal } from 'solid-js';
 
-import { useGallerySelectionContext } from '@/ui/providers/GallerySelection/GallerySelection';
+import { useGallerySelectionContext } from '@/ui/providers/GallerySelection';
 
 import './ItemCheckbox.css';
 
