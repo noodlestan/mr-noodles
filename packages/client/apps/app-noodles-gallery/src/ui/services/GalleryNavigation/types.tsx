@@ -4,7 +4,10 @@ export type GallerySelectionEvent = {
     name: GallerySelectionEventType;
     target?: string;
 };
+
 export type GalleryNavigationEventType =
+    | 'onItemsFocus'
+    | 'onItemsBlur'
     | 'onFocus'
     | 'onClick'
     | 'setFocus'

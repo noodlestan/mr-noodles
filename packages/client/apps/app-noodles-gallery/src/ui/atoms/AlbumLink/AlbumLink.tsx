@@ -17,14 +17,6 @@ export const AlbumLink: Component<AlbumLinkProps> = props => {
         return `/albums/${props.path}${window.location.search}`;
     };
 
-    // const navigate = useNavigate();
-
-    // const handleKeyPress = (ev: KeyboardEvent) => {
-    //     if (ev.key === 'Enter') {
-    //         navigate(url());
-    //     }
-    // };
-
     const classList = () => ({ AlbumLink: true });
 
     return (

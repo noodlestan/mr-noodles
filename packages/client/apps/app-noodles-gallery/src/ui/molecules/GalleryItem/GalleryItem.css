@@ -11,11 +11,20 @@
     cursor: zoom-in;
 }
 
-.GalleryItem--button:focus,
-.GalleryItem--button:focus-visible,
-.GalleryItem-is-current .GalleryItem--button {
+.GalleryItem .GalleryItem--button {
     outline-offset: var(--outline-offset);
-    outline-style: var(--outline-style);
+    outline-style: none;
     outline-width: var(--outline-width);
+    outline-color: var(--action-disabled-bg-color);
+}
+
+.GalleryItem .GalleryItem--button:focus,
+.GalleryItem .GalleryItem--button:focus-visible,
+.GalleryItem-is-current .GalleryItem--button {
+    outline-style: var(--outline-style);
+}
+
+.GalleryItem .GalleryItem--button:focus,
+.GalleryItem .GalleryItem--button:focus-visible {
     outline-color: var(--outline-color);
 }

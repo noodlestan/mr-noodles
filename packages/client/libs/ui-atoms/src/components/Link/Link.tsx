@@ -30,22 +30,9 @@ export const Link: Component<LinkProps> = props => {
         }
     };
 
-    const handleMouseDown = () => {
-        if (!props.disabled) {
-            props.onTap?.();
-        }
-    };
-
     const handleKeyDown = (ev: KeyboardEvent) => {
-        if (ev.key === 'Enter' && !props.disabled) {
-            props.onTap?.();
-        }
-    };
-
-    const handleKeyPress = (ev: KeyboardEvent) => {
-        ev.preventDefault();
-        if (!props.onTap && ev.key === 'Enter' && !props.disabled) {
-            props.onClick?.();
+        if (ev.key === 'Enter') {
+            handleTap();
         }
     };
 
@@ -54,10 +41,9 @@ export const Link: Component<LinkProps> = props => {
             href={props.href}
             tabindex="0"
             onClick={handleClick}
-            onMouseDown={handleMouseDown}
+            onMouseDown={handleTap}
             onTouchStart={handleTap}
             onKeyDown={handleKeyDown}
-            onKeyPress={handleKeyPress}
             classList={classList()}
         >
             {props.children}

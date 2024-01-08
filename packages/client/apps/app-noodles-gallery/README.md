@@ -8,24 +8,58 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 
 ## Features
 
-### Media list
+### Use cases
 
-- render a list of images grouped by album and day
-- navigates items with keyboard
+- list images grouped by album and day
+- navigate items with keyboard
 - selects and deselects items, clears selection
-- modal view per item
-- TODO select/deselect from with modal view
-- TODO show item details
-- TODO delete item
-- full keyboard support
+- view item in modal
+- TODO select/deselect from within modal
+- TODO show item details within modal (keyboard: D)
+- TODO navigate from modal view
+- TODO delete item (keyboard: DEL)
 
-- TODO incremental render
-- TODO select album
+- list folders by parent
+- filter folders by text search
+- navigate folders with breadcrumbs and keyboard
+- TODO show files within selected folder (along? before? after sub folders)
+- TODO ESC moves one folder up
+- TODO files selection context
+
+- TODO list deleted items
+- TODO restore deleted item
+
+- TODO create playlist from folder
+- TODO play playlist
+
+- TODO rename Photo to MediaItem and Album to Folder
+
+- TODO ingest video
+- TODO handle video in lists with placeholder graphics only
+- TODO video player in modal view
+- TODO generate video thumbnails
+- TODO generate video preview
+
+- TODO filter items by date range
+- TODO incremental load
 - TODO list virtualization (fixed heights)
-- TODO list albums
-- TODO filter albums
-- TODO create slideshow from album
-- TODO list slideshows album slide-show
+
+- TODO list playlists
+- TODO delete playlist
+- TODO edit playlist options
+
+- TODO add tag to file
+- TODO show file tags (toggle tag visibility from bar)
+- TODO create slideshow from tag
+
+- TODO identify identical files
+- TODO identify blurry files
+- TODO create group from identical files
+
+### Capabilities
+
+- TODO display keyboard tooltips (accessible)
+- TODO turn keyboard tooltips on/off
 
 ## Development
 
