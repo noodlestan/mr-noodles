@@ -1,7 +1,7 @@
 import type { PhotoData } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
-import { Component, createEffect } from 'solid-js';
+import { Component, Show, createEffect } from 'solid-js';
 
 import { ItemCheckbox } from '@/atoms/ItemCheckbox/ItemCheckbox';
 import { useGalleryNavigationContext } from '@/providers/GalleryNavigation';
@@ -12,6 +12,7 @@ import './GalleryItem.css';
 
 export type GalleryItemProps = {
     item: PhotoData;
+    showCheckbox?: boolean;
 };
 
 export const GalleryItem: Component<GalleryItemProps> = props => {
@@ -69,11 +70,13 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                 onKeyDown={handleKeyDown}
                 aria-label={label()}
             >
-                <ItemCheckbox
-                    id={props.item.id}
-                    onFocus={handleOnFocus}
-                    onKeyDown={handleKeyDown}
-                />
+                <Show when={props.showCheckbox}>
+                    <ItemCheckbox
+                        id={props.item.id}
+                        onFocus={handleOnFocus}
+                        onKeyDown={handleKeyDown}
+                    />
+                </Show>
                 <img alt="" src={url()} />
             </button>
         </Flex>

@@ -3,13 +3,13 @@ import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For, Show } from 'solid-js';
 
 import { GalleryItemRow } from '@/molecules/GalleryItemRow/GalleryItemRow';
-import { GalleryOptions } from '@/organisms/Gallery/types';
+import { GalleryRowOptions } from '@/organisms/Gallery/types';
 
 import './GalleryItemRows.css';
 
 export type GalleryItemRowsProps = {
     rows: Accessor<PhotoData[][]>;
-    options: Accessor<GalleryOptions>;
+    options: Accessor<GalleryRowOptions>;
 };
 
 export const GalleryItemRows: Component<GalleryItemRowsProps> = props => {
@@ -19,7 +19,7 @@ export const GalleryItemRows: Component<GalleryItemRowsProps> = props => {
 
     const style = () => {
         return {
-            '--gallery-row-height': `${props.options().rows.height}px`,
+            '--gallery-row-height': `${props.options().height}px`,
         };
     };
 

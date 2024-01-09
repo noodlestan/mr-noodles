@@ -1,15 +1,4 @@
 .GalleryItemRow {
     min-width: min-content;
-}
-
-.Flex.GalleryItemRow {
     gap: 8px;
-}
-
-.GalleryItemRow .GalleryItem {
-    position: relative;
-}
-
-.GalleryItemRow .GalleryItem p {
-    position: absolute;
 }

@@ -1,6 +1,6 @@
 import { inject } from '@noodlestan/ui-services';
 import { useParams, useSearchParams } from '@solidjs/router';
-import { Component, Show, createEffect } from 'solid-js';
+import { Component, Show, createEffect, on } from 'solid-js';
 
 import { AlbumsBar } from '@/molecules/AlbumsBar/AlbumsBar';
 import { AlbumsScroll } from '@/molecules/AlbumsScroll/AlbumsScroll';
@@ -19,12 +19,13 @@ export const AlbumsScreen: Component = () => {
 
     const { createNavigationContext } = inject(AlbumsNavigationService);
     const navigationContext = createNavigationContext(albums);
-    const { bus } = navigationContext;
+    const { bus, showAllItems } = navigationContext;
 
     const params = useParams();
     const [searchParams] = useSearchParams();
     const { createQueryContext } = inject(AlbumsQueryService);
     const queryContext = createQueryContext(params.parent, searchParams.search);
+
     createEffect(() => {
         const parent = params.parent;
         const { setParent } = queryContext;
@@ -36,6 +37,17 @@ export const AlbumsScreen: Component = () => {
         const { setSearchTerms } = queryContext;
         setSearchTerms(search);
     });
+
+    createEffect(
+        on(
+            () => params.parent,
+            (value, previous) => {
+                if (value !== previous) {
+                    bus.emit({ name: 'showSubFolders' });
+                }
+            },
+        ),
+    );
 
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Escape') {
@@ -61,8 +73,16 @@ export const AlbumsScreen: Component = () => {
                         <AlbumsScroll>
                             <Show when={loading()}>Loading</Show>
                             <Show when={!loading()}>
-                                <AlbumItems album={params.parent} />
-                                <Albums items={filteredAlbums} />
+                                <Show when={params.parent}>
+                                    <AlbumItems
+                                        album={params.parent}
+                                        toggleVisibility={!filteredAlbums().length}
+                                        showAllItems={showAllItems()}
+                                    />
+                                </Show>
+                                <Show when={!showAllItems()}>
+                                    <Albums items={filteredAlbums} />
+                                </Show>
                             </Show>
                         </AlbumsScroll>
                         {/* <ModalView show={isModal() && !!current()} /> */}

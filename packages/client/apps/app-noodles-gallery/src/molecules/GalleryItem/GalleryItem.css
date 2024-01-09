@@ -1,14 +1,20 @@
 .GalleryItem {
     width: auto;
+    height: 200px;
 }
 
 .GalleryItem--button {
+    position: relative;
     display: inline-flex;
     border: none;
     padding: 0;
     background-color: transparent;
     border-radius: var(--outline-radius);
     cursor: zoom-in;
+}
+
+.GalleryItem--button .ItemCheckbox {
+    position: absolute;
 }
 
 .GalleryItem .GalleryItem--button {

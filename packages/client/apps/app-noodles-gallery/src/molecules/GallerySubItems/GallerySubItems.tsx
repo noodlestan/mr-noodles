@@ -12,10 +12,11 @@ type GallerySubItemsProps = {
 
 export const GallerySubItems: Component<GallerySubItemsProps> = props => {
     const items = () => (props.group() as GallerySubGroupItem).rows || [];
+    const rowOptions = () => props.options().rows;
 
     return (
         <Flex direction="column">
-            <GalleryItemRows rows={() => items()} options={props.options} />
+            <GalleryItemRows rows={() => items()} options={rowOptions} />
         </Flex>
     );
 };

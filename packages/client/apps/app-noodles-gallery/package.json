@@ -29,6 +29,7 @@
     "@noodlestan/ui-surfaces": "0.0.1",
     "@noodlestan/ui-theme-base": "0.0.1",
     "@solid-primitives/event-bus": "1.0.8",
+    "@solid-primitives/resize-observer": "^2.0.22",
     "@solidjs/router": "^0.10.6",
     "lucide-solid": "^0.303.0",
     "solid-js": "1.8.6",

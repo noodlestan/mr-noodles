@@ -10,6 +10,7 @@ import {
     handleOnEnd,
     handleOnFocus,
     handleShowAllItems,
+    handleShowSubFolders,
 } from './private/eventHandlers';
 import { AlbumsNavigationEvent } from './types';
 
@@ -41,13 +42,22 @@ const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationCont
         return items[index + 1];
     };
 
-    const context: NavigationContext = { bus, showAllItems, isModal, previous, current, next };
+    const context: NavigationContext = {
+        bus,
+        showAllItems,
+        isModal,
+        previous,
+        current,
+        next,
+    };
 
     bus.listen(evt => {
         const { name } = evt;
         switch (name) {
             case 'showAllItems':
                 return handleShowAllItems(context, evt, setShowAllItems);
+            case 'showSubFolders':
+                return handleShowSubFolders(context, evt, setShowAllItems);
             case 'closeModal':
                 return handleCloseModal(context, evt, setIsModal);
             case 'goToPreviousItem':

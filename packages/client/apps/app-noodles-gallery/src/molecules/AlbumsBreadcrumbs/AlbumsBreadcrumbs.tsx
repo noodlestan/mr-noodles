@@ -84,7 +84,7 @@ export const AlbumsBreadcrumbs: Component = () => {
             <Display level={3} size="s">
                 <Flex tag="span" direction="row" gap="s" align="start" classList={classList()}>
                     <Show when={!album()}>
-                        <SkeletonText size="l" /> <span>/</span> <SkeletonText size="l" />
+                        <SkeletonText size="m" /> <span>/</span> <SkeletonText size="m" />
                     </Show>
                     <Show when={album()}>
                         <IconButton

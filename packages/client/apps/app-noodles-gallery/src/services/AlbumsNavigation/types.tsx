@@ -1,5 +1,6 @@
 export type AlbumsNavigationEventType =
     | 'showAllItems'
+    | 'showSubFolders'
     | 'onFocus'
     | 'onClick'
     | 'setFocus'

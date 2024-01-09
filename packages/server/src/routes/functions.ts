@@ -41,3 +41,14 @@ export const sortFromQuery = (
         return def;
     }
 };
+
+export const filterByFromQuery = (query: Request['query']): Record<string, unknown> => {
+    const { filterBy } = query;
+
+    try {
+        const input = decodeURIComponent(filterBy as string);
+        return JSON.parse(input);
+    } catch (error) {
+        return {};
+    }
+};

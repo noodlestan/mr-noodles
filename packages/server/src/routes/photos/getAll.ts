@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { getPhotos } from '../../controllers/photos/getPhotos';
 import { PHOTOS_PAGE_MAX, PHOTOS_PAGE_SIZE_DEFAULT } from '../constants';
-import { paginationFromQuery, sortFromQuery } from '../functions';
+import { filterByFromQuery, paginationFromQuery, sortFromQuery } from '../functions';
 
 export const getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -21,7 +21,8 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
         );
         res.setHeader('x-meta-filter', `${querystring.encode(query as ParsedUrlQueryInput)}`);
 
-        const photos = await getPhotos(query, page, sort);
+        const filterBy = filterByFromQuery(query);
+        const photos = await getPhotos(filterBy, page, sort);
         const data = photos.map(photo => photo.toDataPublic());
 
         res.json(data);

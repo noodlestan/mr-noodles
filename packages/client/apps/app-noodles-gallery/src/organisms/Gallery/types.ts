@@ -5,7 +5,9 @@ export type GalleryRowOptions = {
     gap?: number;
     maxItems?: number;
     maxWidth?: number;
+    showCheckboxes?: boolean;
 };
+
 export type GalleryOptions = {
     groupBy: IGroup[] | undefined;
     rows: GalleryRowOptions;

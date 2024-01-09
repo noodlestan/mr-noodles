@@ -1,6 +1,7 @@
 import type { IGroup, PhotoData, PhotoQuery } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
-import { Accessor, Component, For, Show, createSignal, onCleanup, onMount } from 'solid-js';
+import { createElementSize } from '@solid-primitives/resize-observer';
+import { Accessor, Component, For, Show, createSignal } from 'solid-js';
 
 import { createGalleryGroups } from './private/createGalleryGroups';
 import { GalleryOptions } from './types';
@@ -16,33 +17,16 @@ export type GalleryProps = {
 };
 
 export const Gallery: Component<GalleryProps> = props => {
-    const classList = () => ({
-        Gallery: true,
-    });
-
-    const [rect, setRect] = createSignal({
-        height: window.innerHeight,
-        width: window.innerWidth,
-    });
-
-    const handler = () => {
-        setRect({ height: window.innerHeight, width: window.innerWidth });
-    };
-
-    onMount(() => {
-        window.addEventListener('resize', handler);
-    });
-
-    onCleanup(() => {
-        window.removeEventListener('resize', handler);
-    });
+    const [ref, setRef] = createSignal<HTMLDivElement | undefined>();
+    const size = createElementSize(ref);
 
     const options = (): GalleryOptions => {
         return {
             rows: {
                 height: 200,
                 maxItems: 6,
-                maxWidth: rect().width - 100,
+                maxWidth: size?.width || 0,
+                showCheckboxes: true,
             },
             groupBy: props.groupBy(),
         };
@@ -52,13 +36,22 @@ export const Gallery: Component<GalleryProps> = props => {
         return createGalleryGroups(props.items?.(), options());
     };
 
+    const classList = () => ({
+        Gallery: true,
+    });
+
     return (
-        <Flex classList={classList()} gap="m">
+        <div classList={classList()}>
+            <div class="Gallery--width">
+                <div ref={setRef} />
+            </div>
             <Show when={groups()}>
-                <For each={groups()}>
-                    {group => <GalleryGroupSurface group={() => group} options={options} />}
-                </For>
+                <Flex gap="m">
+                    <For each={groups()}>
+                        {group => <GalleryGroupSurface group={() => group} options={options} />}
+                    </For>
+                </Flex>
             </Show>
-        </Flex>
+        </div>
     );
 };

@@ -1,15 +1,15 @@
-.SkeletonText {
+.SkeletonImage {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
     --skeleton-light: hsla(var(--color-sw-0-hue), var(--color-sw-0-sat), var(--color-light-5), 0.3);
     --skeleton-dark: transparent;
 }
 
-.SkeletonText--highlight {
+.SkeletonImage--highlight {
     display: inline-block;
     width: 100%;
+    height: 100%;
     background: linear-gradient(
             to left,
             var(--skeleton-dark),
@@ -33,20 +33,4 @@
     100% {
         background-position: -100px, 0;
     }
-}
-
-.SkeletonText-size-xs {
-    width: var(--size-xs);
-}
-
-.SkeletonText-size-s {
-    width: var(--size-m);
-}
-
-.SkeletonText-size-m {
-    width: var(--size-xl);
-}
-
-.SkeletonText-size-l {
-    width: var(--size-3xl);
 }

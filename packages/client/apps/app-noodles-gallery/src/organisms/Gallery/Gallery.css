@@ -2,3 +2,7 @@
     width: auto;
     gap: 16px;
 }
+
+.Gallery--width {
+    padding: 0 var(--space-pad-1);
+}

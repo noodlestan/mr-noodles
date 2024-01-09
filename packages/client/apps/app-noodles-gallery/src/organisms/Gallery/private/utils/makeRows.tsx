@@ -35,8 +35,9 @@ export const makeRows = (items: PhotoData[], options: GalleryRowOptions): PhotoD
     return items.reduce(
         (acc, item) => {
             const lastRow = acc[acc.length - 1];
+            const isRowEmpty = !lastRow.length;
             const fits = itemFitsInRow(lastRow, item, options);
-            if (fits) {
+            if (isRowEmpty || fits) {
                 lastRow.push(item);
             } else {
                 acc.push([item]);

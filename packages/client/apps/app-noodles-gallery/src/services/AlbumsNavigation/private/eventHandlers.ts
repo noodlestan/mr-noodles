@@ -13,6 +13,14 @@ export const handleShowAllItems = (
     setShowAllItems(true);
 };
 
+export const handleShowSubFolders = (
+    context: NavigationContext,
+    evt: AlbumsNavigationEvent,
+    setShowAllItems: Setter<boolean>,
+): void => {
+    setShowAllItems(false);
+};
+
 export const handleOnClick = (
     context: NavigationContext,
     evt: AlbumsNavigationEvent,

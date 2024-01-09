@@ -2,3 +2,17 @@
     width: auto;
     gap: 16px;
 }
+
+.AlbumItems--width {
+    padding: 0 var(--space-pad-1);
+}
+
+.AlbumItems--flex {
+    padding-top: 8px;
+    padding-bottom: 16px;
+    gap: 8px;
+}
+
+.AlbumItems--first-row {
+    gap: 8px;
+}
