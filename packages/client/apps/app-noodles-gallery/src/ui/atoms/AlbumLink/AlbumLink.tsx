@@ -25,7 +25,7 @@ export const AlbumLink: Component<AlbumLinkProps> = props => {
                 <Show when={props.showIcon}>
                     <BreadcrumbFolderIcon hasLink={true} isOpen={true} />
                 </Show>
-                {props.name}
+                <span class="AlbumLink--text">{props.name}</span>
             </Link>
         </>
     );

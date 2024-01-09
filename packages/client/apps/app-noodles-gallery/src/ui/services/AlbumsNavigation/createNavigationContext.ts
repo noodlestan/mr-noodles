@@ -9,6 +9,7 @@ import {
     handleOnClick,
     handleOnEnd,
     handleOnFocus,
+    handleShowAllItems,
 } from './private/eventHandlers';
 import { AlbumsNavigationEvent } from './types';
 
@@ -20,6 +21,7 @@ type AlbumsNavigationService = {
 
 const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationContext => {
     const bus = createEventBus<AlbumsNavigationEvent>();
+    const [showAllItems, setShowAllItems] = createSignal<boolean>(false);
     const [isModal, setIsModal] = createSignal<boolean>(false);
     const [current, setCurrent] = createSignal<AlbumData | undefined>();
 
@@ -39,11 +41,13 @@ const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationCont
         return items[index + 1];
     };
 
-    const context: NavigationContext = { bus, isModal, previous, current, next };
+    const context: NavigationContext = { bus, showAllItems, isModal, previous, current, next };
 
     bus.listen(evt => {
         const { name } = evt;
         switch (name) {
+            case 'showAllItems':
+                return handleShowAllItems(context, evt, setShowAllItems);
             case 'closeModal':
                 return handleCloseModal(context, evt, setIsModal);
             case 'goToPreviousItem':

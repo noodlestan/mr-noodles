@@ -5,6 +5,14 @@ import { AlbumsNavigationEvent } from '../types';
 
 import { NavigationContext } from '@/ui/providers/AlbumsNavigation';
 
+export const handleShowAllItems = (
+    context: NavigationContext,
+    evt: AlbumsNavigationEvent,
+    setShowAllItems: Setter<boolean>,
+): void => {
+    setShowAllItems(true);
+};
+
 export const handleOnClick = (
     context: NavigationContext,
     evt: AlbumsNavigationEvent,

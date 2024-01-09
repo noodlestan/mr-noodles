@@ -78,6 +78,11 @@ export const DisplayPage: Component = () => {
                     </Display>
                 </DemoItem>
             </DemoGroup>
+            <DemoGroup title="classList">
+                <DemoItem note="Should override text color">
+                    <Display classList={{ override: true }}>Lorem ipsum</Display>
+                </DemoItem>
+            </DemoGroup>
         </DemoPage>
     );
 };

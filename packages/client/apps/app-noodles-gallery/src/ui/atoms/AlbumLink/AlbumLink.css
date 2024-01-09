@@ -2,3 +2,9 @@
     display: flex;
     gap: var(--space-gap-0);
 }
+
+.AlbumLink--text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

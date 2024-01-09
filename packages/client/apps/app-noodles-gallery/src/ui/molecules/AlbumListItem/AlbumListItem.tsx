@@ -9,13 +9,13 @@ import { AlbumTitle } from '@/ui/molecules/AlbumTitle/AlbumTitle';
 import { useAlbumsNavigationContext } from '@/ui/providers/AlbumsNavigation';
 import { makeImageUrl } from '@/ui/services/Images/makeImageUrl';
 
-import './AlbumItem.css';
+import './AlbumListItem.css';
 
-export type AlbumItemProps = {
+export type AlbumListItemProps = {
     item: AlbumData;
 };
 
-export const AlbumItem: Component<AlbumItemProps> = props => {
+export const AlbumListItem: Component<AlbumListItemProps> = props => {
     let buttonRef: HTMLAnchorElement | undefined;
 
     const { bus, current, isModal } = useAlbumsNavigationContext();
@@ -48,31 +48,31 @@ export const AlbumItem: Component<AlbumItemProps> = props => {
     const label = () => `Album. ${title()}. Press to open details.`;
 
     const classList = () => ({
-        AlbumItem: true,
-        'AlbumItem-is-current': isCurrent(),
-        'AlbumItem-is-transparent': !!props.item.id,
+        AlbumListItem: true,
+        'AlbumListItem-is-current': isCurrent(),
+        'AlbumListItem-is-transparent': !!props.item.id,
     });
 
     return (
         <Surface variant="card" classList={classList()}>
-            <Flex gap="m" padding="m">
+            <Flex padding="m">
                 <a
                     ref={buttonRef}
                     href={url()}
                     tabindex="0"
-                    class="AlbumItem--button"
+                    class="AlbumListItem--button"
                     onFocus={handleOnFocus}
                     onClick={handleOnClick}
                     onKeyDown={handleKeyDown}
                     aria-label={label()}
                 >
                     <AlbumTitle title={title()} slug={props.item.slug} />
-                    <div class="AlbumItem--Thumb">
+                    <div class="AlbumListItem--Thumb">
                         <Show when={props.item.id}>
                             <img alt="" src={imageUrl()} />
                         </Show>
                         <Show when={!props.item.id}>
-                            <div class="AlbumItem--icon">
+                            <div class="AlbumListItem--icon">
                                 <BreadcrumbFolderIcon hasLink={true} isOpen={false} />
                             </div>
                         </Show>

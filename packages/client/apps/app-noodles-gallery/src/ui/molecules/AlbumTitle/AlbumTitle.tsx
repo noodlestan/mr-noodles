@@ -3,6 +3,7 @@ import { SkeletonText } from '@noodlestan/ui-skeletons';
 import { Component, Show } from 'solid-js';
 
 import { AlbumLink } from '@/ui/atoms/AlbumLink/AlbumLink';
+import { BreadcrumbFolderIcon } from '@/ui/atoms/BreadcrumbFolderIcon/BreadcrumbFolderIcon';
 
 import './AlbumTitle.css';
 
@@ -22,11 +23,14 @@ export const AlbumTitle: Component<AlbumTitleProps> = props => {
                 <SkeletonText size="l" />
             </Show>
             <Show when={props.title}>
-                <Display level={3} size="s" nowrap>
+                <Display level={3} size="s" nowrap classList={{ AlbumTitle: true }}>
+                    <BreadcrumbFolderIcon hasLink={true} isOpen={false} />
                     <Show when={props.link}>
                         <AlbumLink name={title()} path={props.slug} />
                     </Show>
-                    <Show when={!props.link}>{title()}</Show>
+                    <Show when={!props.link}>
+                        <span class="AlbumTitle--text">{title()}</span>
+                    </Show>
                 </Display>
             </Show>
         </>

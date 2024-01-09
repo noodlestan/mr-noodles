@@ -6,6 +6,7 @@
     height: var(--icon-size);
     min-height: var(--icon-size);
     max-height: var(--icon-size);
+    flex-shrink: 0;
 }
 
 .Icon svg {

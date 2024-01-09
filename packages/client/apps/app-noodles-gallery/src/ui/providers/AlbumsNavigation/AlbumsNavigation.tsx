@@ -6,6 +6,7 @@ import { AlbumsNavigationEvent } from '@/ui/services/AlbumsNavigation/types';
 
 export type NavigationContext = {
     bus: EventBus<AlbumsNavigationEvent>;
+    showAllItems: Accessor<boolean>;
     isModal: Accessor<boolean>;
     previous: Accessor<AlbumData | undefined>;
     current: Accessor<AlbumData | undefined>;
@@ -19,6 +20,7 @@ export type AlbumsNavigationContextState = {
 export const AlbumsNavigationContext = createContext<AlbumsNavigationContextState>({
     context: {
         bus: createEventBus<AlbumsNavigationEvent>(),
+        showAllItems: () => false,
         isModal: () => false,
         previous: () => undefined,
         current: () => undefined,

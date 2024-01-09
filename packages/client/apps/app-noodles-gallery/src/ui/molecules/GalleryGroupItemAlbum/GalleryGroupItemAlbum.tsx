@@ -1,8 +1,6 @@
-import { Icon } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { FolderIcon } from 'lucide-solid';
 import { Accessor, Component, JSX } from 'solid-js';
 
 import { AlbumTitle } from '../AlbumTitle/AlbumTitle';
@@ -41,12 +39,9 @@ export const GalleryGroupItemAlbum: Component<GalleryGroupItemAlbumProps> = prop
     return (
         <Surface variant="card">
             <Flex classList={classList()} direction="column" padding="m">
-                <Flex direction="row" align="center" gap="s">
-                    <Icon icon={FolderIcon} />
-                    <GalleryGroupHeader group={props.group}>
-                        <AlbumTitle slug={albumSlug()} title={albumName()} link />
-                    </GalleryGroupHeader>
-                </Flex>
+                <GalleryGroupHeader group={props.group}>
+                    <AlbumTitle slug={albumSlug()} title={albumName()} link />
+                </GalleryGroupHeader>
                 {props.children}
             </Flex>
         </Surface>

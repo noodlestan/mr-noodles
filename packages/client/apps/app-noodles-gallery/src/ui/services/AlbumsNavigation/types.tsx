@@ -1,4 +1,5 @@
 export type AlbumsNavigationEventType =
+    | 'showAllItems'
     | 'onFocus'
     | 'onClick'
     | 'setFocus'

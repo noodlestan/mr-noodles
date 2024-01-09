@@ -2,7 +2,8 @@
     position: relative;
     display: block;
     width: var(--scale-s);
-    height: 10px;
+    height: var(--scale-s);
+    flex-shrink: 0;
 }
 
 .BreadcrumbFolderIcon-has-link {

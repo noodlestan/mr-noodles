@@ -5,6 +5,7 @@ import { Component, Show, createEffect } from 'solid-js';
 import { AlbumsService } from '@/services/Albums';
 import { AlbumsBar } from '@/ui/molecules/AlbumsBar/AlbumsBar';
 import { AlbumsScroll } from '@/ui/molecules/AlbumsScroll/AlbumsScroll';
+import { AlbumItems } from '@/ui/organisms/AlbumItems/AlbumItems';
 import { Albums } from '@/ui/organisms/Albums/Albums';
 import { AlbumsNavigationProvider } from '@/ui/providers/AlbumsNavigation';
 import { AlbumsQueryProvider } from '@/ui/providers/AlbumsQuery';
@@ -60,6 +61,7 @@ export const AlbumsScreen: Component = () => {
                         <AlbumsScroll>
                             <Show when={loading()}>Loading</Show>
                             <Show when={!loading()}>
+                                <AlbumItems album={params.parent} />
                                 <Albums items={filteredAlbums} />
                             </Show>
                         </AlbumsScroll>

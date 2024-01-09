@@ -51,6 +51,11 @@ export const TextPage: Component = () => {
                     <Text tag="p">Foobar</Text>
                 </DemoItem>
             </DemoGroup>
+            <DemoGroup title="classList">
+                <DemoItem note="Should override text color">
+                    <Text classList={{ override: true }}>Lorem ipsum</Text>
+                </DemoItem>
+            </DemoGroup>
         </DemoPage>
     );
 };

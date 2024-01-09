@@ -8,6 +8,7 @@ export type TextSize = 'xs' | 's' | 'm' | 'l';
 export type TextProps = {
     size?: TextSize;
     tag?: string;
+    classList?: { [key: string]: boolean };
     children?: JSX.Element;
 };
 
@@ -21,6 +22,7 @@ export const Text: Component<TextProps> = props => {
     const tag = () => props.tag || defaultProps.tag;
 
     const classList = () => ({
+        ...props.classList,
         Text: true,
         [`Text-size-${size()}`]: true,
     });

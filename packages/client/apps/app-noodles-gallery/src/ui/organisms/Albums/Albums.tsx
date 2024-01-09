@@ -2,7 +2,7 @@ import type { AlbumData } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For, Show } from 'solid-js';
 
-import { AlbumItem } from '@/ui/molecules/AlbumItem/AlbumItem';
+import { AlbumListItem } from '@/ui/molecules/AlbumListItem/AlbumListItem';
 
 import './Albums.css';
 
@@ -34,7 +34,7 @@ export const Albums: Component<AlbumsProps> = props => {
     return (
         <Flex classList={classList()} gap="m" wrap direction="row">
             <Show when={items()}>
-                <For each={items()}>{item => <AlbumItem item={item} />}</For>
+                <For each={items()}>{item => <AlbumListItem item={item} />}</For>
             </Show>
         </Flex>
     );

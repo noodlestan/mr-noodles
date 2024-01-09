@@ -11,6 +11,7 @@ export type DisplayProps = {
     size?: DisplaySize;
     tag?: string;
     nowrap?: boolean;
+    classList?: { [key: string]: boolean };
     children?: JSX.Element;
 };
 
@@ -41,6 +42,7 @@ export const Display: Component<DisplayProps> = props => {
     const tag = () => props.tag || MAP_LEVEL_TO_TAG[level() || defaultProps.level];
 
     const classList = () => ({
+        ...props.classList,
         Display: true,
         [`Display-size-${size()}`]: true,
         [`Display-nowrap`]: props.nowrap,
