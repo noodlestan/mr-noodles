@@ -1,1 +1,1 @@
-export { createGallerySelectionService as GallerySelectionService } from './createSelectionContext';
+export { createGallerySelectionService as GallerySelectionService } from './GallerySelection';

@@ -28,11 +28,11 @@ export const GalleryScreen: Component = () => {
 
     const sort = () => groupByToSortBy(groupBy());
 
-    const { createSelectionContext } = inject(GallerySelectionService);
-    const selectionContext = createSelectionContext();
+    const { createGallerySelectionContext } = inject(GallerySelectionService);
+    const selectionContext = createGallerySelectionContext();
 
-    const { createNavigationContext } = inject(GalleryNavigationService);
-    const navigationContext = createNavigationContext(photos);
+    const { createGalleryNavigationContext } = inject(GalleryNavigationService);
+    const navigationContext = createGalleryNavigationContext(photos);
     const { bus: navigationBus, isModal, current } = navigationContext;
 
     createRenderEffect(() => {
@@ -49,12 +49,6 @@ export const GalleryScreen: Component = () => {
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Escape') {
             navigationBus?.emit({ name: 'closeModal' });
-        }
-        if (ev.code === 'ArrowLeft') {
-            navigationBus?.emit({ name: 'goToPreviousItem' });
-        }
-        if (ev.code === 'ArrowRight') {
-            navigationBus?.emit({ name: 'goToNextItem' });
         }
     };
 

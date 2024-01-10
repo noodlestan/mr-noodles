@@ -1,1 +1,1 @@
-export { createAlbumsNavigationService as AlbumsNavigationService } from './createNavigationContext';
+export { createAlbumsNavigationService as AlbumsNavigationService } from './AlbumsNavigation';

@@ -17,7 +17,7 @@ import { AlbumsNavigationEvent } from './types';
 import { NavigationContext } from '@/providers/AlbumsNavigation';
 
 type AlbumsNavigationService = {
-    createNavigationContext: (folders: Accessor<AlbumData[]>) => NavigationContext;
+    createAlbumsNavigationContext: (folders: Accessor<AlbumData[]>) => NavigationContext;
 };
 
 const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationContext => {
@@ -78,6 +78,6 @@ const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationCont
 
 export const createAlbumsNavigationService = (): AlbumsNavigationService => {
     return {
-        createNavigationContext,
+        createAlbumsNavigationContext: createNavigationContext,
     };
 };

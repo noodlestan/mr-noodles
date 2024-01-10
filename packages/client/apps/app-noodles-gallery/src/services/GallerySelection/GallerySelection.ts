@@ -7,7 +7,7 @@ import { GallerySelectionEvent } from './types';
 import { SelectionContext } from '@/providers/GallerySelection';
 
 type GallerySelectionService = {
-    createSelectionContext: () => SelectionContext;
+    createGallerySelectionContext: () => SelectionContext;
 };
 
 const createSelectionContext = (): SelectionContext => {
@@ -35,6 +35,6 @@ const createSelectionContext = (): SelectionContext => {
 
 export const createGallerySelectionService = (): GallerySelectionService => {
     return {
-        createSelectionContext,
+        createGallerySelectionContext: createSelectionContext,
     };
 };

@@ -37,11 +37,20 @@
     max-height: 300px;
 }
 
-.AlbumListItem--button:focus,
-.AlbumListItem--button:focus-visible,
-.AlbumListItem-is-current .AlbumListItem--button {
+.AlbumListItem .AlbumListItem--button {
     outline-offset: var(--outline-offset);
-    outline-style: var(--outline-style);
+    outline-style: none;
     outline-width: var(--outline-width);
+    outline-color: var(--action-disabled-bg-color);
+}
+
+.AlbumListItem .AlbumListItem--button:focus,
+.AlbumListItem .AlbumListItem--button:focus-visible,
+.AlbumListItem-is-current .AlbumListItem--button {
+    outline-style: var(--outline-style);
+}
+
+.AlbumListItem .AlbumListItem--button:focus,
+.AlbumListItem .AlbumListItem--button:focus-visible {
     outline-color: var(--outline-color);
 }

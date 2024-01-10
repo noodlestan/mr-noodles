@@ -3,6 +3,7 @@ import { useParams, useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect, on } from 'solid-js';
 
 import { AlbumsBar } from '@/molecules/AlbumsBar/AlbumsBar';
+import { AlbumsBreadcrumbs } from '@/molecules/AlbumsBreadcrumbs/AlbumsBreadcrumbs';
 import { AlbumsScroll } from '@/molecules/AlbumsScroll/AlbumsScroll';
 import { AlbumItems } from '@/organisms/AlbumItems/AlbumItems';
 import { Albums } from '@/organisms/Albums/Albums';
@@ -17,8 +18,8 @@ import './AlbumsScreen.css';
 export const AlbumsScreen: Component = () => {
     const { albums, searchAlbums, loading } = inject(AlbumsService);
 
-    const { createNavigationContext } = inject(AlbumsNavigationService);
-    const navigationContext = createNavigationContext(albums);
+    const { createAlbumsNavigationContext } = inject(AlbumsNavigationService);
+    const navigationContext = createAlbumsNavigationContext(albums);
     const { bus, showAllItems } = navigationContext;
 
     const params = useParams();
@@ -53,15 +54,9 @@ export const AlbumsScreen: Component = () => {
         if (ev.code === 'Escape') {
             bus?.emit({ name: 'closeModal' });
         }
-        if (ev.code === 'ArrowLeft') {
-            bus?.emit({ name: 'goToPreviousItem' });
-        }
-        if (ev.code === 'ArrowRight') {
-            bus?.emit({ name: 'goToNextItem' });
-        }
     };
 
-    const filteredAlbums = () => searchAlbums(params.parent || '', searchParams.search);
+    const subFolders = () => searchAlbums(params.parent || '', searchParams.search);
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
@@ -73,15 +68,16 @@ export const AlbumsScreen: Component = () => {
                         <AlbumsScroll>
                             <Show when={loading()}>Loading</Show>
                             <Show when={!loading()}>
+                                <AlbumsBreadcrumbs />
                                 <Show when={params.parent}>
                                     <AlbumItems
                                         album={params.parent}
-                                        toggleVisibility={!filteredAlbums().length}
+                                        toggleVisibility={subFolders().length > 0}
                                         showAllItems={showAllItems()}
                                     />
                                 </Show>
                                 <Show when={!showAllItems()}>
-                                    <Albums items={filteredAlbums} />
+                                    <Albums items={subFolders} />
                                 </Show>
                             </Show>
                         </AlbumsScroll>

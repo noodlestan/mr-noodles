@@ -1,17 +1,19 @@
 import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
+import { inject } from '@noodlestan/ui-services';
 import { SkeletonImage, SkeletonText } from '@noodlestan/ui-skeletons';
 import { Surface } from '@noodlestan/ui-surfaces';
 import { createElementSize } from '@solid-primitives/resize-observer';
 import { ChevronDown, X } from 'lucide-solid';
-import { Component, For, Show, createSignal } from 'solid-js';
+import { Component, Show, createSignal } from 'solid-js';
 
 import { makeRows } from '../Gallery/private/utils/makeRows';
 
-import { GalleryItem } from '@/molecules/GalleryItem/GalleryItem';
 import { GalleryItemRows } from '@/molecules/GalleryItemRows/GalleryItemRows';
 import { useAlbumsNavigationContext } from '@/providers/AlbumsNavigation';
+import { GalleryNavigationProvider } from '@/providers/GalleryNavigation';
 import { createPhotosResource } from '@/resources/Photo/createPhotosResource';
+import { GalleryNavigationService } from '@/services/GalleryNavigation';
 
 import './AlbumItems.css';
 
@@ -29,27 +31,21 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
     const [resource] = createPhotosResource(query);
     const { bus } = useAlbumsNavigationContext();
 
-    const data = () => (props.album ? resource()?.data : undefined);
-
-    const rows = () => {
+    const data = () => (props.album ? resource()?.data || [] : []);
+    const allRows = () => {
         const items = data();
         if (items && items.length) {
-            const rows = makeRows(items, { height: 200, maxWidth: size.width || undefined });
-            return rows[0].length ? rows : [[items[0]]];
+            return makeRows(items, { height: 200, maxWidth: size.width || undefined });
         }
         return [[]];
     };
 
     const length = () => data()?.length || 0;
-    const isTruncated = () => !resource.loading && length() > rows()[0].length;
-
-    const rowOptions = () => ({
-        height: 200,
-        showCheckboxes: false,
-    });
-
-    const showFirstRow = () => !resource.loading && props.toggleVisibility && !props.showAllItems;
-    const showAllRows = () => (!resource.loading && !props.toggleVisibility) || props.showAllItems;
+    const firstRow = () => allRows()[0];
+    const isTruncated = () => length() > firstRow().length;
+    const showToggleVisibility = () => props.toggleVisibility && isTruncated();
+    const showFirstRow = () => props.toggleVisibility && !props.showAllItems;
+    const rows = () => (showFirstRow() ? [allRows()[0]] : allRows());
 
     const handleExpandClick = () => bus?.emit({ name: 'showAllItems' });
     const handleCloseClick = () => bus?.emit({ name: 'showSubFolders' });
@@ -58,7 +54,18 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
         AlbumItems: true,
     });
 
+    const rowOptions = () => ({
+        height: 200,
+        showCheckboxes: false,
+    });
+
+    const { createGalleryNavigationContext } = inject(GalleryNavigationService);
+    const galleryNavigationContext = createGalleryNavigationContext(() =>
+        showFirstRow() ? rows()[0] : data(),
+    );
+
     return (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div classList={classList()}>
             <div class="AlbumItems--width">
                 <div ref={setRef} />
@@ -72,7 +79,7 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
                             </Show>
                             <Show when={!resource.loading}>{length()} photos</Show>
                         </Display>
-                        <Show when={props.toggleVisibility && isTruncated()}>
+                        <Show when={showToggleVisibility()}>
                             <Show when={!props.showAllItems}>
                                 <IconButton
                                     size="s"
@@ -94,19 +101,10 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
                     <Show when={resource.loading}>
                         <SkeletonImage width="266px" height="200px" />
                     </Show>
-                    <Show when={showFirstRow()}>
-                        <Flex
-                            gap="s"
-                            wrap
-                            direction="row"
-                            classList={{ 'AlbumItems--first-row': true }}
-                        >
-                            <For each={rows()[0]}>{item => <GalleryItem item={item} />}</For>
-                        </Flex>
-                    </Show>
-                    <Show when={showAllRows()}>
+
+                    <GalleryNavigationProvider context={galleryNavigationContext}>
                         <GalleryItemRows rows={rows} options={rowOptions} />
-                    </Show>
+                    </GalleryNavigationProvider>
                 </Flex>
             </Surface>
         </div>

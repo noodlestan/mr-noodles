@@ -36,11 +36,11 @@ const ModalViewContents: Component<ModalViewProps> = () => {
         setQuietTimeoutId(setTimeout(() => setQuiet(true), time));
     };
 
-    const { current } = useGalleryNavigationContext();
-    // const previousId = () => previous() || '';
+    const { bus, current } = useGalleryNavigationContext();
     const item = () => current() as PhotoData;
-    // const nextId = () => next() || '';
 
+    // const previousId = () => previous() || '';
+    // const nextId = () => next() || '';
     // createEffect(
     //     on(current, (value, previous) => {
     //         // TODO animate transition
@@ -54,7 +54,6 @@ const ModalViewContents: Component<ModalViewProps> = () => {
     };
 
     const handleMouseMove = notQuiet;
-    const handleKeyDown = notQuiet;
 
     // eslint-disable-next-line solid/reactivity
     resetQuiet();
@@ -64,8 +63,19 @@ const ModalViewContents: Component<ModalViewProps> = () => {
         setQuiet(true);
     };
 
+    const handleKeyDown = (ev: KeyboardEvent) => {
+        notQuiet();
+        if (ev.code === 'ArrowLeft') {
+            bus?.emit({ name: 'goToPreviousItem' });
+        }
+        if (ev.code === 'ArrowRight') {
+            bus?.emit({ name: 'goToNextItem' });
+        }
+    };
+
     return (
-        <div classList={classList()}>
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div classList={classList()} onKeyDown={handleKeyDown}>
             <div
                 role="dialog"
                 aria-hidden={false}

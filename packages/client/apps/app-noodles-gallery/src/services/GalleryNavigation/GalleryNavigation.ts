@@ -15,7 +15,7 @@ import { GalleryNavigationEvent } from './types';
 import { NavigationContext } from '@/providers/GalleryNavigation';
 
 type GalleryNavigationService = {
-    createNavigationContext: (photos: Accessor<PhotoData[]>) => NavigationContext;
+    createGalleryNavigationContext: (photos: Accessor<PhotoData[]>) => NavigationContext;
 };
 
 const createNavigationContext = (photos: Accessor<PhotoData[]>): NavigationContext => {
@@ -64,6 +64,6 @@ const createNavigationContext = (photos: Accessor<PhotoData[]>): NavigationConte
 
 export const createGalleryNavigationService = (): GalleryNavigationService => {
     return {
-        createNavigationContext,
+        createGalleryNavigationContext: createNavigationContext,
     };
 };
