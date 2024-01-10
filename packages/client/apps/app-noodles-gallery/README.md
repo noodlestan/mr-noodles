@@ -1,6 +1,6 @@
 # Mr. Noodles Gallery App
 
-This is Mr Noodles gallery app.
+This is Mr Noodles timeline app.
 
 It connects to [Mr Noodles API](../../../server/README.md) and displays media in galleries.
 
@@ -10,51 +10,67 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 
 ### Use cases
 
-- list images grouped by album and day
-- navigate items with keyboard
-- selects and deselects items, clears selection
-- view item in modal
-- TODO select/deselect from within modal
-- TODO show item details within modal (keyboard: D)
-- TODO navigate from modal view
-- TODO delete item (keyboard: DEL)
+- TODO (homescreen) type your name
+- TODO (homescreen) welcome back from thumbs
 
-- list folders by parent
-- filter folders by text search
-- navigate folders with breadcrumbs and keyboard
-- TODO show files within selected folder (along? before? after sub folders)
-- TODO ESC moves one folder up
-- TODO files selection context
+- (timeline) list images grouped by folder and day
+- (timeline) navigate files with keyboard
+- (timeline) selects and deselects files, clears selection
+- (timeline) view file in modal
+- (timeline) navigate files in modal view
+- TODO (timeline) select/deselect from within modal
+- TODO (timeline) show file details within modal (keyboard: D)
+- TODO (timeline) delete file (keyboard: DEL) requires modal dialog
 
-- TODO list deleted items
-- TODO restore deleted item
+- (folders) list by parent
+- (folders) filter by text search
+- (folders) navigate with breadcrumbs and keyboard
+- (folders) show files within selected folder
+- TODO (folders) show folder thumb and info (number of files, subfolders, date range)
+- TODO (folders) view file in modal
+- TODO (folders) navigate with arrows
+- TODO (folders) BACKSPACE moves one folder up
 
-- TODO create playlist from folder
-- TODO play playlist
+- TODO (folders) files selection context
 
-- TODO rename Photo to MediaItem and Album to Folder
+- TODO (delete) list deleted files
+- TODO (delete) restore deleted file
 
-- TODO ingest video
-- TODO handle video in lists with placeholder graphics only
-- TODO video player in modal view
-- TODO generate video thumbnails
-- TODO generate video preview
+- TODO (playlist) create playlist from folder (playlist contains folder)
+- TODO (playlist) play playlist
+- TODO (playlist) share playlist
 
-- TODO filter items by date range
-- TODO incremental load
-- TODO list virtualization (fixed heights)
+- TODO (refactor) rename Photo to Noodle and Album to Folder
 
-- TODO list playlists
-- TODO delete playlist
-- TODO edit playlist options
+- TODO (video) ingest files
+- TODO (video) handle video in lists with placeholder graphics only
+- TODO (video) video player in modal views
+- TODO (video) generate video thumbnails
+- TODO (video) generate video preview
 
-- TODO add tag to file
-- TODO show file tags (toggle tag visibility from bar)
-- TODO create slideshow from tag
+- TODO (timeline) filter files by date range
+- TODO (timeline) incremental load
+- TODO (timeline) list virtualization (fixed heights)
 
-- TODO identify identical files
-- TODO identify blurry files
-- TODO create group from identical files
+- TODO (playlists) list playlists
+- TODO (playlists) delete playlist
+- TODO (playlists) edit playlist options
+
+- TODO (tags) add tag to file
+- TODO (tags) show file tags (toggle tag visibility from bar)
+- TODO (playlists) create playlist from tag
+
+- TODO (identicals) identify identical files
+- TODO (identicals) create group from identical files
+
+- TODO (blurs) identify blurry files
+
+- TODO (guestbook)
+- TODO (reminder)
+- TODO (shoppinglist)
+
+- TODO (settings) list locations (per owner)
+- TODO (settings) add/remove location
 
 ### Capabilities
 

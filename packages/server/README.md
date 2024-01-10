@@ -7,20 +7,27 @@ This is Mr Noodles server.
 ### Media scanner
 
 - scans a folder in the local filesystem for images
+- TODO scan import folder from frontend
+  - create an `ImportJob` and start scan immediately
+  - import jobs survive server shutdown (resume on restart)
+  - import job: status, dateStarted, files, completion, estimation, dateFinished, results
+  - expose `/jobs`
 - TODO scan for videos as well
 - TODO delete item
-- TODO list deleted items
+- TODO expose `/noodles/deleted`
 - TODO restore item
+- TODO permanently delete item
 - TODO request scan via API (block certain operations while scanning, report on progress back to the UI)
 - indexes all images in the database
 - stores dimensions metadata and geo location extracted from exif
 - when a scan finds that a photo attributes have changed updates them automatically
 - TODO invalidate image automatically
-- TODO detect if new scanned files actually already exist under a different filename
-- TODO check for duplicates and expose `/photos/duplicates`
 - stores messages about new scanned files, including processing errors and warnings
+- TODO store `ScanJob` details in `/jobs` instead of individual "photomessages"
+- TODO detect if new scanned files actually already exist under a different filename
+- TODO check for duplicates and expose `/noodles/duplicates`
 
-### API serves
+### API server
 
 - `/photos`
 - `/photos/<id>`
@@ -54,7 +61,7 @@ npm run build
 
 #### DB (docker)
 
-Install [Docker](https://docs.docker.com/desktop/, get the [MongoDB image](https://hub.docker.com/_/mongo), and create a container exposing the MongoDB port to the host.
+Install [Docker](https://docs.docker.com/desktop/), get the [MongoDB image](https://hub.docker.com/_/mongo), and create a container exposing the MongoDB port to the host.
 
 ```
 docker pull mongo:jammy
