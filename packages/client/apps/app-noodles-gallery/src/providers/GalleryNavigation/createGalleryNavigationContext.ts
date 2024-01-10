@@ -2,6 +2,7 @@ import { PhotoData } from '@noodlestan/shared-types';
 import { createEventBus } from '@solid-primitives/event-bus';
 import { Accessor, createEffect, createSignal } from 'solid-js';
 
+import { GalleryNavigationContextState } from './private/GalleryNavigationContext';
 import {
     handleCloseModal,
     handleGoToNextItem,
@@ -12,13 +13,9 @@ import {
 } from './private/eventHandlers';
 import { GalleryNavigationEvent } from './types';
 
-import { NavigationContext } from '@/providers/GalleryNavigation';
-
-type GalleryNavigationService = {
-    createGalleryNavigationContext: (photos: Accessor<PhotoData[]>) => NavigationContext;
-};
-
-const createNavigationContext = (photos: Accessor<PhotoData[]>): NavigationContext => {
+export const createGalleryNavigationContext = (
+    photos: Accessor<PhotoData[]>,
+): GalleryNavigationContextState => {
     const bus = createEventBus<GalleryNavigationEvent>();
     const [isModal, setIsModal] = createSignal<boolean>(false);
     const [current, setCurrent] = createSignal<PhotoData | undefined>();
@@ -60,10 +57,4 @@ const createNavigationContext = (photos: Accessor<PhotoData[]>): NavigationConte
     });
 
     return context;
-};
-
-export const createGalleryNavigationService = (): GalleryNavigationService => {
-    return {
-        createGalleryNavigationContext: createNavigationContext,
-    };
 };

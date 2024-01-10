@@ -13,11 +13,13 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 - TODO (homescreen) type your name
 - TODO (homescreen) welcome back from thumbs
 
-- (timeline) list images grouped by folder and day
+- (timeline) list images grouped by day and folder
 - (timeline) navigate files with keyboard
 - (timeline) selects and deselects files, clears selection
 - (timeline) view file in modal
 - (timeline) navigate files in modal view
+- TODO (timeline) show/hide folders
+- TODO (timeline) group by day/month/year
 - TODO (timeline) select/deselect from within modal
 - TODO (timeline) show file details within modal (keyboard: D)
 - TODO (timeline) delete file (keyboard: DEL) requires modal dialog

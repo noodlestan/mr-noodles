@@ -1,7 +1,7 @@
 import type { PhotoData } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
-import { Component, Show, createEffect } from 'solid-js';
+import { Component, Show, createEffect, on } from 'solid-js';
 
 import { ItemCheckbox } from '@/atoms/ItemCheckbox/ItemCheckbox';
 import { useGalleryNavigationContext } from '@/providers/GalleryNavigation';
@@ -44,10 +44,17 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     createEffect(() => {
         if (!isModal() && isCurrent() && buttonRef) {
             buttonRef.focus();
-            buttonRef.scrollIntoView({ block: 'center', behavior: 'instant' });
-            // TODO set focus when modal closes
         }
     });
+
+    createEffect(
+        on(isModal, (is, was) => {
+            if (!is && was && isCurrent() && buttonRef) {
+                buttonRef.focus();
+                buttonRef.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }),
+    );
 
     const url = () => makeImageUrl('photos', props.item, 'thumb.small');
     // TODO abstract

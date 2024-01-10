@@ -1,16 +1,11 @@
 import { createEventBus } from '@solid-primitives/event-bus';
 import { createEffect, createSignal } from 'solid-js';
 
+import { GallerySelectionContextState } from './private/GallerySelectionContext';
 import { handleClearSelection, handleOnSelect } from './private/eventHandlers';
 import { GallerySelectionEvent } from './types';
 
-import { SelectionContext } from '@/providers/GallerySelection';
-
-type GallerySelectionService = {
-    createGallerySelectionContext: () => SelectionContext;
-};
-
-const createSelectionContext = (): SelectionContext => {
+export const createGallerySelectionContext = (): GallerySelectionContextState => {
     const bus = createEventBus<GallerySelectionEvent>();
     const [selection, setSelection] = createSignal<Set<string>>(new Set());
 
@@ -31,10 +26,4 @@ const createSelectionContext = (): SelectionContext => {
     });
 
     return context;
-};
-
-export const createGallerySelectionService = (): GallerySelectionService => {
-    return {
-        createGallerySelectionContext: createSelectionContext,
-    };
 };

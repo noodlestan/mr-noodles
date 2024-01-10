@@ -1,4 +1,10 @@
 .MainNav {
     height: 100vh;
-    box-shadow: 2px 0px 0px hsla(var(--surface-border-hue-sat), var(--color-fg-light-3), 0.1);
+    min-width: min-content;
+    max-width: min-content;
+    border-right: 1px solid hsl(var(--surface-bg-hue-sat), var(--color-bg-light-5));
+}
+
+.MainNav .Button {
+    width: 100%;
 }

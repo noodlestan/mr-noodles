@@ -1,5 +1,6 @@
 import type { IGroup, ISort } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
+import { Surface } from '@noodlestan/ui-surfaces';
 import { Component, Show, createRenderEffect } from 'solid-js';
 
 import { galleryStore } from './private/store';
@@ -8,10 +9,14 @@ import { GalleryBar } from '@/molecules/GalleryBar/GalleryBar';
 import { GalleryScroll } from '@/molecules/GalleryScroll/GalleryScroll';
 import { Gallery } from '@/organisms/Gallery/Gallery';
 import { ModalView } from '@/organisms/ModalView/ModalView';
-import { GalleryNavigationProvider } from '@/providers/GalleryNavigation';
-import { GallerySelectionProvider } from '@/providers/GallerySelection';
-import { GalleryNavigationService } from '@/services/GalleryNavigation';
-import { GallerySelectionService } from '@/services/GallerySelection';
+import {
+    GalleryNavigationProvider,
+    createGalleryNavigationContext,
+} from '@/providers/GalleryNavigation';
+import {
+    GallerySelectionProvider,
+    createGallerySelectionContext,
+} from '@/providers/GallerySelection';
 import { PhotosService } from '@/services/Photos';
 
 import './GalleryScreen.css';
@@ -28,17 +33,14 @@ export const GalleryScreen: Component = () => {
 
     const sort = () => groupByToSortBy(groupBy());
 
-    const { createGallerySelectionContext } = inject(GallerySelectionService);
     const selectionContext = createGallerySelectionContext();
-
-    const { createGalleryNavigationContext } = inject(GalleryNavigationService);
     const navigationContext = createGalleryNavigationContext(photos);
     const { bus: navigationBus, isModal, current } = navigationContext;
 
     createRenderEffect(() => {
         setGroupBy([
-            { field: 'album', dir: 'asc' },
             { field: 'date', group: 'day', dir: 'desc' },
+            { field: 'album', dir: 'asc' },
         ]);
 
         setQuery({
@@ -55,9 +57,9 @@ export const GalleryScreen: Component = () => {
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <main tab-index="0" onKeyDown={handleKeyDown}>
-            <GalleryNavigationProvider context={navigationContext}>
-                <GallerySelectionProvider context={selectionContext}>
-                    <div class="GalleryScreen">
+            <GalleryNavigationProvider {...navigationContext}>
+                <GallerySelectionProvider {...selectionContext}>
+                    <Surface variant="page" classList={{ GalleryScreen: true }}>
                         <GalleryBar />
                         <GalleryScroll>
                             <Show when={loading()}>Loading</Show>
@@ -66,7 +68,7 @@ export const GalleryScreen: Component = () => {
                             </Show>
                         </GalleryScroll>
                         <ModalView show={isModal() && !!current()} />
-                    </div>
+                    </Surface>
                 </GallerySelectionProvider>
             </GalleryNavigationProvider>
         </main>

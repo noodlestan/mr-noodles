@@ -14,7 +14,7 @@ export type GalleryBarProps = {
 
 export const GalleryBar: Component<GalleryBarProps> = () => {
     return (
-        <Surface variant="stage" classList={{ GalleryBar: true }}>
+        <Surface variant="page" classList={{ GalleryBar: true }}>
             <Flex direction="row" padding="m" gap="l" align="end">
                 <GalleryQueryBar />
                 <GallerySelectionBar />

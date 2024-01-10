@@ -6,6 +6,7 @@ import { MainNav } from '@/navigation/MainNav/MainNav';
 import { AlbumsScreen } from '@/screens/AlbumsScreen/AlbumsScreen';
 import { ErrorBoundaryScreen } from '@/screens/ErrorBoundaryScreen/ErrorBoundaryScreen';
 import { GalleryScreen } from '@/screens/GalleryScreen/GalleryScreen';
+import { HomeScreen } from '@/screens/HomeScreen/HomeScreen';
 
 import './App.css';
 
@@ -16,7 +17,7 @@ export const App: Component = () => {
                 <MainNav />
                 <div class="App-Main">
                     <Router>
-                        <Route path="/" component={() => <></>} />
+                        <Route path="/" component={HomeScreen} />
                         <Route path="/gallery" component={GalleryScreen} />
                         <Route path="/albums/*parent" component={AlbumsScreen} />
                     </Router>

@@ -2,6 +2,7 @@ import { AlbumData } from '@noodlestan/shared-types';
 import { createEventBus } from '@solid-primitives/event-bus';
 import { Accessor, createEffect, createSignal } from 'solid-js';
 
+import { AlbumsNavigationContextState } from './private/AlbumsNavigationContext';
 import {
     handleCloseModal,
     handleGoToNextItem,
@@ -14,13 +15,9 @@ import {
 } from './private/eventHandlers';
 import { AlbumsNavigationEvent } from './types';
 
-import { NavigationContext } from '@/providers/AlbumsNavigation';
-
-type AlbumsNavigationService = {
-    createAlbumsNavigationContext: (folders: Accessor<AlbumData[]>) => NavigationContext;
-};
-
-const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationContext => {
+export const createAlbumsNavigationContext = (
+    folders: Accessor<AlbumData[]>,
+): AlbumsNavigationContextState => {
     const bus = createEventBus<AlbumsNavigationEvent>();
     const [showAllItems, setShowAllItems] = createSignal<boolean>(false);
     const [isModal, setIsModal] = createSignal<boolean>(false);
@@ -42,7 +39,7 @@ const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationCont
         return items[index + 1];
     };
 
-    const context: NavigationContext = {
+    const context: AlbumsNavigationContextState = {
         bus,
         showAllItems,
         isModal,
@@ -74,10 +71,4 @@ const createNavigationContext = (folders: Accessor<AlbumData[]>): NavigationCont
     });
 
     return context;
-};
-
-export const createAlbumsNavigationService = (): AlbumsNavigationService => {
-    return {
-        createAlbumsNavigationContext: createNavigationContext,
-    };
 };

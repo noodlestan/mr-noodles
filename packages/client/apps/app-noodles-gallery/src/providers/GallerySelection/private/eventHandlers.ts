@@ -1,7 +1,7 @@
 import { PhotoData } from '@noodlestan/shared-types';
 import { Accessor, Setter } from 'solid-js';
 
-import { SelectionContext } from '../GallerySelection';
+import { SelectionContext } from '../createGallerySelectionContext';
 import { GallerySelectionEvent } from '../types';
 
 export const handleOnSelect = (

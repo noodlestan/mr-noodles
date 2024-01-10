@@ -2,7 +2,7 @@ import { IconButton } from '@noodlestan/ui-atoms';
 import { ArrowLeft, ArrowRight } from 'lucide-solid';
 import { Component, Show } from 'solid-js';
 
-import { useGalleryNavigationContext } from '@/providers/GalleryNavigation/GalleryNavigation';
+import { useGalleryNavigationContext } from '@/providers/GalleryNavigation/useGalleryNavigationContext';
 
 import './ModalItemNavigation.css';
 

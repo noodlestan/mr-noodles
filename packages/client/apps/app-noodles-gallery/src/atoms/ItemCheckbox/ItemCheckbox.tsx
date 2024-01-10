@@ -16,14 +16,14 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { bus, selection } = useGallerySelectionContext();
 
-    const [focused, setFocus] = createSignal<boolean>(false);
+    const [isFocused, setIsFocused] = createSignal<boolean>(false);
 
     const checked = () => selection().has(props.id);
 
     const classList = () => ({
         ItemCheckbox: true,
         'ItemCheckbox-is-checked': checked(),
-        'ItemCheckbox-is-focused': focused(),
+        'ItemCheckbox-is-focused': isFocused(),
         'ItemCheckbox-is-selecting': !!selection()?.size,
     });
 
@@ -35,6 +35,9 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
 
     const handleClick = (ev: MouseEvent) => {
         ev.stopPropagation();
+    };
+
+    const handleMouseDown = () => {
         emitSelect();
     };
 
@@ -43,10 +46,10 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
     };
 
     const handleFocus = () => {
-        setFocus(true);
+        setIsFocused(true);
         props.onFocus();
     };
-    const handleBlur = () => setFocus(false);
+    const handleBlur = () => setIsFocused(false);
 
     const label = () => (checked() ? 'unselect item' : 'select item');
 
@@ -58,7 +61,12 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
 
     return (
         <Flex gap="m" classList={classList()}>
-            <div class="ItemCheckbox--control" onClick={handleClick}>
+            <div
+                class="ItemCheckbox--control"
+                onClick={handleClick}
+                onMouseDown={handleMouseDown}
+                onTouchStart={handleMouseDown}
+            >
                 <input
                     ref={inputRef}
                     tabindex="0"

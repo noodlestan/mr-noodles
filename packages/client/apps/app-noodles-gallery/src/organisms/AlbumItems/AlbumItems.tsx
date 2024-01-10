@@ -1,6 +1,5 @@
 import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
-import { inject } from '@noodlestan/ui-services';
 import { SkeletonImage, SkeletonText } from '@noodlestan/ui-skeletons';
 import { Surface } from '@noodlestan/ui-surfaces';
 import { createElementSize } from '@solid-primitives/resize-observer';
@@ -11,9 +10,11 @@ import { makeRows } from '../Gallery/private/utils/makeRows';
 
 import { GalleryItemRows } from '@/molecules/GalleryItemRows/GalleryItemRows';
 import { useAlbumsNavigationContext } from '@/providers/AlbumsNavigation';
-import { GalleryNavigationProvider } from '@/providers/GalleryNavigation';
+import {
+    GalleryNavigationProvider,
+    createGalleryNavigationContext,
+} from '@/providers/GalleryNavigation';
 import { createPhotosResource } from '@/resources/Photo/createPhotosResource';
-import { GalleryNavigationService } from '@/services/GalleryNavigation';
 
 import './AlbumItems.css';
 
@@ -59,7 +60,6 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
         showCheckboxes: false,
     });
 
-    const { createGalleryNavigationContext } = inject(GalleryNavigationService);
     const galleryNavigationContext = createGalleryNavigationContext(() =>
         showFirstRow() ? rows()[0] : data(),
     );
@@ -102,7 +102,7 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
                         <SkeletonImage width="266px" height="200px" />
                     </Show>
 
-                    <GalleryNavigationProvider context={galleryNavigationContext}>
+                    <GalleryNavigationProvider {...galleryNavigationContext}>
                         <GalleryItemRows rows={rows} options={rowOptions} />
                     </GalleryNavigationProvider>
                 </Flex>

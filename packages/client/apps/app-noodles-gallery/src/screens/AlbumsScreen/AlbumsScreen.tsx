@@ -1,4 +1,5 @@
 import { inject } from '@noodlestan/ui-services';
+import { Surface } from '@noodlestan/ui-surfaces';
 import { useParams, useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect, on } from 'solid-js';
 
@@ -7,10 +8,12 @@ import { AlbumsBreadcrumbs } from '@/molecules/AlbumsBreadcrumbs/AlbumsBreadcrum
 import { AlbumsScroll } from '@/molecules/AlbumsScroll/AlbumsScroll';
 import { AlbumItems } from '@/organisms/AlbumItems/AlbumItems';
 import { Albums } from '@/organisms/Albums/Albums';
-import { AlbumsNavigationProvider } from '@/providers/AlbumsNavigation';
+import {
+    AlbumsNavigationProvider,
+    createAlbumsNavigationContext,
+} from '@/providers/AlbumsNavigation';
 import { AlbumsQueryProvider } from '@/providers/AlbumsQuery';
 import { AlbumsService } from '@/services/Albums';
-import { AlbumsNavigationService } from '@/services/AlbumsNavigation';
 import { AlbumsQueryService } from '@/services/AlbumsQuery';
 
 import './AlbumsScreen.css';
@@ -18,7 +21,6 @@ import './AlbumsScreen.css';
 export const AlbumsScreen: Component = () => {
     const { albums, searchAlbums, loading } = inject(AlbumsService);
 
-    const { createAlbumsNavigationContext } = inject(AlbumsNavigationService);
     const navigationContext = createAlbumsNavigationContext(albums);
     const { bus, showAllItems } = navigationContext;
 
@@ -61,9 +63,9 @@ export const AlbumsScreen: Component = () => {
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <main tab-index="0" onKeyDown={handleKeyDown}>
-            <AlbumsNavigationProvider context={navigationContext}>
+            <AlbumsNavigationProvider {...navigationContext}>
                 <AlbumsQueryProvider context={queryContext}>
-                    <div class="AlbumsScreen">
+                    <Surface variant="page" classList={{ AlbumsScreen: true }}>
                         <AlbumsBar />
                         <AlbumsScroll>
                             <Show when={loading()}>Loading</Show>
@@ -82,7 +84,7 @@ export const AlbumsScreen: Component = () => {
                             </Show>
                         </AlbumsScroll>
                         {/* <ModalView show={isModal() && !!current()} /> */}
-                    </div>
+                    </Surface>
                 </AlbumsQueryProvider>
             </AlbumsNavigationProvider>
         </main>

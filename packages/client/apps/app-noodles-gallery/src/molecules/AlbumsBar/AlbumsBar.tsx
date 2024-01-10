@@ -13,7 +13,7 @@ export type AlbumsBarProps = {
 
 export const AlbumsBar: Component<AlbumsBarProps> = () => {
     return (
-        <Surface variant="stage" classList={{ AlbumsBar: true }}>
+        <Surface variant="page" classList={{ AlbumsBar: true }}>
             <Flex direction="row" padding="m" gap="l" align="end">
                 <AlbumsQueryBar />
             </Flex>
