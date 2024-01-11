@@ -1,9 +1,15 @@
 .AlbumsBreadcrumbs {
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .AlbumsBreadcrumbPart {
+    padding: var(--space-pad-0);
+    overflow: hidden;
+}
+
+.AlbumsBreadcrumbPart--Text {
+    display: inline-block;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 }

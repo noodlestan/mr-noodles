@@ -1,6 +1,6 @@
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { useParams, useSearchParams } from '@solidjs/router';
+import { useNavigate, useParams, useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect, on } from 'solid-js';
 
 import { AlbumsBar } from '@/molecules/AlbumsBar/AlbumsBar';
@@ -58,9 +58,27 @@ export const AlbumsScreen: Component = () => {
     const query = () => ({ filterBy: { album: params.parent } });
     const [resource] = createPhotosResource(query);
 
+    const rootUrl = () => `/albums${window.location.search}`;
+    const parentUrl = () => {
+        if (params.parent) {
+            const parts = params.parent.split('/');
+            const slug = parts.slice(0, -1).join('/');
+            return `/albums/${slug}${window.location.search}`;
+        } else {
+            return rootUrl();
+        }
+    };
+    const navigate = useNavigate();
+
+    const handleKeyDown = (ev: KeyboardEvent) => {
+        if (ev.code === 'Escape' || ev.code === 'Backspace') {
+            navigate(parentUrl());
+        }
+    };
+
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <main tab-index="0">
+        <main tab-index="0" onKeyDown={handleKeyDown}>
             <AlbumsNavigationProvider {...navigationContext}>
                 <AlbumsQueryProvider context={queryContext}>
                     <Surface variant="page" classList={{ AlbumsScreen: true }}>

@@ -40,7 +40,7 @@ const AlbumsBreadcrumbPart: Component<BreadcrumbPartProps> = props => {
             </Show>
             <Show when={isLast()}>
                 <BreadcrumbFolderIcon isOpen={true} />
-                {props.part.name}
+                <span class="AlbumsBreadcrumbPart--Text">{props.part.name}</span>
             </Show>
             <Show when={isAllButLast()}>
                 <span> / </span>
@@ -82,18 +82,20 @@ export const AlbumsBreadcrumbs: Component = () => {
     return (
         <Show when={parent()}>
             <Display level={3} size="s">
-                <Flex tag="span" direction="row" gap="s" align="start" classList={classList()}>
+                <Flex tag="span" direction="row" align="start" classList={classList()}>
                     <Show when={!album()}>
                         <SkeletonText size="m" /> <span>/</span> <SkeletonText size="m" />
                     </Show>
                     <Show when={album()}>
-                        <IconButton
-                            icon={X}
-                            variant="plain"
-                            size="s"
-                            href={rootUrl()}
-                            onTap={() => navigate(rootUrl())}
-                        />
+                        <span class="AlbumsBreadcrumbPart">
+                            <IconButton
+                                icon={X}
+                                variant="plain"
+                                size="s"
+                                href={rootUrl()}
+                                onTap={() => navigate(rootUrl())}
+                            />
+                        </span>
                         <For each={titleParts()}>
                             {(part, index) => (
                                 <AlbumsBreadcrumbPart
