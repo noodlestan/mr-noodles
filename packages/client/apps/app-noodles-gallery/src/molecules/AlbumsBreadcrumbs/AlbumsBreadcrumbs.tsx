@@ -2,13 +2,14 @@ import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
 import { SkeletonText } from '@noodlestan/ui-skeletons';
-import { useNavigate } from '@solidjs/router';
+import { useNavigate, useSearchParams } from '@solidjs/router';
 import { X } from 'lucide-solid';
 import { Component, For, Show } from 'solid-js';
 
 import { BreadcrumbFolderIcon } from '../../atoms/BreadcrumbFolderIcon/BreadcrumbFolderIcon';
 
 import { AlbumLink } from '@/atoms/AlbumLink/AlbumLink';
+import { useUrl } from '@/navigation/useUrl';
 import { useAlbumsQueryContext } from '@/providers/AlbumsQuery';
 import { AlbumsService } from '@/services/Albums';
 
@@ -71,7 +72,8 @@ export const AlbumsBreadcrumbs: Component = () => {
         });
     };
 
-    const rootUrl = () => `/albums${window.location.search}`;
+    const [searchParams] = useSearchParams();
+    const rootUrl = () => useUrl(searchParams, '/folders');
 
     const navigate = useNavigate();
 

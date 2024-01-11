@@ -6,6 +6,7 @@ import { Component, Show, createEffect, on } from 'solid-js';
 import { AlbumsBar } from '@/molecules/AlbumsBar/AlbumsBar';
 import { AlbumsBreadcrumbs } from '@/molecules/AlbumsBreadcrumbs/AlbumsBreadcrumbs';
 import { AlbumsScroll } from '@/molecules/AlbumsScroll/AlbumsScroll';
+import { useUrl } from '@/navigation/useUrl';
 import { AlbumDetails } from '@/organisms/AlbumDetails/AlbumDetails';
 import { AlbumItems } from '@/organisms/AlbumItems/AlbumItems';
 import { Albums } from '@/organisms/Albums/Albums';
@@ -21,6 +22,8 @@ import { AlbumsQueryService } from '@/services/AlbumsQuery';
 import './AlbumsScreen.css';
 
 export const AlbumsScreen: Component = () => {
+    let mainRef: HTMLDivElement | undefined;
+
     const { searchAlbums, loading } = inject(AlbumsService);
 
     const params = useParams();
@@ -50,6 +53,10 @@ export const AlbumsScreen: Component = () => {
             (value, previous) => {
                 if (value !== previous) {
                     bus.emit({ name: 'showSubFolders' });
+                    // TODO invstigate better: the setTimeout was needed here because when navigation via links browser sets focus on <body> element
+                    window.setTimeout(() => {
+                        mainRef?.focus();
+                    });
                 }
             },
         ),
@@ -58,12 +65,12 @@ export const AlbumsScreen: Component = () => {
     const query = () => ({ filterBy: { album: params.parent } });
     const [resource] = createPhotosResource(query);
 
-    const rootUrl = () => `/albums${window.location.search}`;
+    const rootUrl = () => useUrl(searchParams, '/folders');
     const parentUrl = () => {
         if (params.parent) {
             const parts = params.parent.split('/');
             const slug = parts.slice(0, -1).join('/');
-            return `/albums/${slug}${window.location.search}`;
+            return useUrl(searchParams, `/folders/${slug}`);
         } else {
             return rootUrl();
         }
@@ -78,10 +85,16 @@ export const AlbumsScreen: Component = () => {
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <main tab-index="0" onKeyDown={handleKeyDown}>
+        <main
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabindex="0"
+            onKeyDown={handleKeyDown}
+            ref={mainRef}
+            classList={{ AlbumsScreen: true }}
+        >
             <AlbumsNavigationProvider {...navigationContext}>
                 <AlbumsQueryProvider context={queryContext}>
-                    <Surface variant="page" classList={{ AlbumsScreen: true }}>
+                    <Surface variant="page">
                         <AlbumsBar />
                         <AlbumsScroll>
                             <Show when={loading()}>Loading</Show>

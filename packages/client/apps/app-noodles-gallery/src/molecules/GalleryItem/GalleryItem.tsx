@@ -55,7 +55,6 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     createEffect(
         on(isModal, (is, was) => {
             if (!is && was && isCurrent() && buttonRef) {
-                buttonRef.focus();
                 buttonRef.scrollIntoView({ block: 'center', behavior: 'instant' });
             }
         }),

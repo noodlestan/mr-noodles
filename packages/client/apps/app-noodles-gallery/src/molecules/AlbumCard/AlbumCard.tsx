@@ -2,10 +2,12 @@ import type { AlbumData } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Surface } from '@noodlestan/ui-surfaces';
+import { useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect } from 'solid-js';
 
 import { BreadcrumbFolderIcon } from '@/atoms/BreadcrumbFolderIcon/BreadcrumbFolderIcon';
 import { AlbumTitle } from '@/molecules/AlbumTitle/AlbumTitle';
+import { useUrl } from '@/navigation/useUrl';
 import { useAlbumsNavigationContext } from '@/providers/AlbumsNavigation';
 import { makeImageUrl } from '@/services/Images/makeImageUrl';
 
@@ -37,12 +39,11 @@ export const AlbumCard: Component<AlbumCardProps> = props => {
     createEffect(() => {
         if (!isModal() && isCurrent() && buttonRef) {
             buttonRef.focus();
-            buttonRef.scrollIntoView({ block: 'center', behavior: 'instant' });
-            // TODO set focus when modal closes
         }
     });
 
-    const url = () => `/albums/${props.item.slug}?${window.location.search}`;
+    const [searchParams] = useSearchParams();
+    const url = () => useUrl(searchParams, `/folders/${props.item.slug}`);
     const imageUrl = () => makeImageUrl('albums', props.item, 'thumb.small');
     const title = () => props.item.title || '';
     const label = () => `Album. ${title()}. Press to open details.`;

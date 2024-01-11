@@ -38,9 +38,10 @@ export const Modal: Component<ModalProps> = props => {
     const options = untrack(() => ({ sticky: !!props.sticky }));
     useModalShowEffect(() => props.show, id, options);
 
+    const stopPropagation = (ev: Event) => ev.stopPropagation();
     const handleKeyDown = (ev: KeyboardEvent) => {
+        ev.stopPropagation();
         if (ev.code === 'Escape') {
-            ev.stopPropagation();
             props.onClose();
         }
     };
@@ -52,6 +53,8 @@ export const Modal: Component<ModalProps> = props => {
                     classList={classList()}
                     style={{ 'z-index': getIndex() + MODAL_Z_INDEX }}
                     onKeyDown={handleKeyDown}
+                    onKeyUp={stopPropagation}
+                    onKeyPress={stopPropagation}
                 >
                     <ModalProvider
                         id={id}

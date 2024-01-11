@@ -1,7 +1,7 @@
 import type { IGroup, ISort } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { Component, Show, createRenderEffect } from 'solid-js';
+import { Component, Show, createRenderEffect, onMount } from 'solid-js';
 
 import { galleryStore } from './private/store';
 
@@ -28,6 +28,8 @@ const groupByToSortBy = (group: IGroup[]): ISort[] => {
 };
 
 export const GalleryScreen: Component = () => {
+    let mainRef: HTMLDivElement | undefined;
+
     const { loading, photos, query, setQuery } = inject(PhotosService);
     const { groupBy, setGroupBy, sortBy } = galleryStore;
 
@@ -48,14 +50,16 @@ export const GalleryScreen: Component = () => {
         });
     });
 
+    onMount(() => window.setTimeout(() => mainRef?.focus()));
+
     const handleModalClose = () => navigationBus?.emit({ name: 'closeModal' });
 
     return (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <main tab-index="0">
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
+        <main tabindex="0" ref={mainRef} classList={{ GalleryScreen: true }}>
             <GalleryNavigationProvider {...navigationContext}>
                 <GallerySelectionProvider {...selectionContext}>
-                    <Surface variant="page" classList={{ GalleryScreen: true }}>
+                    <Surface variant="page">
                         <GalleryBar />
                         <GalleryScroll>
                             <Show when={loading()}>Loading</Show>

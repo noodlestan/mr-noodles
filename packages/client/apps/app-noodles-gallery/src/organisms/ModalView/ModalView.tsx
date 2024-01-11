@@ -67,9 +67,11 @@ const ModalViewContents: Component<ModalViewProps> = () => {
     const handleKeyDown = (ev: KeyboardEvent) => {
         notQuiet();
         if (ev.code === 'ArrowLeft') {
+            ev.stopPropagation();
             bus?.emit({ name: 'goToPreviousItem' });
         }
         if (ev.code === 'ArrowRight') {
+            ev.stopPropagation();
             bus?.emit({ name: 'goToNextItem' });
         }
     };
@@ -84,7 +86,6 @@ const ModalViewContents: Component<ModalViewProps> = () => {
                 tabindex="-1"
                 classList={dialogClassList()}
                 onMouseMove={handleMouseMove}
-                onKeyDown={handleKeyDown}
             >
                 <ModalItemHeader item={item()} show={!quiet()} />
                 <ModalItemRail>

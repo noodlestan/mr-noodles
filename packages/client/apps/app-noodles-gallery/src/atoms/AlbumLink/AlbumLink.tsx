@@ -1,7 +1,9 @@
 import { Link } from '@noodlestan/ui-atoms';
+import { useSearchParams } from '@solidjs/router';
 import { Component, Show } from 'solid-js';
 
 import { BreadcrumbFolderIcon } from '@/atoms/BreadcrumbFolderIcon/BreadcrumbFolderIcon';
+import { useUrl } from '@/navigation/useUrl';
 
 import './AlbumLink.css';
 
@@ -13,8 +15,10 @@ type AlbumLinkProps = {
 };
 
 export const AlbumLink: Component<AlbumLinkProps> = props => {
+    const [searchParams] = useSearchParams();
+
     const url = () => {
-        return `/albums/${props.path}${window.location.search}`;
+        return useUrl(searchParams, `/folders/${props.path}`);
     };
 
     const classList = () => ({ AlbumLink: true });

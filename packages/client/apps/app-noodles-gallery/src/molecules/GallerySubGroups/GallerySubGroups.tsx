@@ -20,7 +20,7 @@ export const GallerySubGroups: Component<GallerySubGroupsProps> = props => {
     const groups = () => (props.group() as GalleryGroupItem).groups;
 
     return (
-        <Flex direction="column" classList={classList()}>
+        <Flex direction="column" gap="s" classList={classList()}>
             <For each={groups()}>
                 {group => <GallerySubGroup group={() => group} options={props.options} />}
             </For>

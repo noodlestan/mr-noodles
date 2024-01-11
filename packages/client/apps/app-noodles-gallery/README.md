@@ -18,27 +18,37 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 - (timeline) selects and deselects files, clears selection
 - (timeline) view file in modal
 - (timeline) navigate files in modal view
-- TODO (timeline) show/hide folders
 - TODO (timeline) group by day/month/year
+- TODO (timeline) second group by folders/tag/none
 - TODO (timeline) select/deselect from within modal
 - TODO (timeline) show file details within modal (keyboard: D)
 - TODO (timeline) delete file (keyboard: DEL) requires modal dialog
+- TODO (timeline) start slideshow (keyboard: P)
+- TODO (timeline) item context menu (vertical "..." on top/right corner of item thumb & on full screen bar if no selection exists) with options: select/deselect; open preview; show details; delete
+- TODO (timeline) selection context menu (vertical "..." top/right corner of screen and modal when selection underway) with options: start slideshow; delete all
+- TODO (timeline) zoom in/out
 
 - (folders) list by parent
 - (folders) filter by text search
-- (folders) navigate with breadcrumbs and keyboard
+- (folders) navigate with breadcrumbs and keyboard (Left, Right, ESC and BACKSPACE)
 - (folders) show files within selected folder
 - (folders) view file in modal
 - (folders) show folder thumb, title, and dates
-- TODO (folders) BACKSPACE moves one folder up
 
 - TODO (folders) files selection context
+- TODO (folders) item context menu (vertical "..." on top/right corner of folder thumb) with options: select/deselect; open preview; show details; delete
+- TODO (timeline) selection context menu (vertical "..." top/right corner of screen and modal when selection underway) with options: start slideshow; delete all
 
 - TODO (delete) list deleted files
 - TODO (delete) restore deleted file
 
-- TODO (playlist) create playlist from folder (playlist contains folder)
+- TODO (playlist) create playlist from folder (playlist.folders = [folder.id])
 - TODO (playlist) play playlist
+- TODO (playlist) show playlist icon in folder thumb/page (replay if exists)
+- TODO (playlist) list playlists
+- TODO (playlist) show playlist details
+- TODO (playlist) add folder to playlist
+- TODO (playlist) remove folder from playlist
 - TODO (playlist) share playlist
 
 - TODO (refactor) rename Photo to Noodle and Album to Folder

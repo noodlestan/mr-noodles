@@ -1,8 +1,12 @@
-.AlbumsScreen {
+.AlbumsScreen > .Surface {
     display: flex;
     flex-direction: column;
     gap: 0;
     padding: 0;
     width: 100%;
     height: 100vh;
+}
+
+.AlbumsScreen:focus-visible {
+    outline: red;
 }
