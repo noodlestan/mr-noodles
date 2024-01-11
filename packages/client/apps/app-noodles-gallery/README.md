@@ -29,7 +29,7 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 - (folders) navigate with breadcrumbs and keyboard
 - (folders) show files within selected folder
 - (folders) view file in modal
-- TODO (folders) show folder thumb and info (number of files, subfolders, date range)
+- (folders) show folder thumb, title, and dates
 - TODO (folders) BACKSPACE moves one folder up
 
 - TODO (folders) files selection context

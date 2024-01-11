@@ -50,7 +50,7 @@ export const AlbumCard: Component<AlbumCardProps> = props => {
     const classList = () => ({
         AlbumCard: true,
         'AlbumCard-is-current': isCurrent(),
-        'AlbumCard-is-transparent': !!props.item.id,
+        // 'AlbumCard-is-transparent': !!props.item.id,
     });
 
     return (
@@ -66,7 +66,9 @@ export const AlbumCard: Component<AlbumCardProps> = props => {
                     onKeyDown={handleKeyDown}
                     aria-label={label()}
                 >
-                    <AlbumTitle title={title()} slug={props.item.slug} />
+                    <div class="AlbumCard--Title">
+                        <AlbumTitle title={title()} slug={props.item.slug} showIcon />
+                    </div>
                     <div class="AlbumCard--Thumb">
                         <Show when={props.item.id}>
                             <img alt="" src={imageUrl()} />

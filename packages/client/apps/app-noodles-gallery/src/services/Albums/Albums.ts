@@ -1,10 +1,9 @@
-import type { APIResponse, AlbumData } from '@noodlestan/shared-types';
-import { apiGet } from '@noodlestan/shared-types/src/api';
+import type { AlbumData } from '@noodlestan/shared-types';
 import { Accessor, createResource } from 'solid-js';
 
 import { createAlbumFromChild, searchByParent, searchItems } from './private/utils';
 
-import { API_BASE_URL } from '@/env';
+import { fetchAlbums } from '@/resources/Album/fetchAlbums';
 
 type AlbumsService = {
     loading: Accessor<boolean>;
@@ -12,14 +11,6 @@ type AlbumsService = {
     searchAlbums: (parent?: string, search?: string) => AlbumData[];
     refetch: () => void;
     getAlbumBySlug: (slug: string) => AlbumData | undefined;
-};
-
-const fetchAlbums = async (): Promise<APIResponse<AlbumData[]>> => {
-    const params = {
-        pageSize: 5000,
-    };
-    const { data, meta } = await apiGet<AlbumData[]>(API_BASE_URL, `albums`, params);
-    return { data, meta };
 };
 
 export const createAlbumsService = (): AlbumsService => {

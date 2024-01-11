@@ -40,7 +40,7 @@ export const GalleryGroupItemAlbum: Component<GalleryGroupItemAlbumProps> = prop
         <Surface variant="card">
             <Flex classList={classList()} direction="column" padding="m">
                 <GalleryGroupHeader group={props.group}>
-                    <AlbumTitle slug={albumSlug()} title={albumName()} link />
+                    <AlbumTitle slug={albumSlug()} title={albumName()} showLink showIcon />
                 </GalleryGroupHeader>
                 {props.children}
             </Flex>

@@ -3,8 +3,8 @@ import { Dynamic } from 'solid-js/web';
 
 import './Display.css';
 
-type DisplayLevel = 1 | 2 | 3 | 4;
-type DisplaySize = 's' | 'm' | 'l' | 'xl';
+export type DisplayLevel = 1 | 2 | 3 | 4;
+export type DisplaySize = 's' | 'm' | 'l' | 'xl';
 
 export type DisplayProps = {
     level?: DisplayLevel;

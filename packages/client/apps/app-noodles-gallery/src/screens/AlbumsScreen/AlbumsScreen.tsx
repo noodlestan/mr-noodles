@@ -6,6 +6,7 @@ import { Component, Show, createEffect, on } from 'solid-js';
 import { AlbumsBar } from '@/molecules/AlbumsBar/AlbumsBar';
 import { AlbumsBreadcrumbs } from '@/molecules/AlbumsBreadcrumbs/AlbumsBreadcrumbs';
 import { AlbumsScroll } from '@/molecules/AlbumsScroll/AlbumsScroll';
+import { AlbumDetails } from '@/organisms/AlbumDetails/AlbumDetails';
 import { AlbumItems } from '@/organisms/AlbumItems/AlbumItems';
 import { Albums } from '@/organisms/Albums/Albums';
 import {
@@ -13,6 +14,7 @@ import {
     createAlbumsNavigationContext,
 } from '@/providers/AlbumsNavigation';
 import { AlbumsQueryProvider } from '@/providers/AlbumsQuery';
+import { createPhotosResource } from '@/resources/Photo/createPhotosResource';
 import { AlbumsService } from '@/services/Albums';
 import { AlbumsQueryService } from '@/services/AlbumsQuery';
 
@@ -53,6 +55,9 @@ export const AlbumsScreen: Component = () => {
         ),
     );
 
+    const query = () => ({ filterBy: { album: params.parent } });
+    const [resource] = createPhotosResource(query);
+
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <main tab-index="0">
@@ -65,8 +70,10 @@ export const AlbumsScreen: Component = () => {
                             <Show when={!loading()}>
                                 <AlbumsBreadcrumbs />
                                 <Show when={params.parent}>
+                                    <AlbumDetails album={params.parent} items={resource} />
                                     <AlbumItems
                                         album={params.parent}
+                                        items={resource}
                                         toggleVisibility={subFolders().length > 0}
                                         showAllItems={showAllItems()}
                                     />

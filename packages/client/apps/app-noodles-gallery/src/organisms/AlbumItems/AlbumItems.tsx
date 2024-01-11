@@ -1,9 +1,10 @@
+import { APIResponse, PhotoData } from '@noodlestan/shared-types';
 import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { SkeletonImage, SkeletonText } from '@noodlestan/ui-skeletons';
 import { createElementSize } from '@solid-primitives/resize-observer';
 import { ChevronDown, X } from 'lucide-solid';
-import { Component, Show, createSignal } from 'solid-js';
+import { Component, Resource, Show, createSignal } from 'solid-js';
 
 import { makeRows } from '../Gallery/private/utils/makeRows';
 import { ModalView } from '../ModalView/ModalView';
@@ -14,12 +15,12 @@ import {
     GalleryNavigationProvider,
     createGalleryNavigationContext,
 } from '@/providers/GalleryNavigation';
-import { createPhotosResource } from '@/resources/Photo/createPhotosResource';
 
 import './AlbumItems.css';
 
 export type AlbumItemsProps = {
     album: string;
+    items: Resource<APIResponse<PhotoData[]>>;
     showAllItems: boolean;
     toggleVisibility: boolean;
 };
@@ -27,12 +28,10 @@ export type AlbumItemsProps = {
 export const AlbumItems: Component<AlbumItemsProps> = props => {
     const [ref, setRef] = createSignal<HTMLDivElement | undefined>();
     const size = createElementSize(ref);
-
-    const query = () => ({ filterBy: { album: props.album } });
-    const [resource] = createPhotosResource(query);
     const { bus } = useAlbumsNavigationContext();
 
-    const data = () => (props.album ? resource()?.data || [] : []);
+    const data = () => (props.album ? props.items()?.data || [] : []);
+
     const allRows = () => {
         const items = data();
         if (items && items.length) {
@@ -75,10 +74,10 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
             <Flex gap="m" classList={{ 'AlbumItems--flex': true }}>
                 <Flex gap="s" wrap direction="row" align="center" justify="between">
                     <Display level={4}>
-                        <Show when={resource.loading}>
+                        <Show when={props.items.loading}>
                             <SkeletonText size="m" />
                         </Show>
-                        <Show when={!resource.loading}>{length()} photos</Show>
+                        <Show when={!props.items.loading}>{length()} photos</Show>
                     </Display>
                     <Show when={showToggleVisibility()}>
                         <Show when={!props.showAllItems}>
@@ -99,7 +98,7 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
                         </Show>
                     </Show>
                 </Flex>
-                <Show when={resource.loading}>
+                <Show when={props.items.loading}>
                     <SkeletonImage width="266px" height="200px" />
                 </Show>
 

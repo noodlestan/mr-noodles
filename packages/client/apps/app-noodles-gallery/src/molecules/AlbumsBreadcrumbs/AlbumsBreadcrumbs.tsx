@@ -29,7 +29,7 @@ const AlbumsBreadcrumbPart: Component<BreadcrumbPartProps> = props => {
     });
 
     return (
-        <Flex direction="row" gap="s" align="start" classList={classList()}>
+        <Flex direction="row" gap="s" align="start" classList={classList()} tag="span">
             <Show when={isAllButLast()}>
                 <AlbumLink
                     showIcon={true}

@@ -1,0 +1,9 @@
+.AlbumsBreadcrumbs {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.AlbumsBreadcrumbPart {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
