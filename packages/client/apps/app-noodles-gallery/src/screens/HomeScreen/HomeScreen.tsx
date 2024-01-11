@@ -7,20 +7,18 @@ import { ModalView } from '@/organisms/ModalView/ModalView';
 import './HomeScreen.css';
 
 export const HomeScreen: Component = () => {
-    const handleKeyDown = (ev: KeyboardEvent) => {
-        if (ev.code === 'Escape') {
-            // navigationBus?.emit({ name: 'closeModal' });
-        }
+    const handleModalClose = () => {
+        // navigationBus?.emit({ name: 'closeModal' });
     };
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <main tab-index="0" onKeyDown={handleKeyDown}>
+        <main tab-index="0">
             <div class="HomeScreen">
                 <Display>
                     <NutIcon /> Welcome
                 </Display>
-                <ModalView show={false} />
+                <ModalView show={false} onClose={handleModalClose} />
             </div>
         </main>
     );

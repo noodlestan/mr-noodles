@@ -28,8 +28,8 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 - (folders) filter by text search
 - (folders) navigate with breadcrumbs and keyboard
 - (folders) show files within selected folder
+- (folders) view file in modal
 - TODO (folders) show folder thumb and info (number of files, subfolders, date range)
-- TODO (folders) view file in modal
 - TODO (folders) BACKSPACE moves one folder up
 
 - TODO (folders) files selection context

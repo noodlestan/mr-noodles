@@ -48,15 +48,11 @@ export const GalleryScreen: Component = () => {
         });
     });
 
-    const handleKeyDown = (ev: KeyboardEvent) => {
-        if (ev.code === 'Escape') {
-            navigationBus?.emit({ name: 'closeModal' });
-        }
-    };
+    const handleModalClose = () => navigationBus?.emit({ name: 'closeModal' });
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <main tab-index="0" onKeyDown={handleKeyDown}>
+        <main tab-index="0">
             <GalleryNavigationProvider {...navigationContext}>
                 <GallerySelectionProvider {...selectionContext}>
                     <Surface variant="page" classList={{ GalleryScreen: true }}>
@@ -67,7 +63,7 @@ export const GalleryScreen: Component = () => {
                                 <Gallery items={photos} groupBy={groupBy} query={query} />
                             </Show>
                         </GalleryScroll>
-                        <ModalView show={isModal() && !!current()} />
+                        <ModalView show={isModal() && !!current()} onClose={handleModalClose} />
                     </Surface>
                 </GallerySelectionProvider>
             </GalleryNavigationProvider>

@@ -16,6 +16,7 @@ const SHOW_HEADER_DURATION_SUBSQUENT = 3000;
 
 export type ModalViewProps = {
     show: boolean;
+    onClose: () => void;
 };
 
 const ModalViewContents: Component<ModalViewProps> = () => {
@@ -99,7 +100,7 @@ const ModalViewContents: Component<ModalViewProps> = () => {
 
 export const ModalView: Component<ModalViewProps> = props => {
     return (
-        <Modal show={props.show} sticky>
+        <Modal show={props.show} sticky onClose={props.onClose}>
             <ModalViewContents {...props} />
         </Modal>
     );

@@ -6,6 +6,7 @@ import { ChevronDown, X } from 'lucide-solid';
 import { Component, Show, createSignal } from 'solid-js';
 
 import { makeRows } from '../Gallery/private/utils/makeRows';
+import { ModalView } from '../ModalView/ModalView';
 
 import { GalleryItemRows } from '@/molecules/GalleryItemRows/GalleryItemRows';
 import { useAlbumsNavigationContext } from '@/providers/AlbumsNavigation';
@@ -47,21 +48,23 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
     const showFirstRow = () => props.toggleVisibility && !props.showAllItems;
     const rows = () => (showFirstRow() ? [allRows()[0]] : allRows());
 
+    const galleryNavigationContext = createGalleryNavigationContext(() =>
+        showFirstRow() ? rows()[0] : data(),
+    );
+    const { bus: galleryNavigationBus, current, isModal } = galleryNavigationContext;
+
     const handleExpandClick = () => bus?.emit({ name: 'showAllItems' });
     const handleCloseClick = () => bus?.emit({ name: 'showSubFolders' });
-
-    const classList = () => ({
-        AlbumItems: true,
-    });
+    const handleModalClose = () => galleryNavigationBus?.emit({ name: 'closeModal' });
 
     const rowOptions = () => ({
         height: 200,
         showCheckboxes: false,
     });
 
-    const galleryNavigationContext = createGalleryNavigationContext(() =>
-        showFirstRow() ? rows()[0] : data(),
-    );
+    const classList = () => ({
+        AlbumItems: true,
+    });
 
     return (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -102,6 +105,7 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
 
                 <GalleryNavigationProvider {...galleryNavigationContext}>
                     <GalleryItemRows rows={rows} options={rowOptions} />
+                    <ModalView show={isModal() && !!current()} onClose={handleModalClose} />
                 </GalleryNavigationProvider>
             </Flex>
         </div>

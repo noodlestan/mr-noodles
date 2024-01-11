@@ -28,7 +28,8 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     const isCurrent = () => current()?.id === props.item.id;
 
     const handleOnFocus = () => navigationBus?.emit({ name: 'onFocus', target: props.item.id });
-    const handleOnClick = () => {
+    const handleOnClick = (ev?: MouseEvent) => {
+        ev?.preventDefault();
         if (current()) {
             navigationBus?.emit({ name: 'onClick', target: props.item.id });
         } else {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-autofocus */
 import { inject } from '@noodlestan/ui-services';
 import { Component, JSX, Show, createUniqueId, untrack } from 'solid-js';
@@ -16,6 +17,7 @@ export type ModalProps = {
     show: boolean;
     sticky?: boolean;
     children?: JSX.Element;
+    onClose: () => void;
 };
 
 export const Modal: Component<ModalProps> = props => {
@@ -36,10 +38,21 @@ export const Modal: Component<ModalProps> = props => {
     const options = untrack(() => ({ sticky: !!props.sticky }));
     useModalShowEffect(() => props.show, id, options);
 
+    const handleKeyDown = (ev: KeyboardEvent) => {
+        if (ev.code === 'Escape') {
+            ev.stopPropagation();
+            props.onClose();
+        }
+    };
+
     return (
         <Show when={isVisible()}>
             <Portal>
-                <div classList={classList()} style={{ 'z-index': getIndex() + MODAL_Z_INDEX }}>
+                <div
+                    classList={classList()}
+                    style={{ 'z-index': getIndex() + MODAL_Z_INDEX }}
+                    onKeyDown={handleKeyDown}
+                >
                     <ModalProvider
                         id={id}
                         options={options}

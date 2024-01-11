@@ -53,15 +53,9 @@ export const AlbumsScreen: Component = () => {
         ),
     );
 
-    const handleKeyDown = (ev: KeyboardEvent) => {
-        if (ev.code === 'Escape') {
-            bus?.emit({ name: 'closeModal' });
-        }
-    };
-
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <main tab-index="0" onKeyDown={handleKeyDown}>
+        <main tab-index="0">
             <AlbumsNavigationProvider {...navigationContext}>
                 <AlbumsQueryProvider context={queryContext}>
                     <Surface variant="page" classList={{ AlbumsScreen: true }}>
@@ -82,7 +76,6 @@ export const AlbumsScreen: Component = () => {
                                 </Show>
                             </Show>
                         </AlbumsScroll>
-                        {/* <ModalView show={isModal() && !!current()} /> */}
                     </Surface>
                 </AlbumsQueryProvider>
             </AlbumsNavigationProvider>
