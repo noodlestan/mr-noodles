@@ -7,4 +7,13 @@
 
 .MainNav .Button {
     width: 100%;
+    justify-content: start;
+    position: relative;
+    outline-offset: -3px;
+}
+
+.MainNav .Button--is-active {
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--action-disabled-bg-color);
 }

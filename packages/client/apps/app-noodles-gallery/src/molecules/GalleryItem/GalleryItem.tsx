@@ -1,7 +1,8 @@
 import type { PhotoData } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
-import { Component, Show, createEffect, on } from 'solid-js';
+import { createIntersectionObserver } from '@solid-primitives/intersection-observer';
+import { Component, Show, createEffect, createSignal, on, onMount } from 'solid-js';
 
 import { ItemCheckbox } from '@/atoms/ItemCheckbox/ItemCheckbox';
 import { useGalleryNavigationContext } from '@/providers/GalleryNavigation';
@@ -16,7 +17,10 @@ export type GalleryItemProps = {
 };
 
 export const GalleryItem: Component<GalleryItemProps> = props => {
-    let buttonRef: HTMLButtonElement | undefined;
+    let buttonRef: HTMLAnchorElement | undefined;
+
+    const [isVisible, setIsVisible] = createSignal<boolean>(false);
+    const [isScrolledPast, setIsScrolledPast] = createSignal<boolean>(false);
 
     const { bus: navigationBus, isModal, current } = useGalleryNavigationContext();
     const { bus: selectionBus } = useGallerySelectionContext();
@@ -56,7 +60,25 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
         }),
     );
 
-    const url = () => makeImageUrl('photos', props.item, 'thumb.small');
+    const handleObserve: IntersectionObserverCallback = entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setIsScrolledPast(false);
+                setIsVisible(true);
+            } else if (entry.boundingClientRect.top < 0) {
+                setIsVisible(false);
+                setIsScrolledPast(true);
+            } else {
+                setIsVisible(false);
+            }
+        });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    onMount(() => createIntersectionObserver(() => [buttonRef!], handleObserve));
+
+    const imageUrl = () => makeImageUrl('photos', props.item, 'thumb.small');
+    const url = () => window.location.pathname;
     // TODO abstract
     const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
     const label = () => `Gallery item. ${date()}. Press to open details.`;
@@ -64,12 +86,15 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     const classList = () => ({
         GalleryItem: true,
         'GalleryItem-is-current': isCurrent(),
+        'GalleryItem-is-visible': isVisible(),
+        'GalleryItem-is-scrolled': isScrolledPast(),
     });
 
     return (
         <Flex gap="m" classList={classList()}>
-            <button
+            <a
                 ref={buttonRef}
+                href={url()}
                 tabindex="0"
                 class="GalleryItem--button"
                 onFocus={handleOnFocus}
@@ -84,8 +109,8 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                         onKeyDown={handleKeyDown}
                     />
                 </Show>
-                <img alt="" src={url()} />
-            </button>
+                <img alt="" src={imageUrl()} />
+            </a>
         </Flex>
     );
 };

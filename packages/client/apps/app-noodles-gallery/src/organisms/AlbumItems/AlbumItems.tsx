@@ -1,7 +1,6 @@
 import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { SkeletonImage, SkeletonText } from '@noodlestan/ui-skeletons';
-import { Surface } from '@noodlestan/ui-surfaces';
 import { createElementSize } from '@solid-primitives/resize-observer';
 import { ChevronDown, X } from 'lucide-solid';
 import { Component, Show, createSignal } from 'solid-js';
@@ -70,43 +69,41 @@ export const AlbumItems: Component<AlbumItemsProps> = props => {
             <div class="AlbumItems--width">
                 <div ref={setRef} />
             </div>
-            <Surface variant="card">
-                <Flex gap="m" padding="m" classList={{ 'AlbumItems--flex': true }}>
-                    <Flex gap="s" wrap direction="row" align="center" justify="between">
-                        <Display level={4}>
-                            <Show when={resource.loading}>
-                                <SkeletonText size="m" />
-                            </Show>
-                            <Show when={!resource.loading}>{length()} photos</Show>
-                        </Display>
-                        <Show when={showToggleVisibility()}>
-                            <Show when={!props.showAllItems}>
-                                <IconButton
-                                    size="s"
-                                    variant="plain"
-                                    onClick={handleExpandClick}
-                                    icon={ChevronDown}
-                                />
-                            </Show>
-                            <Show when={props.showAllItems}>
-                                <IconButton
-                                    size="s"
-                                    variant="plain"
-                                    onClick={handleCloseClick}
-                                    icon={X}
-                                />
-                            </Show>
+            <Flex gap="m" classList={{ 'AlbumItems--flex': true }}>
+                <Flex gap="s" wrap direction="row" align="center" justify="between">
+                    <Display level={4}>
+                        <Show when={resource.loading}>
+                            <SkeletonText size="m" />
                         </Show>
-                    </Flex>
-                    <Show when={resource.loading}>
-                        <SkeletonImage width="266px" height="200px" />
+                        <Show when={!resource.loading}>{length()} photos</Show>
+                    </Display>
+                    <Show when={showToggleVisibility()}>
+                        <Show when={!props.showAllItems}>
+                            <IconButton
+                                size="s"
+                                variant="plain"
+                                onClick={handleExpandClick}
+                                icon={ChevronDown}
+                            />
+                        </Show>
+                        <Show when={props.showAllItems}>
+                            <IconButton
+                                size="s"
+                                variant="plain"
+                                onClick={handleCloseClick}
+                                icon={X}
+                            />
+                        </Show>
                     </Show>
-
-                    <GalleryNavigationProvider {...galleryNavigationContext}>
-                        <GalleryItemRows rows={rows} options={rowOptions} />
-                    </GalleryNavigationProvider>
                 </Flex>
-            </Surface>
+                <Show when={resource.loading}>
+                    <SkeletonImage width="266px" height="200px" />
+                </Show>
+
+                <GalleryNavigationProvider {...galleryNavigationContext}>
+                    <GalleryItemRows rows={rows} options={rowOptions} />
+                </GalleryNavigationProvider>
+            </Flex>
         </div>
     );
 };

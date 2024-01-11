@@ -19,15 +19,16 @@ import { AlbumsQueryService } from '@/services/AlbumsQuery';
 import './AlbumsScreen.css';
 
 export const AlbumsScreen: Component = () => {
-    const { albums, searchAlbums, loading } = inject(AlbumsService);
-
-    const navigationContext = createAlbumsNavigationContext(albums);
-    const { bus, showAllItems } = navigationContext;
+    const { searchAlbums, loading } = inject(AlbumsService);
 
     const params = useParams();
     const [searchParams] = useSearchParams();
     const { createQueryContext } = inject(AlbumsQueryService);
     const queryContext = createQueryContext(params.parent, searchParams.search);
+
+    const subFolders = () => searchAlbums(params.parent || '', searchParams.search);
+    const navigationContext = createAlbumsNavigationContext(subFolders);
+    const { bus, showAllItems } = navigationContext;
 
     createEffect(() => {
         const parent = params.parent;
@@ -57,8 +58,6 @@ export const AlbumsScreen: Component = () => {
             bus?.emit({ name: 'closeModal' });
         }
     };
-
-    const subFolders = () => searchAlbums(params.parent || '', searchParams.search);
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions

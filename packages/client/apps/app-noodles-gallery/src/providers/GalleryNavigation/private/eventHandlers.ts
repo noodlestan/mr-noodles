@@ -3,10 +3,10 @@ import { Accessor, Setter } from 'solid-js';
 
 import { GalleryNavigationEvent } from '../types';
 
-import { NavigationContext } from '@/providers/GalleryNavigation';
+import { GalleryNavigationContextState } from './GalleryNavigationContext';
 
 export const handleOnClick = (
-    context: NavigationContext,
+    context: GalleryNavigationContextState,
     evt: GalleryNavigationEvent,
     setCurrent: Setter<PhotoData | undefined>,
     setIsModal: Setter<boolean>,
@@ -15,7 +15,7 @@ export const handleOnClick = (
 };
 
 export const handleOnFocus = (
-    context: NavigationContext,
+    context: GalleryNavigationContextState,
     evt: GalleryNavigationEvent,
     photos: Accessor<PhotoData[]>,
     setCurrent: Setter<PhotoData | undefined>,
@@ -28,7 +28,7 @@ export const handleOnFocus = (
 };
 
 export const handleOnEnd = (
-    context: NavigationContext,
+    context: GalleryNavigationContextState,
     evt: GalleryNavigationEvent,
     isModal: Accessor<boolean>,
     setIsModal: Setter<boolean>,
@@ -39,7 +39,7 @@ export const handleOnEnd = (
 };
 
 export const handleGoToNextItem = (
-    context: NavigationContext,
+    context: GalleryNavigationContextState,
     evt: GalleryNavigationEvent,
     photos: Accessor<PhotoData[]>,
     setCurrent: Setter<PhotoData | undefined>,
@@ -55,7 +55,7 @@ export const handleGoToNextItem = (
 };
 
 export const handleGoToPreviousItem = (
-    context: NavigationContext,
+    context: GalleryNavigationContextState,
     evt: GalleryNavigationEvent,
     photos: Accessor<PhotoData[]>,
     setCurrent: Setter<PhotoData | undefined>,
@@ -72,7 +72,7 @@ export const handleGoToPreviousItem = (
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handleCloseModal = (
-    context: NavigationContext,
+    context: GalleryNavigationContextState,
     evt: GalleryNavigationEvent,
     setIsModal: Setter<boolean>,
 ): void => {

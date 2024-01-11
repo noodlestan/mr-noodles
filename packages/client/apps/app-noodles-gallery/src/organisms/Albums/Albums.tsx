@@ -1,8 +1,10 @@
 import type { AlbumData } from '@noodlestan/shared-types';
+import { Display } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For, Show } from 'solid-js';
 
-import { AlbumListItem } from '@/molecules/AlbumListItem/AlbumListItem';
+import { AlbumCard } from '@/molecules/AlbumCard/AlbumCard';
+import { useAlbumsNavigationContext } from '@/providers/AlbumsNavigation';
 
 import './Albums.css';
 
@@ -11,31 +13,34 @@ export type AlbumsProps = {
 };
 
 export const Albums: Component<AlbumsProps> = props => {
+    const { bus } = useAlbumsNavigationContext();
+
+    const items = () => props.items?.();
+
+    const handleKeyDown = (ev: KeyboardEvent) => {
+        if (ev.code === 'ArrowLeft') {
+            bus?.emit({ name: 'goToPreviousItem' });
+        }
+        if (ev.code === 'ArrowRight') {
+            bus?.emit({ name: 'goToNextItem' });
+        }
+    };
+
     const classList = () => ({
         Albums: true,
     });
 
-    // const options = (): AlbumsOptions => {
-    //     return {
-    //         rows: {
-    //             height: 200,
-    //             maxItems: 6,
-    //             maxWidth: rect().width - 100,
-    //         },
-    //     };
-    // };
-
-    // const groups = () => {
-    //     return createAlbumRows(props.items?.(), options());
-    // };
-
-    const items = () => props.items?.();
-
     return (
-        <Flex classList={classList()} gap="m" wrap direction="row">
-            <Show when={items()}>
-                <For each={items()}>{item => <AlbumListItem item={item} />}</For>
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+        <div onKeyDown={handleKeyDown}>
+            <Show when={items()?.length}>
+                <Flex classList={classList()} gap="m" wrap direction="column">
+                    <Display level={4}>{items()?.length} Subfolders</Display>
+                    <Flex gap="m" wrap direction="row">
+                        <For each={items()}>{item => <AlbumCard item={item} />}</For>
+                    </Flex>
+                </Flex>
             </Show>
-        </Flex>
+        </div>
     );
 };

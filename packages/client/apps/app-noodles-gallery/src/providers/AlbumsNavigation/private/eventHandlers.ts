@@ -3,10 +3,10 @@ import { Accessor, Setter } from 'solid-js';
 
 import { AlbumsNavigationEvent } from '../types';
 
-import { NavigationContext } from '@/providers/AlbumsNavigation';
+import { AlbumsNavigationContextState } from './AlbumsNavigationContext';
 
 export const handleShowAllItems = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     setShowAllItems: Setter<boolean>,
 ): void => {
@@ -14,7 +14,7 @@ export const handleShowAllItems = (
 };
 
 export const handleShowSubFolders = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     setShowAllItems: Setter<boolean>,
 ): void => {
@@ -22,7 +22,7 @@ export const handleShowSubFolders = (
 };
 
 export const handleOnClick = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     setCurrent: Setter<AlbumData | undefined>,
     setIsModal: Setter<boolean>,
@@ -31,7 +31,7 @@ export const handleOnClick = (
 };
 
 export const handleOnFocus = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     photos: Accessor<AlbumData[]>,
     setCurrent: Setter<AlbumData | undefined>,
@@ -44,7 +44,7 @@ export const handleOnFocus = (
 };
 
 export const handleOnEnd = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     isModal: Accessor<boolean>,
     setIsModal: Setter<boolean>,
@@ -55,7 +55,7 @@ export const handleOnEnd = (
 };
 
 export const handleGoToNextItem = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     photos: Accessor<AlbumData[]>,
     setCurrent: Setter<AlbumData | undefined>,
@@ -71,7 +71,7 @@ export const handleGoToNextItem = (
 };
 
 export const handleGoToPreviousItem = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     photos: Accessor<AlbumData[]>,
     setCurrent: Setter<AlbumData | undefined>,
@@ -88,7 +88,7 @@ export const handleGoToPreviousItem = (
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handleCloseModal = (
-    context: NavigationContext,
+    context: AlbumsNavigationContextState,
     evt: AlbumsNavigationEvent,
     setIsModal: Setter<boolean>,
 ): void => {

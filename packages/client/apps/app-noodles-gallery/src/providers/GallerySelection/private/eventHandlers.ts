@@ -1,11 +1,12 @@
 import { PhotoData } from '@noodlestan/shared-types';
 import { Accessor, Setter } from 'solid-js';
 
-import { SelectionContext } from '../createGallerySelectionContext';
 import { GallerySelectionEvent } from '../types';
 
+import { GallerySelectionContextState } from './GallerySelectionContext';
+
 export const handleOnSelect = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     setSelection: Setter<Set<string>>,
 ): void => {
@@ -30,7 +31,7 @@ export const handleOnSelect = (
 };
 
 export const handleClearSelection = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     setSelection: Setter<Set<string>>,
 ): void => {
@@ -38,7 +39,7 @@ export const handleClearSelection = (
 };
 
 export const handleOnClick = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     setCurrent: Setter<PhotoData | undefined>,
     setIsModal: Setter<boolean>,
@@ -47,7 +48,7 @@ export const handleOnClick = (
 };
 
 export const handleOnFocus = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     photos: Accessor<PhotoData[]>,
     setCurrent: Setter<PhotoData | undefined>,
@@ -60,7 +61,7 @@ export const handleOnFocus = (
 };
 
 export const handleOnEnd = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     isModal: Accessor<boolean>,
     setIsModal: Setter<boolean>,
@@ -71,7 +72,7 @@ export const handleOnEnd = (
 };
 
 export const handleGoToNextItem = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     photos: Accessor<PhotoData[]>,
     setCurrent: Setter<PhotoData | undefined>,
@@ -87,7 +88,7 @@ export const handleGoToNextItem = (
 };
 
 export const handleGoToPreviousItem = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     photos: Accessor<PhotoData[]>,
     setCurrent: Setter<PhotoData | undefined>,
@@ -104,7 +105,7 @@ export const handleGoToPreviousItem = (
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const handleCloseModal = (
-    context: SelectionContext,
+    context: GallerySelectionContextState,
     evt: GallerySelectionEvent,
     setIsModal: Setter<boolean>,
 ): void => {

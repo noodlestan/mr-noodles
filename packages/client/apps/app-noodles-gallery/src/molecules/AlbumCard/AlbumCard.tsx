@@ -9,13 +9,13 @@ import { AlbumTitle } from '@/molecules/AlbumTitle/AlbumTitle';
 import { useAlbumsNavigationContext } from '@/providers/AlbumsNavigation';
 import { makeImageUrl } from '@/services/Images/makeImageUrl';
 
-import './AlbumListItem.css';
+import './AlbumCard.css';
 
-export type AlbumListItemProps = {
+export type AlbumCardProps = {
     item: AlbumData;
 };
 
-export const AlbumListItem: Component<AlbumListItemProps> = props => {
+export const AlbumCard: Component<AlbumCardProps> = props => {
     let buttonRef: HTMLAnchorElement | undefined;
 
     const { bus, current, isModal } = useAlbumsNavigationContext();
@@ -48,9 +48,9 @@ export const AlbumListItem: Component<AlbumListItemProps> = props => {
     const label = () => `Album. ${title()}. Press to open details.`;
 
     const classList = () => ({
-        AlbumListItem: true,
-        'AlbumListItem-is-current': isCurrent(),
-        'AlbumListItem-is-transparent': !!props.item.id,
+        AlbumCard: true,
+        'AlbumCard-is-current': isCurrent(),
+        'AlbumCard-is-transparent': !!props.item.id,
     });
 
     return (
@@ -60,19 +60,19 @@ export const AlbumListItem: Component<AlbumListItemProps> = props => {
                     ref={buttonRef}
                     href={url()}
                     tabindex="0"
-                    class="AlbumListItem--button"
+                    class="AlbumCard--button"
                     onFocus={handleOnFocus}
                     onClick={handleOnClick}
                     onKeyDown={handleKeyDown}
                     aria-label={label()}
                 >
                     <AlbumTitle title={title()} slug={props.item.slug} />
-                    <div class="AlbumListItem--Thumb">
+                    <div class="AlbumCard--Thumb">
                         <Show when={props.item.id}>
                             <img alt="" src={imageUrl()} />
                         </Show>
                         <Show when={!props.item.id}>
-                            <div class="AlbumListItem--icon">
+                            <div class="AlbumCard--icon">
                                 <BreadcrumbFolderIcon hasLink={true} isOpen={false} />
                             </div>
                         </Show>

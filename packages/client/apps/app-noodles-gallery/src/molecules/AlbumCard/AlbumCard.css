@@ -1,12 +1,12 @@
-.AlbumListItem {
+.AlbumCard {
     width: auto;
 }
 
-.AlbumListItem-is-transparent {
+.AlbumCard-is-transparent {
     width: auto;
 }
 
-.AlbumListItem--button {
+.AlbumCard--button {
     display: inline-flex;
     flex-direction: column;
     gap: var(--space-gap-0);
@@ -20,9 +20,10 @@
     border: none;
     border-radius: var(--outline-radius);
     cursor: pointer;
+    text-decoration: none;
 }
 
-.AlbumListItem--Thumb {
+.AlbumCard--Thumb {
     display: inline-flex;
     gap: var(--space-gap-1);
     flex-direction: column;
@@ -32,25 +33,25 @@
     height: 300px;
 }
 
-.AlbumListItem--icon .Icon {
+.AlbumCard--icon .Icon {
     max-width: 300px;
     max-height: 300px;
 }
 
-.AlbumListItem .AlbumListItem--button {
+.AlbumCard .AlbumCard--button {
     outline-offset: var(--outline-offset);
     outline-style: none;
     outline-width: var(--outline-width);
     outline-color: var(--action-disabled-bg-color);
 }
 
-.AlbumListItem .AlbumListItem--button:focus,
-.AlbumListItem .AlbumListItem--button:focus-visible,
-.AlbumListItem-is-current .AlbumListItem--button {
+.AlbumCard .AlbumCard--button:focus,
+.AlbumCard .AlbumCard--button:focus-visible,
+.AlbumCard-is-current .AlbumCard--button {
     outline-style: var(--outline-style);
 }
 
-.AlbumListItem .AlbumListItem--button:focus,
-.AlbumListItem .AlbumListItem--button:focus-visible {
+.AlbumCard .AlbumCard--button:focus,
+.AlbumCard .AlbumCard--button:focus-visible {
     outline-color: var(--outline-color);
 }
