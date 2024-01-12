@@ -39,6 +39,8 @@ This is Mr Noodles server.
 - `/albums/<id>/img`
 - `/albums/<id>/img?h=500`
 - `/albums/<id>/img?p=thumb.small`
+- `/users`
+- `/users/<id>`
 
 Note: the image endpoints update the parent document with image data after these are generated. The endpoints are idempotent
 
@@ -66,6 +68,14 @@ Install [Docker](https://docs.docker.com/desktop/), get the [MongoDB image](http
 ```
 docker pull mongo:jammy
 docker run -p 27017:27017 --name mongo -d mongo:jammy
+```
+
+### Populating the database
+
+Run the scan script at least once. It scans the `resources/example-media/good` folder in this repository and populates the DB with the scanned folders and files.
+
+```
+npm run scan-now
 ```
 
 ### Running the server
@@ -112,6 +122,12 @@ Can you connect to it via [shell](https://www.mongodb.com/docs/mongodb-shell/ins
 ```
 mongosh
 ```
+
+### API returns no users and/or no data
+
+Is the database is empty?
+
+You need to perform the steps detailed in the above section: **Populating the database**
 
 ## License
 

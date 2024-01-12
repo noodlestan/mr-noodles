@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
 
 import { MONGODB_URI } from '../env';
-import { logger } from '../logger';
+import { log } from '../logger';
 
 const connect = async (): Promise<void> => {
     await mongoose.connect(MONGODB_URI, {});
-    logger.info('db');
+    log().info('db');
 };
 
 const disconnect = async (): Promise<void> => {
     await mongoose.disconnect();
-    logger.info('db:disconnected');
+    log().info('db:disconnected');
 };
 
 export { connect, disconnect };

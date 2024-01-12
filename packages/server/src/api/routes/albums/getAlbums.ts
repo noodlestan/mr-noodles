@@ -2,11 +2,11 @@ import querystring, { ParsedUrlQueryInput } from 'node:querystring';
 
 import { NextFunction, Request, Response } from 'express';
 
-import { getAlbums } from '../../../controllers/albums/getAlbums';
+import { findAlbums } from '../../../controllers/albums/findAlbums';
 import { ALBUMS_PAGE_MAX, ALBUMS_PAGE_SIZE_DEFAULT } from '../constants';
 import { paginationFromQuery, sortFromQuery } from '../functions';
 
-export const getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getAlbums = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { ...filter } = req.query;
 
@@ -19,7 +19,7 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
 
         res.setHeader('x-meta-filter', `${querystring.encode(filter as ParsedUrlQueryInput)}`);
 
-        const albums = await getAlbums(filter, page, sort);
+        const albums = await findAlbums(filter, page, sort);
         const data = albums.map(album => album.toDataPublic());
 
         res.json(data);

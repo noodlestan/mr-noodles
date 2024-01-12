@@ -1,6 +1,6 @@
 import { subscribe } from '../../events';
 import { EVENT_SCAN_ERROR, EventScanError } from '../../events/scan';
-import { logger } from '../../logger';
+import { log } from '../../logger';
 
 import { scanNow } from './functions/scanNow';
 
@@ -13,7 +13,7 @@ const subscribeToErrors = () => {
             reason: event.error.message,
             stack: event.error.stack,
         };
-        logger.error('agent:scanner:error', error);
+        log().error('agent:scanner:error', error);
     });
     unsubscribeTo.push(errorUnsub);
 };

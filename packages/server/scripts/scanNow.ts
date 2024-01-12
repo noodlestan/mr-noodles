@@ -2,8 +2,10 @@ import { photosAgentQueue, startPhotosAgent, stopPhotosAgent } from '../src/agen
 import { startScanAgent, stopScanAgent } from '../src/agents/scanner';
 import { scanNow } from '../src/agents/scanner/functions/scanNow';
 import { connect, disconnect } from '../src/db';
-import { logger } from '../src/logger';
+import { createLogger } from '../src/logger';
 import { defer } from '../src/utils/flow/defer';
+
+const logger = createLogger('scripts/scan');
 
 const shutdown = async () => {
     logger.info('shutting down');
@@ -24,13 +26,18 @@ const monitor = async () => {
 };
 
 const main = async () => {
-    await connect();
-    await startPhotosAgent();
-    await startScanAgent();
-    logger.info('BOOT');
-    await scanNow();
-    logger.info('DONE');
-    await defer(monitor, 1000);
+    try {
+        await connect();
+        await startPhotosAgent();
+        await startScanAgent();
+        logger.info('boot');
+        await scanNow();
+        logger.info('done');
+        await defer(monitor, 1000);
+    } catch (err) {
+        logger.error('main', err as Error);
+        process.exit(1);
+    }
 };
 
 main();

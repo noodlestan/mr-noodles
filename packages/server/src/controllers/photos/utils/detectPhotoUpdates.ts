@@ -10,7 +10,7 @@ import { albumTitleFromRelativePath } from '../../albums/albumTitleFromRelativeP
 import { latLongFromExifGps } from './latLongFromExifGps';
 
 type Updates = {
-    [key: string]: string | number | boolean | undefined | MongoPoint;
+    [key: string]: string | number | boolean | undefined | Date | MongoPoint;
 };
 
 type UpdateFields = {

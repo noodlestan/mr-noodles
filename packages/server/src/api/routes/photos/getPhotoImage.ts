@@ -5,7 +5,7 @@ import {
 } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getPhotoById } from '../../../controllers/photos/getPhotoById';
+import { findPhotoById } from '../../../controllers/photos/findPhotoById';
 import { Photo } from '../../../models/photo';
 import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
@@ -19,7 +19,7 @@ export const getPhotoImage = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const photo = await getPhotoById(req.params.id);
+        const photo = await findPhotoById(req.params.id);
         if (!photo) {
             notFoundHandler(req, res, next);
             return;

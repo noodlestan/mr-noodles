@@ -12,7 +12,7 @@ import {
     pushRangeFilter,
 } from '../functions';
 
-export const getPhotos = async (
+export const findPhotos = async (
     filterBy: PhotoFilter,
     page?: IPagination,
     sort?: ISort[],

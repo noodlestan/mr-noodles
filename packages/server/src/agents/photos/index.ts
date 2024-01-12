@@ -9,7 +9,7 @@ import {
     PhotoProcessWarning,
 } from '../../events/photo';
 import { EVENT_SCAN_FILE, EventScanFile } from '../../events/scan';
-import { logger } from '../../logger';
+import { log } from '../../logger';
 
 import { processScanFile } from './processScanFile';
 
@@ -27,14 +27,14 @@ const susbcribeToErrors = () => {
             reason: event.error.message,
             stack: event.error.stack,
         };
-        logger.error('agent:photos:error', error);
+        log().error('agent:photos:error', error);
         createPhotoMessage('error', error.reason, event.filename);
     });
 
     const errorUnsub2 = subscribe(PHOTO_PROCESS_WARNING, (event: PhotoProcessWarning) => {
         createPhotoMessage('warning', event.reason, event.filename);
 
-        logger.warn('agent:photos:warning', {
+        log().warn('agent:photos:warning', {
             filename: event.filename,
             reason: event.reason,
         });

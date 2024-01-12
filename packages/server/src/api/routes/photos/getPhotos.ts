@@ -2,11 +2,11 @@ import querystring, { ParsedUrlQueryInput } from 'node:querystring';
 
 import { NextFunction, Request, Response } from 'express';
 
-import { getPhotos } from '../../../controllers/photos/getPhotos';
+import { findPhotos } from '../../../controllers/photos/findPhotos';
 import { PHOTOS_PAGE_MAX, PHOTOS_PAGE_SIZE_DEFAULT } from '../constants';
 import { filterByFromQuery, paginationFromQuery, sortFromQuery } from '../functions';
 
-export const getAll = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getPhotos = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { ...query } = req.query;
 
@@ -22,7 +22,7 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
         res.setHeader('x-meta-filter', `${querystring.encode(query as ParsedUrlQueryInput)}`);
 
         const filterBy = filterByFromQuery(query);
-        const photos = await getPhotos(filterBy, page, sort);
+        const photos = await findPhotos(filterBy, page, sort);
         const data = photos.map(photo => photo.toDataPublic());
 
         res.json(data);

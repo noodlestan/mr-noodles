@@ -5,14 +5,14 @@ import { updatePhotoFromScanEvent } from '../../controllers/photos/updatePhotoFr
 import { publish } from '../../events';
 import { PHOTO_PROCESS_ERROR, PhotoProcessError } from '../../events/photo';
 import { EventScanFile } from '../../events/scan';
-import { logger } from '../../logger';
+import { log } from '../../logger';
 import { Photo } from '../../models/photo';
 
 import { hashFile } from './utils/hashFile';
 import { readExif } from './utils/readExif';
 
 export const processScanFile = async (event: EventScanFile): Promise<void> => {
-    logger.debug('agent:photos:process-scan', {
+    log().debug('agent:photos:process-scan', {
         filename: event.filename,
     });
 

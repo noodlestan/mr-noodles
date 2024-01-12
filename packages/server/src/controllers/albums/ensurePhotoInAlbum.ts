@@ -6,5 +6,11 @@ export const ensurePhotoInAlbum = async (
     photoId: Types.ObjectId,
     albumSlug: string,
 ): Promise<void> => {
-    await Album.updateOne({ slug: albumSlug }, { $addToSet: { photos: photoId } });
+    const updates = {
+        $addToSet: { photos: photoId },
+        $set: {
+            dateUpdated: new Date(),
+        },
+    };
+    await Album.updateOne({ slug: albumSlug }, updates);
 };

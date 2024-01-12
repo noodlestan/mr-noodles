@@ -2,7 +2,7 @@ import { ExifData } from 'exif';
 import { Metadata } from 'sharp';
 
 import { EventScanFile } from '../../events/scan';
-import { logger } from '../../logger';
+import { log } from '../../logger';
 import { Photo, PhotoDocument } from '../../models/photo';
 import { createAlbumFromSlugTitleAndPhotoId } from '../albums/createAlbumFromSlugTitleAndPhotoId';
 import { ensurePhotoInAlbum } from '../albums/ensurePhotoInAlbum';
@@ -20,9 +20,11 @@ export const updatePhotoFromScanEvent = async (
     const info = detectPhotoUpdates(event, photo, hash, meta, exif);
     if (info) {
         const { updates, album } = info;
+        updates.$set = updates.$set || {};
+        updates.$set.dateUpdated = new Date();
         await Photo.findByIdAndUpdate(photo._id, updates);
 
-        logger.debug('controller:photos:update-from-scan', {
+        log().debug('controller:photos:update-from-scan', {
             filename: photo.filename,
         });
 

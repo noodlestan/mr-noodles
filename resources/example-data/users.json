@@ -1,0 +1,30 @@
+[
+  {
+    "id": "65a15df51f7be149f27e7100",
+    "name": "Caetano",
+    "filename": "./resources/example-users/avatars/caetano.png",
+    "citizen": true,
+    "dateCitizen": "2011-10-10T00:00:00Z"
+  },
+  {
+    "id": "65a15df51f7be149f27e7100",
+    "name": "Vanessa",
+    "filename": "./resources/example-users/avatars/vanessa.png",
+    "citizen": true,
+    "dateCitizen": "2011-10-10T00:00:00Z"
+  },
+  {
+    "id": "65a15df51f7be149f27e7100",
+    "name": "Francisco",
+    "filename": "./resources/example-users/avatars/francisco.png",
+    "citizen": true,
+    "dateCitizen": "2011-10-10T00:00:00Z"
+  },
+  {
+    "id": "65a15df51f7be149f27e7100",
+    "name": "Andre",
+    "filename": "./resources/example-users/avatars/andre.png",
+    "citizen": true,
+    "dateCitizen": "2011-10-10T00:00:00Z"
+  }
+]

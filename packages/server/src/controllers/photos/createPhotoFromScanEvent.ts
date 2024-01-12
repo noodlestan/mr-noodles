@@ -2,7 +2,7 @@ import { ExifData } from 'exif';
 import { Metadata } from 'sharp';
 
 import { EventScanFile } from '../../events/scan';
-import { logger } from '../../logger';
+import { log } from '../../logger';
 import { Photo } from '../../models/photo';
 import { albumSlugFromRelativePath } from '../albums/albumSlugFromRelativePath';
 import { albumTitleFromRelativePath } from '../albums/albumTitleFromRelativePath';
@@ -36,7 +36,7 @@ export const createPhotoFromScanEvent = async (
 
     await photo.save();
 
-    logger.debug('controller:photos:create-from-scan', {
+    log().debug('controller:photos:create-from-scan', {
         filename: photo.filename,
         album: albumSlug,
     });

@@ -5,7 +5,7 @@ import type { AlbumDocument } from '../../models/album';
 import { Album } from '../../models/album';
 import { MongoSort } from '../../models/types';
 
-export const getAlbums = async (
+export const findAlbums = async (
     filterBy: Partial<AlbumData>,
     page?: IPagination,
     sort?: ISort[],

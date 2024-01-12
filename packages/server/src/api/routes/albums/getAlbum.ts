@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getAlbumById } from '../../../controllers/albums/getAlbumById';
+import { findAlbumById } from '../../../controllers/albums/findAlbumById';
 import { notFoundHandler } from '../responses';
 
 export const getAlbum = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const album = await getAlbumById(req.params.id);
+        const album = await findAlbumById(req.params.id);
 
         if (!album) {
             notFoundHandler(req, res, next);

@@ -5,23 +5,22 @@ import {
 } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { findAlbumById } from '../../../controllers/albums/findAlbumById';
-import { findPhotoById } from '../../../controllers/photos/findPhotoById';
-import { Album } from '../../../models/album';
-import { ALBUM_IMAGE_PROFILES } from '../../../services/images/constants';
+import { findUserById } from '../../../controllers/users/findUserById';
+import { User } from '../../../models/user';
+import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
 import { readImageFile } from '../../../services/images/readImageFile';
 import { notFoundHandler } from '../responses';
 
-export const getAlbumImage = async (
+export const getUserImage = async (
     req: Request,
     res: Response,
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const album = await findAlbumById(req.params.id);
-        if (!album) {
+        const user = await findUserById(req.params.id);
+        if (!user) {
             notFoundHandler(req, res, next);
             return;
         }
@@ -29,31 +28,20 @@ export const getAlbumImage = async (
         const height = Number(req.query.h);
         const profileName = String(req.query.p);
         const profile =
-            selectProfileByName(ALBUM_IMAGE_PROFILES, profileName) ||
-            selectProfileByHeight(ALBUM_IMAGE_PROFILES, height);
+            selectProfileByName(GALLERY_IMAGE_PROFILES, profileName) ||
+            selectProfileByHeight(GALLERY_IMAGE_PROFILES, height);
 
-        const imageFile = selectImageByProfile(album.images, profile);
+        const imageFile = selectImageByProfile(user.images, profile);
         const exists = imageFile && (await imageFileExists(imageFile.f));
-        if (album.images && exists) {
+        if (user.images && exists) {
             const image = await readImageFile(imageFile.f);
             res.setHeader('content-type', 'image/jpg');
             res.send(image);
             return;
         }
 
-        if (!album.photos.length) {
-            notFoundHandler(req, res, next);
-            return;
-        }
-
-        const photo = await findPhotoById(album.photos[0]);
-        if (!photo) {
-            notFoundHandler(req, res, next);
-            return;
-        }
-
-        const image = await makeImage(photo.filename, photo.id, profile);
-        await Album.addImageToAlbum(album.id, image);
+        const image = await makeImage(user.name || '', user.id, profile);
+        await User.addImageToUser(user.id, image);
 
         const imageData = await readImageFile(image.f);
         res.setHeader('content-type', 'image/jpg');

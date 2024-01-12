@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
-import { getAll } from './getAll';
 import { getPhoto } from './getPhoto';
 import { getPhotoImage } from './getPhotoImage';
+import { getPhotos } from './getPhotos';
 import { getRecent } from './getRecent';
 
 const router = Router();
-router.get('/', getAll);
+router.get('/', getPhotos);
 router.get('/recent', getRecent);
 
 router.get('/:id', getPhoto);
