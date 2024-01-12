@@ -1,4 +1,4 @@
-export const defer = (fn: () => void): Promise<void> => {
+export const defer = (fn: () => void, time: number = 1): Promise<void> => {
     return new Promise((resolve, reject) => {
         setTimeout(async () => {
             try {
@@ -7,6 +7,6 @@ export const defer = (fn: () => void): Promise<void> => {
             } catch (err) {
                 reject(err);
             }
-        }, 1);
+        }, time);
     });
 };

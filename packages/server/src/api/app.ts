@@ -5,8 +5,9 @@ import cors from 'cors';
 import express from 'express';
 import lusca from 'lusca';
 
-import { API_PORT, PUBLIC_ASSETS_DIR } from './env';
-import { logger, middleware as loggerMiddleware } from './logger';
+import { API_PORT, PUBLIC_ASSETS_DIR } from '../env';
+import { logger, middleware as loggerMiddleware } from '../logger';
+
 import { albumsRouter } from './routes/albums';
 import { photosRouter } from './routes/photos';
 import { exceptionHandler, notFoundHandler } from './routes/responses';

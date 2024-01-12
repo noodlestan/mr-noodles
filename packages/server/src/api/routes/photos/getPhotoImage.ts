@@ -5,12 +5,12 @@ import {
 } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getPhotoById } from '../../controllers/photos/getPhotoById';
-import { Photo } from '../../models/photo';
-import { GALLERY_IMAGE_PROFILES } from '../../services/images/constants';
-import { imageFileExists } from '../../services/images/imageFileExists';
-import { makeImage } from '../../services/images/makeImage';
-import { readImageFile } from '../../services/images/readImageFile';
+import { getPhotoById } from '../../../controllers/photos/getPhotoById';
+import { Photo } from '../../../models/photo';
+import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
+import { imageFileExists } from '../../../services/images/imageFileExists';
+import { makeImage } from '../../../services/images/makeImage';
+import { readImageFile } from '../../../services/images/readImageFile';
 import { notFoundHandler } from '../responses';
 
 export const getPhotoImage = async (

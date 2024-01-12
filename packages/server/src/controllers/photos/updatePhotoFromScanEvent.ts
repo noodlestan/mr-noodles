@@ -31,7 +31,7 @@ export const updatePhotoFromScanEvent = async (
             (updates.$unset && 'album' in updates.$unset)
         ) {
             if (photo.album) {
-                ensurePhotoNotInAlbum(photo._id, photo.album);
+                await ensurePhotoNotInAlbum(photo._id, photo.album);
             }
             if (updates?.$set?.album && album) {
                 const { slug, title } = album;

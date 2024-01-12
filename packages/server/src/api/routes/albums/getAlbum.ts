@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getAlbumById } from '../../controllers/albums/getAlbumById';
+import { getAlbumById } from '../../../controllers/albums/getAlbumById';
 import { notFoundHandler } from '../responses';
 
 export const getAlbum = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

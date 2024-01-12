@@ -8,4 +8,9 @@ const connect = async (): Promise<void> => {
     logger.info('db');
 };
 
-export { connect };
+const disconnect = async (): Promise<void> => {
+    await mongoose.disconnect();
+    logger.info('db:disconnected');
+};
+
+export { connect, disconnect };

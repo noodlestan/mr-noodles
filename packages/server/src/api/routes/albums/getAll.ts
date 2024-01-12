@@ -2,7 +2,7 @@ import querystring, { ParsedUrlQueryInput } from 'node:querystring';
 
 import { NextFunction, Request, Response } from 'express';
 
-import { getAlbums } from '../../controllers/albums/getAlbums';
+import { getAlbums } from '../../../controllers/albums/getAlbums';
 import { ALBUMS_PAGE_MAX, ALBUMS_PAGE_SIZE_DEFAULT } from '../constants';
 import { paginationFromQuery, sortFromQuery } from '../functions';
 

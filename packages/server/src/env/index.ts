@@ -6,13 +6,7 @@ dotenv.config({ path: '../../.env' });
 
 const { env } = process;
 
-const {
-    NODE_ENV,
-    LOG_FILE,
-    API_PORT = 8008,
-    MONGODB_URI = 'mongodb://localhost:27017',
-    SCAN_NOW,
-} = env;
+const { NODE_ENV, LOG_FILE, API_PORT = 8008, MONGODB_URI = 'mongodb://localhost:27017' } = env;
 
 const SCAN_DIR = path.resolve(env.SCAN_DIR || '../../resources/example-media/good');
 const SCAN_EXTENSIONS = (env.SCAN_EXTENSIONS || '.jpg,.jpeg,.png,.gif').split(',');
@@ -26,7 +20,6 @@ export {
     API_PORT,
     MONGODB_URI,
     SCAN_DIR,
-    SCAN_NOW,
     SCAN_EXTENSIONS,
     PUBLIC_ASSETS_DIR,
     PUBLIC_ASSETS_BASE_URL,

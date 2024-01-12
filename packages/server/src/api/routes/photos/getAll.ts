@@ -2,7 +2,7 @@ import querystring, { ParsedUrlQueryInput } from 'node:querystring';
 
 import { NextFunction, Request, Response } from 'express';
 
-import { getPhotos } from '../../controllers/photos/getPhotos';
+import { getPhotos } from '../../../controllers/photos/getPhotos';
 import { PHOTOS_PAGE_MAX, PHOTOS_PAGE_SIZE_DEFAULT } from '../constants';
 import { filterByFromQuery, paginationFromQuery, sortFromQuery } from '../functions';
 

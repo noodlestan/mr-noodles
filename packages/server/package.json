@@ -6,11 +6,12 @@
     "build-ts": "tsc -p tsconfig.build.json",
     "build-assets": "ts-node ./scripts/copyStaticAssets.ts",
     "lint": "prettier . -c && eslint . && tsc --noEmit",
-    "serve": "node dist/index.js",
+    "serve": "node dist/api/index.js",
+    "scan-now": "ts-node scripts/scanNow.ts",
     "start": "npm run serve",
-    "watch-node": "nodemon dist/index.js",
+    "watch-serve": "nodemon dist/api/index.js",
     "watch-ts": "tsc -w -p tsconfig.build.json",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\""
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-serve\""
   },
   "devDependencies": {
     "@types/async": "3.2.24",

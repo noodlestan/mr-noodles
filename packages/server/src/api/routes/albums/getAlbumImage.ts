@@ -5,13 +5,13 @@ import {
 } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getAlbumById } from '../../controllers/albums/getAlbumById';
-import { getPhotoById } from '../../controllers/photos/getPhotoById';
-import { Album } from '../../models/album';
-import { ALBUM_IMAGE_PROFILES } from '../../services/images/constants';
-import { imageFileExists } from '../../services/images/imageFileExists';
-import { makeImage } from '../../services/images/makeImage';
-import { readImageFile } from '../../services/images/readImageFile';
+import { getAlbumById } from '../../../controllers/albums/getAlbumById';
+import { getPhotoById } from '../../../controllers/photos/getPhotoById';
+import { Album } from '../../../models/album';
+import { ALBUM_IMAGE_PROFILES } from '../../../services/images/constants';
+import { imageFileExists } from '../../../services/images/imageFileExists';
+import { makeImage } from '../../../services/images/makeImage';
+import { readImageFile } from '../../../services/images/readImageFile';
 import { notFoundHandler } from '../responses';
 
 export const getAlbumImage = async (

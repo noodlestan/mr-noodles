@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { getPhotoById } from '../../controllers/photos/getPhotoById';
+import { getPhotoById } from '../../../controllers/photos/getPhotoById';
 import { notFoundHandler } from '../responses';
 
 export const getPhoto = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
