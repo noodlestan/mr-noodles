@@ -34,13 +34,16 @@ This is Mr Noodles server.
 - `/photos/<id>/img`
 - `/photos/<id>/img?h=500`
 - `/photos/<id>/img?p=thumb.small`
-- `/albums`
-- `/albums/<id>`
-- `/albums/<id>/img`
-- `/albums/<id>/img?h=500`
-- `/albums/<id>/img?p=thumb.small`
+- `/folders`
+- `/folders/<id>`
+- `/folders/<id>/img`
+- `/folders/<id>/img?h=500`
+- `/folders/<id>/img?p=thumb.small`
 - `/users`
 - `/users/<id>`
+- `/users/<id>/img`
+- `/users/<id>/img?h=500`
+- `/users/<id>/img?p=thumb.small`
 
 Note: the image endpoints update the parent document with image data after these are generated. The endpoints are idempotent
 
@@ -61,18 +64,15 @@ cd packages/shared/types
 npm run build
 ```
 
-#### DB (docker)
-
-Install [Docker](https://docs.docker.com/desktop/), get the [MongoDB image](https://hub.docker.com/_/mongo), and create a container exposing the MongoDB port to the host.
-
-```
-docker pull mongo:jammy
-docker run -p 27017:27017 --name mongo -d mongo:jammy
-```
-
 ### Populating the database
 
-Run the scan script at least once. It scans the `resources/example-media/good` folder in this repository and populates the DB with the scanned folders and files.
+Run the `populate` script at least once. It reads from the fixtures in the `resources/example-data/` and populates the DB with `users` and their `avatars`.
+
+```
+npm run populate
+```
+
+Run the `scan-now` script at least once. It scans the `resources/example-media/good` folder in this repository, as well as all folders listed under each user's `folders` attribute, and populates the DB with the found folders and files.
 
 ```
 npm run scan-now
@@ -108,20 +108,6 @@ If the build fails with `@noodlestan/shared-types` errors, you might have pulled
 Check http://localhost:8008/photos for health
 
 Check logs
-
-Is another instance running on same port? Stop it, or use a different por. See [env](../../.env.example) for how.
-
-Is the MongoDB instance up?
-
-```
-docker logs mongo -f
-```
-
-Can you connect to it via [shell](https://www.mongodb.com/docs/mongodb-shell/install/#std-label-macos-install-archive)?
-
-```
-mongosh
-```
 
 ### API returns no users and/or no data
 

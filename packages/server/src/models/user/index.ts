@@ -1,81 +1,34 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-import { ImageFile, UserData, UserDataPublic, UserSchema } from '@noodlestan/shared-types';
-import type { HydratedDocument, Model } from 'mongoose';
-import { Schema, Types, model } from 'mongoose';
+import { UserData, UserModel } from '@noodlestan/shared-types';
 
 import { mapImagesToEndpointUrls } from '../../services/images/mapImagesToEndpointUrls';
+import { generateId } from '../generateId';
 
-interface Methods {
-    toData: () => UserData;
-    toDataPublic: () => UserData;
-}
-
-interface IModel extends Model<UserSchema, object, Methods> {
-    fromData: (json: Partial<UserData>) => UserDocument;
-    findByName: (name: string) => Promise<UserDocument>;
-    addImageToUser(id: Types.ObjectId, images: ImageFile): Promise<void>;
-}
-
-export type UserDocument = HydratedDocument<UserSchema> & Methods & { _id: Types.ObjectId };
-
-const schema = new Schema<UserSchema, IModel, Methods>({
-    dateCreated: { type: Date, required: true },
-    dateUpdated: { type: Date },
-    citizen: { type: Boolean },
-    dateCitizen: { type: Date },
-    name: { type: String },
-    filename: { type: String },
-    images: [
-        {
-            w: Number,
-            h: Number,
-            f: String,
-            p: String,
-        },
-    ],
-});
-
-schema.method('toData', function (): UserData {
-    const { id, images, ...rest } = this;
+export const userToData = (doc: UserModel): UserData => {
+    const { id, images, dateCreated, dateUpdated, dateCitizen, ...rest } = doc;
     return {
         id,
         ...rest,
+        dateCreated: dateCreated.toISOString(),
+        dateUpdated: dateUpdated ? dateUpdated.toISOString() : undefined,
+        dateCitizen: dateCitizen ? dateCitizen.toISOString() : undefined,
         images: images && mapImagesToEndpointUrls(images),
     };
-});
+};
 
-schema.method('toDataPublic', function (): UserDataPublic {
-    const data = this.toData();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, dateCreated, dateUpdated, dateCitizen, ...rest } = data;
+export const userFromData = (partial: Partial<UserData>): UserModel => {
+    const { id, type, filename, dateCreated, dateUpdated, citizen, dateCitizen, ...rest } = partial;
+    if ((type && type !== 'user') || filename === undefined) {
+        throw new Error('Invalid arguments');
+    }
+
     return {
-        id,
-        dateCreated: dateCreated.toISOString(),
-        dateUpdated: dateUpdated?.toISOString(),
-        dateCitizen: dateCitizen?.toISOString(),
+        id: id || generateId(filename),
+        type: 'user',
+        filename,
+        dateCreated: dateCreated ? new Date(dateCreated) : new Date(),
+        dateUpdated: dateUpdated ? new Date(dateUpdated) : undefined,
+        citizen: !!citizen,
+        dateCitizen: dateCitizen ? new Date(dateCitizen) : undefined,
         ...rest,
     };
-});
-
-schema.static('fromData', (partial: Partial<UserData>): UserDocument => {
-    return new UserModel(partial);
-});
-
-schema.static('findByName', async (name: string): Promise<UserDocument | undefined> => {
-    const results = await UserModel.find({ name }).exec();
-    return results && results[0];
-});
-
-schema.static('addImageToUser', async (id: Types.ObjectId, image: ImageFile): Promise<void> => {
-    const updates = {
-        $push: { images: image },
-        $set: {
-            dateUpdated: new Date(),
-        },
-    };
-    await UserModel.findByIdAndUpdate(id, updates);
-});
-
-const UserModel = model<UserSchema, IModel>('User', schema);
-
-export { UserModel as User };
+};

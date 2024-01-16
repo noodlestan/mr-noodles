@@ -1,6 +1,5 @@
 import { queue as CreateQueue, QueueObject } from 'async';
 
-import { createPhotoMessage } from '../../controllers/photo-messages/create';
 import { subscribe } from '../../events';
 import {
     PHOTO_PROCESS_ERROR,
@@ -8,7 +7,7 @@ import {
     PhotoProcessError,
     PhotoProcessWarning,
 } from '../../events/photo';
-import { EVENT_SCAN_FILE, EventScanFile } from '../../events/scan';
+import { EVENT_SCAN_FILE_IMAGE, EventScanFile } from '../../events/scan';
 import { log } from '../../logger';
 
 import { processScanFile } from './processScanFile';
@@ -28,12 +27,9 @@ const susbcribeToErrors = () => {
             stack: event.error.stack,
         };
         log().error('agent:photos:error', error);
-        createPhotoMessage('error', error.reason, event.filename);
     });
 
     const errorUnsub2 = subscribe(PHOTO_PROCESS_WARNING, (event: PhotoProcessWarning) => {
-        createPhotoMessage('warning', event.reason, event.filename);
-
         log().warn('agent:photos:warning', {
             filename: event.filename,
             reason: event.reason,
@@ -47,7 +43,7 @@ const susbcribeToErrors = () => {
 const startPhotosAgent = async (): Promise<void> => {
     susbcribeToErrors();
 
-    const scanFileUnsub = subscribe<EventScanFile>(EVENT_SCAN_FILE, event => {
+    const scanFileUnsub = subscribe<EventScanFile>(EVENT_SCAN_FILE_IMAGE, event => {
         queue.push(event);
     });
 

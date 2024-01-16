@@ -42,7 +42,7 @@ export const GalleryScreen: Component = () => {
     createRenderEffect(() => {
         setGroupBy([
             { field: 'date', group: 'day', dir: 'desc' },
-            { field: 'album', dir: 'asc' },
+            { field: 'folder', dir: 'asc' },
         ]);
 
         setQuery({

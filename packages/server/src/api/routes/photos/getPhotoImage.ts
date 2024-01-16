@@ -1,12 +1,13 @@
 import {
+    PhotoModel,
     selectImageByProfile,
     selectProfileByHeight,
     selectProfileByName,
 } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { findPhotoById } from '../../../controllers/photos/findPhotoById';
-import { Photo } from '../../../models/photo';
+import { addImageToPhoto } from '../../../controllers/photos/addImageToPhoto';
+import { getNoodleById, noodleExists } from '../../../db';
 import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
@@ -19,11 +20,11 @@ export const getPhotoImage = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const photo = await findPhotoById(req.params.id);
-        if (!photo) {
+        if (!noodleExists(req.params.id)) {
             notFoundHandler(req, res, next);
             return;
         }
+        const photo = getNoodleById<PhotoModel>(req.params.id);
 
         const height = Number(req.query.h);
         const profileName = String(req.query.p);
@@ -41,7 +42,7 @@ export const getPhotoImage = async (
         }
 
         const image = await makeImage(photo.filename, photo.id, profile);
-        await Photo.addImageToPhoto(photo.id, image);
+        await addImageToPhoto(photo.id, image);
 
         const imageData = await readImageFile(image.f);
         res.setHeader('content-type', 'image/jpg');

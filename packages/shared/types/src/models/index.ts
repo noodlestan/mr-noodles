@@ -1,5 +1,5 @@
 export * from '../api/queryToParams';
-export * from './Albums/types';
+export * from './Folders/types';
 export * from './Images/types';
 export * from './Photos/types';
 export * from './Users/types';

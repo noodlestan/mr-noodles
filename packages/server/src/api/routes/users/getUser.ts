@@ -1,17 +1,18 @@
+import { UserModel } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { findUserById } from '../../../controllers/users/findUserById';
+import { getNoodleById, noodleExists } from '../../../db';
+import { userToData } from '../../../models/user';
 import { notFoundHandler } from '../responses';
 
 export const getUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const user = await findUserById(req.params.id);
-
-        if (!user) {
+        if (!noodleExists(req.params.id)) {
             notFoundHandler(req, res, next);
             return;
         }
-        res.json(user.toDataPublic());
+        const user = getNoodleById<UserModel>(req.params.id);
+        res.json(userToData(user));
     } catch (error) {
         next(error);
     }

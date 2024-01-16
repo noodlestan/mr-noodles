@@ -30,7 +30,7 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
     let inputRef: HTMLInputElement | undefined;
 
     const emitSelect = () => {
-        bus?.emit({ name: 'onSelect', target: props.id });
+        bus?.emit({ name: 'onSelect', value: props.id });
     };
 
     const handleClick = (ev: MouseEvent) => {

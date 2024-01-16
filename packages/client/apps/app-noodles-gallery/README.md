@@ -51,8 +51,6 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 - TODO (playlist) remove folder from playlist
 - TODO (playlist) share playlist
 
-- TODO (refactor) rename Photo to Noodle and Album to Folder
-
 - TODO (video) ingest files
 - TODO (video) handle video in lists with placeholder graphics only
 - TODO (video) video player in modal views
@@ -82,6 +80,12 @@ It's built with [Solid JS](https://www.solidjs.com/) app and [Vite](https://vite
 
 - TODO (settings) list locations (per owner)
 - TODO (settings) add/remove location
+
+### Technical
+
+- TODO Review global stores
+- TODO Review For loops in components https://www.solidjs.com/tutorial/stores_immutable
+- TODO Apply batching optimizations https://www.solidjs.com/tutorial/reactivity_batch
 
 ### Capabilities
 

@@ -1,9 +1,7 @@
 import { useContext } from 'solid-js';
 
-import {
-    GalleryNavigationContext,
-    GalleryNavigationContextState,
-} from './private/GalleryNavigationContext';
+import { GalleryNavigationContext } from './private/GalleryNavigationContext';
+import { GalleryNavigationContextState } from './types';
 
 export const useGalleryNavigationContext = (): GalleryNavigationContextState =>
     useContext(GalleryNavigationContext);

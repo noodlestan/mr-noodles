@@ -1,11 +1,11 @@
 import type { IGroup } from '@noodlestan/shared-types';
 
-import { GalleryGroupAttributesAlbum, GalleryGroupAttributesDate } from '@/models/gallery/types';
+import { GalleryGroupAttributesDate, GalleryGroupAttributesFolder } from '@/models/gallery/types';
 
 export const makeGalleryGroupItemAttributes = (
     groupBy: IGroup,
     value: string,
-): GalleryGroupAttributesAlbum | GalleryGroupAttributesDate => {
+): GalleryGroupAttributesFolder | GalleryGroupAttributesDate => {
     const { group, field } = groupBy;
     switch (group) {
         case 'day':
@@ -21,11 +21,11 @@ export const makeGalleryGroupItemAttributes = (
 
         default:
             switch (field) {
-                case 'album':
+                case 'folder':
                     return {
-                        groupBy: 'album',
+                        groupBy: 'folder',
                         value,
-                        album: value || undefined,
+                        folder: value || undefined,
                     };
                 default:
                     throw new Error(`Unknown ${group}`);

@@ -1,17 +1,18 @@
+import { PhotoModel } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { findPhotoById } from '../../../controllers/photos/findPhotoById';
+import { getNoodleById, noodleExists } from '../../../db';
+import { photoToData } from '../../../models/photo';
 import { notFoundHandler } from '../responses';
 
 export const getPhoto = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const photo = await findPhotoById(req.params.id);
-
-        if (!photo) {
+        if (!noodleExists(req.params.id)) {
             notFoundHandler(req, res, next);
             return;
         }
-        res.json(photo.toDataPublic());
+        const photo = getNoodleById<PhotoModel>(req.params.id);
+        res.json(photoToData(photo));
     } catch (error) {
         next(error);
     }

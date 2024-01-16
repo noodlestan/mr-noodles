@@ -1,8 +1,13 @@
-import { Component } from 'solid-js';
+import { Component, JSX } from 'solid-js';
 
-import { GallerySelectionContext, ModalProviderProps } from './private/GallerySelectionContext';
+import { GallerySelectionContext } from './private/GallerySelectionContext';
+import { GallerySelectionContextState } from './types';
 
-export const GallerySelectionProvider: Component<ModalProviderProps> = props => {
+type GallerySelectionProviderProps = GallerySelectionContextState & {
+    children?: JSX.Element;
+};
+
+export const GallerySelectionProvider: Component<GallerySelectionProviderProps> = props => {
     return (
         <GallerySelectionContext.Provider value={props}>
             {props.children}{' '}

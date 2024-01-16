@@ -1,9 +1,9 @@
-import type { APIResponseMeta, PhotoData, PhotoQuery } from '@noodlestan/shared-types';
+import type { APIResponseMeta, PhotoModel, PhotoQuery } from '@noodlestan/shared-types';
 import { Accessor, createSignal } from 'solid-js';
 
 const [loading, setLoading] = createSignal<boolean>(false);
 const [query, setQuery] = createSignal<PhotoQuery>({});
-const [photos, setPhotos] = createSignal<PhotoData[]>([]);
+const [photos, setPhotos] = createSignal<PhotoModel[]>([]);
 const [meta, setMeta] = createSignal<APIResponseMeta>({});
 
 type PhotosStore = {
@@ -11,8 +11,8 @@ type PhotosStore = {
     setLoading: (loading: boolean) => void;
     query: Accessor<PhotoQuery>;
     setQuery: (query: PhotoQuery) => void;
-    photos: Accessor<PhotoData[]>;
-    setPhotos: (photos: PhotoData[]) => void;
+    photos: Accessor<PhotoModel[]>;
+    setPhotos: (photos: PhotoModel[]) => void;
     meta: Accessor<APIResponseMeta>;
     setMeta: (meta: APIResponseMeta) => void;
 };

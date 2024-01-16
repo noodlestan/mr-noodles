@@ -1,9 +1,9 @@
 import { createEventBus } from '@solid-primitives/event-bus';
 import { createEffect, createSignal } from 'solid-js';
 
-import { GallerySelectionContextState } from './private/GallerySelectionContext';
-import { handleClearSelection, handleOnSelect } from './private/eventHandlers';
-import { GallerySelectionEvent } from './types';
+import { makeEventListener } from '../makeEventListener';
+
+import { GallerySelectionContextState, GallerySelectionEvent } from './types';
 
 export const createGallerySelectionContext = (): GallerySelectionContextState => {
     const bus = createEventBus<GallerySelectionEvent>();
@@ -15,15 +15,33 @@ export const createGallerySelectionContext = (): GallerySelectionContextState =>
 
     const context = { bus, selection };
 
-    bus.listen(evt => {
-        const { name } = evt;
-        switch (name) {
-            case 'onSelect':
-                return handleOnSelect(context, evt, setSelection);
-            case 'clearSelection':
-                return handleClearSelection(context, evt, setSelection);
+    const handleOnSelect = (ev: GallerySelectionEvent): void => {
+        const { value: id = '' } = ev;
+        if (!id) {
+            return;
         }
-    });
+        const items = context.selection();
+        if (items.has(id)) {
+            setSelection(prev => {
+                const next = new Set(prev);
+                next.delete(id);
+                return next;
+            });
+        } else {
+            setSelection(prev => {
+                const next = new Set(prev);
+                next.add(id);
+                return next;
+            });
+        }
+    };
+
+    bus.listen(
+        makeEventListener<GallerySelectionEvent>({
+            onSelect: handleOnSelect,
+            clearSelection: () => setSelection(new Set<string>()),
+        }),
+    );
 
     return context;
 };

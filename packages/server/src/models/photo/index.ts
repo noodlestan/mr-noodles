@@ -1,183 +1,56 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-import { ImageFile, PhotoData, PhotoDataPublic, PhotoSchema } from '@noodlestan/shared-types';
-import type { HydratedDocument, Model } from 'mongoose';
-import { Schema, Types, model } from 'mongoose';
+import { PhotoData, PhotoModel } from '@noodlestan/shared-types';
 
 import { mapImagesToEndpointUrls } from '../../services/images/mapImagesToEndpointUrls';
+import { generateId } from '../generateId';
 
-interface Methods {
-    toData: () => PhotoData;
-    toDataPublic: () => PhotoData;
-}
-
-interface IModel extends Model<PhotoSchema, object, Methods> {
-    fromData: (json: Partial<PhotoData>) => PhotoDocument;
-    findByHash: (hash: string) => Promise<PhotoDocument>;
-    findByFilename: (filename: string) => Promise<PhotoDocument>;
-    findByFilenameOrHash: (filename: string, hash: string) => Promise<PhotoDocument>;
-    addImageToPhoto(id: Types.ObjectId, images: ImageFile): Promise<void>;
-}
-
-export type PhotoDocument = HydratedDocument<PhotoSchema> & Methods & { _id: Types.ObjectId };
-
-const schema = new Schema<PhotoSchema, IModel, Methods>({
-    dateCreated: { type: Date, required: true },
-    dateUpdated: { type: Date },
-    hash: { type: String, required: true },
-    filename: { type: String, required: true },
-    album: { type: String },
-    title: { type: String, max: 100 },
-    images: [
-        {
-            w: Number,
-            h: Number,
-            f: String,
-            p: String,
-        },
-    ],
-    date: { type: Date },
-    orientation: { type: Number, required: true },
-    width: { type: Number, required: true },
-    height: { type: Number, required: true },
-    location: {
-        type: Object,
-        required: false,
-        attributes: {
-            type: {
-                type: String,
-                enum: ['Point'],
-                required: true,
-            },
-            coordinates: {
-                type: [Number],
-                required: true,
-            },
-        },
-    },
-});
-
-schema.method('toData', function (): PhotoData {
-    const {
-        id,
-        dateCreated,
-        dateUpdated,
-        hash,
-        filename,
-        album,
-        title,
-        images,
-        date,
-        orientation,
-        width,
-        height,
-        location,
-    } = this;
-    const lat = location?.coordinates[0];
-    const long = location?.coordinates[1];
-    const loc = lat && long ? { lat, long } : undefined;
+export const photoToData = (doc: PhotoModel): PhotoData => {
+    const { id, images, dateCreated, dateUpdated, dateTaken, ...rest } = doc;
     return {
         id,
-        dateCreated,
-        dateUpdated,
-        hash,
-        filename,
-        album,
-        title,
-        images: images && mapImagesToEndpointUrls(images),
-        date,
-        orientation,
-        width,
-        height,
-        location: loc,
-    };
-});
-
-schema.method('toDataPublic', function (): PhotoDataPublic {
-    const data = this.toData();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, dateCreated, dateUpdated, date, ...rest } = data;
-    return {
-        id,
-        dateCreated: dateCreated.toISOString(),
-        dateUpdated: dateUpdated?.toISOString(),
-        date: date?.toISOString(),
         ...rest,
+        dateCreated: dateCreated.toISOString(),
+        dateUpdated: dateUpdated ? dateUpdated.toISOString() : undefined,
+        dateTaken: dateTaken ? dateTaken.toISOString() : undefined,
+        images: images && mapImagesToEndpointUrls(images),
     };
-});
+};
 
-schema.static('fromData', (partial: Partial<PhotoData>): PhotoDocument => {
+export const photoFromData = (partial: Partial<PhotoData>): PhotoModel => {
     const {
         id,
+        type,
+        filename,
         dateCreated,
         dateUpdated,
         hash,
-        filename,
-        album,
-        title,
-        images,
-        date,
+        dateTaken,
         orientation,
         width,
         height,
-        location,
+        ...rest
     } = partial;
-    const { lat, long } = location || {};
-    const data: Partial<PhotoSchema> = {
-        dateCreated,
-        dateUpdated,
-        hash,
-        filename,
-        album,
-        title,
-        images,
-        date,
-        orientation,
-        width,
-        height,
-    };
-    if (lat && long) {
-        data.location = {
-            type: 'Point',
-            coordinates: [lat, long],
-        };
+    if (
+        (type && type !== 'photo') ||
+        filename === undefined ||
+        hash === undefined ||
+        orientation === undefined ||
+        width === undefined ||
+        height === undefined
+    ) {
+        throw new Error('Invalid arguments');
     }
 
-    return new PhotoModel({ id, ...data });
-});
-
-schema.static('findByHash', async (hash: string): Promise<PhotoDocument | undefined> => {
-    const results = await PhotoModel.find({ hash }).exec();
-    return results && results[0];
-});
-
-schema.static('findByFilename', async (filename: string): Promise<PhotoDocument | undefined> => {
-    const results = await PhotoModel.find({ filename }).exec();
-    return results && results[0];
-});
-
-schema.static(
-    'findByFilenameOrHash',
-    async (filename: string, hash: string): Promise<PhotoDocument | undefined> => {
-        const byFilename = await PhotoModel.findByFilename(filename);
-        if (byFilename) {
-            return byFilename;
-        } else {
-            const results = await PhotoModel.find({ hash }).exec();
-            return results && results[0];
-        }
-    },
-);
-
-schema.static('addImageToPhoto', async (id: Types.ObjectId, image: ImageFile): Promise<void> => {
-    const updates = {
-        $push: { images: image },
-        $set: {
-            dateUpdated: new Date(),
-        },
+    return {
+        id: id || generateId(filename),
+        type: 'photo',
+        filename,
+        dateCreated: dateCreated ? new Date(dateCreated) : new Date(),
+        dateUpdated: dateUpdated ? new Date(dateUpdated) : undefined,
+        hash,
+        dateTaken: dateTaken ? new Date(dateTaken) : undefined,
+        orientation,
+        width,
+        height,
+        ...rest,
     };
-    await PhotoModel.findByIdAndUpdate(id, updates);
-});
-
-const PhotoModel = model<PhotoSchema, IModel>('Photo', schema);
-
-export { PhotoModel as Photo };
+};

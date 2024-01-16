@@ -1,4 +1,4 @@
-import type { PhotoData } from '@noodlestan/shared-types';
+import type { PhotoModel } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { createIntersectionObserver } from '@solid-primitives/intersection-observer';
@@ -12,7 +12,7 @@ import { makeImageUrl } from '@/services/Images/makeImageUrl';
 import './GalleryItem.css';
 
 export type GalleryItemProps = {
-    item: PhotoData;
+    item: PhotoModel;
     showCheckbox?: boolean;
 };
 
@@ -27,16 +27,16 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
 
     const isCurrent = () => current()?.id === props.item.id;
 
-    const handleOnFocus = () => navigationBus?.emit({ name: 'onFocus', target: props.item.id });
+    const handleOnFocus = () => navigationBus?.emit({ name: 'onFocus', value: props.item.id });
     const handleOnClick = (ev?: MouseEvent) => {
         ev?.preventDefault();
         if (current()) {
-            navigationBus?.emit({ name: 'onClick', target: props.item.id });
+            navigationBus?.emit({ name: 'onClick', value: props.item.id });
         } else {
-            selectionBus?.emit({ name: 'onSelect', target: props.item.id });
+            selectionBus?.emit({ name: 'onSelect', value: props.item.id });
         }
     };
-    const handleOnSelect = () => selectionBus?.emit({ name: 'onSelect', target: props.item.id });
+    const handleOnSelect = () => selectionBus?.emit({ name: 'onSelect', value: props.item.id });
     const handleKeyDown = (ev: KeyboardEvent) => {
         if (ev.code === 'Space') {
             ev.preventDefault();
@@ -80,7 +80,7 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     const imageUrl = () => makeImageUrl('photos', props.item, 'thumb.small');
     const url = () => window.location.pathname;
     // TODO abstract
-    const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
+    const date = () => (props.item.dateTaken ? new Date(props.item.dateTaken).toString() : '');
     const label = () => `Gallery item. ${date()}. Press to open details.`;
 
     const classList = () => ({

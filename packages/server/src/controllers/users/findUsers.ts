@@ -1,37 +1,28 @@
-import { IPagination, ISort, UserFilter, UserSchema } from '@noodlestan/shared-types';
-import { FilterQuery, QueryOptions } from 'mongoose';
+import { IPagination, ISort, UserFilter, UserModel } from '@noodlestan/shared-types';
 
-import { MongoSort } from '../../models/types';
-import type { UserDocument } from '../../models/user';
-import { User } from '../../models/user';
-import { pushPatternFilter } from '../functions';
+import { findNoodles } from '../../db';
+import { matchPattern } from '../../db/functions/matchPattern';
 
-export const findUsers = async (
-    filterBy: UserFilter,
-    page?: IPagination,
+export type FilterQuery<T> = {
+    [P in keyof T]?: (noodle: T) => boolean;
+};
+
+export const findUsers = (
+    filterBy?: UserFilter,
     sort?: ISort[],
-): Promise<UserDocument[]> => {
-    const $and: FilterQuery<UserDocument>[] = [];
+    page?: IPagination,
+): UserModel[] => {
+    const { name } = filterBy || {};
 
-    const { name } = filterBy;
-
-    pushPatternFilter($and, 'name', name);
-
-    const limit = page?.size;
-    const skip = page ? (page.page - 1) * page.size : 0;
-
-    const s: MongoSort = {};
-    sort?.forEach(({ field, dir }) => {
-        s[field] = dir === 'desc' ? -1 : 1;
-    });
-
-    const options: QueryOptions<UserSchema> = {
-        skip,
-        limit,
-        sort: s,
+    const filter = (n: UserModel) => {
+        if (n.type !== 'user') {
+            return false;
+        }
+        if (!matchPattern(n.name, name)) {
+            return false;
+        }
+        return true;
     };
 
-    const filter = $and.length ? { $and } : {};
-
-    return User.find(filter, undefined, options);
+    return findNoodles<UserModel>(filter, sort, page);
 };

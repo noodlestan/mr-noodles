@@ -1,8 +1,8 @@
 import { Accessor, Component, JSX, Show } from 'solid-js';
 
 import { GalleryGroup, GalleryGroupAttributes } from '@/models/gallery/types';
-import { GalleryGroupItemAlbum } from '@/molecules/GalleryGroupItemAlbum/GalleryGroupItemAlbum';
 import { GalleryGroupItemDate } from '@/molecules/GalleryGroupItemDate/GalleryGroupItemDate';
+import { GalleryGroupItemFolder } from '@/molecules/GalleryGroupItemFolder/GalleryGroupItemFolder';
 
 type GalleryGroupItemProps = {
     group: Accessor<GalleryGroup>;
@@ -17,8 +17,10 @@ export const GalleryGroupItem: Component<GalleryGroupItemProps> = props => {
 
     return (
         <>
-            <Show when={groupBy() === 'album'}>
-                <GalleryGroupItemAlbum group={props.group}>{props.children}</GalleryGroupItemAlbum>
+            <Show when={groupBy() === 'folder'}>
+                <GalleryGroupItemFolder group={props.group}>
+                    {props.children}
+                </GalleryGroupItemFolder>
             </Show>
             <Show when={groupBy() === 'date'}>
                 <GalleryGroupItemDate group={props.group}>{props.children}</GalleryGroupItemDate>

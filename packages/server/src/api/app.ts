@@ -8,7 +8,7 @@ import lusca from 'lusca';
 import { API_PORT, PUBLIC_ASSETS_DIR } from '../env';
 import { log, middleware as loggerMiddleware } from '../logger';
 
-import { albumsRouter } from './routes/albums';
+import { foldersRouter } from './routes/folders';
 import { photosRouter } from './routes/photos';
 import { exceptionHandler, notFoundHandler } from './routes/responses';
 import { usersRouter } from './routes/users';
@@ -25,7 +25,7 @@ app.use(cors());
 
 app.use('/users', usersRouter);
 app.use('/photos', photosRouter);
-app.use('/albums', albumsRouter);
+app.use('/folders', foldersRouter);
 
 app.use(notFoundHandler);
 app.use(exceptionHandler);

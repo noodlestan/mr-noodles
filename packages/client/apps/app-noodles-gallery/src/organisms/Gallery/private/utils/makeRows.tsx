@@ -1,11 +1,11 @@
-import type { PhotoData } from '@noodlestan/shared-types';
+import type { PhotoModel } from '@noodlestan/shared-types';
 
 import { GalleryRowOptions } from '../../types';
 import { MAX_ITEMS } from '../createGalleryGroups';
 
 const GAP_SIZE = 8;
 
-const calcWidth = (items: PhotoData[], height: number): number => {
+const calcWidth = (items: PhotoModel[], height: number): number => {
     return items.reduce((acc, item) => {
         const ratio = item.height / item.width;
         return acc + height / ratio;
@@ -13,8 +13,8 @@ const calcWidth = (items: PhotoData[], height: number): number => {
 };
 
 const itemFitsInRow = (
-    lastRow: PhotoData[],
-    item: PhotoData,
+    lastRow: PhotoModel[],
+    item: PhotoModel,
     options: GalleryRowOptions,
 ): boolean => {
     const { height, maxItems = MAX_ITEMS, maxWidth } = options;
@@ -31,7 +31,7 @@ const itemFitsInRow = (
     return true;
 };
 
-export const makeRows = (items: PhotoData[], options: GalleryRowOptions): PhotoData[][] => {
+export const makeRows = (items: PhotoModel[], options: GalleryRowOptions): PhotoModel[][] => {
     return items.reduce(
         (acc, item) => {
             const lastRow = acc[acc.length - 1];
@@ -44,6 +44,6 @@ export const makeRows = (items: PhotoData[], options: GalleryRowOptions): PhotoD
             }
             return acc;
         },
-        [[]] as PhotoData[][],
+        [[]] as PhotoModel[][],
     );
 };

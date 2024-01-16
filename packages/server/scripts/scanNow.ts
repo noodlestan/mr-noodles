@@ -1,8 +1,10 @@
 import { photosAgentQueue, startPhotosAgent, stopPhotosAgent } from '../src/agents/photos';
 import { startScanAgent, stopScanAgent } from '../src/agents/scanner';
-import { scanNow } from '../src/agents/scanner/functions/scanNow';
-import { connect, disconnect } from '../src/db';
+import { findUsers } from '../src/controllers/users/findUsers';
+import { addUserFolder, connect, disconnect } from '../src/db';
+import { NOODLES_DB_PATH } from '../src/env';
 import { createLogger } from '../src/logger';
+import { mappers } from '../src/models/mappers';
 import { defer } from '../src/utils/flow/defer';
 
 const logger = createLogger('scripts/scan');
@@ -12,7 +14,6 @@ const shutdown = async () => {
     await disconnect();
     await stopPhotosAgent();
     await stopScanAgent();
-    process.exit();
 };
 
 const monitor = async () => {
@@ -27,13 +28,15 @@ const monitor = async () => {
 
 const main = async () => {
     try {
-        await connect();
         await startPhotosAgent();
         await startScanAgent();
+        await connect(NOODLES_DB_PATH, mappers);
+        logger.info('adding user roots');
+        const users = findUsers();
+        users.forEach(user => user.folders?.forEach(f => addUserFolder(f, user.id)));
         logger.info('boot');
-        await scanNow();
-        logger.info('done');
         await defer(monitor, 1000);
+        logger.info('done');
     } catch (err) {
         logger.error('main', err as Error);
         process.exit(1);

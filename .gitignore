@@ -40,7 +40,9 @@ pids
 # Build directories
 **/dist
 
-# Asset directories
+# Asset directories and data files
+resources/db
 resources/assets
 resources/example-media/good/pictures
+*.noodle.json
 

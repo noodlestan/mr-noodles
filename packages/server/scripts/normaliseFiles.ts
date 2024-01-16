@@ -3,7 +3,7 @@ import { readdir, rename } from 'fs/promises';
 import { basename, parse, resolve } from 'path';
 
 import { readExif } from '../src/agents/photos/utils/readExif';
-import { dateFromExifDate } from '../src/controllers/photos/utils/dateFromExifDate';
+import { dateFromExifDate } from '../src/controllers/photos/functions/dateFromExifDate';
 import { SCAN_EXTENSIONS } from '../src/env';
 
 const SOURCE = '/mnt/data/Noodlestan/Andre/Photos New';

@@ -1,4 +1,4 @@
-import type { PhotoData, PhotoQuery } from '@noodlestan/shared-types';
+import type { PhotoModel, PhotoQuery } from '@noodlestan/shared-types';
 import { Accessor } from 'solid-js';
 
 import { photosStore } from './private/store';
@@ -9,7 +9,7 @@ type PhotosService = {
     loading: Accessor<boolean>;
     query: Accessor<PhotoQuery>;
     setQuery: (filter: PhotoQuery) => void;
-    photos: Accessor<PhotoData[]>;
+    photos: Accessor<PhotoModel[]>;
 };
 
 export const createPhotosService = (): PhotosService => {

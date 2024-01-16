@@ -1,24 +1,17 @@
-import { PhotoData } from '@noodlestan/shared-types';
+import { PhotoModel } from '@noodlestan/shared-types';
 import { createEventBus } from '@solid-primitives/event-bus';
 import { Accessor, createEffect, createSignal } from 'solid-js';
 
-import { GalleryNavigationContextState } from './private/GalleryNavigationContext';
-import {
-    handleCloseModal,
-    handleGoToNextItem,
-    handleGoToPreviousItem,
-    handleOnClick,
-    handleOnEnd,
-    handleOnFocus,
-} from './private/eventHandlers';
-import { GalleryNavigationEvent } from './types';
+import { makeEventListener } from '../makeEventListener';
+
+import { GalleryNavigationContextState, GalleryNavigationEvent } from './types';
 
 export const createGalleryNavigationContext = (
-    photos: Accessor<PhotoData[]>,
+    photos: Accessor<PhotoModel[]>,
 ): GalleryNavigationContextState => {
     const bus = createEventBus<GalleryNavigationEvent>();
     const [isModal, setIsModal] = createSignal<boolean>(false);
-    const [current, setCurrent] = createSignal<PhotoData | undefined>();
+    const [current, setCurrent] = createSignal<PhotoModel | undefined>();
 
     createEffect(() => {
         // TODO reset Navigation and current
@@ -38,23 +31,60 @@ export const createGalleryNavigationContext = (
 
     const context = { bus, isModal, previous, current, next };
 
-    bus.listen(evt => {
-        const { name } = evt;
-        switch (name) {
-            case 'closeModal':
-                return handleCloseModal(context, evt, setIsModal);
-            case 'goToPreviousItem':
-                return handleGoToPreviousItem(context, evt, photos, setCurrent);
-            case 'goToNextItem':
-                return handleGoToNextItem(context, evt, photos, setCurrent);
-            case 'onEnd':
-                return handleOnEnd(context, evt, isModal, setIsModal);
-            case 'onFocus':
-                return handleOnFocus(context, evt, photos, setCurrent);
-            case 'onClick':
-                return handleOnClick(context, evt, setCurrent, setIsModal);
+    const handleOnFocus = (ev: GalleryNavigationEvent) => {
+        const { value: id = '' } = ev;
+        const items = photos();
+        const index = items.findIndex(photo => photo.id === id);
+        const newCurrent = items[index];
+        setCurrent(newCurrent);
+    };
+
+    const handleOnEnd = () => {
+        if (isModal()) {
+            setIsModal(false);
         }
-    });
+    };
+
+    const handleGoToNextItem = () => {
+        const items = photos();
+        const index = items.findIndex(photo => photo.id === context.current()?.id);
+        const newCurrent = items[index + 1];
+        if (newCurrent) {
+            setCurrent(newCurrent);
+        } else {
+            context.bus.emit({ name: 'onEnd' });
+        }
+    };
+
+    const handleGoToPreviousItem = () => {
+        const items = photos();
+        const index = items.findIndex(photo => photo.id === context.current()?.id);
+        const newCurrent = items[index - 1];
+        if (newCurrent) {
+            setCurrent(newCurrent);
+        } else {
+            context.bus.emit({ name: 'onEnd' });
+        }
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const handleCloseModal = () => {
+        const { isModal } = context;
+        if (isModal()) {
+            setIsModal(false);
+        }
+    };
+
+    bus.listen(
+        makeEventListener<GalleryNavigationEvent>({
+            closeModal: handleCloseModal,
+            goToPreviousItem: handleGoToPreviousItem,
+            goToNextItem: handleGoToNextItem,
+            onEnd: handleOnEnd,
+            onFocus: ev => handleOnFocus(ev),
+            onClick: () => setIsModal(true),
+        }),
+    );
 
     return context;
 };

@@ -1,13 +1,17 @@
+import { join } from 'path';
+
 import {
+    UserModel,
     selectImageByProfile,
     selectProfileByHeight,
     selectProfileByName,
 } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { findUserById } from '../../../controllers/users/findUserById';
-import { User } from '../../../models/user';
-import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
+import { addImageToUser } from '../../../controllers/users/addImageToUser';
+import { getNoodleById, noodleExists } from '../../../db';
+import { PUBLIC_ASSETS_DIR } from '../../../env';
+import { USER_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
 import { readImageFile } from '../../../services/images/readImageFile';
@@ -19,17 +23,17 @@ export const getUserImage = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const user = await findUserById(req.params.id);
-        if (!user) {
+        if (!noodleExists(req.params.id)) {
             notFoundHandler(req, res, next);
             return;
         }
 
+        const user = getNoodleById<UserModel>(req.params.id);
         const height = Number(req.query.h);
         const profileName = String(req.query.p);
         const profile =
-            selectProfileByName(GALLERY_IMAGE_PROFILES, profileName) ||
-            selectProfileByHeight(GALLERY_IMAGE_PROFILES, height);
+            selectProfileByName(USER_IMAGE_PROFILES, profileName) ||
+            selectProfileByHeight(USER_IMAGE_PROFILES, height);
 
         const imageFile = selectImageByProfile(user.images, profile);
         const exists = imageFile && (await imageFileExists(imageFile.f));
@@ -40,8 +44,13 @@ export const getUserImage = async (
             return;
         }
 
-        const image = await makeImage(user.name || '', user.id, profile);
-        await User.addImageToUser(user.id, image);
+        if (!user.avatar) {
+            res.redirect(join(PUBLIC_ASSETS_DIR, 'avatar/Ghost.jpg'));
+            return;
+        }
+
+        const image = await makeImage(user.avatar, user.id, profile);
+        await addImageToUser(user.id, image);
 
         const imageData = await readImageFile(image.f);
         res.setHeader('content-type', 'image/jpg');

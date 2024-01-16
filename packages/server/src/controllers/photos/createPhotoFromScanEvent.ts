@@ -1,16 +1,13 @@
 import { ExifData } from 'exif';
 import { Metadata } from 'sharp';
 
+import { addNoodle } from '../../db';
 import { EventScanFile } from '../../events/scan';
 import { log } from '../../logger';
-import { Photo } from '../../models/photo';
-import { albumSlugFromRelativePath } from '../albums/albumSlugFromRelativePath';
-import { albumTitleFromRelativePath } from '../albums/albumTitleFromRelativePath';
-import { createAlbumFromSlugTitleAndPhotoId } from '../albums/createAlbumFromSlugTitleAndPhotoId';
-import { ensurePhotoInAlbum } from '../albums/ensurePhotoInAlbum';
+import { photoFromData } from '../../models/photo';
 
-import { dateFromExifDate } from './utils/dateFromExifDate';
-import { latLongFromExifGps } from './utils/latLongFromExifGps';
+import { dateFromExifDate } from './functions/dateFromExifDate';
+import { latLongFromExifGps } from './functions/latLongFromExifGps';
 
 export const createPhotoFromScanEvent = async (
     event: EventScanFile,
@@ -18,39 +15,24 @@ export const createPhotoFromScanEvent = async (
     meta: Metadata,
     exif?: ExifData,
 ): Promise<void> => {
-    const albumSlug = albumSlugFromRelativePath(event.relativePath);
-    const albumTitle = albumTitleFromRelativePath(event.relativePath);
+    const exifDate = exif && dateFromExifDate(exif);
+    const dateTaken = exifDate ? exifDate.toISOString() : undefined;
 
     const location = exif && latLongFromExifGps(exif);
-    const photo = Photo.fromData({
-        dateCreated: new Date(),
+    const data = {
         hash,
         filename: event.filename,
-        album: albumSlug,
-        date: exif && dateFromExifDate(exif),
+        dateTaken,
         orientation: meta.orientation || 0,
         width: meta.width,
         height: meta.height,
         location,
-    });
+    };
+    const photo = photoFromData(data);
 
-    await photo.save();
+    await addNoodle(photo);
 
     log().debug('controller:photos:create-from-scan', {
         filename: photo.filename,
-        album: albumSlug,
     });
-
-    if (albumSlug) {
-        try {
-            await createAlbumFromSlugTitleAndPhotoId(albumSlug, albumTitle, photo.id);
-        } catch (err) {
-            const message = (err as Error).message;
-            if (!/duplicate key error collection/.test(message)) {
-                throw err;
-            }
-
-            await ensurePhotoInAlbum(photo.id, albumSlug);
-        }
-    }
 };

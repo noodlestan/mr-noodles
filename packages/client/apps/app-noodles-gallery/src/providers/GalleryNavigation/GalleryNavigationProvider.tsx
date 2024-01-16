@@ -1,6 +1,11 @@
-import { Component } from 'solid-js';
+import { Component, JSX } from 'solid-js';
 
-import { GalleryNavigationContext, ProviderProps } from './private/GalleryNavigationContext';
+import { GalleryNavigationContext } from './private/GalleryNavigationContext';
+import { GalleryNavigationContextState } from './types';
+
+type ProviderProps = GalleryNavigationContextState & {
+    children?: JSX.Element;
+};
 
 export const GalleryNavigationProvider: Component<ProviderProps> = props => {
     return (

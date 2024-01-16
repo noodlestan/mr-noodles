@@ -33,6 +33,8 @@ export const IMAGE_THUMB_MEDIUM_SQUARE: ImageProfile = {
     fit: 'cover',
 };
 
+export const USER_IMAGE_PROFILES: Array<ImageProfile> = [IMAGE_THUMB_MEDIUM_SQUARE];
+
 export const GALLERY_IMAGE_PROFILES: Array<ImageProfile> = [
     IMAGE_FULL_MAX,
     IMAGE_FULL_FAST,
@@ -40,4 +42,4 @@ export const GALLERY_IMAGE_PROFILES: Array<ImageProfile> = [
     IMAGE_THUMB_SMALL,
 ];
 
-export const ALBUM_IMAGE_PROFILES: Array<ImageProfile> = [IMAGE_THUMB_MEDIUM_SQUARE];
+export const FOLDER_IMAGE_PROFILES: Array<ImageProfile> = [IMAGE_THUMB_MEDIUM_SQUARE];

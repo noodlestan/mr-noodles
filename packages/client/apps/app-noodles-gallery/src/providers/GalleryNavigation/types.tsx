@@ -1,9 +1,6 @@
-export type GallerySelectionEventType = 'onSelect' | 'clearSelection';
-
-export type GallerySelectionEvent = {
-    name: GallerySelectionEventType;
-    target?: string;
-};
+import { PhotoModel } from '@noodlestan/shared-types';
+import { EventBus } from '@solid-primitives/event-bus';
+import { Accessor } from 'solid-js';
 
 export type GalleryNavigationEventType =
     | 'onItemsFocus'
@@ -18,5 +15,13 @@ export type GalleryNavigationEventType =
 
 export type GalleryNavigationEvent = {
     name: GalleryNavigationEventType;
-    target?: string;
+    value?: string;
+};
+
+export type GalleryNavigationContextState = {
+    bus: EventBus<GalleryNavigationEvent>;
+    isModal: Accessor<boolean>;
+    previous: Accessor<PhotoModel | undefined>;
+    current: Accessor<PhotoModel | undefined>;
+    next: Accessor<PhotoModel | undefined>;
 };

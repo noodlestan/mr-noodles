@@ -1,62 +1,48 @@
-import { IPagination, ISort, PhotoFilter, PhotoSchema } from '@noodlestan/shared-types';
-import { FilterQuery, QueryOptions } from 'mongoose';
+import { basename, dirname } from 'path';
 
-import type { PhotoDocument } from '../../models/photo';
-import { Photo } from '../../models/photo';
-import { MongoSort } from '../../models/types';
-import {
-    pushEqualsFilter,
-    pushGreaterThanFilter,
-    pushLowerThanFilter,
-    pushPatternFilter,
-    pushRangeFilter,
-} from '../functions';
+import { IPagination, ISort, PhotoFilter, PhotoModel } from '@noodlestan/shared-types';
 
-export const findPhotos = async (
+import { findNoodles } from '../../db';
+import { matchDateRange } from '../../db/functions/matchDateRange';
+import { matchEquals } from '../../db/functions/matchEquals';
+import { matchPattern } from '../../db/functions/matchPattern';
+import { matchValueRange } from '../../db/functions/matchValueRange';
+
+export const findPhotos = (
     filterBy: PhotoFilter,
-    page?: IPagination,
     sort?: ISort[],
-): Promise<PhotoDocument[]> => {
-    const $and: FilterQuery<PhotoDocument>[] = [];
+    page?: IPagination,
+): PhotoModel[] => {
+    const { filename, folder, title, dateFrom, dateUntil, orientation, minSize, maxSize } =
+        filterBy;
 
-    const {
-        filename,
-        album,
-        title,
-        dateFrom,
-        dateUntil,
-        orientation,
-        minSize,
-        maxSize,
-        aspectRatio,
-    } = filterBy;
-
-    pushPatternFilter($and, 'filename', filename);
-    pushEqualsFilter($and, 'album', album);
-    pushPatternFilter($and, 'title', title);
-    pushRangeFilter($and, 'date', new Date(String(dateFrom)), new Date(String(dateUntil)));
-    pushEqualsFilter($and, 'orientation', orientation);
-    pushGreaterThanFilter($and, 'width', minSize);
-    pushGreaterThanFilter($and, 'height', minSize);
-    pushLowerThanFilter($and, 'width', maxSize);
-    pushLowerThanFilter($and, 'height', maxSize);
-    pushEqualsFilter($and, 'aspectRatio', aspectRatio);
-
-    const limit = page?.size;
-    const skip = page ? (page.page - 1) * page.size : 0;
-
-    const s: MongoSort = {};
-    sort?.forEach(({ field, dir }) => {
-        s[field] = dir === 'desc' ? -1 : 1;
-    });
-
-    const options: QueryOptions<PhotoSchema> = {
-        skip,
-        limit,
-        sort: s,
+    const filter = (n: PhotoModel) => {
+        if (n.type !== 'photo') {
+            return false;
+        }
+        if (!matchPattern(basename(n.filename), filename)) {
+            return false;
+        }
+        if (!matchPattern(dirname(n.filename), folder)) {
+            return false;
+        }
+        if (!matchPattern(n.title, title)) {
+            return false;
+        }
+        if (!matchDateRange(n.dateTaken, dateFrom, dateUntil)) {
+            return false;
+        }
+        if (!matchEquals(n.orientation, orientation)) {
+            return false;
+        }
+        if (!matchValueRange(n.width, minSize, maxSize)) {
+            return false;
+        }
+        if (!matchValueRange(n.height, minSize, maxSize)) {
+            return false;
+        }
+        return true;
     };
 
-    const filter = $and.length ? { $and } : {};
-
-    return Photo.find(filter, undefined, options);
+    return findNoodles<PhotoModel>(filter, sort, page);
 };

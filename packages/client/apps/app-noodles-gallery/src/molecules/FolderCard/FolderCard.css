@@ -1,0 +1,69 @@
+.FolderCard {
+    width: auto;
+}
+
+/* .FolderCard-is-transparent {
+    width: auto;
+} */
+
+.FolderCard--button {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--space-gap-0);
+    align-items: start;
+    justify-content: start;
+    max-width: 300px;
+    padding: 0;
+    text-align: left;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.FolderCard--Title {
+    position: absolute;
+    width: 100%;
+    padding: var(--space-pad-0);
+    background-color: var(--surface-bg-overlay);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+}
+
+.FolderCard--Thumb {
+    display: inline-flex;
+    gap: var(--space-gap-1);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+}
+
+.FolderCard--icon .Icon {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.FolderCard .FolderCard--button {
+    outline-offset: var(--outline-offset);
+    outline-style: none;
+    outline-width: var(--outline-width);
+    outline-color: var(--action-disabled-bg-color);
+}
+
+.FolderCard .FolderCard--button:focus,
+.FolderCard .FolderCard--button:focus-visible,
+.FolderCard-is-current .FolderCard--button {
+    outline-style: var(--outline-style);
+}
+
+.FolderCard .FolderCard--button:focus,
+.FolderCard .FolderCard--button:focus-visible {
+    outline-color: var(--outline-color);
+}

@@ -2,8 +2,6 @@ import { subscribe } from '../../events';
 import { EVENT_SCAN_ERROR, EventScanError } from '../../events/scan';
 import { log } from '../../logger';
 
-import { scanNow } from './functions/scanNow';
-
 const unsubscribeTo: Array<() => void> = [];
 
 const subscribeToErrors = () => {
@@ -26,4 +24,4 @@ const startScanAgent = (): void => {
     subscribeToErrors();
 };
 
-export { startScanAgent, scanNow, stopScanAgent };
+export { startScanAgent, stopScanAgent };

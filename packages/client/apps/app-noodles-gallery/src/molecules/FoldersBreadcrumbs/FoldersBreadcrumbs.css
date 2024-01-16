@@ -1,0 +1,15 @@
+.FoldersBreadcrumbs {
+    white-space: nowrap;
+}
+
+.FoldersBreadcrumbPart {
+    padding: var(--space-pad-0);
+    overflow: hidden;
+}
+
+.FoldersBreadcrumbPart--Text {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

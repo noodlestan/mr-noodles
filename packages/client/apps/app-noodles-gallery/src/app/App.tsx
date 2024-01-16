@@ -1,9 +1,14 @@
 import { Flex } from '@noodlestan/ui-layouts';
-import { Router } from '@solidjs/router';
-import { Component, JSX } from 'solid-js';
+import { Router, useNavigate } from '@solidjs/router';
+import { Component, JSX, createEffect } from 'solid-js';
 
 import { MainNav } from '@/navigation/MainNav/MainNav';
 import { Routes } from '@/navigation/Routes';
+import {
+    CurrentUserProvider,
+    createCurrentUserContext,
+    useCurrentUserContext,
+} from '@/providers/CurrentUser';
 import { ErrorBoundaryScreen } from '@/screens/ErrorBoundaryScreen/ErrorBoundaryScreen';
 
 import './App.css';
@@ -12,22 +17,36 @@ type RootProps = {
     children?: JSX.Element;
 };
 
-const Root: Component<RootProps> = props => {
-    // createEffect(() => console.log(props.children));
+const Main: Component<RootProps> = props => {
+    const { currentUser } = useCurrentUserContext();
+    const navigate = useNavigate();
+
+    createEffect(() => {
+        if (!currentUser()) {
+            navigate('/');
+        }
+    });
 
     return (
+        <Flex direction="row">
+            <MainNav />
+            <div class="App-Main">{props.children}</div>
+        </Flex>
+    );
+};
+
+const Root: Component<RootProps> = props => {
+    const context = createCurrentUserContext();
+    return (
         <ErrorBoundaryScreen>
-            <Flex direction="row">
-                <MainNav />
-                <div class="App-Main">{props.children}</div>
-            </Flex>
+            <CurrentUserProvider {...context}>
+                <Main>{props.children}</Main>
+            </CurrentUserProvider>
         </ErrorBoundaryScreen>
     );
 };
 
 export const App: Component = () => {
-    // const Routes = useRoutes(routes);
-
     return (
         <Router root={Root}>
             <Routes />

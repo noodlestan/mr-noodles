@@ -1,22 +1,21 @@
 import { ISort } from '../../query';
 import { ImageFile } from '../Images/types';
 
-export interface UserSchema {
+export interface UserModel {
+    id: string;
+    type: 'user';
+    filename: string;
     dateCreated: Date;
     dateUpdated?: Date;
     citizen: boolean;
-    dateCitizen: Date;
+    dateCitizen?: Date;
     name?: string;
-    filename?: string;
+    avatar?: string;
     images?: ImageFile[];
+    folders?: string[];
 }
 
-export interface UserData extends UserSchema {
-    id: string;
-}
-
-export interface UserDataPublic
-    extends Omit<UserData, 'dateCreated' | 'dateUpdated' | 'dateCitizen'> {
+export interface UserData extends Omit<UserModel, 'dateCreated' | 'dateUpdated' | 'dateCitizen'> {
     dateCreated: string;
     dateUpdated?: string;
     dateCitizen?: string;

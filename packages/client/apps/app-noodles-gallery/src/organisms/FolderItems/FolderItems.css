@@ -1,0 +1,14 @@
+.FolderItems {
+    width: auto;
+    gap: 16px;
+}
+
+.FolderItems--width {
+    padding: 0 var(--space-pad-1);
+}
+
+.FolderItems--flex {
+    padding-top: 8px;
+    padding-bottom: 16px;
+    gap: 8px;
+}

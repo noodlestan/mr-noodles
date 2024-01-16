@@ -13,7 +13,7 @@ interface Logger {
     warn: (message: string, data?: LogData) => void;
     error: (message: string, data?: LogData) => void;
 }
-type LogData = Error | Record<string, number | string | boolean | undefined>;
+type LogData = Error | Record<string, unknown>;
 type LogSeverity = 'debug' | 'info' | 'warn' | 'error';
 
 const Severities: LogSeverity[] = ['debug', 'info', 'warn', 'error'];

@@ -1,0 +1,20 @@
+.FolderTitle {
+    display: flex;
+    gap: var(--space-gap-0);
+    overflow: none;
+}
+
+.FolderTitle .FolderLink {
+    flex-shrink: 1;
+    max-width: 100%;
+}
+
+.FolderTitle--text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.FolderTitle .BreadcrumbFolderIcon {
+    flex-shrink: 0;
+}

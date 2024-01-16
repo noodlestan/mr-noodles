@@ -1,0 +1,10 @@
+.FolderLink {
+    display: flex;
+    gap: var(--space-gap-0);
+}
+
+.FolderLink--text {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,46 @@
+.UserButton {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--space-gap-0);
+    align-items: start;
+    justify-content: start;
+    max-width: 300px;
+    padding: 0;
+    text-align: left;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--radius-s);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.UserButton > .Flex {
+    width: 100%;
+}
+
+.UserButton > .Flex > .Display {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.UserButton:hover {
+    background-color: var(--surface-bg-overlay);
+}
+
+.UserButton img {
+    width: var(--scale-xl);
+    height: var(--scale-xl);
+    background-color: var(--surface-bg-overlay);
+    border-radius: var(--radius-s);
+    box-shadow: 0 0 var(--scale-s) var(--surface-bg-overlay);
+}
+
+.UserButton:focus,
+.UserButton:focus-visible {
+    outline-offset: var(--outline-offset);
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--outline-color);
+}

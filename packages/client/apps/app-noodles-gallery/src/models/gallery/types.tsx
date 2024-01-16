@@ -1,9 +1,9 @@
 import type { PhotoData } from '@noodlestan/shared-types';
 
-export type GalleryGroupAttributesAlbum = {
-    groupBy: 'album';
+export type GalleryGroupAttributesFolder = {
+    groupBy: 'folder';
     value: string;
-    album?: string;
+    folder?: string;
 };
 
 export type GalleryGroupAttributesDate = {
@@ -14,7 +14,7 @@ export type GalleryGroupAttributesDate = {
     date?: Date;
 };
 
-export type GalleryGroupAttributes = GalleryGroupAttributesAlbum | GalleryGroupAttributesDate;
+export type GalleryGroupAttributes = GalleryGroupAttributesFolder | GalleryGroupAttributesDate;
 
 export type GalleryGroupItem = {
     groups?: GallerySubGroupItem[];

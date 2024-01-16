@@ -1,0 +1,56 @@
+.FolderDetails {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: var(--space-pad-1);
+    width: auto;
+}
+
+.FolderDetails--Thumb {
+    display: inline-flex;
+    gap: var(--space-gap-1);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+}
+
+.FolderDetails--Thumb img {
+    width: 100%;
+}
+
+.FolderDetails--icon .Icon {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.FolderDetails--Title {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: var(--space-pad-0);
+    background-color: var(--surface-bg-overlay);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+}
+
+@media screen and (min-width: 600px) {
+    .FolderDetails {
+        flex-direction: row-reverse;
+        align-items: end;
+    }
+
+    .FolderDetails--Thumb {
+        max-width: 300px;
+    }
+
+    .FolderDetails--Title {
+        position: relative;
+        padding: 0;
+        background: none;
+    }
+}

@@ -1,12 +1,12 @@
 import sharp from 'sharp';
 
 import { createPhotoFromScanEvent } from '../../controllers/photos/createPhotoFromScanEvent';
+import { findPhotoByFilenameOrHash } from '../../controllers/photos/findPhotoByFilenameOrHash';
 import { updatePhotoFromScanEvent } from '../../controllers/photos/updatePhotoFromScanEvent';
 import { publish } from '../../events';
 import { PHOTO_PROCESS_ERROR, PhotoProcessError } from '../../events/photo';
 import { EventScanFile } from '../../events/scan';
 import { log } from '../../logger';
-import { Photo } from '../../models/photo';
 
 import { hashFile } from './utils/hashFile';
 import { readExif } from './utils/readExif';
@@ -23,12 +23,12 @@ export const processScanFile = async (event: EventScanFile): Promise<void> => {
         const buff = await file.toBuffer();
         const hash = hashFile(buff);
 
-        const photo = await Photo.findByFilename(event.filename);
+        const photo = findPhotoByFilenameOrHash(event.filename, hash);
 
-        if (!photo) {
-            await createPhotoFromScanEvent(event, hash, meta, exif);
-        } else {
+        if (photo !== undefined) {
             await updatePhotoFromScanEvent(event, photo, hash, meta, exif);
+        } else {
+            await createPhotoFromScanEvent(event, hash, meta, exif);
         }
     } catch (err) {
         publish<PhotoProcessError>(PHOTO_PROCESS_ERROR, {
