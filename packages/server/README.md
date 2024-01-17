@@ -101,7 +101,14 @@ npm run watch
 
 Make sure you are running the prescribed [node version](../../.nvmrc)
 
-If the build fails with `@noodlestan/shared-types` errors, you might have pulled changes: rebuild `packages/shared/types`. **Note:** run that shared build in watch mode if you are activelly changinging those types. See [shared/types/README.md](../shared/types/README.md) for details.
+If the build fails with `@noodlestan/shared-types` errors, you might have pulled changes and you need to rebuild the package `packages/shared/types`.
+
+```
+TS Error: Unable to compile TypeScript:
+scripts/populate.ts:4:10 - error TS2305: Module '"@noodlestan/shared-types"' has no exported member 'UserData'.
+```
+
+**Note:** run that shared build in watch mode if you are activelly changinging those types. See [shared/types/README.md](../shared/types/README.md) for details.
 
 ### Server fails to start
 
