@@ -5,7 +5,7 @@
     gap: var(--space-gap-0);
     align-items: start;
     justify-content: start;
-    max-width: 300px;
+    max-width: var(--scale-4xl);
     padding: 0;
     text-align: left;
     color: inherit;
@@ -14,10 +14,12 @@
     border-radius: var(--radius-s);
     cursor: pointer;
     text-decoration: none;
+    transition: all 0.1s;
 }
 
 .UserButton > .Flex {
     width: 100%;
+    padding-right: var(--space-gap-2);
 }
 
 .UserButton > .Flex > .Display {
@@ -29,12 +31,36 @@
     background-color: var(--surface-bg-overlay);
 }
 
-.UserButton img {
+.UserButton:active {
+    background-color: var(--surface-bg-overlay-alt);
+}
+
+.UserButton--image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: var(--scale-xl);
     height: var(--scale-xl);
-    background-color: var(--surface-bg-overlay);
+}
+
+.UserButton img {
+    width: calc(var(--scale-xl) * 0.9);
+    height: calc(var(--scale-xl) * 0.9);
     border-radius: var(--radius-s);
     box-shadow: 0 0 var(--scale-s) var(--surface-bg-overlay);
+    opacity: 0.8;
+    transition: all 0.1s;
+}
+
+.UserButton:hover img {
+    opacity: 1;
+    width: var(--scale-xl);
+    height: var(--scale-xl);
+}
+
+.UserButton:active img {
+    width: calc(var(--scale-xl) * 0.95);
+    height: calc(var(--scale-xl) * 0.95);
 }
 
 .UserButton:focus,

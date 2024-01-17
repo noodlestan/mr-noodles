@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { findUsers } from '../../../controllers/users/findUsers';
 import { userToData } from '../../../models/user';
+import { defer } from '../../../utils/flow/defer';
 import { PHOTOS_PAGE_MAX, PHOTOS_PAGE_SIZE_DEFAULT } from '../constants';
 import { filterByFromQuery, paginationFromQuery, sortFromQuery } from '../functions';
 
@@ -26,8 +27,8 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
         const users = findUsers(filterBy, sort, page);
 
         const data = users.map(userToData);
-
-        res.json(data);
+        defer(() => res.json(data), 2000);
+        // res.json(data);
     } catch (error) {
         next(error);
     }

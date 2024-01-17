@@ -15,7 +15,7 @@ import './HomePage.css';
 export const HomePage: Component = () => {
     return (
         <PageLayout classList={{ HomePage: true }}>
-            <Surface variant="page" classList={{ 'PageLayout--content': true }}>
+            <Surface variant="stage" classList={{ 'PageLayout--content': true }}>
                 <Flex padding="l" gap="xl">
                     <Flex gap="xl">
                         <Flex gap="m">

@@ -1,0 +1,13 @@
+.FadeIn {
+    width: 100%;
+    --fade-in-duration: 0.5s;
+    transition: opacity var(--fade-in-duration) ease-in;
+}
+
+.FadeIn-start {
+    opacity: 0;
+}
+
+.FadeIn-active {
+    opacity: 1;
+}

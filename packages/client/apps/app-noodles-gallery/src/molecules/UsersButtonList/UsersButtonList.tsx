@@ -4,6 +4,8 @@ import { Component, For } from 'solid-js';
 
 import { UserButton } from '@/atoms/UserButton/UserButton';
 
+import './UsersButtonList.css';
+
 type UsersButtonListProps = {
     users: UserModel[];
     onClick: (user: UserModel) => void;
@@ -11,7 +13,7 @@ type UsersButtonListProps = {
 
 export const UsersButtonList: Component<UsersButtonListProps> = props => {
     return (
-        <Flex gap="m">
+        <Flex gap="s" classList={{ UsersButtonList: true }}>
             <For each={props.users}>
                 {user => <UserButton user={user} onClick={props.onClick} />}
             </For>

@@ -13,6 +13,12 @@
         var(--color-bg-light-5),
         0.65
     );
+    --surface-bg-overlay-alt: hsla(
+        var(--color-sw-0-hue),
+        var(--color-sw-0-sat),
+        var(--color-bg-light-5),
+        0.8
+    );
 
     --surface-border-hue-sat: var(--color-fg-hue), var(--color-fg-sat);
     --surface-border-light: var(--color-light-8);

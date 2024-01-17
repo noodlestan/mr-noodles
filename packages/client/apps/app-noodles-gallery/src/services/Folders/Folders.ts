@@ -20,7 +20,7 @@ export const createFoldersService = (): FoldersService => {
     const folders = () => resource()?.data || [];
 
     const getFolderBySlug = () => {
-        return [];
+        return {} as FolderModel;
     };
 
     const searchFolders = (parent?: string, search?: string) => {

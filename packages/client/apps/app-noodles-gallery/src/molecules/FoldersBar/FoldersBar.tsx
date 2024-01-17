@@ -14,8 +14,10 @@ export type FoldersBarProps = {
 export const FoldersBar: Component<FoldersBarProps> = () => {
     return (
         <Surface variant="page" classList={{ FoldersBar: true }}>
-            <Flex direction="row" padding="m" gap="l" align="end">
-                <FoldersQueryBar />
+            <Flex padding="m">
+                <Flex direction="row" gap="l" justify="between" align="center">
+                    <FoldersQueryBar /> .
+                </Flex>
             </Flex>
         </Surface>
     );

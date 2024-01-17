@@ -1,0 +1,23 @@
+.Squeeze {
+    --squeeze-duration: 2s;
+    --squeeze-height: 500px;
+    overflow: hidden;
+    height: var(--squeeze-height);
+    transition: all var(--squeeze-duration) ease-in;
+}
+
+.Squeeze-started {
+    height: 0px;
+}
+
+.Squeeze-speed-slow {
+    --spinner-duration: 1s;
+}
+
+.Squeeze-speed-medium {
+    --spinner-duration: 0.5s;
+}
+
+.Squeeze-speed-fast {
+    --spinner-duration: 0.2s;
+}

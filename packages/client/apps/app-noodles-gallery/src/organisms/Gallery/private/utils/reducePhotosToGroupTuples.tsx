@@ -1,4 +1,4 @@
-import type { IGroup, PhotoData } from '@noodlestan/shared-types';
+import type { IGroup, PhotoModel } from '@noodlestan/shared-types';
 
 import { GalleryGroupList, GalleryGroupTuple, GallerySubGroupTuple } from './types';
 
@@ -32,7 +32,7 @@ const accumulateItem = (
     isTwoLevels: boolean,
     value1: string | undefined,
     value2: string | undefined,
-    item: PhotoData,
+    item: PhotoModel,
 ) => {
     const key1 = String(value1);
     const key2 = String(value2);
@@ -45,7 +45,9 @@ const accumulateItem = (
         }
         const index2 = group1[1].findIndex(([key]) => key === key2);
         const group2: GallerySubGroupTuple =
-            index2 > -1 ? (group1[1][index2] as [string, PhotoData[]]) : [key2, [] as PhotoData[]];
+            index2 > -1
+                ? (group1[1][index2] as [string, PhotoModel[]])
+                : [key2, [] as PhotoModel[]];
         if (index2 === -1) {
             group1[1].push(group2);
         }
@@ -53,7 +55,7 @@ const accumulateItem = (
     } else {
         const index1 = acc.findIndex(([key]) => key === key1);
         const group1: GallerySubGroupTuple =
-            index1 > -1 ? (acc[index1] as [string, PhotoData[]]) : [key1, []];
+            index1 > -1 ? (acc[index1] as [string, PhotoModel[]]) : [key1, []];
         if (index1 === -1) {
             acc.push(group1);
         }
@@ -62,7 +64,7 @@ const accumulateItem = (
 };
 
 export const reducePhotosToGroupTuples = (
-    items: PhotoData[],
+    items: PhotoModel[],
     groupBy1: IGroup,
     groupBy2: IGroup | undefined,
 ): GalleryGroupList => {

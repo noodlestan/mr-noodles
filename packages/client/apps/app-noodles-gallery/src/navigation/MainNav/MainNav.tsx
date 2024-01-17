@@ -1,10 +1,11 @@
 import { Button, Icon } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { useLocation } from '@solidjs/router';
-import { Calendar, Folder, HomeIcon } from 'lucide-solid';
+import { Calendar, Folder } from 'lucide-solid';
 import { Component } from 'solid-js';
 
 import './MainNav.css';
+import { CurrentUserIcon } from '@/atoms/CurrentUserIcon/CurrentUserIcon';
 
 type MainNavButtonProps = {
     href: string;
@@ -26,7 +27,7 @@ const MainNavButton: Component<MainNavButtonProps> = props => {
     return (
         <Button size="m" variant="plain" href={props.href} classList={classList()}>
             <Icon icon={props.icon} size="m" />
-            <span>{props.label}</span>
+            {/* <span>{props.label}</span> */}
         </Button>
     );
 };
@@ -34,9 +35,9 @@ const MainNavButton: Component<MainNavButtonProps> = props => {
 export const MainNav: Component = () => {
     return (
         <Flex padding="s" gap="xl" justify="start" align="start" classList={{ MainNav: true }}>
-            <Button size="m" variant="plain" href="/">
-                <Icon icon={HomeIcon} size="m" /> Noodlestan
-            </Button>
+            <div class="MainNav-home">
+                <CurrentUserIcon />
+            </div>
             <Flex gap="s" justify="start" align="start">
                 <MainNavButton href="/folders" icon={Folder} label="Folders" />
                 <MainNavButton href="/timeline" icon={Calendar} label="Timeline" />

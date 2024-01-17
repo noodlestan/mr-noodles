@@ -5,6 +5,13 @@
     border-right: 1px solid hsl(var(--surface-bg-hue-sat), var(--color-bg-light-5));
 }
 
+.MainNav-home {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+}
+
 .MainNav .Button {
     width: 100%;
     justify-content: start;
@@ -12,7 +19,13 @@
     outline-offset: -3px;
 }
 
+.MainNavButton:focus,
+.MainNavButton:focus-visible {
+    outline-offset: 0;
+}
+
 .MainNavButton-is-active {
+    outline-offset: 0;
     outline-style: var(--outline-style);
     outline-width: var(--outline-width);
     outline-color: var(--action-disabled-bg-color);

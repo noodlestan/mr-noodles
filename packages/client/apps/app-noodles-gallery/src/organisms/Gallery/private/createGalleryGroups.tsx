@@ -1,4 +1,4 @@
-import type { PhotoData } from '@noodlestan/shared-types';
+import type { PhotoModel } from '@noodlestan/shared-types';
 
 import { GalleryOptions } from '../types';
 
@@ -10,7 +10,7 @@ import { GalleryGroupItem } from '@/models/gallery/types';
 export const MAX_ITEMS = 10;
 
 const createGalleryGroups = (
-    items: PhotoData[] | undefined,
+    items: PhotoModel[] | undefined,
     options: GalleryOptions,
 ): GalleryGroupItem[] => {
     const { groupBy } = options;

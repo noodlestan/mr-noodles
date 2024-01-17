@@ -94,7 +94,7 @@ export const FoldersScreen: Component = () => {
         >
             <FoldersNavigationProvider {...navigationContext}>
                 <FoldersQueryProvider context={queryContext}>
-                    <Surface variant="page">
+                    <Surface variant="stage">
                         <FoldersBar />
                         <FoldersScroll>
                             <Show when={loading()}>Loading</Show>

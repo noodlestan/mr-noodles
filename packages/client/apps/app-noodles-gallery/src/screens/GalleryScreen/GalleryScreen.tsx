@@ -59,7 +59,7 @@ export const GalleryScreen: Component = () => {
         <main tabindex="0" ref={mainRef} classList={{ GalleryScreen: true }}>
             <GalleryNavigationProvider {...navigationContext}>
                 <GallerySelectionProvider {...selectionContext}>
-                    <Surface variant="page">
+                    <Surface variant="stage">
                         <GalleryBar />
                         <GalleryScroll>
                             <Show when={loading()}>Loading</Show>
