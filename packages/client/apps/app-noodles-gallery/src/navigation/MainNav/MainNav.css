@@ -1,20 +1,52 @@
 .MainNav {
-    height: 100vh;
+    position: absolute;
+    z-index: 9;
+    bottom: 0;
+    width: 100%;
+    height: auto;
     min-width: min-content;
-    max-width: min-content;
-    border-right: 1px solid hsl(var(--surface-bg-hue-sat), var(--color-bg-light-5));
+    border-top: 1px solid hsl(var(--surface-bg-hue-sat), var(--color-bg-light-5));
 }
 
 .MainNav-home {
     display: flex;
     align-items: start;
     justify-content: center;
+    max-width: min-content;
+}
+
+.MainNav-last {
     width: 100%;
 }
 
-.MainNav .Button {
+.MainNav-center .Button {
     width: 100%;
     justify-content: start;
     position: relative;
     outline-offset: -3px;
+}
+
+@media screen and (min-width: 800px) {
+    .MainNav {
+        position: relative;
+        bottom: unset;
+        width: auto;
+        height: 100vh;
+    }
+
+    .MainNav > .Flex {
+        flex-direction: column-reverse;
+        height: 100vh;
+        max-width: min-content;
+        align-items: center;
+        border-right: 1px solid hsl(var(--surface-bg-hue-sat), var(--color-bg-light-5));
+    }
+
+    .MainNav-home {
+        width: 100%;
+    }
+
+    .MainNav-center {
+        flex-direction: column;
+    }
 }

@@ -12,6 +12,15 @@ main {
     gap: var(--space-gap-1);
 }
 
-.App-Main {
+.AppMain {
     flex: 1;
+}
+
+@media screen and (min-width: 800px) {
+    .AppMain {
+        flex-direction: row;
+    }
+    .AppMain-container {
+        width: 100%;
+    }
 }

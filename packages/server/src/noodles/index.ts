@@ -153,8 +153,7 @@ function findNoodles<T extends Noodle>(
     const values = [...noodles.values()] as T[];
     const filtered = values.filter(filterFn);
     const sorted = sort ? sortNoodles(filtered, sort) : filtered;
-    const sliced = limit && skip ? sorted.slice(skip, limit + skip) : sorted;
-
+    const sliced = limit ? sorted.slice(skip, limit + skip) : sorted;
     return sliced;
 }
 

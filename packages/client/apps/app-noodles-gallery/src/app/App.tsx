@@ -24,11 +24,11 @@ const Main: Component<RootProps> = props => {
     const { ready } = inject(AppService);
 
     return (
-        <Flex direction="row">
+        <Flex direction="column-reverse" classList={{ AppMain: true }}>
             <Show when={!!currentUser() && ready()}>
                 <MainNav />
             </Show>
-            <div class="App-Main">{props.children}</div>
+            <div class="AppMain-container">{props.children}</div>
         </Flex>
     );
 };

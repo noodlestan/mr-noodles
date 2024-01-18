@@ -44,6 +44,7 @@ export const GalleryScreen: Component = () => {
     const { bus: navigationBus, isModal, current } = navigationContext;
 
     createRenderEffect(() => {
+        // TODO errors here are caught by ErrorBoundary, but errors in the resource fetyching no
         setGroupBy([
             { field: 'date', group: 'day', dir: 'desc' },
             { field: 'folder', dir: 'asc' },

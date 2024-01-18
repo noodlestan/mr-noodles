@@ -59,6 +59,10 @@
     justify-content: space-around;
 }
 
+.Flex-justify-stretch {
+    justify-content: stretch;
+}
+
 .Flex-padding-none {
     padding: 0;
 }

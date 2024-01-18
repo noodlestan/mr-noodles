@@ -3,7 +3,7 @@ import { Surface } from '@noodlestan/ui-surfaces';
 import { FadeIn } from '@noodlestan/ui-transitions';
 import { Squeeze } from '@noodlestan/ui-transitions/src/components/Squeeze';
 import { useBeforeLeave } from '@solidjs/router';
-import { Component, Show, onMount } from 'solid-js';
+import { Component, Show, createEffect, onMount } from 'solid-js';
 
 import { HomeScreenRoutes } from './HomeScreenRoutes';
 import { WelcomePage } from './pages/WelcomePage/WelcomePage';
@@ -36,6 +36,11 @@ export const HomeScreen: Component = () => {
 
     const showBar = () => ready() && !!currentUser();
 
+    createEffect(() => {
+        console.log('showBar', showBar());
+        console.log('currentUser', currentUser());
+    });
+
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" class="HomeScreen" ref={mainRef}>
@@ -43,9 +48,9 @@ export const HomeScreen: Component = () => {
                 <Squeeze when={!!currentUser()} delay={100}>
                     <WelcomePage />
                 </Squeeze>
-                <FadeIn when={showBar()}>
+                <Show when={showBar()}>
                     <UserBar />
-                </FadeIn>
+                </Show>
                 <Show when={!!currentUser()}>
                     <HomeScreenRoutes />
                 </Show>

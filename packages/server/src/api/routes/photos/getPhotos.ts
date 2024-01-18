@@ -26,10 +26,7 @@ export const getPhotos = async (req: Request, res: Response, next: NextFunction)
         const photos = findPhotos(filterBy, sort, page);
         const data = photos.map(photoToData);
 
-        console.log(data.length);
-
-        throw new Error('!');
-
+        res.json(data);
     } catch (error) {
         next(error);
     }
