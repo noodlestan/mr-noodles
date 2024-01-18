@@ -18,15 +18,3 @@
     position: relative;
     outline-offset: -3px;
 }
-
-.MainNavButton:focus,
-.MainNavButton:focus-visible {
-    outline-offset: 0;
-}
-
-.MainNavButton-is-active {
-    outline-offset: 0;
-    outline-style: var(--outline-style);
-    outline-width: var(--outline-width);
-    outline-color: var(--action-disabled-bg-color);
-}

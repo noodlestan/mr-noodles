@@ -6,6 +6,10 @@
     justify-content: center;
     user-select: none;
 }
+.Spinner > .FadeIn {
+    display: flex;
+    justify-content: center;
+}
 
 .Spinner--icon {
     display: block;

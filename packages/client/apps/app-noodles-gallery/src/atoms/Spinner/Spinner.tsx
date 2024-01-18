@@ -18,13 +18,13 @@ export const Spinner: Component<SpinnerProps> = props => {
     });
     return (
         <Show when={props.when}>
-            <FadeIn delay={0}>
-                <span classList={classList()}>
+            <span classList={classList()}>
+                <FadeIn delay={0}>
                     <span class="Spinner--icon">
                         <CircleDashed />
                     </span>
-                </span>
-            </FadeIn>
+                </FadeIn>
+            </span>
         </Show>
     );
 };

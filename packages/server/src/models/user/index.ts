@@ -16,13 +16,13 @@ export const userToData = (doc: UserModel): UserData => {
 };
 
 export const userFromData = (partial: Partial<UserData>): UserModel => {
-    const { id, type, filename, dateCreated, dateUpdated, citizen, dateCitizen, ...rest } = partial;
+    const { type, filename, dateCreated, dateUpdated, citizen, dateCitizen, ...rest } = partial;
     if ((type && type !== 'user') || filename === undefined) {
         throw new Error('Invalid arguments');
     }
 
     return {
-        id: id || generateId(filename),
+        id: generateId(filename),
         type: 'user',
         filename,
         dateCreated: dateCreated ? new Date(dateCreated) : new Date(),

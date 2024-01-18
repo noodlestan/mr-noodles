@@ -16,5 +16,5 @@ export const dropRoot = async (root: Root): Promise<void> => {
 
     await dropDir(root, path);
 
-    log().info('db:dropRoot', { path });
+    log().info('noodlesdropRoot', { path });
 };

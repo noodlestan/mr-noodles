@@ -1,7 +1,7 @@
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
-import { Router, useNavigate } from '@solidjs/router';
-import { Component, JSX, Show, createEffect } from 'solid-js';
+import { Router } from '@solidjs/router';
+import { Component, JSX, Show } from 'solid-js';
 
 import { MainNav } from '@/navigation/MainNav/MainNav';
 import { Routes } from '@/navigation/Routes';
@@ -11,7 +11,7 @@ import {
     useCurrentUserContext,
 } from '@/providers/CurrentUser';
 import { ErrorBoundaryScreen } from '@/screens/ErrorBoundaryScreen/ErrorBoundaryScreen';
-import { UsersService } from '@/services/Users';
+import { AppService } from '@/services/App';
 
 import './App.css';
 
@@ -21,19 +21,11 @@ type RootProps = {
 
 const Main: Component<RootProps> = props => {
     const { currentUser } = useCurrentUserContext();
-    const navigate = useNavigate();
-
-    const { users } = inject(UsersService);
-
-    createEffect(() => {
-        if (!currentUser()) {
-            navigate('/');
-        }
-    });
+    const { ready } = inject(AppService);
 
     return (
         <Flex direction="row">
-            <Show when={!!currentUser() && !!users().length}>
+            <Show when={!!currentUser() && ready()}>
                 <MainNav />
             </Show>
             <div class="App-Main">{props.children}</div>

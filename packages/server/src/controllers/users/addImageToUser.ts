@@ -1,6 +1,6 @@
 import { ImageFile, UserModel } from '@noodlestan/shared-types';
 
-import { getNoodleById, updateNoodle } from '../../db';
+import { getNoodleById, updateNoodle } from '../../noodles';
 
 export const addImageToUser = async (id: string, image: ImageFile): Promise<void> => {
     const noodle = getNoodleById<UserModel>(id);

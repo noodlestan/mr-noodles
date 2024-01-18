@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import type { IGroup, ISort } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
@@ -5,6 +6,7 @@ import { Component, Show, createRenderEffect, onMount } from 'solid-js';
 
 import { galleryStore } from './private/store';
 
+import { Spinner } from '@/atoms/Spinner/Spinner';
 import { GalleryBar } from '@/molecules/GalleryBar/GalleryBar';
 import { GalleryScroll } from '@/molecules/GalleryScroll/GalleryScroll';
 import { Gallery } from '@/organisms/Gallery/Gallery';
@@ -17,6 +19,7 @@ import {
     GallerySelectionProvider,
     createGallerySelectionContext,
 } from '@/providers/GallerySelection';
+import { AppService } from '@/services/App';
 import { PhotosService } from '@/services/Photos';
 
 import './GalleryScreen.css';
@@ -30,6 +33,7 @@ const groupByToSortBy = (group: IGroup[]): ISort[] => {
 export const GalleryScreen: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
+    const { ready } = inject(AppService);
     const { loading, photos, query, setQuery } = inject(PhotosService);
     const { groupBy, setGroupBy, sortBy } = galleryStore;
 
@@ -55,22 +59,24 @@ export const GalleryScreen: Component = () => {
     const handleModalClose = () => navigationBus?.emit({ name: 'closeModal' });
 
     return (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" ref={mainRef} classList={{ GalleryScreen: true }}>
-            <GalleryNavigationProvider {...navigationContext}>
-                <GallerySelectionProvider {...selectionContext}>
-                    <Surface variant="stage">
-                        <GalleryBar />
-                        <GalleryScroll>
-                            <Show when={loading()}>Loading</Show>
-                            <Show when={!loading()}>
-                                <Gallery items={photos} groupBy={groupBy} query={query} />
-                            </Show>
-                        </GalleryScroll>
-                        <ModalView show={isModal() && !!current()} onClose={handleModalClose} />
-                    </Surface>
-                </GallerySelectionProvider>
-            </GalleryNavigationProvider>
+            <Spinner size="l" when={!ready()} />
+            <Show when={ready()}>
+                <GalleryNavigationProvider {...navigationContext}>
+                    <GallerySelectionProvider {...selectionContext}>
+                        <Surface variant="stage">
+                            <GalleryBar />
+                            <GalleryScroll>
+                                <Show when={loading()}>Loading</Show>
+                                <Show when={!loading()}>
+                                    <Gallery items={photos} groupBy={groupBy} query={query} />
+                                </Show>
+                            </GalleryScroll>
+                            <ModalView show={isModal() && !!current()} onClose={handleModalClose} />
+                        </Surface>
+                    </GallerySelectionProvider>
+                </GalleryNavigationProvider>
+            </Show>
         </main>
     );
 };

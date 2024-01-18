@@ -9,6 +9,7 @@
     "serve": "node dist/api/index.js",
     "populate": "ts-node scripts/populate.ts",
     "drop-db": "ts-node scripts/dropDb.ts",
+    "migrate-db": "ts-node scripts/migrate.ts",
     "scan-now": "ts-node scripts/scanNow.ts",
     "start": "npm run serve",
     "watch-serve": "nodemon dist/api/index.js",

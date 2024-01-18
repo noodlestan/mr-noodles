@@ -1,0 +1,11 @@
+.MainNavButton:focus,
+.MainNavButton:focus-visible {
+    outline-offset: 0;
+}
+
+.MainNavButton-is-active {
+    outline-offset: -3px;
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--action-disabled-bg-color);
+}

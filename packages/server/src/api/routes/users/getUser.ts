@@ -1,7 +1,7 @@
 import { UserModel } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getNoodleById, noodleExists } from '../../../db';
+import { getNoodleById, noodleExists } from '../../../noodles';
 import { userToData } from '../../../models/user';
 import { notFoundHandler } from '../responses';
 

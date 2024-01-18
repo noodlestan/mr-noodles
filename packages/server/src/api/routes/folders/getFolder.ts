@@ -1,7 +1,7 @@
 import { FolderModel } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getNoodleById, noodleExists } from '../../../db';
+import { getNoodleById, noodleExists } from '../../../noodles';
 import { folderToData } from '../../../models/folder';
 import { notFoundHandler } from '../responses';
 

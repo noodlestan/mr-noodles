@@ -17,7 +17,6 @@ export const photoToData = (doc: PhotoModel): PhotoData => {
 
 export const photoFromData = (partial: Partial<PhotoData>): PhotoModel => {
     const {
-        id,
         type,
         filename,
         dateCreated,
@@ -41,7 +40,7 @@ export const photoFromData = (partial: Partial<PhotoData>): PhotoModel => {
     }
 
     return {
-        id: id || generateId(filename),
+        id: generateId(filename),
         type: 'photo',
         filename,
         dateCreated: dateCreated ? new Date(dateCreated) : new Date(),

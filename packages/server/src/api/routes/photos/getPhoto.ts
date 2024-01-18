@@ -1,7 +1,7 @@
 import { PhotoModel } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getNoodleById, noodleExists } from '../../../db';
+import { getNoodleById, noodleExists } from '../../../noodles';
 import { photoToData } from '../../../models/photo';
 import { notFoundHandler } from '../responses';
 

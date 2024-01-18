@@ -9,7 +9,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 
 import { addImageToFolder } from '../../../controllers/folders/addImageToFolder';
-import { findNoodles, getNoodleById, noodleExists } from '../../../db';
+import { findNoodles, getNoodleById, noodleExists } from '../../../noodles';
 import { FOLDER_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';

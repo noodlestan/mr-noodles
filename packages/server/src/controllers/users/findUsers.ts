@@ -1,7 +1,7 @@
 import { IPagination, ISort, UserFilter, UserModel } from '@noodlestan/shared-types';
 
-import { findNoodles } from '../../db';
-import { matchPattern } from '../../db/functions/matchPattern';
+import { findNoodles } from '../../noodles';
+import { matchPattern } from '../../noodles/functions/matchPattern';
 
 export type FilterQuery<T> = {
     [P in keyof T]?: (noodle: T) => boolean;

@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
 import { useNavigate, useParams, useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect, on } from 'solid-js';
 
+import { Spinner } from '@/atoms/Spinner/Spinner';
 import { FoldersBar } from '@/molecules/FoldersBar/FoldersBar';
 import { FoldersBreadcrumbs } from '@/molecules/FoldersBreadcrumbs/FoldersBreadcrumbs';
 import { FoldersScroll } from '@/molecules/FoldersScroll/FoldersScroll';
@@ -16,6 +18,7 @@ import {
 } from '@/providers/FoldersNavigation';
 import { FoldersQueryProvider } from '@/providers/FoldersQuery';
 import { createPhotosResource } from '@/resources/Photo/createPhotosResource';
+import { AppService } from '@/services/App';
 import { FoldersService } from '@/services/Folders';
 import { FoldersQueryService } from '@/services/FoldersQuery';
 
@@ -24,6 +27,7 @@ import './FoldersScreen.css';
 export const FoldersScreen: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
+    const { ready } = inject(AppService);
     const { searchFolders, loading } = inject(FoldersService);
 
     const params = useParams();
@@ -84,7 +88,6 @@ export const FoldersScreen: Component = () => {
     };
 
     return (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <main
             // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabindex="0"
@@ -92,31 +95,34 @@ export const FoldersScreen: Component = () => {
             ref={mainRef}
             classList={{ FoldersScreen: true }}
         >
-            <FoldersNavigationProvider {...navigationContext}>
-                <FoldersQueryProvider context={queryContext}>
-                    <Surface variant="stage">
-                        <FoldersBar />
-                        <FoldersScroll>
-                            <Show when={loading()}>Loading</Show>
-                            <Show when={!loading()}>
-                                <FoldersBreadcrumbs />
-                                <Show when={params.parent}>
-                                    <FolderDetails folder={params.parent} items={resource} />
-                                    <FolderItems
-                                        folder={params.parent}
-                                        items={resource}
-                                        toggleVisibility={subFolders().length > 0}
-                                        showAllItems={showAllItems()}
-                                    />
+            <Spinner size="l" when={!ready()} />
+            <Show when={ready()}>
+                <FoldersNavigationProvider {...navigationContext}>
+                    <FoldersQueryProvider context={queryContext}>
+                        <Surface variant="stage">
+                            <FoldersBar />
+                            <FoldersScroll>
+                                <Show when={loading()}>Loading</Show>
+                                <Show when={!loading()}>
+                                    <FoldersBreadcrumbs />
+                                    <Show when={params.parent}>
+                                        <FolderDetails folder={params.parent} items={resource} />
+                                        <FolderItems
+                                            folder={params.parent}
+                                            items={resource}
+                                            toggleVisibility={subFolders().length > 0}
+                                            showAllItems={showAllItems()}
+                                        />
+                                    </Show>
+                                    <Show when={!showAllItems()}>
+                                        <Folders items={subFolders} />
+                                    </Show>
                                 </Show>
-                                <Show when={!showAllItems()}>
-                                    <Folders items={subFolders} />
-                                </Show>
-                            </Show>
-                        </FoldersScroll>
-                    </Surface>
-                </FoldersQueryProvider>
-            </FoldersNavigationProvider>
+                            </FoldersScroll>
+                        </Surface>
+                    </FoldersQueryProvider>
+                </FoldersNavigationProvider>
+            </Show>
         </main>
     );
 };

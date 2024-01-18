@@ -1,6 +1,6 @@
 import { FolderModel } from '@noodlestan/shared-types';
 
-import { addNoodle, noodleExists } from '../../db';
+import { addNoodle, noodleExists } from '../../noodles';
 import { folderFromData } from '../../models/folder';
 
 export const createFolderFromSlugAndTitle = async (

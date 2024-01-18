@@ -22,7 +22,7 @@ export const scanDir = async (
         const files = await readdir(dirname);
         const relativePath = root.path !== dirname ? dirname.substring(root.path.length || 0) : '.';
 
-        log().debug('db:scanDir', { dir: dirname });
+        log().debug('noodlesscanDir', { dir: dirname });
 
         const scans = files.map(async file => scanFile(root, dirname, file, processDataFile));
         await Promise.all(scans);

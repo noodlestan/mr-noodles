@@ -3,11 +3,11 @@ import { join, resolve } from 'path';
 
 import { UserData } from '@noodlestan/shared-types';
 
-import { addNoodle, connect, disconnect } from '../src/db';
 import { NOODLES_DB_PATH } from '../src/env';
 import { createLogger } from '../src/logger';
 import { mappers } from '../src/models/mappers';
 import { userFromData } from '../src/models/user';
+import { addNoodle, connect, disconnect } from '../src/noodles';
 
 const RESOURCES = resolve('../../resources/example-data');
 const DATA_FILE = resolve(`${RESOURCES}/users.json`);
@@ -43,7 +43,12 @@ const main = async () => {
             const avatarTarget = join(NOODLES_DB_PATH, 'avatars', `${name}.jpg`);
 
             const filename = join(NOODLES_DB_PATH, 'users', `${name}`);
-            const folders = user.folders?.map(f => resolve(join('../../', f)));
+            const folders = user.folders?.map(f => {
+                return {
+                    name: f.name,
+                    path: resolve(join('../../', f.path)),
+                };
+            });
 
             const noodle = userFromData({ ...user, filename, avatar: avatarTarget, folders });
             await addNoodle(noodle);

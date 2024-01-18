@@ -1,10 +1,10 @@
 import { ExifData } from 'exif';
 import { Metadata } from 'sharp';
 
-import { addNoodle } from '../../db';
 import { EventScanFile } from '../../events/scan';
 import { log } from '../../logger';
 import { photoFromData } from '../../models/photo';
+import { addNoodle } from '../../noodles';
 
 import { dateFromExifDate } from './functions/dateFromExifDate';
 import { latLongFromExifGps } from './functions/latLongFromExifGps';
@@ -21,6 +21,8 @@ export const createPhotoFromScanEvent = async (
     const location = exif && latLongFromExifGps(exif);
     const data = {
         hash,
+        // TODO store hash date
+        // hashDate: new Date(),
         filename: event.filename,
         dateTaken,
         orientation: meta.orientation || 0,

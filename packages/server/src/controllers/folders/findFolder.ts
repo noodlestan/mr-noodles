@@ -1,6 +1,6 @@
 import { FolderData, FolderModel, IPagination, ISort } from '@noodlestan/shared-types';
 
-import { findNoodles } from '../../db';
+import { findNoodles } from '../../noodles';
 
 export const findFolders = (
     filterBy: Partial<FolderData>,

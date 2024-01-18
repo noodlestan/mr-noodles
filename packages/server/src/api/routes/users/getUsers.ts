@@ -27,7 +27,7 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
         const users = findUsers(filterBy, sort, page);
 
         const data = users.map(userToData);
-        defer(() => res.json(data), 2000);
+        defer(() => res.json(data), 1000);
         // res.json(data);
     } catch (error) {
         next(error);

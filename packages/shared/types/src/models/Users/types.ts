@@ -1,6 +1,11 @@
 import { ISort } from '../../query';
 import { ImageFile } from '../Images/types';
 
+export type UserFolder = {
+    name: string;
+    path: string;
+};
+
 export interface UserModel {
     id: string;
     type: 'user';
@@ -12,7 +17,7 @@ export interface UserModel {
     name?: string;
     avatar?: string;
     images?: ImageFile[];
-    folders?: string[];
+    folders?: UserFolder[];
 }
 
 export interface UserData extends Omit<UserModel, 'dateCreated' | 'dateUpdated' | 'dateCitizen'> {

@@ -22,5 +22,5 @@ export const scanRoot = async (
 
     await scanDir(root, path, processDataFile);
 
-    log().info('db:scanRoot', { path });
+    log().info('noodlesscanRoot', { path });
 };

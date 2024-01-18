@@ -15,9 +15,7 @@ const mapItem = (item: UserData): UserModel => {
 };
 
 export const fetchUsers = async (): Promise<APIResponse<UserModel[]>> => {
-    const params = {
-        pageSize: 5000,
-    };
+    const params = {};
     const { data, meta } = await apiGet<UserData[]>(API_BASE_URL, `users`, params);
 
     return { data: data.map(mapItem), meta };

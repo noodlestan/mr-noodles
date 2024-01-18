@@ -13,12 +13,22 @@
     "name": "Francisco",
     "citizen": true,
     "dateCitizen": "2011-10-10T00:00:00Z",
-    "folders": ["./resources/example-media/more"]
+    "folders": [
+      {
+        "name": "photos",
+        "path": "./resources/example-media/more"
+      }
+    ]
   },
   {
     "name": "Andre",
     "citizen": true,
     "dateCitizen": "2011-10-10T00:00:00Z",
-    "folders": ["./resources/example-media/good"]
+    "folders": [
+      {
+        "name": "photos",
+        "path": "./resources/example-media/good"
+      }
+    ]
   }
 ]

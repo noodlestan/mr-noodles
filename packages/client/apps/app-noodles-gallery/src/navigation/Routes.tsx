@@ -10,6 +10,8 @@ export const Routes: Component = () => {
     return (
         <>
             <Route path="/" component={HomeScreen} />
+            <Route path="/favorites" component={HomeScreen} />
+            <Route path="/settings" component={HomeScreen} />
             <Route path="/timeline" component={GalleryScreen} />
             <Route path="/folders/*parent" component={FoldersScreen} />
         </>

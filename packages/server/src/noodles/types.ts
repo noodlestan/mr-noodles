@@ -1,5 +1,6 @@
 export type Root = {
     path: string;
+    name: string;
     owner?: string;
     system?: boolean;
 };

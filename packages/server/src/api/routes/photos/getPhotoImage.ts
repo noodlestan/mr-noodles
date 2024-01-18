@@ -7,7 +7,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 
 import { addImageToPhoto } from '../../../controllers/photos/addImageToPhoto';
-import { getNoodleById, noodleExists } from '../../../db';
+import { getNoodleById, noodleExists } from '../../../noodles';
 import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';

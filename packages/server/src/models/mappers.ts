@@ -1,6 +1,6 @@
 import { FolderData, PhotoData, UserData } from '@noodlestan/shared-types';
 
-import { Mappers, Noodle } from '../db/types';
+import { Mappers, Noodle } from '../noodles/types';
 
 import { folderFromData } from './folder';
 import { photoFromData } from './photo';

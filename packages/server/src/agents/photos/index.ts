@@ -17,7 +17,7 @@ const unsubscribeTo: Array<() => void> = [];
 const queue = CreateQueue<EventScanFile>(async (event, next) => {
     await processScanFile(event);
     next();
-}, 10);
+}, 1);
 
 const susbcribeToErrors = () => {
     const errorUnsub1 = subscribe(PHOTO_PROCESS_ERROR, (event: PhotoProcessError) => {

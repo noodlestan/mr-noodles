@@ -9,7 +9,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 
 import { addImageToUser } from '../../../controllers/users/addImageToUser';
-import { getNoodleById, noodleExists } from '../../../db';
+import { getNoodleById, noodleExists } from '../../../noodles';
 import { PUBLIC_ASSETS_DIR } from '../../../env';
 import { USER_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';

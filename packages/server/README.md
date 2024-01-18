@@ -29,6 +29,7 @@ This is Mr Noodles server.
 
 ### API server
 
+- `/meta` - show info about objects and queues
 - `/photos`
 - `/photos/<id>`
 - `/photos/<id>/img`

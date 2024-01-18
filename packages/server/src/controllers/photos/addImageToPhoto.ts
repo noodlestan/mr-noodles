@@ -1,6 +1,6 @@
 import { ImageFile, PhotoModel } from '@noodlestan/shared-types';
 
-import { getNoodleById, updateNoodle } from '../../db';
+import { getNoodleById, updateNoodle } from '../../noodles';
 
 export const addImageToPhoto = async (id: string, image: ImageFile): Promise<void> => {
     const noodle = getNoodleById<PhotoModel>(id);

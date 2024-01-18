@@ -19,7 +19,6 @@ export const folderToData = (doc: FolderModel): FolderData => {
 
 export const folderFromData = (partial: Partial<FolderData>): FolderModel => {
     const {
-        id,
         type,
         filename,
         dateCreated,
@@ -34,7 +33,7 @@ export const folderFromData = (partial: Partial<FolderData>): FolderModel => {
     }
 
     return {
-        id: id || generateId(filename),
+        id: generateId(filename),
         type: 'folder',
         filename,
         dateCreated: dateCreated ? new Date(dateCreated) : new Date(),

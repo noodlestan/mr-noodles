@@ -9,7 +9,7 @@ import { latLongFromExifGps } from './latLongFromExifGps';
 export const applyPhotoUpdates = (
     event: EventScanFile,
     photo: PhotoModel,
-    hash: string,
+    // hash: string, TODO optional
     meta: Metadata,
     exif?: ExifData,
 ): {
@@ -21,7 +21,6 @@ export const applyPhotoUpdates = (
 
     let changed = false;
     changed = changed || event.filename !== photo.filename;
-    changed = changed || hash !== photo.hash;
     changed = changed || orientation !== photo.orientation;
     changed = changed || width !== photo.width;
     changed = changed || height !== photo.height;
@@ -30,8 +29,13 @@ export const applyPhotoUpdates = (
     changed =
         changed || location?.lat !== photo.location?.lat || location?.long !== photo.location?.long;
 
+    // const hashChanged = hash !== photo.hash;
+    // TODO store last hashDate
+    // const hashDate = hashChanged ? new Date() : photo.hashDate;
+
     return {
+        // changed: changed || hashChanged,
         changed,
-        value: { ...photo, filename, hash, orientation, width, height },
+        value: { ...photo, filename, orientation, width, height, dateUpdated: new Date() },
     };
 };

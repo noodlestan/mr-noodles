@@ -1,3 +1,8 @@
+.GalleryScreen {
+    box-sizing: border-box;
+    height: 100vh;
+}
+
 .GalleryScreen > .Surface {
     display: flex;
     flex-direction: column;

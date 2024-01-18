@@ -1,18 +1,13 @@
-import { findUsers } from '../src/controllers/users/findUsers';
-import { addUserFolder, connect, dbRoots, disconnect } from '../src/db';
-import { dropRoot } from '../src/db/private/functions/dropRoot';
-import { NOODLES_DB_PATH } from '../src/env';
+import { connectSystemRoot } from '../src/db';
 import { createLogger } from '../src/logger';
-import { mappers } from '../src/models/mappers';
+import { dbRoots, disconnect } from '../src/noodles';
+import { dropRoot } from '../src/noodles/private/functions/dropRoot';
 
 const logger = createLogger('scripts/dropDb');
 
 const main = async () => {
     try {
-        await connect(NOODLES_DB_PATH, mappers);
-        logger.info('adding user roots');
-        const users = findUsers();
-        users.forEach(user => user.folders?.forEach(f => addUserFolder(f, user.id)));
+        await connectSystemRoot();
         logger.info('boot');
 
         const values = dbRoots().values();
