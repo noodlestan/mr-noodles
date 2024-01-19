@@ -1,20 +1,22 @@
-import type { PhotoModel } from '@noodlestan/shared-types';
+import type { FileNoodle, MediaFileNoodle } from '@noodlestan/shared-types';
 
 import { GalleryRowOptions } from '../../types';
 import { MAX_ITEMS } from '../createGalleryGroups';
 
 const GAP_SIZE = 8;
 
-const calcWidth = (items: PhotoModel[], height: number): number => {
+const calcWidth = (items: FileNoodle[], targetHeight: number): number => {
     return items.reduce((acc, item) => {
-        const ratio = item.height / item.width;
-        return acc + height / ratio;
+        const media = item as MediaFileNoodle;
+        const { height, width } = media;
+        const ratio = height && width ? height / width : 1;
+        return acc + targetHeight / ratio;
     }, GAP_SIZE * items.length);
 };
 
 const itemFitsInRow = (
-    lastRow: PhotoModel[],
-    item: PhotoModel,
+    lastRow: FileNoodle[],
+    item: FileNoodle,
     options: GalleryRowOptions,
 ): boolean => {
     const { height, maxItems = MAX_ITEMS, maxWidth } = options;
@@ -31,7 +33,7 @@ const itemFitsInRow = (
     return true;
 };
 
-export const makeRows = (items: PhotoModel[], options: GalleryRowOptions): PhotoModel[][] => {
+export const makeRows = (items: FileNoodle[], options: GalleryRowOptions): FileNoodle[][] => {
     return items.reduce(
         (acc, item) => {
             const lastRow = acc[acc.length - 1];
@@ -44,6 +46,6 @@ export const makeRows = (items: PhotoModel[], options: GalleryRowOptions): Photo
             }
             return acc;
         },
-        [[]] as PhotoModel[][],
+        [[]] as FileNoodle[][],
     );
 };

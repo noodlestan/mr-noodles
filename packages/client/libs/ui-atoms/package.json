@@ -28,8 +28,8 @@
     "@solidjs/router": "0.10.6"
   },
   "dependencies": {
-    "@noodlestan/ui-icons": "0.0.1",
     "@noodlestan/ui-layouts": "0.0.1",
-    "@noodlestan/ui-surfaces": "0.0.1"
+    "@noodlestan/ui-surfaces": "0.0.1",
+    "lucide-solid": "^0.303.0"
   }
 }

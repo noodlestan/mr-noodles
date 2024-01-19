@@ -1,17 +1,17 @@
-import type { PhotoData } from '@noodlestan/shared-types';
+import type { FileNoodle } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
 import { Accessor } from 'solid-js';
 
-import { PhotosService } from '@/services/Photos';
+import { FilesService } from '@/services/Files';
 
 type PhotoWindowService = {
-    photos: Accessor<PhotoData[]>;
+    files: Accessor<FileNoodle[]>;
 };
 
 export const createPhotoWindowService = (): PhotoWindowService => {
-    const { photos } = inject(PhotosService);
+    const { files } = inject(FilesService);
 
     return {
-        photos,
+        files,
     };
 };

@@ -1,4 +1,4 @@
-import { startPhotosAgent } from '../agents/photos';
+import { startFilesAgent } from '../agents/files';
 import { startScanAgent } from '../agents/scanner';
 import { connectAllRoots } from '../db';
 import { createLogger } from '../logger';
@@ -10,7 +10,7 @@ const logger = createLogger('server/api');
 const main = async () => {
     try {
         await startScanAgent();
-        await startPhotosAgent();
+        await startFilesAgent();
         await connectAllRoots();
 
         logger.info('starting server');

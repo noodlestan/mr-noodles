@@ -130,7 +130,7 @@ Check http://localhost:3000 for health
 
 Is another instance running on same port? Stop it, or use a different por. See [env](../../../../.env.example) for how.
 
-Is the [Mr Noodles API](../../../server/README.md) server running at http://localhost:8008/photos? Check [packages/server/README.md](../../../server/README.md) for more info.
+Is the [Mr Noodles API](../../../server/README.md) server running at http://localhost:8008/meta? Check [packages/server/README.md](../../../server/README.md) for more info.
 
 ## License
 

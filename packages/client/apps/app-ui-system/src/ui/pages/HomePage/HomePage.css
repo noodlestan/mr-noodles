@@ -3,7 +3,7 @@
     padding-bottom: var(--scale-xl);
 }
 
-@media (min-width: 800px) {
+@media (orientation: landscape) {
     .HomePage--cards {
         flex-direction: row;
     }

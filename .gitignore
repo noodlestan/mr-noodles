@@ -44,5 +44,6 @@ pids
 resources/db
 resources/assets
 resources/example-media/good/pictures
+resources/example-media/ignored
 *.noodle.json
 

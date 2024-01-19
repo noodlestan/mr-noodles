@@ -1,16 +1,16 @@
-import type { PhotoModel } from '@noodlestan/shared-types';
+import type { FileNoodle } from '@noodlestan/shared-types';
 
 import { GalleryOptions } from '../types';
 
 import { groupTuplesToGroups } from './utils/groupTuplesToGroups';
-import { reducePhotosToGroupTuples } from './utils/reducePhotosToGroupTuples';
+import { reduceNoodlesToGroupTuples } from './utils/reduceNoodlesToGroupTuples';
 
 import { GalleryGroupItem } from '@/models/gallery/types';
 
 export const MAX_ITEMS = 10;
 
 const createGalleryGroups = (
-    items: PhotoModel[] | undefined,
+    items: FileNoodle[] | undefined,
     options: GalleryOptions,
 ): GalleryGroupItem[] => {
     const { groupBy } = options;
@@ -20,7 +20,7 @@ const createGalleryGroups = (
         throw new Error('Not implemented');
     }
     if (items) {
-        const records = reducePhotosToGroupTuples(items, groupBy1, groupBy2);
+        const records = reduceNoodlesToGroupTuples(items, groupBy1, groupBy2);
         return groupTuplesToGroups(records, groupBy1, groupBy2, options);
     }
     return [];

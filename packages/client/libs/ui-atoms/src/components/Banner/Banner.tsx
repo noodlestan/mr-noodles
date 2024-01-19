@@ -1,8 +1,5 @@
-import ErrorSvg from '@noodlestan/ui-icons/src/assets/icons/error.svg';
-import InfoSvg from '@noodlestan/ui-icons/src/assets/icons/info.svg';
-import SuccessSvg from '@noodlestan/ui-icons/src/assets/icons/success.svg';
-import WarningSvg from '@noodlestan/ui-icons/src/assets/icons/warning.svg';
 import { Surface } from '@noodlestan/ui-surfaces';
+import { AlertTriangleIcon, InfoIcon, ThumbsUpIcon, XCircleIcon } from 'lucide-solid';
 import { Component, JSX } from 'solid-js';
 
 import { Icon } from '../Icon';
@@ -13,12 +10,12 @@ type BannerVariant = 'passive' | 'info' | 'warning' | 'danger' | 'success';
 export type BannerSize = 's' | 'm';
 type BannerLength = 'compact' | 'full';
 
-const VARIANT_ICON_MAP: Record<BannerVariant, JSX.Element> = {
-    passive: InfoSvg,
-    info: InfoSvg,
-    warning: WarningSvg,
-    danger: ErrorSvg,
-    success: SuccessSvg,
+const VARIANT_ICON_MAP: Record<BannerVariant, Component> = {
+    passive: InfoIcon,
+    info: InfoIcon,
+    warning: AlertTriangleIcon,
+    danger: XCircleIcon,
+    success: ThumbsUpIcon,
 };
 
 export type BannerProps = {

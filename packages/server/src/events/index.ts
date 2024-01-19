@@ -2,7 +2,7 @@ import events from 'events';
 
 const eventsEmitter = new events.EventEmitter();
 
-type EventData = void | Record<string, string | number | boolean | Error>;
+type EventData = void | Record<string, string | number | boolean | Error | unknown>;
 
 type ListenerFn<T extends EventData | undefined> = (data: T) => void;
 type UnsubscribeFn = () => void;

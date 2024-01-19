@@ -1,8 +1,7 @@
-import { FolderModel } from '@noodlestan/shared-types';
+import type { FolderNoodle } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getNoodleById, noodleExists } from '../../../noodles';
-import { folderToData } from '../../../models/folder';
+import { exportNoodle, getNoodleById, noodleExists } from '../../../noodles';
 import { notFoundHandler } from '../responses';
 
 export const getFolder = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -11,9 +10,9 @@ export const getFolder = async (req: Request, res: Response, next: NextFunction)
             notFoundHandler(req, res, next);
             return;
         }
-        const folder = await getNoodleById<FolderModel>(req.params.id);
+        const folder = await getNoodleById<FolderNoodle>(req.params.id);
 
-        res.json(folderToData(folder));
+        res.json(exportNoodle(folder));
     } catch (error) {
         next(error);
     }

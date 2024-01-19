@@ -3,17 +3,21 @@
     padding: 10px;
 }
 
+.ModalDialog > div {
+    height: 100%;
+}
+
 .ModalDialog-size-s {
     width: 30vw;
-    min-height: 20vh;
+    height: 20vh;
 }
 
 .ModalDialog-size-m {
     width: 60vw;
-    min-height: 40vh;
+    height: 40vh;
 }
 
 .ModalDialog-size-l {
     width: 90vw;
-    min-height: 80vh;
+    height: 80vh;
 }

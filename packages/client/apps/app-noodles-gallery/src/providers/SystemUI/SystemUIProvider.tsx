@@ -8,5 +8,5 @@ type SystemUIProviderProps = SystemUIContextState & {
 };
 
 export const SystemUIProvider: Component<SystemUIProviderProps> = props => {
-    return <SystemUIContext.Provider value={props}>{props.children} </SystemUIContext.Provider>;
+    return <SystemUIContext.Provider value={props}>{props.children}</SystemUIContext.Provider>;
 };

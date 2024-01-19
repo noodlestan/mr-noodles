@@ -1,45 +1,71 @@
 import { mkdir, readFile, unlink, writeFile } from 'fs/promises';
 import { dirname } from 'path';
 
-import { IPagination, ISort, UserFolder } from '@noodlestan/shared-types';
+import type {
+    IPagination,
+    ISort,
+    Mapper,
+    Noodle,
+    Noodles,
+    Root,
+    Roots,
+    UserRoot,
+} from '@noodlestan/shared-types';
 import { queue as CreateQueue, QueueObject } from 'async';
 
 import { createFolderFromDirname } from '../controllers/folders/createFolderFromDirname';
 import { NOODLES_DB_EXT } from '../env';
 import { subscribe } from '../events';
-import { EVENT_SCAN_DIR, EVENT_SCAN_FILE_DATA, EventScanDir, EventScanFile } from '../events/scan';
+import { EVENT_SCAN_DATA, EVENT_SCAN_DIR, EventScanDir, EventScanFile } from '../events/scan';
 import { log } from '../logger';
 
 import { canWriteToPath } from './private/functions/canWriteToPath';
 import { dataFilename } from './private/functions/dataFilename';
-import { findRoot } from './private/functions/findRoot';
+import { findRootFromFilename } from './private/functions/findRootFromFilename';
 import { scanRoot } from './private/functions/scanRoot';
 import { sortNoodles } from './private/functions/sortNoodles';
 import { validateOp } from './private/functions/validateOp';
-import { Mappers, Noodle, Noodles, Root, Roots } from './types';
+
+const MR_NOODLES = 'MrNoodles';
 
 const roots: Roots = new Map();
 const noodles: Noodles = new Map();
-const mappers: Mappers = [];
+const mappers: Mapper[] = [];
 const unsubscribeTo: Array<() => void> = [];
 
 if (!NOODLES_DB_EXT) {
     throw new Error(`Invalid env var NOODLES_DB_EXT: "${NOODLES_DB_EXT}"`);
 }
 
+function importNoodle<T extends Noodle>(data: unknown, root: Root): T {
+    const mapper = mappers.find(({ match }) => match(data as Noodle));
+    if (!mapper) {
+        throw new Error(`No importer for noodle "${JSON.stringify(data)}"`);
+    }
+    const noodle = mapper.import(data) as T;
+    if (noodle.root !== root.id) {
+        throw new Error(`Unexpected noodle root "${noodle.root}". Expected "${root.id}"`);
+    }
+    return noodle;
+}
+
+function exportNoodle<T extends Noodle>(noodle: T): unknown {
+    const mapper = mappers.find(({ match }) => match(noodle));
+    if (!mapper) {
+        throw new Error(`No exporter for noodle "${JSON.stringify(noodle)}"`);
+    }
+    return mapper.export(noodle);
+}
+
 const processDataFile = async (event: EventScanFile): Promise<void> => {
-    let mapperName: string = '';
+    let mapperName: string | undefined;
 
     try {
         const buffer = await readFile(event.filename);
         const data = JSON.parse(buffer.toString());
 
-        const mapper = mappers.find(({ match }) => match(data));
-        if (!mapper) {
-            throw new Error(`Unprocessable noodle "${JSON.stringify(data)}"`);
-        }
-        mapperName = mapper?.name;
-        const noodle = mapper.map(data);
+        mapperName = mappers.find(({ match }) => match(data))?.name;
+        const noodle = importNoodle<Noodle>(data, event.root);
         noodles.set(noodle.id, noodle);
     } catch (err) {
         const message = (err as Error).message;
@@ -50,7 +76,7 @@ const processDataFile = async (event: EventScanFile): Promise<void> => {
 };
 
 const processDir = async (event: EventScanDir): Promise<void> => {
-    await createFolderFromDirname(event.dirname);
+    await createFolderFromDirname(event.dirname, event.root);
 };
 
 const dataQueue = CreateQueue<EventScanFile | EventScanDir>(async (event, next) => {
@@ -62,49 +88,104 @@ const dataQueue = CreateQueue<EventScanFile | EventScanDir>(async (event, next) 
     next();
 }, 10);
 
-const addRoot = async (root: Root): Promise<void> => {
+const removeUserRoot = async (userRoot: UserRoot, userId: string): Promise<void> => {
+    const { path } = userRoot;
+
+    roots.delete(path);
+
+    [...noodles.keys()].forEach(id => {
+        const noodle = noodles.get(id);
+        if (noodle?.root === userRoot.id) {
+            noodles.delete(noodle.id);
+        }
+    });
+
+    log().info('noodles:removeUserRoot', { path, userId });
+};
+
+const validateRoot = (root: Root): void => {
+    const { path } = root;
+
+    const maybeOtherRoot = findRootFromFilename(roots, path);
+    if (maybeOtherRoot && maybeOtherRoot.id !== root.id) {
+        throw new Error(
+            `noodles:validateRoot:duplicate root path "${path}" is contained by existing root "${maybeOtherRoot.path}"`,
+        );
+    }
+
+    const wouldContain = [...roots.values()].find(r => r.path.startsWith(path));
+    if (wouldContain && wouldContain.id !== root.id) {
+        throw new Error(
+            `noodles:validateRoot:duplicate root path "${path}" would contain existing root "${wouldContain.path}"`,
+        );
+    }
+
+    if (!canWriteToPath(path)) {
+        throw new Error(`noodles:validateRoot:can not write to "${path}"`);
+    }
+};
+
+const addRoot = async (root: Root, isHardScan?: boolean): Promise<void> => {
     const { path, name, owner, system } = root;
-    log().info('noodlesaddRoot', { path, name, owner, system });
-    if (roots.get(path)) {
-        throw new Error(`noodlesaddRoot:duplicate root path "${root.path}"`);
-    }
-    if (system && !canWriteToPath(path)) {
-        throw new Error(`noodlesaddRoot:can not write to "${root.path}"`);
-    }
+    log().info('noodles:addRoot', { path, name, owner, system });
     try {
-        findRoot(roots, path);
+        validateRoot(root);
     } catch (err) {
-        if (!(err as Error).message.match('noodlesfindRoot:no root match for')) {
+        if (system) {
             throw err;
         }
     }
-    roots.set(path, root);
-    await scanRoot(root, processDataFile);
+
+    const exists = findRootFromFilename(roots, path);
+    const writable = canWriteToPath(path);
+
+    if (exists) {
+        log().warn('noodles:addRoot:duplicate root path', { path });
+    }
+
+    if (!writable) {
+        log().warn('noodles:addRoot:path is not writable', { path });
+    }
+
+    if (writable && !exists) {
+        roots.set(path, root);
+        await scanRoot(root, isHardScan, processDataFile);
+    }
 };
 
-const addUserFolder = async (userFolder: UserFolder, userId: string): Promise<void> => {
-    const { path, name } = userFolder;
+const addUserRoot = async (
+    userRoot: UserRoot,
+    userId: string,
+    doHardScan?: boolean,
+): Promise<void> => {
+    const { date, id, path, name } = userRoot;
 
-    log().info('noodlesaddUserFolder', { path, name, userId });
+    log().info('noodles:addUserRoot', { path, name, userId });
 
     const root = {
+        date,
+        id,
         path,
         name,
         owner: userId,
     };
-    await addRoot(root);
+    await addRoot(root, doHardScan);
 };
 
 const addNoodle = async (noodle: Noodle): Promise<void> => {
     const { filename } = noodle;
     validateOp(roots, noodle);
 
+    if (noodles.has(noodle.id)) {
+        throw new Error(`noodles:addNoodle:duplicate noodle id "${noodle.id}"`);
+    }
+
     const dataFile = dataFilename(noodle, filename);
     await mkdir(dirname(dataFile), { recursive: true });
     await writeFile(dataFile, JSON.stringify(noodle));
     noodles.set(noodle.id, noodle);
 
-    log().debug('noodlesaddNoodle', { filename, dataFile });
+    log().debug('noodles:addNoodle', { filename, dataFile });
 };
 
 const updateNoodle = async (noodle: Noodle): Promise<void> => {
@@ -116,7 +197,7 @@ const updateNoodle = async (noodle: Noodle): Promise<void> => {
     await writeFile(dataFile, JSON.stringify(noodle));
     noodles.set(noodle.id, noodle);
 
-    log().debug('noodlesupdateNoodle', { filename, dataFile });
+    log().debug('noodles:updateNoodle', { filename, dataFile });
 };
 
 const deleteNoodle = async (noodle: Noodle): Promise<void> => {
@@ -127,7 +208,7 @@ const deleteNoodle = async (noodle: Noodle): Promise<void> => {
     await unlink(dataFile);
 
     noodles.delete(filename);
-    log().debug('noodlesdeleteNoodle', { filename, dataFile });
+    log().debug('noodles:deleteNoodle', { filename, dataFile });
 };
 
 const noodleExists = (id: string): boolean => {
@@ -162,8 +243,12 @@ function findNoodle<T extends Noodle>(filterFn: (n: T) => boolean): T | undefine
     return values.find(filterFn);
 }
 
-const connect = async (path: string, _mappers: Mappers): Promise<void> => {
-    const scanFileUnsub = subscribe<EventScanFile>(EVENT_SCAN_FILE_DATA, event => {
+function findNoodleByFilename<T extends Noodle>(filename: string): T | undefined {
+    return findNoodle<T>(n => n.filename === filename);
+}
+
+const connect = async (path: string, _mappers: Mapper[], doHardScan?: boolean): Promise<Root> => {
+    const scanFileUnsub = subscribe<EventScanFile>(EVENT_SCAN_DATA, event => {
         dataQueue.push(event);
     });
     unsubscribeTo.push(scanFileUnsub);
@@ -174,13 +259,21 @@ const connect = async (path: string, _mappers: Mappers): Promise<void> => {
     unsubscribeTo.push(scanDirUnsub);
 
     _mappers.forEach(mapper => mappers.push(mapper));
-    await addRoot({ path, name: 'MrNoodles', system: true });
-    log().info('noodlesconnect');
+    const systemRoot: Root = {
+        date: new Date(),
+        id: MR_NOODLES,
+        path,
+        name: MR_NOODLES,
+        system: true,
+    };
+    await addRoot(systemRoot, doHardScan);
+    log().info('noodles:connect');
+    return systemRoot;
 };
 
 const disconnect = async (): Promise<void> => {
     unsubscribeTo.forEach(unsub => unsub());
-    log().info('noodlesdisconnected');
+    log().info('noodles:disconnected');
 };
 
 const dbQueue = (): QueueObject<EventScanFile | EventScanDir> => {
@@ -193,14 +286,18 @@ const dbRoots = (): Roots => {
 
 export {
     addRoot,
-    addUserFolder,
+    validateRoot,
+    addUserRoot,
+    removeUserRoot,
     addNoodle,
     updateNoodle,
     deleteNoodle,
     noodleExists,
     getNoodleById,
-    findNoodle,
     findNoodles,
+    findNoodle,
+    findNoodleByFilename,
+    exportNoodle,
     connect,
     disconnect,
     dbQueue,

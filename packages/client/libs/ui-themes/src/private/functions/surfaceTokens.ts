@@ -1,10 +1,10 @@
 import type { TokenMap } from '@noodlestan/ui-tokens/src/types';
 
-import type { Surface, Theme, ThemeDarkMode } from '../../types';
+import type { ColourSchemeName, Surface, Theme } from '../../types';
 import { surfacesStore } from '../stores/surfacesStore';
 import { themesStore } from '../stores/themesStore';
 
-export const surfaceTokens = (theme: Theme, surface: Surface, mode: ThemeDarkMode): TokenMap => {
+export const surfaceTokens = (theme: Theme, surface: Surface, mode: ColourSchemeName): TokenMap => {
     const { findTheme } = themesStore;
     const { findSurface } = surfacesStore;
 

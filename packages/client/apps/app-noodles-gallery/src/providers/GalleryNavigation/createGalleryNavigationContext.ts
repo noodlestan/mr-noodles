@@ -1,4 +1,4 @@
-import { PhotoModel } from '@noodlestan/shared-types';
+import type { FileNoodle } from '@noodlestan/shared-types';
 import { createEventBus } from '@solid-primitives/event-bus';
 import { Accessor, createEffect, createSignal } from 'solid-js';
 
@@ -7,24 +7,24 @@ import { makeEventListener } from '../makeEventListener';
 import { GalleryNavigationContextState, GalleryNavigationEvent } from './types';
 
 export const createGalleryNavigationContext = (
-    photos: Accessor<PhotoModel[]>,
+    files: Accessor<FileNoodle[]>,
 ): GalleryNavigationContextState => {
     const bus = createEventBus<GalleryNavigationEvent>();
     const [isModal, setIsModal] = createSignal<boolean>(false);
-    const [current, setCurrent] = createSignal<PhotoModel | undefined>();
+    const [current, setCurrent] = createSignal<FileNoodle | undefined>();
 
     createEffect(() => {
         // TODO reset Navigation and current
     });
 
     const previous = () => {
-        const items = photos();
+        const items = files();
         const index = items.findIndex(photo => photo.id === current()?.id);
         return items[index - 1];
     };
 
     const next = () => {
-        const items = photos();
+        const items = files();
         const index = items.findIndex(photo => photo.id === current()?.id);
         return items[index + 1];
     };
@@ -33,7 +33,7 @@ export const createGalleryNavigationContext = (
 
     const handleOnFocus = (ev: GalleryNavigationEvent) => {
         const { value: id = '' } = ev;
-        const items = photos();
+        const items = files();
         const index = items.findIndex(photo => photo.id === id);
         const newCurrent = items[index];
         setCurrent(newCurrent);
@@ -46,7 +46,7 @@ export const createGalleryNavigationContext = (
     };
 
     const handleGoToNextItem = () => {
-        const items = photos();
+        const items = files();
         const index = items.findIndex(photo => photo.id === context.current()?.id);
         const newCurrent = items[index + 1];
         if (newCurrent) {
@@ -57,7 +57,7 @@ export const createGalleryNavigationContext = (
     };
 
     const handleGoToPreviousItem = () => {
-        const items = photos();
+        const items = files();
         const index = items.findIndex(photo => photo.id === context.current()?.id);
         const newCurrent = items[index - 1];
         if (newCurrent) {

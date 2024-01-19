@@ -3,7 +3,7 @@ import querystring, { ParsedUrlQueryInput } from 'node:querystring';
 import { NextFunction, Request, Response } from 'express';
 
 import { findFolders } from '../../../controllers/folders/findFolder';
-import { folderToData } from '../../../models/folder';
+import { exportNoodle } from '../../../noodles';
 import { FOLDERS_PAGE_MAX, FOLDERS_PAGE_SIZE_DEFAULT } from '../constants';
 import { paginationFromQuery, sortFromQuery } from '../functions';
 
@@ -25,9 +25,9 @@ export const getFolders = async (
         res.setHeader('x-meta-filter', `${querystring.encode(filter as ParsedUrlQueryInput)}`);
 
         const folders = findFolders(filter, sort, page);
-        const data = folders.map(folderToData);
+        const data = folders.map(exportNoodle);
 
-        res.json(data);
+        res.json({ results: data });
     } catch (error) {
         next(error);
     }

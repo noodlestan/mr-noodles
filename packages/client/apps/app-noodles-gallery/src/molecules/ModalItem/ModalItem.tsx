@@ -1,4 +1,4 @@
-import { PhotoData } from '@noodlestan/shared-types';
+import type { ImageNoodle } from '@noodlestan/shared-types';
 import { Component } from 'solid-js';
 
 import { makeImageUrl } from '@/services/Images';
@@ -6,7 +6,7 @@ import { makeImageUrl } from '@/services/Images';
 import './ModalItem.css';
 
 export type ModalItemProps = {
-    item: PhotoData;
+    item: ImageNoodle;
     onClick: () => void;
 };
 
@@ -15,7 +15,7 @@ export const ModalItem: Component<ModalItemProps> = props => {
         ModalItem: true,
     });
 
-    const url = () => makeImageUrl('photos', props.item, 'full.fast');
+    const url = () => makeImageUrl('files', props.item, 'full.fast');
 
     return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions

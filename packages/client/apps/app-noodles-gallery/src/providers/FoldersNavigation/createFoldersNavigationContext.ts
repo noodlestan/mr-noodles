@@ -1,4 +1,4 @@
-import { FolderModel } from '@noodlestan/shared-types';
+import type { FolderNoodle } from '@noodlestan/shared-types';
 import { createEventBus } from '@solid-primitives/event-bus';
 import { Accessor, createEffect, createSignal } from 'solid-js';
 
@@ -7,12 +7,12 @@ import { makeEventListener } from '../makeEventListener';
 import { FoldersNavigationContextState, FoldersNavigationEvent } from './types';
 
 export const createFoldersNavigationContext = (
-    folders: Accessor<FolderModel[]>,
+    folders: Accessor<FolderNoodle[]>,
 ): FoldersNavigationContextState => {
     const bus = createEventBus<FoldersNavigationEvent>();
     const [showAllItems, setShowAllItems] = createSignal<boolean>(false);
     const [isModal, setIsModal] = createSignal<boolean>(false);
-    const [current, setCurrent] = createSignal<FolderModel | undefined>();
+    const [current, setCurrent] = createSignal<FolderNoodle | undefined>();
 
     createEffect(() => {
         // TODO reset Navigation and current

@@ -12,6 +12,10 @@
     text-overflow: ellipsis;
 }
 
+.DataValue-wrap {
+    white-space: normal;
+}
+
 .DataValue-size-s {
     font-size: var(--data-type-size-s);
     font-weight: var(--data-type-weight-s);

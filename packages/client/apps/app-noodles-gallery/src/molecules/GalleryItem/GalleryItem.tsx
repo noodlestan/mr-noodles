@@ -1,18 +1,18 @@
-import type { PhotoModel } from '@noodlestan/shared-types';
-// import { Text } from '@noodlestan/ui-atoms';
+import type { FileNoodle } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { createIntersectionObserver } from '@solid-primitives/intersection-observer';
 import { Component, Show, createEffect, createSignal, on, onMount } from 'solid-js';
 
+import { GalleryItemFile } from '../GalleryItemFile/GalleryItemFile';
+
 import { ItemCheckbox } from '@/atoms/ItemCheckbox/ItemCheckbox';
 import { useGalleryNavigationContext } from '@/providers/GalleryNavigation';
 import { useGallerySelectionContext } from '@/providers/GallerySelection';
-import { makeImageUrl } from '@/services/Images/makeImageUrl';
 
 import './GalleryItem.css';
 
 export type GalleryItemProps = {
-    item: PhotoModel;
+    item: FileNoodle;
     showCheckbox?: boolean;
 };
 
@@ -77,10 +77,9 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     onMount(() => createIntersectionObserver(() => [buttonRef!], handleObserve));
 
-    const imageUrl = () => makeImageUrl('photos', props.item, 'thumb.small');
     const url = () => window.location.pathname;
     // TODO abstract
-    const date = () => (props.item.dateTaken ? new Date(props.item.dateTaken).toString() : '');
+    const date = () => (props.item.dateCreated ? new Date(props.item.dateCreated).toString() : '');
     const label = () => `Gallery item. ${date()}. Press to open details.`;
 
     const classList = () => ({
@@ -109,7 +108,7 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                         onKeyDown={handleKeyDown}
                     />
                 </Show>
-                <img alt="" src={imageUrl()} />
+                <GalleryItemFile item={props.item} />
             </a>
         </Flex>
     );

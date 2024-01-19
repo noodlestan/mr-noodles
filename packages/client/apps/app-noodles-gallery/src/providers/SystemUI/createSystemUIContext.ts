@@ -1,26 +1,20 @@
-import { createEventBus } from '@solid-primitives/event-bus';
+import { ColourSchemeName } from '@noodlestan/ui-themes';
 import { makePersisted } from '@solid-primitives/storage';
 import { createSignal } from 'solid-js';
 
-import { makeEventListener } from '../makeEventListener';
+import { SystemUIContextState } from './types';
 
-import { SystemUIContextState, SystemUIEvent } from './types';
+const initialColourScheme = window.matchMedia('(prefers-color-scheme: dark)') ? 'dark' : 'light';
 
 export const createSystemUIContext = (): SystemUIContextState => {
-    const bus = createEventBus<SystemUIEvent>();
-
-    const [colourScheme, setColourScheme] = makePersisted(createSignal<string>(''));
+    const [colourScheme, setColourScheme] = makePersisted(
+        createSignal<ColourSchemeName>(initialColourScheme),
+    );
 
     const context: SystemUIContextState = {
-        bus,
         colourScheme,
+        setColourScheme,
     };
-
-    bus.listen(
-        makeEventListener<SystemUIEvent>({
-            setColourScheme: ev => setColourScheme(ev.value as string),
-        }),
-    );
 
     return context;
 };

@@ -1,6 +1,6 @@
-import { FolderModel } from '@noodlestan/shared-types';
+import type { FolderNoodle } from '@noodlestan/shared-types';
 
-export const searchByParent = (items: FolderModel[], parent: string): FolderModel[] => {
+export const searchByParent = (items: FolderNoodle[], parent: string): FolderNoodle[] => {
     const parentIndex = (parent && parent.split('/').length) || 0;
     return items.filter(folder => {
         const isSubFolder = folder.filename.startsWith(parent || '');
@@ -9,7 +9,7 @@ export const searchByParent = (items: FolderModel[], parent: string): FolderMode
     });
 };
 
-export const searchItems = (items: FolderModel[], search: string): FolderModel[] => {
+export const searchItems = (items: FolderNoodle[], search: string): FolderNoodle[] => {
     return items.filter(folder => {
         const { title } = folder;
         return title?.includes(search);

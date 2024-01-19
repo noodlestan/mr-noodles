@@ -2,8 +2,8 @@ import { existsSync } from 'fs';
 import { readdir, rename } from 'fs/promises';
 import { basename, parse, resolve } from 'path';
 
-import { readExif } from '../src/agents/photos/utils/readExif';
-import { dateFromExifDate } from '../src/controllers/photos/functions/dateFromExifDate';
+import { readExif } from '../src/agents/files/utils/readExif';
+import { dateFromExifDate } from '../src/controllers/files/functions/dateFromExifDate';
 import { SCAN_EXTENSIONS } from '../src/env';
 
 const SOURCE = '/mnt/data/Noodlestan/Andre/Photos New';

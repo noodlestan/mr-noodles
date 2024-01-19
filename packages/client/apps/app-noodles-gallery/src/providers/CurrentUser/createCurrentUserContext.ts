@@ -1,4 +1,4 @@
-import { UserModel } from '@noodlestan/shared-types';
+import { inject } from '@noodlestan/ui-services';
 import { createEventBus } from '@solid-primitives/event-bus';
 import { makePersisted } from '@solid-primitives/storage';
 import { createSignal } from 'solid-js';
@@ -7,20 +7,28 @@ import { makeEventListener } from '../makeEventListener';
 
 import { CurrentUserContextState, CurrentUserEvent } from './types';
 
+import { UsersService } from '@/services/Users';
+
 export const createCurrentUserContext = (): CurrentUserContextState => {
     const bus = createEventBus<CurrentUserEvent>();
 
-    const [currentUser, setCurrentUser] = makePersisted(createSignal<UserModel | undefined>());
+    const { getUserByid } = inject(UsersService);
+
+    const [currentUserId, setCurrentUserId] = makePersisted(createSignal<string | undefined>());
 
     const context: CurrentUserContextState = {
         bus,
-        currentUser,
+        currentUser: () => {
+            const id = currentUserId();
+            return id ? getUserByid(id) : undefined;
+        },
+        currentUserId,
     };
 
     bus.listen(
         makeEventListener<CurrentUserEvent>({
-            selectUser: ev => setCurrentUser(ev.value as UserModel),
-            unselectUser: () => setCurrentUser(undefined),
+            setCurrentUserId: ev => setCurrentUserId(ev.value as string),
+            clearCurrentUserId: () => setCurrentUserId(undefined),
         }),
     );
 

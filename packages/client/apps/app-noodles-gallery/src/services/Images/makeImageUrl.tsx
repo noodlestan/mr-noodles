@@ -9,7 +9,7 @@ export const selectImageByProfile = (
 
 // TODO convert to interface in shared/types
 type ItemWithImages = { id: string; images?: ImageFile[] };
-type ResourceType = 'folders' | 'photos' | 'users';
+type ResourceType = 'folders' | 'files' | 'users';
 
 export const makeImageUrl = (
     resourceType: ResourceType,

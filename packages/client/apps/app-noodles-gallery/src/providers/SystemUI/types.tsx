@@ -1,14 +1,7 @@
-import { EventBus } from '@solid-primitives/event-bus';
-import { Accessor } from 'solid-js';
-
-export type SystemUIEventType = 'setColourScheme';
-
-export type SystemUIEvent = {
-    name: SystemUIEventType;
-    value?: string;
-};
+import { ColourSchemeName } from '@noodlestan/ui-themes';
+import { Accessor, Setter } from 'solid-js';
 
 export type SystemUIContextState = {
-    bus: EventBus<SystemUIEvent>;
-    colourScheme: Accessor<string>;
+    setColourScheme: Setter<ColourSchemeName>;
+    colourScheme: Accessor<ColourSchemeName>;
 };

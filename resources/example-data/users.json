@@ -13,7 +13,7 @@
     "name": "Francisco",
     "citizen": true,
     "dateCitizen": "2011-10-10T00:00:00Z",
-    "folders": [
+    "roots": [
       {
         "name": "photos",
         "path": "./resources/example-media/more"
@@ -24,7 +24,7 @@
     "name": "Andre",
     "citizen": true,
     "dateCitizen": "2011-10-10T00:00:00Z",
-    "folders": [
+    "roots": [
       {
         "name": "photos",
         "path": "./resources/example-media/good"

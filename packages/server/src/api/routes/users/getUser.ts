@@ -1,8 +1,7 @@
-import { UserModel } from '@noodlestan/shared-types';
+import type { UserNoodle } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
-import { getNoodleById, noodleExists } from '../../../noodles';
-import { userToData } from '../../../models/user';
+import { exportNoodle, getNoodleById, noodleExists } from '../../../noodles';
 import { notFoundHandler } from '../responses';
 
 export const getUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -11,8 +10,8 @@ export const getUser = async (req: Request, res: Response, next: NextFunction): 
             notFoundHandler(req, res, next);
             return;
         }
-        const user = getNoodleById<UserModel>(req.params.id);
-        res.json(userToData(user));
+        const user = getNoodleById<UserNoodle>(req.params.id);
+        res.json(exportNoodle(user));
     } catch (error) {
         next(error);
     }

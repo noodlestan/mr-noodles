@@ -1,10 +1,5 @@
+import { classListFromClassNames } from './classListFromClassNames';
 import { themeClassNames } from './themeClassNames';
+import { ClassList } from './types';
 
-export const themeClassList = (): { [key: string]: boolean } =>
-    themeClassNames().reduce(
-        (acc, item) => {
-            acc[item] = true;
-            return acc;
-        },
-        {} as { [key: string]: boolean },
-    );
+export const themeClassList = (): ClassList => classListFromClassNames(themeClassNames());

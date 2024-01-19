@@ -1,18 +1,18 @@
-import { FolderData, FolderModel, IPagination, ISort } from '@noodlestan/shared-types';
+import type { FolderNoodle, IPagination, ISort } from '@noodlestan/shared-types';
 
 import { findNoodles } from '../../noodles';
 
 export const findFolders = (
-    filterBy: Partial<FolderData>,
+    filterBy: Partial<FolderNoodle>,
     sort?: ISort[],
     page?: IPagination,
-): FolderModel[] => {
-    const filter = (n: FolderModel) => {
+): FolderNoodle[] => {
+    const filter = (n: FolderNoodle) => {
         if (n.type !== 'folder') {
             return false;
         }
         return true;
     };
 
-    return findNoodles<FolderModel>(filter, sort, page);
+    return findNoodles<FolderNoodle>(filter, sort, page);
 };

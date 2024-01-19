@@ -1,0 +1,7 @@
+.UserDeleteDialog {
+    height: 100%;
+}
+
+.UserDeleteDialog--content {
+    flex: 1;
+}

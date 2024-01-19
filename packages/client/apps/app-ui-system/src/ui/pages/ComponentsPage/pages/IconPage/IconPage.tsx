@@ -1,5 +1,5 @@
 import { Icon } from '@noodlestan/ui-atoms';
-import ClockSvg from '@noodlestan/ui-icons/src/assets/icons/clock.svg';
+import { ClockIcon } from 'lucide-solid';
 import { Component } from 'solid-js';
 
 import { findComponent } from '@/data/components';
@@ -18,28 +18,28 @@ export const IconPage: Component = () => {
             <ComponentMeta component={COMPONENT} />
             <DemoGroup title="defaults">
                 <DemoItem>
-                    <Icon icon={ClockSvg} />
+                    <Icon icon={ClockIcon} />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="size">
                 <DemoItem title="l">
-                    <Icon icon={ClockSvg} size="l" />
+                    <Icon icon={ClockIcon} size="l" />
                 </DemoItem>
                 <DemoItem title="m">
-                    <Icon icon={ClockSvg} size="m" />
+                    <Icon icon={ClockIcon} size="m" />
                 </DemoItem>
                 <DemoItem title="s">
-                    <Icon icon={ClockSvg} size="s" />
+                    <Icon icon={ClockIcon} size="s" />
                 </DemoItem>
             </DemoGroup>
             <DemoGroup title="recoloring">
                 <div class="IconPage--recoloring">
-                    <Icon icon={ClockSvg} size="s" />
+                    <Icon icon={ClockIcon} size="s" />
                 </div>
             </DemoGroup>
             <DemoGroup title="classList">
                 <DemoItem note="Should override icon color">
-                    <Icon icon={ClockSvg} classList={{ override: true }} />
+                    <Icon icon={ClockIcon} classList={{ override: true }} />
                 </DemoItem>
             </DemoGroup>
         </DemoPage>

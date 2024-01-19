@@ -11,3 +11,15 @@
 .FadeIn-active {
     opacity: 1;
 }
+
+.FadeIn-speed-slow {
+    --fade-in-duration: 1s;
+}
+
+.FadeIn-speed-medium {
+    --fade-in-duration: 0.5s;
+}
+
+.FadeIn-speed-fast {
+    --fade-in-duration: 0.2s;
+}

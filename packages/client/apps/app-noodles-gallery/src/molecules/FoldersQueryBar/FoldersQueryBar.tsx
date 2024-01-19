@@ -1,4 +1,4 @@
-import type { PhotoQuery } from '@noodlestan/shared-types';
+import type { FileQuery } from '@noodlestan/shared-types';
 import { IconButton } from '@noodlestan/ui-atoms';
 import { TextInput } from '@noodlestan/ui-forms';
 import { Flex } from '@noodlestan/ui-layouts';
@@ -11,7 +11,7 @@ import { useFoldersQueryContext } from '@/providers/FoldersQuery';
 import './FoldersQueryBar.css';
 
 export type FoldersQueryBarProps = {
-    query?: Accessor<PhotoQuery>;
+    query?: Accessor<FileQuery>;
 };
 
 export const FoldersQueryBar: Component<FoldersQueryBarProps> = () => {

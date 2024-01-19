@@ -1,7 +1,7 @@
 import { dirname } from 'path';
 
+import type { FolderNoodle } from '@noodlestan/shared-types';
 import {
-    FolderModel,
     selectImageByProfile,
     selectProfileByHeight,
     selectProfileByName,
@@ -26,7 +26,7 @@ export const getFolderImage = async (
             notFoundHandler(req, res, next);
             return;
         }
-        const folder = getNoodleById<FolderModel>(req.params.id);
+        const folder = getNoodleById<FolderNoodle>(req.params.id);
 
         const height = Number(req.query.h);
         const profileName = String(req.query.p);

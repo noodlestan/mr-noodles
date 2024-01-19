@@ -1,23 +1,17 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { inject } from '@noodlestan/ui-services';
-import { Surface } from '@noodlestan/ui-surfaces';
 import { useNavigate, useParams, useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect, on } from 'solid-js';
 
+import { FoldersHomePage } from './pages/FoldersHomePage';
+
 import { Spinner } from '@/atoms/Spinner/Spinner';
-import { FoldersBar } from '@/molecules/FoldersBar/FoldersBar';
-import { FoldersBreadcrumbs } from '@/molecules/FoldersBreadcrumbs/FoldersBreadcrumbs';
-import { FoldersScroll } from '@/molecules/FoldersScroll/FoldersScroll';
 import { useUrl } from '@/navigation/useUrl';
-import { FolderDetails } from '@/organisms/FolderDetails/FolderDetails';
-import { FolderItems } from '@/organisms/FolderItems/FolderItems';
-import { Folders } from '@/organisms/Folders/Folders';
 import {
     FoldersNavigationProvider,
     createFoldersNavigationContext,
 } from '@/providers/FoldersNavigation';
 import { FoldersQueryProvider } from '@/providers/FoldersQuery';
-import { createPhotosResource } from '@/resources/Photo/createPhotosResource';
 import { AppService } from '@/services/App';
 import { FoldersService } from '@/services/Folders';
 import { FoldersQueryService } from '@/services/FoldersQuery';
@@ -28,7 +22,7 @@ export const FoldersScreen: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
     const { ready } = inject(AppService);
-    const { searchFolders, loading } = inject(FoldersService);
+    const { searchFolders } = inject(FoldersService);
 
     const params = useParams();
     const [searchParams] = useSearchParams();
@@ -37,7 +31,7 @@ export const FoldersScreen: Component = () => {
 
     const subFolders = () => searchFolders(params.parent || '', searchParams.search);
     const navigationContext = createFoldersNavigationContext(subFolders);
-    const { bus, showAllItems } = navigationContext;
+    const { bus } = navigationContext;
 
     createEffect(() => {
         const parent = params.parent;
@@ -65,9 +59,6 @@ export const FoldersScreen: Component = () => {
             },
         ),
     );
-
-    const query = () => ({ filterBy: { folder: params.parent } });
-    const [resource] = createPhotosResource(query);
 
     const rootUrl = () => useUrl(searchParams, '/folders');
     const parentUrl = () => {
@@ -99,27 +90,7 @@ export const FoldersScreen: Component = () => {
             <Show when={ready()}>
                 <FoldersNavigationProvider {...navigationContext}>
                     <FoldersQueryProvider context={queryContext}>
-                        <Surface variant="stage">
-                            <FoldersBar />
-                            <FoldersScroll>
-                                <Show when={loading()}>Loading</Show>
-                                <Show when={!loading()}>
-                                    <FoldersBreadcrumbs />
-                                    <Show when={params.parent}>
-                                        <FolderDetails folder={params.parent} items={resource} />
-                                        <FolderItems
-                                            folder={params.parent}
-                                            items={resource}
-                                            toggleVisibility={subFolders().length > 0}
-                                            showAllItems={showAllItems()}
-                                        />
-                                    </Show>
-                                    <Show when={!showAllItems()}>
-                                        <Folders items={subFolders} />
-                                    </Show>
-                                </Show>
-                            </FoldersScroll>
-                        </Surface>
+                        <FoldersHomePage items={subFolders} />
                     </FoldersQueryProvider>
                 </FoldersNavigationProvider>
             </Show>

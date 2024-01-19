@@ -47,6 +47,7 @@
 .TextInput:focus-visible {
     color: var(--data-focus-color);
     border-style: solid;
+    border-width: var(--outline-width);
     border-color: var(--color-interactive);
     outline: none;
 }

@@ -1,11 +1,11 @@
-import type { PhotoQuery } from '@noodlestan/shared-types';
+import type { FileQuery } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component } from 'solid-js';
 
 import './GalleryQueryBar.css';
 
 export type GalleryQueryBarProps = {
-    query?: Accessor<PhotoQuery>;
+    query?: Accessor<FileQuery>;
 };
 
 export const GalleryQueryBar: Component<GalleryQueryBarProps> = () => {

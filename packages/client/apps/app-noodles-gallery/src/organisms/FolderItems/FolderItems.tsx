@@ -1,4 +1,4 @@
-import { APIResponse, PhotoModel } from '@noodlestan/shared-types';
+import type { APIResponse, FileNoodle } from '@noodlestan/shared-types';
 import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { SkeletonImage, SkeletonText } from '@noodlestan/ui-skeletons';
@@ -20,7 +20,7 @@ import './FolderItems.css';
 
 export type FolderItemsProps = {
     folder: string;
-    items: Resource<APIResponse<PhotoModel[]>>;
+    items: Resource<APIResponse<FileNoodle[]>>;
     showAllItems: boolean;
     toggleVisibility: boolean;
 };
@@ -77,7 +77,7 @@ export const FolderItems: Component<FolderItemsProps> = props => {
                         <Show when={props.items.loading}>
                             <SkeletonText size="m" />
                         </Show>
-                        <Show when={!props.items.loading}>{length()} photos</Show>
+                        <Show when={!props.items.loading}>{length()} items</Show>
                     </Display>
                     <Show when={showToggleVisibility()}>
                         <Show when={!props.showAllItems}>

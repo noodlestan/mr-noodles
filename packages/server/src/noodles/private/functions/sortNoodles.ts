@@ -1,6 +1,4 @@
-import { ISort } from '@noodlestan/shared-types';
-
-import { Noodle } from '../../types';
+import type { ISort, Noodle } from '@noodlestan/shared-types';
 
 type NoodleKey = keyof Noodle;
 

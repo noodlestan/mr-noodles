@@ -1,7 +1,6 @@
 import { Surface } from '@noodlestan/ui-surfaces';
 import { Component, JSX } from 'solid-js';
 
-import { useModalContext } from '../../hooks/useModalContext';
 import { Modal } from '../Modal/Modal';
 
 import './ModalDialog.css';
@@ -12,16 +11,15 @@ export type ModalDialogProps = {
     show: boolean;
     size?: ModalDialogSize;
     children?: JSX.Element;
+    onClose: () => void;
 };
 
 const defaultProps: Pick<ModalDialogProps, 'size'> = {
     size: 'm',
 };
 
-const Dialog: Component<ModalDialogProps> = props => {
+const Dialog: Component<Omit<ModalDialogProps, 'onClose'>> = props => {
     const size = () => props.size || defaultProps.size;
-
-    const context = useModalContext();
 
     const classList = () => ({
         ModalDialog: true,
@@ -30,17 +28,7 @@ const Dialog: Component<ModalDialogProps> = props => {
 
     return (
         <Surface variant="dialog" classList={classList()}>
-            <div
-                role="dialog"
-                aria-hidden={!props.show}
-                aria-modal="true"
-                tabindex="-1"
-                classList={classList()}
-            >
-                <p>id: {context.id}</p>
-                <p>transition status: {context.transition()?.status}</p>
-                <p>transition name: {context.transition()?.name}</p>
-                <p>current: {context.current() ? 'true' : 'false'}</p>
+            <div role="dialog" aria-hidden={!props.show} aria-modal="true" tabindex="-1">
                 {props.children}
             </div>
         </Surface>
@@ -49,7 +37,7 @@ const Dialog: Component<ModalDialogProps> = props => {
 
 export const ModalDialog: Component<ModalDialogProps> = props => {
     return (
-        <Modal show={props.show}>
+        <Modal show={props.show} onClose={props.onClose}>
             <Dialog show={props.show} children={props.children} size={props.size} />
         </Modal>
     );

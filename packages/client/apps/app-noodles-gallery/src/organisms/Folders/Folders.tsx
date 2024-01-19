@@ -1,4 +1,4 @@
-import type { FolderModel } from '@noodlestan/shared-types';
+import type { FolderNoodle } from '@noodlestan/shared-types';
 import { Display } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For, Show } from 'solid-js';
@@ -9,7 +9,7 @@ import { useFoldersNavigationContext } from '@/providers/FoldersNavigation';
 import './Folders.css';
 
 export type FoldersProps = {
-    items?: Accessor<FolderModel[]>;
+    items?: Accessor<FolderNoodle[]>;
 };
 
 export const Folders: Component<FoldersProps> = props => {

@@ -1,30 +1,27 @@
 import { ISort } from '../../query';
-import { ImageFile } from '../Images/types';
+import { BaseNoodle } from '../Noodles/types';
 
-export type UserFolder = {
+export type UserRoot = {
+    date: Date;
+    id: string;
     name: string;
     path: string;
 };
 
-export interface UserModel {
-    id: string;
+export interface UserNoodle extends BaseNoodle {
     type: 'user';
-    filename: string;
-    dateCreated: Date;
-    dateUpdated?: Date;
     citizen: boolean;
     dateCitizen?: Date;
-    name?: string;
+    name: string;
     avatar?: string;
-    images?: ImageFile[];
-    folders?: UserFolder[];
+    roots?: UserRoot[];
 }
 
-export interface UserData extends Omit<UserModel, 'dateCreated' | 'dateUpdated' | 'dateCitizen'> {
-    dateCreated: string;
-    dateUpdated?: string;
-    dateCitizen?: string;
-}
+// export interface UserNoodle extends Omit<UserNoodle, 'dateCreated' | 'dateUpdated' | 'dateCitizen'> {
+//     dateCreated: string;
+//     dateUpdated?: string;
+//     dateCitizen?: string;
+// }
 
 export interface UserFilter {
     id?: string;

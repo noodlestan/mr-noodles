@@ -2,10 +2,10 @@ import { Component, JSX } from 'solid-js';
 
 import './FoldersScroll.css';
 
-type GalleryScreenProps = {
+type FoldersScrollProps = {
     children: JSX.Element;
 };
 
-export const FoldersScroll: Component<GalleryScreenProps> = props => {
+export const FoldersScroll: Component<FoldersScrollProps> = props => {
     return <div class="FoldersScroll">{props.children}</div>;
 };

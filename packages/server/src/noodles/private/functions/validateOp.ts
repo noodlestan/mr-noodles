@@ -1,18 +1,19 @@
-import { Noodle, Roots } from '../../types';
+import type { Noodle, Roots } from '@noodlestan/shared-types';
 
-import { findRoot } from './findRoot';
+import { findRootFromFilename } from './findRootFromFilename';
 
 export const validateOp = (roots: Roots, noodle: Noodle): void => {
     const { id, filename, type } = noodle;
     if (!filename) {
-        throw new Error(`noodlesvalidateOp:no filename for id "${id}"`);
+        throw new Error(`noodles:validateOp:no filename for id "${id}"`);
     }
     if (!id) {
-        throw new Error(`noodlesvalidateOp:no id for file "${filename}"`);
+        throw new Error(`noodles:validateOp:no id for file "${filename}"`);
     }
     if (!type) {
-        throw new Error(`noodlesvalidateOp:no type for file "${filename}"`);
+        throw new Error(`noodles:validateOp:no type for file "${filename}"`);
     }
-    // validates that root exists
-    findRoot(roots, noodle.filename);
+    if (!findRootFromFilename(roots, noodle.filename)) {
+        throw new Error(`noodles:validateOp:no root for file "${filename}"`);
+    }
 };

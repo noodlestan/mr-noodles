@@ -1,25 +1,17 @@
-import type { APIResponse, FolderData, FolderModel } from '@noodlestan/shared-types';
-import { apiGet } from '@noodlestan/shared-types/src/api';
+import type { APIResponse, FolderNoodle } from '@noodlestan/shared-types';
+import { importFolder } from '@noodlestan/shared-types';
 
-import { API_BASE_URL } from '@/env';
+import { apiGet } from '../../api/apiGet';
+import { API_ENDPOINTS } from '../endpoints';
 
-const mapItem = (item: FolderData): FolderModel => {
-    const { dateCreated, dateUpdated, dateFrom, dateUntil } = item;
-
-    return {
-        ...item,
-        dateCreated: new Date(dateCreated),
-        dateUpdated: dateUpdated ? new Date(dateUpdated) : undefined,
-        dateFrom: dateFrom ? new Date(dateFrom) : undefined,
-        dateUntil: dateUntil ? new Date(dateUntil) : undefined,
-    };
-};
-
-export const fetchFolders = async (): Promise<APIResponse<FolderModel[]>> => {
+export const fetchFolders = async (): Promise<APIResponse<FolderNoodle[]>> => {
     const params = {
         pageSize: 5000,
     };
-    const { data, meta } = await apiGet<FolderData[]>(API_BASE_URL, `folders`, params);
+    const { data, meta } = await apiGet<{ results: FolderNoodle[] }>(
+        API_ENDPOINTS.folders(),
+        params,
+    );
 
-    return { data: data.map(mapItem), meta };
+    return { data: data.results.map(importFolder), meta };
 };

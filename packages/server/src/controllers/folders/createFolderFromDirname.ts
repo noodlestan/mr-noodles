@@ -1,14 +1,20 @@
-import { FolderModel } from '@noodlestan/shared-types';
+import type { FolderNoodle, Root } from '@noodlestan/shared-types';
+import { createFolder } from '@noodlestan/shared-types';
 
 import { addNoodle, getNoodleById, noodleExists } from '../../noodles';
-import { folderFromData } from '../../models/folder';
 
-export const createFolderFromDirname = async (dirname: string): Promise<FolderModel> => {
-    const folder = folderFromData({
-        filename: dirname,
-    });
+export const createFolderFromDirname = async (
+    dirname: string,
+    root: Root,
+): Promise<FolderNoodle> => {
+    const folder = createFolder(
+        {
+            filename: dirname,
+        },
+        root,
+    );
     if (noodleExists(folder.id)) {
-        return getNoodleById<FolderModel>(folder.id);
+        return getNoodleById<FolderNoodle>(folder.id);
     }
     await addNoodle(folder);
 

@@ -1,23 +1,23 @@
-import { photosAgentQueue } from '../agents/photos';
+import { filesAgentQueue } from '../agents/files';
+import { findFiles } from '../controllers/files/findFiles';
 import { findFolders } from '../controllers/folders/findFolder';
-import { findPhotos } from '../controllers/photos/findPhotos';
 import { findUsers } from '../controllers/users/findUsers';
 import { dbQueue, dbRoots } from '../noodles';
 
 export const makeMeta = async (): Promise<Record<string, unknown>> => {
     const folders = await findFolders({});
     const users = await findUsers();
-    const photos = await findPhotos({});
+    const files = await findFiles({});
     return {
         objects: {
             users: users.length,
             roots: [...dbRoots().values()].length,
             folders: folders.length,
-            photos: photos.length,
+            files: files.length,
         },
         queues: {
             db: dbQueue().length(),
-            photos: photosAgentQueue().length(),
+            files: filesAgentQueue().length(),
         },
     };
 };

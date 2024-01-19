@@ -1,4 +1,4 @@
-import { ImageProfile } from '@noodlestan/shared-types';
+import type { ImageProfile } from '@noodlestan/shared-types';
 
 export const IMAGE_FULL_MAX: ImageProfile = {
     name: 'full.max',

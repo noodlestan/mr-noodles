@@ -1,22 +1,12 @@
-import type { APIResponse, UserData, UserModel } from '@noodlestan/shared-types';
-import { apiGet } from '@noodlestan/shared-types/src/api';
+import type { APIResponse, UserNoodle } from '@noodlestan/shared-types';
+import { importUser } from '@noodlestan/shared-types';
 
-import { API_BASE_URL } from '@/env';
+import { apiGet } from '../../api/apiGet';
+import { API_ENDPOINTS } from '../endpoints';
 
-const mapItem = (item: UserData): UserModel => {
-    const { dateCreated, dateUpdated, dateCitizen } = item;
-
-    return {
-        ...item,
-        dateCreated: new Date(dateCreated),
-        dateUpdated: dateUpdated ? new Date(dateUpdated) : undefined,
-        dateCitizen: dateCitizen ? new Date(dateCitizen) : undefined,
-    };
-};
-
-export const fetchUsers = async (): Promise<APIResponse<UserModel[]>> => {
+export const fetchUsers = async (): Promise<APIResponse<UserNoodle[]>> => {
     const params = {};
-    const { data, meta } = await apiGet<UserData[]>(API_BASE_URL, `users`, params);
+    const { data, meta } = await apiGet<{ results: UserNoodle[] }>(API_ENDPOINTS.users(), params);
 
-    return { data: data.map(mapItem), meta };
+    return { data: data.results.map(importUser), meta };
 };

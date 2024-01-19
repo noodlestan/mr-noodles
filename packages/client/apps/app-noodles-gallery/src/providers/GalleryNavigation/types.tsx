@@ -1,4 +1,4 @@
-import { PhotoModel } from '@noodlestan/shared-types';
+import type { FileNoodle } from '@noodlestan/shared-types';
 import { EventBus } from '@solid-primitives/event-bus';
 import { Accessor } from 'solid-js';
 
@@ -21,7 +21,7 @@ export type GalleryNavigationEvent = {
 export type GalleryNavigationContextState = {
     bus: EventBus<GalleryNavigationEvent>;
     isModal: Accessor<boolean>;
-    previous: Accessor<PhotoModel | undefined>;
-    current: Accessor<PhotoModel | undefined>;
-    next: Accessor<PhotoModel | undefined>;
+    previous: Accessor<FileNoodle | undefined>;
+    current: Accessor<FileNoodle | undefined>;
+    next: Accessor<FileNoodle | undefined>;
 };

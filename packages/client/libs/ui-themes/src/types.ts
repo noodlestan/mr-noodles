@@ -4,12 +4,12 @@ type SurfaceTokenMap = {
     [key: string]: TokenMap;
 };
 
-export type ThemeDarkMode = 'light' | 'dark';
+export type ColourSchemeName = 'dark' | 'light';
 
 export type Theme = {
     name: string;
     extends: string[];
-    mode: ThemeDarkMode;
+    mode: ColourSchemeName;
     tokens: {
         base: {
             global: TokenMap;

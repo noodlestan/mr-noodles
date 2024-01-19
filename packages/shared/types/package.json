@@ -1,18 +1,21 @@
 {
   "name": "@noodlestan/shared-types",
   "version": "0.0.1",
-  "type": "commonjs",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "files": [
-    "src"
+    "dist"
   ],
-  "main": "./dist/index.js",
   "scripts": {
-    "build": "npm run build-ts",
-    "build-ts": "tsc -p tsconfig.build.json",
+    "build": "npm run build-esm && npm run build-cjs",
+    "build-esm": "tsc -p tsconfig.build.esm.json",
+    "build-cjs": "tsc -p tsconfig.build.cjs.json",
     "lint": "prettier . -c && eslint . && tsc --noEmit",
     "watch-ts": "tsc -w -p tsconfig.build.json",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript\" -c \"cyan.bold\" \"npm run watch-ts\""
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "@types/md5": "^2.3.5",
+    "md5": "^2.3.0"
+  }
 }

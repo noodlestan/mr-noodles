@@ -1,8 +1,7 @@
 import { Button, Display, Icon, IconButton, Label, Link, Text } from '@noodlestan/ui-atoms';
 import { TextInput } from '@noodlestan/ui-forms';
-import ClockSvg from '@noodlestan/ui-icons/src/assets/icons/clock.svg';
-import LockOnSvg from '@noodlestan/ui-icons/src/assets/icons/lock-on.svg';
 import { Flex } from '@noodlestan/ui-layouts';
+import { ClockIcon, LockIcon } from 'lucide-solid';
 import { Component } from 'solid-js';
 
 import './ExampleLarge.css';
@@ -15,7 +14,7 @@ type ExampleLargeProps = {
 export const ExampleLargeHeader: Component<ExampleLargeProps> = props => (
     <Flex gap="s">
         <Flex direction="row" align="center" gap="m">
-            <Icon size="m" icon={LockOnSvg} />
+            <Icon size="m" icon={LockIcon} />
             <Display level={3}>{props.title}</Display>
         </Flex>
         <Text>
@@ -30,7 +29,7 @@ export const ExampleLargeBody: Component<ExampleLargeProps> = () => (
     <Flex gap="m">
         <Flex gap="m" direction="row" justify="between">
             <Display level={3}>Lorem ipsum dolor</Display>
-            <IconButton variant="secondary" icon={LockOnSvg} />
+            <IconButton variant="secondary" icon={LockIcon} />
         </Flex>
         <Flex gap="xl">
             <Flex gap="l">
@@ -54,7 +53,7 @@ export const ExampleLargeBody: Component<ExampleLargeProps> = () => (
 export const ExampleLargeFooter: Component<ExampleLargeProps> = () => (
     <Flex direction="row" align="center" gap="l">
         <Flex direction="row" align="center" gap="s">
-            <Icon size="s" icon={ClockSvg} />
+            <Icon size="s" icon={ClockIcon} />
             <Text>Lorem ipsum dolor sit amet</Text>
             <Button size="s" variant="plain">
                 Plain

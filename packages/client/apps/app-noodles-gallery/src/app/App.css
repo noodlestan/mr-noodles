@@ -16,7 +16,12 @@ main {
     flex: 1;
 }
 
-@media screen and (min-width: 800px) {
+.AppMain-container {
+    position: relative;
+    height: 100vh;
+}
+
+@media screen and (orientation: landscape) {
     .AppMain {
         flex-direction: row;
     }

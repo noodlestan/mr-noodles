@@ -13,9 +13,9 @@ import './MainNav.css';
 
 export const MainNav: Component = () => {
     const { bus } = useCurrentUserContext();
-    const handleLogout = () => bus.emit({ name: 'unselectUser' });
+    const handleExit = () => bus.emit({ name: 'clearCurrentUserId' });
     return (
-        <Surface variant="banner" classList={{ MainNav: true }}>
+        <Surface tag="nav" variant="banner" classList={{ MainNav: true }}>
             <Flex direction="row" padding="s" gap="xl" justify="stretch" align="center">
                 <div class="MainNav-home">
                     <CurrentUserIcon />
@@ -32,7 +32,13 @@ export const MainNav: Component = () => {
                     align="center"
                     classList={{ 'MainNav-last': true }}
                 >
-                    <IconButton variant="primary" size="m" onClick={handleLogout} icon={LogOut} />
+                    <IconButton
+                        classList={{ 'MainNav-exit': true }}
+                        variant="plain"
+                        size="m"
+                        onClick={handleExit}
+                        icon={LogOut}
+                    />
                 </Flex>
             </Flex>
         </Surface>

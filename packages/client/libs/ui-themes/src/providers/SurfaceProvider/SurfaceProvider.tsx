@@ -2,6 +2,7 @@ import { Component, JSX, createContext, splitProps, useContext } from 'solid-js'
 import { Dynamic } from 'solid-js/web';
 
 import { ThemesError } from '../../errors';
+import { colourSchemeClassList } from '../../private/functions/colourSchemeClassList';
 import { surfaceClassList } from '../../private/functions/surfaceClassList';
 import { themeClassList } from '../../private/functions/themeClassList';
 import { ThemeTokensProvider } from '../../private/providers/ThemeTokensProvider';
@@ -39,6 +40,7 @@ const SurfaceProviderBase: Component<Omit<SurfaceProviderProps, 'surface'>> = pr
 
     const classList = () => ({
         ...local.classList,
+        ...colourSchemeClassList(),
         ...themeClassList(),
         ...surfaceClassList(),
     });

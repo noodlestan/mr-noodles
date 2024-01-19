@@ -1,7 +1,7 @@
 import { mkdir } from 'fs/promises';
 import path from 'path';
 
-import { ImageFile, ImageProfile } from '@noodlestan/shared-types';
+import type { ImageFile, ImageProfile } from '@noodlestan/shared-types';
 import sharp from 'sharp';
 
 import { PUBLIC_ASSETS_DIR } from '../../env';

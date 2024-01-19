@@ -1,1 +1,1 @@
-export * from './ThemsTokensProvider';
+export * from './ThemeTokensProvider';

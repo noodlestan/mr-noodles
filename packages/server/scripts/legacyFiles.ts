@@ -2,12 +2,11 @@ import { existsSync } from 'fs';
 import { readdir, rename } from 'fs/promises';
 import { basename, parse, resolve } from 'path';
 
-import { readExif } from '../src/agents/photos/utils/readExif';
-import { dateFromExifDate } from '../src/controllers/photos/functions/dateFromExifDate';
-import { SCAN_EXTENSIONS } from '../src/env';
+import { readExif } from '../src/agents/files/utils/readExif';
+import { dateFromExifDate } from '../src/controllers/files/functions/dateFromExifDate';
+import { IMAGE_EXTENSIONS } from '../src/env';
 
 const SOURCE = '/mnt/data/Noodlestan/Andre/NewPhotos';
-// const extensions = [...SCAN_EXTENSIONS, '.mp4', '.mpeg', '.mpg', '.avi', '.m4v', '.mov'];
 
 const getFiles = async (dir: string): Promise<string[]> => {
     const dirents = await readdir(dir, { withFileTypes: true });
@@ -22,7 +21,7 @@ const getFiles = async (dir: string): Promise<string[]> => {
 
 const getDateFromExif = async (filename: string): Promise<Date | undefined> => {
     const { ext } = parse(filename);
-    if (SCAN_EXTENSIONS.includes(ext.toLowerCase())) {
+    if (IMAGE_EXTENSIONS.includes(ext.toLowerCase())) {
         const exif = await readExif(filename);
         const date = exif && dateFromExifDate(exif);
         return date;
@@ -110,7 +109,7 @@ const main = async () => {
         const { dir, ext } = parse(filename);
 
         const name = date.toISOString().replaceAll(':', '-').replace('.000Z', '').replace('T', ' ');
-        const sufix = SCAN_EXTENSIONS.includes(ext.toLowerCase()) ? '-image' : '-video';
+        const sufix = IMAGE_EXTENSIONS.includes(ext.toLowerCase()) ? '-image' : '-video';
 
         const tagMatches = name.match(/\+([\w\s]+)/i);
         const tag = tagMatches ? '+' + tagMatches[1].trim() : '';

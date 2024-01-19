@@ -1,7 +1,8 @@
 import { lstat } from 'fs/promises';
 
+import type { Root } from '@noodlestan/shared-types';
+
 import { log } from '../../../logger';
-import { Root } from '../../types';
 
 import { dropDir } from './dropDir';
 

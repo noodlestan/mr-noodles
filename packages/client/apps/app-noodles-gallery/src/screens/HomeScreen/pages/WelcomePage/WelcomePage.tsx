@@ -1,4 +1,4 @@
-import { UserModel } from '@noodlestan/shared-types';
+import type { UserNoodle } from '@noodlestan/shared-types';
 import { Display } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
@@ -24,8 +24,8 @@ export const WelcomePage: Component = () => {
 
     onMount(() => window.setTimeout(() => mainRef?.focus()));
 
-    const handleUserClick = (user: UserModel) => {
-        bus.emit({ name: 'selectUser', value: user });
+    const handleUserClick = (user: UserNoodle) => {
+        bus.emit({ name: 'setCurrentUserId', value: user.id });
     };
 
     useBeforeLeave(ev => {

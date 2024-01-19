@@ -1,5 +1,5 @@
 import { inject } from '@noodlestan/ui-services';
-import { Accessor, createEffect, on } from 'solid-js';
+import { Accessor, createEffect, on, onCleanup } from 'solid-js';
 
 import { ModalsService } from '../services';
 import { ModalOptions } from '../types';
@@ -10,6 +10,12 @@ export const useModalShowEffect = (
     options: ModalOptions,
 ): void => {
     const { addModal, deleteModal } = inject(ModalsService);
+
+    onCleanup(() => {
+        if (show()) {
+            deleteModal(id);
+        }
+    });
 
     createEffect(
         on(show, (value, previous) => {

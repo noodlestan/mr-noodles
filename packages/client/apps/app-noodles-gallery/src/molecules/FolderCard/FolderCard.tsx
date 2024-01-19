@@ -1,4 +1,4 @@
-import type { FolderData } from '@noodlestan/shared-types';
+import type { FolderNoodle } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Surface } from '@noodlestan/ui-surfaces';
@@ -14,7 +14,7 @@ import { makeImageUrl } from '@/services/Images/makeImageUrl';
 import './FolderCard.css';
 
 export type FolderCardProps = {
-    item: FolderData;
+    item: FolderNoodle;
 };
 
 export const FolderCard: Component<FolderCardProps> = props => {

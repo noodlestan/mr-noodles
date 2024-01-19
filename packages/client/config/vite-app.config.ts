@@ -20,8 +20,9 @@ No known conditions for "./vite" specifier in "solid-devtools" package [plugin e
       */
 // import devtools from 'solid-devtools/vite';
 
-export const makeViteConfig = (dir: string): UserConfig => {
+export const makeViteConfig = (dir: string, config: UserConfig = {}): UserConfig => {
     return defineConfig({
+        ...config,
         plugins: [
             // devtools({
             //     autoname: true,

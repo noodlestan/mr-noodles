@@ -2,7 +2,7 @@ import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
 import { SkeletonText } from '@noodlestan/ui-skeletons';
-import { useNavigate, useSearchParams } from '@solidjs/router';
+import { useSearchParams } from '@solidjs/router';
 import { X } from 'lucide-solid';
 import { Component, For, Show } from 'solid-js';
 
@@ -75,7 +75,7 @@ export const FoldersBreadcrumbs: Component = () => {
     const [searchParams] = useSearchParams();
     const rootUrl = () => useUrl(searchParams, '/folders');
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const classList = () => ({
         FoldersBreadcrumbs: true,
@@ -90,13 +90,7 @@ export const FoldersBreadcrumbs: Component = () => {
                     </Show>
                     <Show when={folder()}>
                         <span class="FoldersBreadcrumbPart">
-                            <IconButton
-                                icon={X}
-                                variant="plain"
-                                size="s"
-                                href={rootUrl()}
-                                onTap={() => navigate(rootUrl())}
-                            />
+                            <IconButton icon={X} variant="plain" size="s" href={rootUrl()} />
                         </span>
                         <For each={titleParts()}>
                             {(part, index) => (

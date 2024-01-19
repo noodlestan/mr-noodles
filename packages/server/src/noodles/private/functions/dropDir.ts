@@ -1,9 +1,10 @@
 import { lstat, readdir, rm } from 'fs/promises';
 import { join } from 'path';
 
+import type { Root } from '@noodlestan/shared-types';
+
 import { NOODLES_DB_EXT } from '../../../env';
 import { log } from '../../../logger';
-import { Root } from '../../types';
 
 import { isDataFile } from './isDataFile';
 

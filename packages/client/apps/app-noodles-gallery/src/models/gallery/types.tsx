@@ -1,4 +1,4 @@
-import type { PhotoModel } from '@noodlestan/shared-types';
+import type { ImageNoodle } from '@noodlestan/shared-types';
 
 export type GalleryGroupAttributesFolder = {
     groupBy: 'folder';
@@ -22,7 +22,7 @@ export type GalleryGroupItem = {
 };
 
 export type GallerySubGroupItem = {
-    rows?: PhotoModel[][];
+    rows?: ImageNoodle[][];
     attributes: GalleryGroupAttributes;
 };
 

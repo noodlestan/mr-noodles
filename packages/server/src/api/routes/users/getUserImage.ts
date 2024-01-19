@@ -1,7 +1,7 @@
 import { join } from 'path';
 
+import type { UserNoodle } from '@noodlestan/shared-types';
 import {
-    UserModel,
     selectImageByProfile,
     selectProfileByHeight,
     selectProfileByName,
@@ -9,8 +9,8 @@ import {
 import { NextFunction, Request, Response } from 'express';
 
 import { addImageToUser } from '../../../controllers/users/addImageToUser';
-import { getNoodleById, noodleExists } from '../../../noodles';
 import { PUBLIC_ASSETS_DIR } from '../../../env';
+import { getNoodleById, noodleExists } from '../../../noodles';
 import { USER_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
@@ -28,7 +28,7 @@ export const getUserImage = async (
             return;
         }
 
-        const user = getNoodleById<UserModel>(req.params.id);
+        const user = getNoodleById<UserNoodle>(req.params.id);
         const height = Number(req.query.h);
         const profileName = String(req.query.p);
         const profile =

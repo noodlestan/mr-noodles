@@ -1,4 +1,4 @@
-import type { IGroup, PhotoData } from '@noodlestan/shared-types';
+import type { IGroup, ImageNoodle } from '@noodlestan/shared-types';
 
 import { GalleryOptions } from '../../types';
 
@@ -31,7 +31,7 @@ export const groupTuplesToGroups = (
         }
         return {
             attributes,
-            rows: makeRows(subGroupOrItems as PhotoData[], options.rows),
+            rows: makeRows(subGroupOrItems as ImageNoodle[], options.rows),
         } as GallerySubGroupItem;
     });
 };

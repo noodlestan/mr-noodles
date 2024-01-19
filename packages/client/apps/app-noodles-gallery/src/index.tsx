@@ -2,6 +2,8 @@ import { RootProvider } from '@noodlestan/ui-root';
 import { BaseTheme } from '@noodlestan/ui-theme-base';
 import { render } from 'solid-js/web';
 
+import { SystemUIProvider, createSystemUIContext } from './providers/SystemUI';
+
 import { App } from '@/app/App';
 
 const root = document.getElementById('root') as HTMLElement;
@@ -13,12 +15,20 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 }
 
 const themes = () => [BaseTheme];
+const systemUIContext = createSystemUIContext();
+const { colourScheme } = systemUIContext;
 
-render(
-    () => (
-        <RootProvider themes={themes()} theme="base" surface="stage">
-            <App />
-        </RootProvider>
-    ),
-    root,
-);
+render(() => {
+    return (
+        <SystemUIProvider {...systemUIContext}>
+            <RootProvider
+                themes={themes()}
+                colourScheme={colourScheme()}
+                theme="base"
+                surface="stage"
+            >
+                <App />
+            </RootProvider>
+        </SystemUIProvider>
+    );
+}, root);

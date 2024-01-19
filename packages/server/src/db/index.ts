@@ -1,15 +1,20 @@
+import type { Root } from '@noodlestan/shared-types';
+import { mappers } from '@noodlestan/shared-types';
+
 import { findUsers } from '../controllers/users/findUsers';
 import { NOODLES_DB_PATH } from '../env';
-import { mappers } from '../models/mappers';
-import { addUserFolder, connect } from '../noodles';
+import { addUserRoot, connect } from '../noodles';
 export { disconnect } from '../noodles';
 
-export const connectSystemRoot = async (): Promise<void> => {
-    return connect(NOODLES_DB_PATH, mappers);
+export const connectSystemRoot = async (doHardScan?: boolean): Promise<Root> => {
+    return connect(NOODLES_DB_PATH, mappers, doHardScan);
 };
 
-export const connectAllRoots = async (): Promise<void> => {
-    await connectSystemRoot();
+export const connectAllRoots = async (doHardScan?: boolean): Promise<void> => {
+    await connectSystemRoot(doHardScan);
     const users = findUsers();
-    users.forEach(user => user.folders?.forEach(f => addUserFolder(f, user.id)));
+    const p = users.flatMap(
+        user => user.roots?.map(root => addUserRoot(root, user.id, doHardScan)),
+    );
+    await Promise.all(p);
 };

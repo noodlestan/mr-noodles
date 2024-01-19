@@ -1,4 +1,4 @@
-import { FolderModel } from '@noodlestan/shared-types';
+import type { FolderNoodle } from '@noodlestan/shared-types';
 import { EventBus } from '@solid-primitives/event-bus';
 import { Accessor } from 'solid-js';
 
@@ -22,7 +22,7 @@ export type FoldersNavigationContextState = {
     bus: EventBus<FoldersNavigationEvent>;
     showAllItems: Accessor<boolean>;
     isModal: Accessor<boolean>;
-    previous: Accessor<FolderModel | undefined>;
-    current: Accessor<FolderModel | undefined>;
-    next: Accessor<FolderModel | undefined>;
+    previous: Accessor<FolderNoodle | undefined>;
+    current: Accessor<FolderNoodle | undefined>;
+    next: Accessor<FolderNoodle | undefined>;
 };

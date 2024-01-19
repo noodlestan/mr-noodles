@@ -3,6 +3,7 @@
     --squeeze-height: 500px;
     overflow: hidden;
     height: var(--squeeze-height);
+    min-height: var(--squeeze-height);
     transition: all var(--squeeze-duration) ease-in;
 }
 

@@ -1,4 +1,4 @@
-import { PhotoData } from '@noodlestan/shared-types';
+import type { ImageNoodle } from '@noodlestan/shared-types';
 import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { X } from 'lucide-solid';
 import { Component } from 'solid-js';
@@ -10,7 +10,7 @@ import { useGalleryNavigationContext } from '@/providers/GalleryNavigation';
 import './ModalItemHeader.css';
 
 export type ModalItemHeaderProps = {
-    item: PhotoData;
+    item: ImageNoodle;
     show: boolean;
 };
 

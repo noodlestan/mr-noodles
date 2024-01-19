@@ -1,10 +1,12 @@
 import { GlobalStyleProvider } from '@noodlestan/ui-styles';
 import { Component, JSX } from 'solid-js';
 
-import { ThemsStylesProvider } from '../../private/providers/ThemsStylesProvider/StylesProvider';
+import { ThemesStylesProvider } from '../../private/providers/ThemesStylesProvider/ThemesStylesProvider';
+import { ColourSchemeName } from '../../types';
 
 export type RootThemesProviderProps = {
     themes: Component[];
+    colourScheme?: ColourSchemeName;
     theme: string;
     surface: string;
     children?: JSX.Element;
@@ -19,9 +21,13 @@ export const RootThemesProvider: Component<RootThemesProviderProps> = props => {
             {props.themes.map(ThemeComponent => (
                 <ThemeComponent />
             ))}
-            <ThemsStylesProvider theme={props.theme} surface={props.surface}>
+            <ThemesStylesProvider
+                colourScheme={props.colourScheme}
+                theme={props.theme}
+                surface={props.surface}
+            >
                 {props.children}
-            </ThemsStylesProvider>
+            </ThemesStylesProvider>
         </>
     );
 };

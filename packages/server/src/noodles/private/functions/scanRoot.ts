@@ -1,14 +1,16 @@
 import { lstat } from 'fs/promises';
 
+import type { Root } from '@noodlestan/shared-types';
+
 import { publish } from '../../../events';
 import { EVENT_SCAN_ERROR, EventScanError, EventScanFile } from '../../../events/scan';
 import { log } from '../../../logger';
-import { Root } from '../../types';
 
 import { scanDir } from './scanDir';
 
 export const scanRoot = async (
     root: Root,
+    isHardScan?: boolean,
     processDataFile?: (event: EventScanFile) => void,
 ): Promise<void> => {
     const { path } = root;
@@ -17,10 +19,11 @@ export const scanRoot = async (
 
     if (!stat.isDirectory()) {
         const error = new Error('not a directory');
-        publish<EventScanError>(EVENT_SCAN_ERROR, { filename: path, root: root.path, error });
+        const event: EventScanError = { filename: path, root, error };
+        publish<EventScanError>(EVENT_SCAN_ERROR, event);
     }
 
-    await scanDir(root, path, processDataFile);
+    await scanDir(root, path, isHardScan, processDataFile);
 
-    log().info('noodlesscanRoot', { path });
+    log().info('noodles:scanRoot', { path });
 };

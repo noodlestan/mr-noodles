@@ -18,8 +18,8 @@ export const UserBar: Component<UserBarProps> = () => {
             <Flex padding="m">
                 <Flex direction="row" gap="l" justify="between" align="center">
                     <Flex direction="row" gap="m">
-                        <MainNavButton icon={SettingsIcon} href="/settings" label="Settings" />
-                        <MainNavButton icon={HeartIcon} href="/favorites" label="Favorites" />
+                        <MainNavButton icon={SettingsIcon} href="/user/settings" label="Settings" />
+                        <MainNavButton icon={HeartIcon} href="/user/favorites" label="Favorites" />
                     </Flex>
                 </Flex>
             </Flex>

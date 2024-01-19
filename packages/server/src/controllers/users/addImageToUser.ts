@@ -1,13 +1,19 @@
-import { ImageFile, UserModel } from '@noodlestan/shared-types';
+import type { ImageFile, UserNoodle } from '@noodlestan/shared-types';
 
 import { getNoodleById, updateNoodle } from '../../noodles';
 
-export const addImageToUser = async (id: string, image: ImageFile): Promise<void> => {
-    const noodle = getNoodleById<UserModel>(id);
+export const addImageToUser = async (id: string, image: ImageFile): Promise<UserNoodle> => {
+    const noodle = getNoodleById<UserNoodle>(id);
 
-    noodle.images = noodle.images || [];
-    noodle.images.push(image);
-    noodle.dateUpdated = new Date();
+    const images = noodle.images || [];
+    images.push(image);
 
-    await updateNoodle(noodle);
+    const dateUpdated = new Date();
+    const updated = {
+        ...noodle,
+        images,
+        dateUpdated,
+    };
+    await updateNoodle(updated);
+    return updated;
 };

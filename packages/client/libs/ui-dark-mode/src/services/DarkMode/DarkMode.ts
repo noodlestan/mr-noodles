@@ -8,6 +8,8 @@ interface DarkModeServiceInterface {
     setDarkMode: (value: boolean) => void;
 }
 
+// CAUTION: Abandoned land see colourScheme in
+
 export const createDarkModeService = (): DarkModeServiceInterface => {
     const { darkMode, setDarkMode } = darModeStore;
 

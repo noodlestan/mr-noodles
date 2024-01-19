@@ -1,4 +1,4 @@
-import { IPagination, ISort } from '@noodlestan/shared-types';
+import type { IPagination, ISort } from '@noodlestan/shared-types';
 import { Request } from 'express';
 
 export const paginationFromQuery = (

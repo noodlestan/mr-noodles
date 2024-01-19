@@ -20,21 +20,21 @@ This is Mr Noodles server.
 - TODO request scan via API (block certain operations while scanning, report on progress back to the UI)
 - indexes all images in the database
 - stores dimensions metadata and geo location extracted from exif
-- when a scan finds that a photo attributes have changed updates them automatically
+- when a scan finds that some file's attributes have changed, it updates them automatically
 - TODO invalidate image automatically
 - stores messages about new scanned files, including processing errors and warnings
-- TODO store `ScanJob` details in `/jobs` instead of individual "photomessages"
+- TODO store `ScanJob` details in `/jobs` instead of individual "filemessages"
 - TODO detect if new scanned files actually already exist under a different filename
 - TODO check for duplicates and expose `/noodles/duplicates`
 
 ### API server
 
 - `/meta` - show info about objects and queues
-- `/photos`
-- `/photos/<id>`
-- `/photos/<id>/img`
-- `/photos/<id>/img?h=500`
-- `/photos/<id>/img?p=thumb.small`
+- `/noodles`
+- `/noodles/<id>`
+- `/noodles/<id>/img`
+- `/noodles/<id>/img?h=500`
+- `/noodles/<id>/img?p=thumb.small`
 - `/folders`
 - `/folders/<id>`
 - `/folders/<id>/img`
@@ -106,14 +106,14 @@ If the build fails with `@noodlestan/shared-types` errors, you might have pulled
 
 ```
 TS Error: Unable to compile TypeScript:
-scripts/populate.ts:4:10 - error TS2305: Module '"@noodlestan/shared-types"' has no exported member 'UserData'.
+scripts/populate.ts:4:10 - error TS2305: Module '"@noodlestan/shared-types"' has no exported member 'UserNoodle'.
 ```
 
 **Note:** run that shared build in watch mode if you are activelly changinging those types. See [shared/types/README.md](../shared/types/README.md) for details.
 
 ### Server fails to start
 
-Check http://localhost:8008/photos for health
+Check http://localhost:8008/files for health
 
 Check logs
 

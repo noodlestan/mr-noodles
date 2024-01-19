@@ -1,14 +1,11 @@
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { FadeIn } from '@noodlestan/ui-transitions';
-import { Squeeze } from '@noodlestan/ui-transitions/src/components/Squeeze';
 import { useBeforeLeave } from '@solidjs/router';
-import { Component, Show, createEffect, onMount } from 'solid-js';
+import { Component, Show, onMount } from 'solid-js';
 
 import { HomeScreenRoutes } from './HomeScreenRoutes';
-import { WelcomePage } from './pages/WelcomePage/WelcomePage';
 
-import { UserBar } from '@/molecules/UserBar/UserBar';
+import { HomeBar } from '@/molecules/HomeBar/HomeBar';
 import { ModalView } from '@/organisms/ModalView/ModalView';
 import { useCurrentUserContext } from '@/providers/CurrentUser';
 import { AppService } from '@/services/App';
@@ -34,25 +31,13 @@ export const HomeScreen: Component = () => {
         }
     });
 
-    const showBar = () => ready() && !!currentUser();
-
-    createEffect(() => {
-        console.log('showBar', showBar());
-        console.log('currentUser', currentUser());
-    });
-
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" class="HomeScreen" ref={mainRef}>
             <Surface variant="stage">
-                <Squeeze when={!!currentUser()} delay={100}>
-                    <WelcomePage />
-                </Squeeze>
-                <Show when={showBar()}>
-                    <UserBar />
-                </Show>
-                <Show when={!!currentUser()}>
+                <Show when={ready()}>
                     <HomeScreenRoutes />
+                    <HomeBar />
                 </Show>
                 <ModalView show={false} onClose={handleModalClose} />
             </Surface>

@@ -1,4 +1,4 @@
-import { photosAgentQueue } from '../src/agents/photos';
+import { filesAgentQueue } from '../src/agents/files';
 import { makeMeta } from '../src/apm';
 import { connectAllRoots, disconnect } from '../src/db';
 import { createLogger } from '../src/logger';
@@ -12,7 +12,7 @@ const shutdown = async () => {
 };
 
 const monitor = async () => {
-    const queue = photosAgentQueue();
+    const queue = filesAgentQueue();
 
     while (queue.length()) {
         await defer(() => undefined, 1000);
@@ -34,12 +34,24 @@ const monitor = async () => {
 //     });
 // };
 
+// const migrateUserRoots = () => {
+//     const users = findUsers();
+//     users.forEach(user => {
+//         if ('folders' in user) {
+//             user.roots = user.folders as UserRoot[];
+//             delete user.folders;
+//             updateNoodle(user);
+//         }
+//     });
+// };
+
 const main = async () => {
     try {
+        // await connectSystemRoot();
         await connectAllRoots();
         logger.info('boot');
         // run migrations here
-        // migrateUserFolders();
+        // migrateUserRoots();
 
         await defer(monitor, 1000);
         logger.info('done');

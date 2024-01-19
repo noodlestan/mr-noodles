@@ -9,6 +9,7 @@ export type DataValueProps = {
     id?: string;
     size?: DataValueSize;
     length?: number | DataValueLength;
+    wrap?: boolean;
     onClick?: () => void;
     classList?: { [key: string]: boolean };
     children?: JSX.Element;
@@ -54,6 +55,7 @@ export const DataValue: Component<DataValueProps> = props => {
         DataValue: true,
         [`DataValue-is-interactive`]: !!props.onClick,
         [`DataValue-size-${size()}`]: true,
+        [`DataValue-wrap`]: !!props.wrap,
     });
 
     const style = () => makeStyle(length());

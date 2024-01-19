@@ -1,4 +1,4 @@
-import { connectSystemRoot } from '../src/db';
+import { connectAllRoots } from '../src/db';
 import { createLogger } from '../src/logger';
 import { dbRoots, disconnect } from '../src/noodles';
 import { dropRoot } from '../src/noodles/private/functions/dropRoot';
@@ -7,7 +7,7 @@ const logger = createLogger('scripts/dropDb');
 
 const main = async () => {
     try {
-        await connectSystemRoot();
+        await connectAllRoots();
         logger.info('boot');
 
         const values = dbRoots().values();

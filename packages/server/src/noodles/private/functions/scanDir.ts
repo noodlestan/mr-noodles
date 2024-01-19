@@ -1,5 +1,7 @@
 import { readdir } from 'fs/promises';
 
+import type { Root } from '@noodlestan/shared-types';
+
 import { publish } from '../../../events';
 import {
     EVENT_SCAN_DIR,
@@ -9,27 +11,29 @@ import {
     EventScanFile,
 } from '../../../events/scan';
 import { log } from '../../../logger';
-import { Root } from '../../types';
 
 import { scanFile } from './scanFile';
 
 export const scanDir = async (
     root: Root,
     dirname: string,
+    isHardScan?: boolean,
     processDataFile?: (event: EventScanFile) => void,
 ): Promise<void> => {
     try {
         const files = await readdir(dirname);
         const relativePath = root.path !== dirname ? dirname.substring(root.path.length || 0) : '.';
 
-        log().debug('noodlesscanDir', { dir: dirname });
+        log().debug('noodles:scanDir', { dir: dirname });
 
-        const scans = files.map(async file => scanFile(root, dirname, file, processDataFile));
+        const scans = files.map(async file =>
+            scanFile(root, dirname, file, isHardScan, processDataFile),
+        );
         await Promise.all(scans);
 
-        publish<EventScanDir>(EVENT_SCAN_DIR, { dirname, root: root.path, relativePath });
+        publish<EventScanDir>(EVENT_SCAN_DIR, { dirname, root, relativePath });
     } catch (err) {
         const error = err as Error;
-        publish<EventScanError>(EVENT_SCAN_ERROR, { filename: dirname, root: root.path, error });
+        publish<EventScanError>(EVENT_SCAN_ERROR, { filename: dirname, root, error });
     }
 };

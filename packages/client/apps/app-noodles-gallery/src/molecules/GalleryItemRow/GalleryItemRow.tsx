@@ -1,4 +1,4 @@
-import type { PhotoModel } from '@noodlestan/shared-types';
+import type { FileNoodle } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Accessor, Component, For } from 'solid-js';
 
@@ -8,7 +8,7 @@ import { GalleryRowOptions } from '@/organisms/Gallery/types';
 import './GalleryItemRow.css';
 
 export type GalleryItemRowProps = {
-    row: Accessor<PhotoModel[]>;
+    row: Accessor<FileNoodle[]>;
     options: Accessor<GalleryRowOptions>;
 };
 

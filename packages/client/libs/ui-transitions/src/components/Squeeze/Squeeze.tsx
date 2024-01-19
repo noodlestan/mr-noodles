@@ -77,6 +77,7 @@ export const Squeeze: Component<SqueezeProps> = (props): JSX.Element => {
     const classList = () => ({
         Squeeze: true,
         'Squeeze-started': started(),
+        [`Squeeze-speed-${props.speed}`]: true,
     });
 
     const style = () => ({

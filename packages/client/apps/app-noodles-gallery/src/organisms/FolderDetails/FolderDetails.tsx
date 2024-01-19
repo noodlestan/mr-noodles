@@ -1,8 +1,10 @@
-import { APIResponse, PhotoModel } from '@noodlestan/shared-types';
+import type { APIResponse, FileNoodle, MediaFileNoodle } from '@noodlestan/shared-types';
 import { Text } from '@noodlestan/ui-atoms';
 import { inject } from '@noodlestan/ui-services';
 import { SkeletonText } from '@noodlestan/ui-skeletons';
 import { Component, Resource, Show } from 'solid-js';
+
+import { mediumDate } from '../../functions/mediumDate';
 
 import { BreadcrumbFolderIcon } from '@/atoms/BreadcrumbFolderIcon/BreadcrumbFolderIcon';
 import { FolderTitle } from '@/molecules/FolderTitle/FolderTitle';
@@ -13,21 +15,22 @@ import './FolderDetails.css';
 
 export type FolderDetailsProps = {
     folder: string;
-    items: Resource<APIResponse<PhotoModel[]>>;
+    items: Resource<APIResponse<FileNoodle[]>>;
 };
 
-const mediumDate = (date?: Date): string => {
-    if (!date) {
-        return 'x';
+const fileDate = (f: FileNoodle): Date => {
+    const media = f as MediaFileNoodle;
+    if (media.dateTaken) {
+        return media.dateTaken;
     }
-    try {
-        return new Intl.DateTimeFormat('en-GB', {
-            dateStyle: 'medium',
-            timeZone: 'Europe/Madrid',
-        }).format(date);
-    } catch (err) {
-        return '';
+    return f.dateCreated;
+};
+
+const maybeFileDate = (f?: FileNoodle): Date | undefined => {
+    if (!f) {
+        return;
     }
+    return fileDate(f);
 };
 
 type DateSpanProps = {
@@ -67,17 +70,15 @@ export const FolderDetails: Component<FolderDetailsProps> = props => {
         }
     };
 
-    // const images =
     const items = () => (props.folder ? props.items()?.data || [] : []);
-    const sortedItems = () =>
-        items().sort((a, b) => a.dateCreated.valueOf() - b.dateCreated.valueOf());
+    const sortedItems = () => items().sort((a, b) => fileDate(a).valueOf() - fileDate(b).valueOf());
     const dateFrom = () => {
         const d = item()?.dateFrom;
         if (d) {
             return d;
         }
         const i = sortedItems();
-        return i[0]?.dateTaken;
+        return maybeFileDate(i[0]);
     };
     const dateUntil = () => {
         const d = item()?.dateUntil;
@@ -85,7 +86,7 @@ export const FolderDetails: Component<FolderDetailsProps> = props => {
             return d;
         }
         const i = sortedItems();
-        return i[i.length - 1]?.dateTaken;
+        return maybeFileDate(i[i.length - 1]);
     };
     const dateCreated = () => {
         const d = item()?.dateCreated;

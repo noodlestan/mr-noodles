@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { PhotoData } from '@noodlestan/shared-types';
+import { ImageNoodle } from '@noodlestan/shared-types';
 import { Modal } from '@noodlestan/ui-dialogs';
 import { Component, createSignal } from 'solid-js';
 
@@ -38,7 +38,7 @@ const ModalViewContents: Component<ModalViewProps> = () => {
     };
 
     const { bus, current } = useGalleryNavigationContext();
-    const item = () => current() as PhotoData;
+    const item = () => current() as ImageNoodle;
 
     // const previousId = () => previous() || '';
     // const nextId = () => next() || '';

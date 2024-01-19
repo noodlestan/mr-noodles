@@ -1,4 +1,4 @@
-import { UserModel } from '@noodlestan/shared-types';
+import type { UserNoodle } from '@noodlestan/shared-types';
 import { Display } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Component } from 'solid-js';
@@ -8,8 +8,8 @@ import { makeImageUrl } from '@/services/Images';
 import './UserButton.css';
 
 type UserButtonProps = {
-    user: UserModel;
-    onClick: (user: UserModel) => void;
+    user: UserNoodle;
+    onClick: (user: UserNoodle) => void;
 };
 
 export const UserButton: Component<UserButtonProps> = props => {

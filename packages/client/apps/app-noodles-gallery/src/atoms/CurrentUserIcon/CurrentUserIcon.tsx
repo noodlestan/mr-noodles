@@ -27,9 +27,11 @@ export const CurrentUserIcon: Component<CurrentUserIconProps> = () => {
         'CurrentUserIcon-is-active': isActive(),
     });
 
+    const title = () => `${currentUser()?.name}'s home page`;
+
     return (
         <Show when={currentUser()}>
-            <a href="/" classList={classList()}>
+            <a href="/" classList={classList()} title={title()}>
                 <span class="CurrentUserIcon--image">
                     <img src={imageUrl()} alt="" />
                 </span>

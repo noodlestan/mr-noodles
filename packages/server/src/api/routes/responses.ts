@@ -1,4 +1,4 @@
-// import { queryToParams } from '@noodlestan/shared-types';
+// import type { queryToParams } from '@noodlestan/shared-types';
 import { NextFunction, Request, Response } from 'express';
 
 export const notFoundHandler = (req: Request, res: Response, next: NextFunction): void => {
@@ -8,6 +8,22 @@ export const notFoundHandler = (req: Request, res: Response, next: NextFunction)
             reason: 'Resource not found ;-)',
         };
         res.status(404).json(error);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const unprocessableHandler = (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    reason?: string,
+): void => {
+    try {
+        const error = {
+            reason: reason || 'Unprocessable :-(',
+        };
+        res.status(422).json(error);
     } catch (error) {
         next(error);
     }

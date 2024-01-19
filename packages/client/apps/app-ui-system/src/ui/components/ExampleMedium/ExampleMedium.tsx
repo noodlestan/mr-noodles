@@ -1,8 +1,7 @@
 import { Button, Display, Icon, IconButton, Label, Link, Text } from '@noodlestan/ui-atoms';
 import { TextInput } from '@noodlestan/ui-forms';
-import LockOffSvg from '@noodlestan/ui-icons/src/assets/icons/lock-off.svg';
-import LockOnSvg from '@noodlestan/ui-icons/src/assets/icons/lock-on.svg';
 import { Flex } from '@noodlestan/ui-layouts';
+import { LockIcon, UnlockIcon } from 'lucide-solid';
 import { Component } from 'solid-js';
 
 import './ExampleMedium.css';
@@ -13,7 +12,7 @@ export const ExampleMedium: Component<ExampleMediumProps> = props => (
     <Flex gap="l" padding="l" classList={{ ExampleSmall: true }}>
         <Flex gap="m">
             <Flex direction="row" align="center">
-                <Icon size="s" icon={LockOnSvg} />
+                <Icon size="s" icon={LockIcon} />
                 <Display level={3}>{props.title}</Display>
             </Flex>
         </Flex>
@@ -22,8 +21,8 @@ export const ExampleMedium: Component<ExampleMediumProps> = props => (
             <TextInput size="s" length="m" value="password" type="password" />
         </Flex>
         <Flex direction="row" gap="m" align="center">
-            <IconButton variant="primary" icon={LockOnSvg} />
-            <IconButton variant="secondary" icon={LockOffSvg} />
+            <IconButton variant="primary" icon={LockIcon} />
+            <IconButton variant="secondary" icon={UnlockIcon} />
             <Button variant="plain">Plain</Button>
         </Flex>
         <Text>

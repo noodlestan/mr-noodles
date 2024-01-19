@@ -1,4 +1,4 @@
-import { IGroup } from '@noodlestan/shared-types';
+import type { IGroup } from '@noodlestan/shared-types';
 
 export type GalleryRowOptions = {
     height: number;

@@ -1,4 +1,4 @@
-import type { IGroup, PhotoModel, PhotoQuery } from '@noodlestan/shared-types';
+import type { FileNoodle, FileQuery, IGroup } from '@noodlestan/shared-types';
 import { Flex } from '@noodlestan/ui-layouts';
 import { createElementSize } from '@solid-primitives/resize-observer';
 import { Accessor, Component, For, Show, createSignal } from 'solid-js';
@@ -12,8 +12,8 @@ import './Gallery.css';
 
 export type GalleryProps = {
     groupBy: Accessor<IGroup[]>;
-    query?: Accessor<PhotoQuery>;
-    items?: Accessor<PhotoModel[]>;
+    query?: Accessor<FileQuery>;
+    items?: Accessor<FileNoodle[]>;
 };
 
 export const Gallery: Component<GalleryProps> = props => {

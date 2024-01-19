@@ -1,4 +1,4 @@
-import { IPagination, ISort, UserFilter, UserModel } from '@noodlestan/shared-types';
+import type { IPagination, ISort, UserFilter, UserNoodle } from '@noodlestan/shared-types';
 
 import { findNoodles } from '../../noodles';
 import { matchPattern } from '../../noodles/functions/matchPattern';
@@ -11,10 +11,10 @@ export const findUsers = (
     filterBy?: UserFilter,
     sort?: ISort[],
     page?: IPagination,
-): UserModel[] => {
+): UserNoodle[] => {
     const { name } = filterBy || {};
 
-    const filter = (n: UserModel) => {
+    const filter = (n: UserNoodle) => {
         if (n.type !== 'user') {
             return false;
         }
@@ -24,5 +24,5 @@ export const findUsers = (
         return true;
     };
 
-    return findNoodles<UserModel>(filter, sort, page);
+    return findNoodles<UserNoodle>(filter, sort, page);
 };
