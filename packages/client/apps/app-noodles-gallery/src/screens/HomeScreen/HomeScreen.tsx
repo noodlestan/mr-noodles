@@ -1,21 +1,19 @@
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { useBeforeLeave } from '@solidjs/router';
-import { Component, Show, onMount } from 'solid-js';
-
-import { HomeScreenRoutes } from './HomeScreenRoutes';
+import { Component, JSX, Show, onMount } from 'solid-js';
 
 import { HomeBar } from '@/molecules/HomeBar/HomeBar';
 import { ModalView } from '@/organisms/ModalView/ModalView';
-import { useCurrentUserContext } from '@/providers/CurrentUser';
 import { AppService } from '@/services/App';
 
 import './HomeScreen.css';
 
-export const HomeScreen: Component = () => {
-    let mainRef: HTMLDivElement | undefined;
+type HomeScreenProps = {
+    children?: JSX.Element;
+};
 
-    const { currentUser } = useCurrentUserContext();
+export const HomeScreen: Component<HomeScreenProps> = props => {
+    let mainRef: HTMLDivElement | undefined;
 
     const handleModalClose = () => {
         // navigationBus?.emit({ name: 'closeModal' });
@@ -25,18 +23,12 @@ export const HomeScreen: Component = () => {
 
     onMount(() => window.setTimeout(() => mainRef?.focus()));
 
-    useBeforeLeave(ev => {
-        if (!currentUser()) {
-            ev.preventDefault();
-        }
-    });
-
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" class="HomeScreen" ref={mainRef}>
             <Surface variant="stage">
                 <Show when={ready()}>
-                    <HomeScreenRoutes />
+                    {props.children}
                     <HomeBar />
                 </Show>
                 <ModalView show={false} onClose={handleModalClose} />

@@ -3,7 +3,6 @@ import { Display } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
 import { FadeIn } from '@noodlestan/ui-transitions';
-import { useBeforeLeave } from '@solidjs/router';
 import { Component, onMount } from 'solid-js';
 
 import { Spinner } from '@/atoms/Spinner/Spinner';
@@ -17,7 +16,7 @@ import './WelcomePage.css';
 export const WelcomePage: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
-    const { bus, currentUser } = useCurrentUserContext();
+    const { bus } = useCurrentUserContext();
 
     const { users } = inject(UsersService);
     const { ready } = inject(AppService);
@@ -27,12 +26,6 @@ export const WelcomePage: Component = () => {
     const handleUserClick = (user: UserNoodle) => {
         bus.emit({ name: 'setCurrentUserId', value: user.id });
     };
-
-    useBeforeLeave(ev => {
-        if (!currentUser()) {
-            ev.preventDefault();
-        }
-    });
 
     return (
         <Flex align="center" justify="start" gap="xl" padding="s" classList={{ WelcomePage: true }}>

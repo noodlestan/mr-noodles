@@ -1,20 +1,18 @@
 import { Surface } from '@noodlestan/ui-surfaces';
 import { FadeIn } from '@noodlestan/ui-transitions';
-import { useBeforeLeave } from '@solidjs/router';
-import { Component, onMount } from 'solid-js';
-
-import { UserScreenRoutes } from './UserScreenRoutes';
+import { Component, JSX, onMount } from 'solid-js';
 
 import { UserBar } from '@/molecules/UserBar/UserBar';
 import { ModalView } from '@/organisms/ModalView/ModalView';
-import { useCurrentUserContext } from '@/providers/CurrentUser';
 
 import './UserScreen.css';
 
-export const UserScreen: Component = () => {
-    let mainRef: HTMLDivElement | undefined;
+type UserScreenProps = {
+    children?: JSX.Element;
+};
 
-    const { currentUser } = useCurrentUserContext();
+export const UserScreen: Component<UserScreenProps> = props => {
+    let mainRef: HTMLDivElement | undefined;
 
     const handleModalClose = () => {
         // navigationBus?.emit({ name: 'closeModal' });
@@ -24,24 +22,16 @@ export const UserScreen: Component = () => {
 
     onMount(() => window.setTimeout(() => mainRef?.focus()));
 
-    useBeforeLeave(ev => {
-        if (!currentUser()) {
-            ev.preventDefault();
-        }
-    });
-
     // const showBar = () => ready() && !!currentUser();
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" class="UserScreen" ref={mainRef}>
             <Surface variant="stage">
-                {/* <Show when={showBar()}> */}
                 <FadeIn speed="fast">
                     <UserBar />
                 </FadeIn>
-                {/* </Show> */}
-                <UserScreenRoutes />
+                {props.children}
                 <ModalView show={false} onClose={handleModalClose} />
             </Surface>
         </main>

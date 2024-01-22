@@ -1,52 +1,42 @@
-import { Route, useNavigate } from '@solidjs/router';
-import { Component, createEffect } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Route } from '@solidjs/router';
+import { Component } from 'solid-js';
 
-import { useCurrentUserContext } from '@/providers/CurrentUser';
+import { RequireNotUser } from './RequireNotUser';
+import { RequireUser } from './RequireUser';
+
 import { FoldersScreen } from '@/screens/FoldersScreen/FoldersScreen';
 import { HomeScreen } from '@/screens/HomeScreen/HomeScreen';
+import { SettingsPage } from '@/screens/HomeScreen/pages/SettingsPage/SettingsPage';
+import { WelcomePage } from '@/screens/HomeScreen/pages/WelcomePage/WelcomePage';
 import { TimelineScreen } from '@/screens/TimelineScreen/TimelineScreen';
 import { UserScreen } from '@/screens/UserScreen/UserScreen';
-
-const requireNotUser = (component: Component): Component => {
-    return function (props) {
-        const { currentUserId } = useCurrentUserContext();
-        const navigate = useNavigate();
-
-        createEffect(() => {
-            if (currentUserId()) {
-                navigate('/user');
-            }
-        });
-        return <Dynamic component={component} {...props} />;
-    };
-};
-
-const requireUser = (component: Component): Component => {
-    return function (props) {
-        const { currentUserId } = useCurrentUserContext();
-        const navigate = useNavigate();
-
-        createEffect(() => {
-            if (!currentUserId()) {
-                navigate('/');
-            }
-        });
-        return <Dynamic component={component} {...props} />;
-    };
-};
+import { UserFavoritesPage } from '@/screens/UserScreen/pages/UserFavoritesPage/UserFavoritesPage';
+import { UserHomePage } from '@/screens/UserScreen/pages/UserHomePage/UserHomePage';
+import { UserSettingsPage } from '@/screens/UserScreen/pages/UserSettingsPage/UserSettingsPage';
 
 export const Routes: Component = () => {
     // const Routes = useRoutes(routes);
     return (
         <>
-            <Route path="/" component={requireNotUser(HomeScreen)} />
-            <Route path="/settings" component={HomeScreen} />
-            <Route path="/user/" component={requireUser(UserScreen)} />
-            <Route path="/user/favorites" component={requireUser(UserScreen)} />
-            <Route path="/user/settings" component={requireUser(UserScreen)} />
-            <Route path="/timeline" component={requireUser(TimelineScreen)} />
-            <Route path="/folders/*parent" component={requireUser(FoldersScreen)} />
+            <Route path="/" component={RequireNotUser}>
+                <Route path="/" component={HomeScreen}>
+                    <Route path="/" component={WelcomePage} />
+                    <Route path="/settings" component={SettingsPage} />
+                </Route>
+            </Route>
+            <Route path="/" component={RequireUser}>
+                <Route path="/user" component={UserScreen}>
+                    <Route path="/" component={UserHomePage} />
+                    <Route path="/favorites" component={UserFavoritesPage} />
+                    <Route path="/settings" component={UserSettingsPage} />
+                </Route>
+                <Route path="/timeline">
+                    <Route path="/" component={TimelineScreen} />
+                </Route>
+                <Route path="/folders">
+                    <Route path="/*parent" component={FoldersScreen} />
+                </Route>
+            </Route>
         </>
     );
 };

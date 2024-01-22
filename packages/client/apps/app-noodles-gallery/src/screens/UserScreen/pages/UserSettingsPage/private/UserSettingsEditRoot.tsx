@@ -2,7 +2,7 @@ import type { Root, UserNoodle, UserRoot } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
 import { Component, createSignal } from 'solid-js';
 
-import { UserDeleteDialog } from './UserDeleteDialog';
+import { DeleteUserRootDialog } from './DeleteUserRootDialog';
 import { UserSettingsRootForm } from './UserSettingsRootForm';
 
 import { useCurrentUserContext } from '@/providers/CurrentUser';
@@ -56,7 +56,7 @@ export const UserSettingsEditRoot: Component<UserSettingsEditRootProps> = props 
                 onSave={handleSave}
                 onCancel={handleCancel}
             />
-            <UserDeleteDialog
+            <DeleteUserRootDialog
                 show={showDeleteDialog()}
                 root={props.root}
                 onDone={handleDialogDone}

@@ -1,23 +1,23 @@
 import type { UserNoodle, UserRoot } from '@noodlestan/shared-types';
-import { Banner, Button, Display, Icon, IconButton, Text } from '@noodlestan/ui-atoms';
+import { Banner, Button, DataValue, Display, Icon, IconButton, Text } from '@noodlestan/ui-atoms';
 import { ModalDialog } from '@noodlestan/ui-dialogs';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
-import { MessageSquareWarning, TrashIcon, X } from 'lucide-solid';
+import { AlertTriangleIcon, TrashIcon, X } from 'lucide-solid';
 import { Component, Show } from 'solid-js';
 
 import { useCurrentUserContext } from '@/providers/CurrentUser';
 import { UsersService } from '@/services/Users';
 
-import './UserDeleteDialog.css';
+import './DeleteUserRootDialog.css';
 
-type UserDeleteDialogProps = {
+type DeleteUserRootDialogProps = {
     show: boolean;
     root: UserRoot;
     onDone: () => void;
 };
 
-export const UserDeleteDialog: Component<UserDeleteDialogProps> = props => {
+export const DeleteUserRootDialog: Component<DeleteUserRootDialogProps> = props => {
     const { useDeleteUserRoot } = inject(UsersService);
     const { currentUser } = useCurrentUserContext();
 
@@ -37,12 +37,12 @@ export const UserDeleteDialog: Component<UserDeleteDialogProps> = props => {
     };
 
     return (
-        <ModalDialog show={props.show} onClose={handleDialogClose}>
-            <Flex align="stretch" classList={{ UserDeleteDialog: true }}>
-                <Flex gap="xl" classList={{ 'UserDeleteDialog--content': true }}>
+        <ModalDialog size="m" show={props.show} onClose={handleDialogClose}>
+            <Flex align="stretch" classList={{ DeleteUserRootDialog: true }}>
+                <Flex gap="xl" classList={{ 'DeleteUserRootDialog--content': true }}>
                     <Flex direction="row" gap="l" align="center" justify="between">
                         <Flex direction="row" gap="s">
-                            <Icon size="l" icon={MessageSquareWarning} />
+                            <Icon size="l" icon={AlertTriangleIcon} />
                             <Display level={3}>Are you sure?</Display>
                         </Flex>
                         <IconButton
@@ -52,8 +52,23 @@ export const UserDeleteDialog: Component<UserDeleteDialogProps> = props => {
                             label="Close Dialog"
                         />
                     </Flex>
+                    <Text>
+                        You are about to remove your{' '}
+                        <DataValue length={'auto'} wrap>
+                            "{props.root.name}"
+                        </DataValue>{' '}
+                        folder:{' '}
+                        <DataValue length={'auto'} wrap>
+                            {props.root.path}
+                        </DataValue>
+                        .
+                    </Text>
                     <Text>This action can not be undone.</Text>
-                    <Text>Even if you add back the folder later some data may be lost.</Text>
+                    <Text>
+                        {' '}
+                        You can always add the folder later but any data meanwhile captured by
+                        Mr.Noodles mayb be lost.
+                    </Text>
                 </Flex>
                 <Flex gap="m">
                     <Show when={error()}>

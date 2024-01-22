@@ -1,0 +1,7 @@
+.DeleteUserRootDialog {
+    height: 100%;
+}
+
+.DeleteUserRootDialog--content {
+    flex: 1;
+}
