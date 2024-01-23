@@ -7,5 +7,6 @@ export * from './Noodles';
 export * from './Users';
 export * from './Video';
 
+export * from './functions/stripRootPath';
 export * from './mappers';
 export * from './types';

@@ -16,11 +16,9 @@ export function applyFileUpdates<T extends MediaFileNoodle>(
     changed: boolean;
     value: T;
 } {
-    const { filename } = event;
     const { orientation = file.orientation, width = file.width, height = file.height } = meta;
 
     let changed = false;
-    changed = changed || event.filename !== file.filename;
     changed = changed || orientation !== file.orientation;
     changed = changed || width !== file.width;
     changed = changed || height !== file.height;
@@ -37,7 +35,6 @@ export function applyFileUpdates<T extends MediaFileNoodle>(
         changed,
         value: {
             ...file,
-            filename,
             hash: hash || file.hash,
             dateHashed,
             orientation,

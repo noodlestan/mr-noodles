@@ -7,16 +7,12 @@ export const createFolderFromDirname = async (
     dirname: string,
     root: Root,
 ): Promise<FolderNoodle> => {
-    const folder = createFolder(
-        {
-            filename: dirname,
-        },
-        root,
-    );
+    const folder = createFolder({}, root, dirname);
+
     if (noodleExists(folder.id)) {
         return getNoodleById<FolderNoodle>(folder.id);
     }
-    await addNoodle(folder);
 
+    await addNoodle(folder);
     return folder;
 };

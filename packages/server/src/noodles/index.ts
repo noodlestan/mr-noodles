@@ -1,15 +1,16 @@
 import { mkdir, readFile, unlink, writeFile } from 'fs/promises';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 
-import type {
-    IPagination,
-    ISort,
-    Mapper,
-    Noodle,
-    Noodles,
-    Root,
-    Roots,
-    UserRoot,
+import {
+    type IPagination,
+    type ISort,
+    type Mapper,
+    type Noodle,
+    type Noodles,
+    type Root,
+    type Roots,
+    type UserRoot,
+    stripRootPath,
 } from '@noodlestan/shared-types';
 import { queue as CreateQueue, QueueObject } from 'async';
 
@@ -148,7 +149,7 @@ const addRoot = async (root: Root, isHardScan?: boolean): Promise<void> => {
     }
 
     if (writable && !exists) {
-        roots.set(path, root);
+        roots.set(root.id, root);
         await scanRoot(root, isHardScan, processDataFile);
     }
 };
@@ -174,13 +175,13 @@ const addUserRoot = async (
 
 const addNoodle = async (noodle: Noodle): Promise<void> => {
     const { filename } = noodle;
-    validateOp(roots, noodle);
 
     if (noodles.has(noodle.id)) {
         throw new Error(`noodles:addNoodle:duplicate noodle id "${noodle.id}"`);
     }
+    const root = validateOp(roots, noodle);
+    const dataFile = dataFilename(root, noodle, filename);
 
-    const dataFile = dataFilename(noodle, filename);
     await mkdir(dirname(dataFile), { recursive: true });
     await writeFile(dataFile, JSON.stringify(noodle));
     noodles.set(noodle.id, noodle);
@@ -190,9 +191,10 @@ const addNoodle = async (noodle: Noodle): Promise<void> => {
 
 const updateNoodle = async (noodle: Noodle): Promise<void> => {
     const { filename } = noodle;
-    validateOp(roots, noodle);
 
-    const dataFile = dataFilename(noodle, filename);
+    const root = validateOp(roots, noodle);
+    const dataFile = dataFilename(root, noodle, filename);
+
     await mkdir(dirname(dataFile), { recursive: true });
     await writeFile(dataFile, JSON.stringify(noodle));
     noodles.set(noodle.id, noodle);
@@ -202,12 +204,13 @@ const updateNoodle = async (noodle: Noodle): Promise<void> => {
 
 const deleteNoodle = async (noodle: Noodle): Promise<void> => {
     const { filename } = noodle;
-    validateOp(roots, noodle);
 
-    const dataFile = dataFilename(noodle, filename);
+    const root = validateOp(roots, noodle);
+    const dataFile = dataFilename(root, noodle, filename);
+
     await unlink(dataFile);
-
     noodles.delete(filename);
+
     log().debug('noodles:deleteNoodle', { filename, dataFile });
 };
 
@@ -243,8 +246,17 @@ function findNoodle<T extends Noodle>(filterFn: (n: T) => boolean): T | undefine
     return values.find(filterFn);
 }
 
-function findNoodleByFilename<T extends Noodle>(filename: string): T | undefined {
-    return findNoodle<T>(n => n.filename === filename);
+function findNoodleByFilename<T extends Noodle>(root: Root, filename: string): T | undefined {
+    const actualFilename = stripRootPath(root, filename);
+    return findNoodle<T>(n => n.root === root.id && n.filename === actualFilename);
+}
+
+function getFilenameOnRoot(rootId: string, filename: string): string {
+    const root = roots.get(rootId);
+    if (!root) {
+        throw new Error(`Unknown root "${rootId}".`);
+    }
+    return join(root.path, filename);
 }
 
 const connect = async (path: string, _mappers: Mapper[], doHardScan?: boolean): Promise<Root> => {
@@ -297,6 +309,7 @@ export {
     findNoodles,
     findNoodle,
     findNoodleByFilename,
+    getFilenameOnRoot,
     exportNoodle,
     connect,
     disconnect,

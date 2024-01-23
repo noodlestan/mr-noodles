@@ -20,7 +20,7 @@ export type Noodle = {
 export type Noodles = Map<string, Noodle>;
 
 export type Matcher = (data: unknown) => boolean;
-export type Factory = (data: unknown, root: Root) => Noodle;
+export type Factory = (data: unknown, root: Root, filename?: string) => Noodle;
 export type Importer = (data: unknown) => Noodle;
 export type Exporter = (noodle: Noodle) => unknown;
 

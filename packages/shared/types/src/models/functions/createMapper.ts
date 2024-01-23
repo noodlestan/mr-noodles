@@ -3,7 +3,7 @@ import { Mapper, Noodle, Root } from '../types';
 export function createMapper<T extends Noodle>(
     name: string,
     matcher: (data: T) => boolean,
-    factory: (data: T, root: Root) => T,
+    factory: (data: T, root: Root, filename?: string) => T,
     importer: (data: T) => T,
     exporter: (noodle: T) => T,
 ): Mapper {

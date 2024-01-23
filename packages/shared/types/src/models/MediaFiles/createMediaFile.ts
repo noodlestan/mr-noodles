@@ -4,8 +4,12 @@ import { Root } from '../types';
 import { importMediaFileData } from './importMediaFileData';
 import { MediaFileNoodle } from './types';
 
-export function createMediaFile<T extends MediaFileNoodle>(data: Partial<T>, root: Root): T {
-    const file = createFile<T>(data, root);
+export function createMediaFile<T extends MediaFileNoodle>(
+    data: Partial<T>,
+    root: Root,
+    absoluteFilename?: string,
+): T {
+    const file = createFile<T>(data, root, absoluteFilename);
 
     const { hash, orientation, width, height, ...mediaFile } = importMediaFileData(data);
 

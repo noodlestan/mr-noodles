@@ -7,7 +7,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 
 import { addImageToFile } from '../../../controllers/files/addImageToFile';
-import { getNoodleById, noodleExists } from '../../../noodles';
+import { getFilenameOnRoot, getNoodleById, noodleExists } from '../../../noodles';
 import { GALLERY_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
@@ -41,7 +41,8 @@ export const getFileImage = async (
             return;
         }
 
-        const image = await makeImage(photo.filename, photo.id, profile);
+        const filename = getFilenameOnRoot(photo.root, photo.filename);
+        const image = await makeImage(filename, photo.id, profile);
         await addImageToFile(photo.id, image);
 
         const imageData = await readImageFile(image.f);

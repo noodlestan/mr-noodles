@@ -1,8 +1,13 @@
 import md5 from 'md5';
 
-export const generateId = (value: string): string => {
-    if (!value) {
+import { Root } from '../types';
+
+export const generateId = (root: Root, filename: string): string => {
+    if (!filename) {
         throw new Error('Can not generate id from empty string');
     }
-    return md5(value);
+    if (!root.id) {
+        throw new Error('Invalid root (empty id)');
+    }
+    return md5(root.id + filename);
 };

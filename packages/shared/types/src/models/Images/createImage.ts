@@ -4,8 +4,12 @@ import { Root } from '../types';
 import { importImageData } from './importImageData';
 import { ImageNoodle } from './types';
 
-export const createImage = (data: Partial<ImageNoodle>, root: Root): ImageNoodle => {
-    const file = createMediaFile(data, root);
+export const createImage = (
+    data: Partial<ImageNoodle>,
+    root: Root,
+    absoluteFilename?: string,
+): ImageNoodle => {
+    const file = createMediaFile(data, root, absoluteFilename);
 
     const image = importImageData(data);
 

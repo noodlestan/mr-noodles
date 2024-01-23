@@ -12,6 +12,8 @@ export const getFiles = async (req: Request, res: Response, next: NextFunction):
     try {
         const { ...query } = req.query;
 
+        console.log(req.query);
+
         const page = paginationFromQuery(query, FILES_PAGE_SIZE_DEFAULT, FILES_PAGE_MAX);
         res.setHeader('x-meta-page-no', `${page?.page}`);
         res.setHeader('x-meta-page-size', `${page?.size}`);

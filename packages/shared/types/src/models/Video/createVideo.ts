@@ -4,8 +4,12 @@ import { Root } from '../types';
 import { importVideoData } from './importVideoData';
 import { VideoNoodle } from './types';
 
-export const createVideo = (data: Partial<VideoNoodle>, root: Root): VideoNoodle => {
-    const mediaFile = createMediaFile(data, root);
+export const createVideo = (
+    data: Partial<VideoNoodle>,
+    root: Root,
+    absoluteFilename?: string,
+): VideoNoodle => {
+    const mediaFile = createMediaFile(data, root, absoluteFilename);
 
     const video = importVideoData(data);
 

@@ -10,7 +10,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { addImageToUser } from '../../../controllers/users/addImageToUser';
 import { PUBLIC_ASSETS_DIR } from '../../../env';
-import { getNoodleById, noodleExists } from '../../../noodles';
+import { getFilenameOnRoot, getNoodleById, noodleExists } from '../../../noodles';
 import { USER_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
@@ -49,7 +49,8 @@ export const getUserImage = async (
             return;
         }
 
-        const image = await makeImage(user.avatar, user.id, profile);
+        const avatarFilename = getFilenameOnRoot(user.root, user.avatar);
+        const image = await makeImage(avatarFilename, user.id, profile);
         await addImageToUser(user.id, image);
 
         const imageData = await readImageFile(image.f);

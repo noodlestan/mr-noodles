@@ -17,20 +17,17 @@ export const createVideoFromScanEvent = async (
 ): Promise<void> => {
     const exifDate = exif && dateFromExifDate(exif);
     const dateTaken = exifDate ? exifDate.toISOString() : undefined;
-
     const location = exif && latLongFromExifGps(exif);
+
     const data = {
         hash,
-        // TODO store hash date
-        // hashDate: new Date(),
-        filename: event.filename,
         dateTaken,
         orientation: meta.orientation || 0,
         width: meta.width,
         height: meta.height,
         location,
     };
-    const photo = createVideo(data as Partial<VideoNoodle>, event.root);
+    const photo = createVideo(data as Partial<VideoNoodle>, event.root, event.filename);
 
     await addNoodle(photo);
 

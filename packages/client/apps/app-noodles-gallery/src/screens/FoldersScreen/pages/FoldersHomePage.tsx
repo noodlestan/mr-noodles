@@ -30,7 +30,7 @@ export const FoldersHomePage: Component<FoldersHomePageProps> = props => {
     const { showAllItems } = navigationContext;
 
     const query = () => ({ filterBy: { folder: params.parent } });
-    const [resource] = createFilesResource(query);
+    const [filesResource] = createFilesResource(query);
 
     return (
         <Surface variant="stage">
@@ -40,10 +40,10 @@ export const FoldersHomePage: Component<FoldersHomePageProps> = props => {
                 <Show when={!loading()}>
                     <FoldersBreadcrumbs />
                     <Show when={params.parent}>
-                        <FolderDetails folder={params.parent} items={resource} />
+                        <FolderDetails folder={params.parent} items={filesResource} />
                         <FolderItems
                             folder={params.parent}
-                            items={resource}
+                            items={filesResource}
                             toggleVisibility={props.items().length > 0}
                             showAllItems={showAllItems()}
                         />

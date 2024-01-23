@@ -31,7 +31,9 @@ export const scanDir = async (
         );
         await Promise.all(scans);
 
-        publish<EventScanDir>(EVENT_SCAN_DIR, { dirname, root, relativePath });
+        if (isHardScan) {
+            publish<EventScanDir>(EVENT_SCAN_DIR, { dirname, root, relativePath });
+        }
     } catch (err) {
         const error = err as Error;
         publish<EventScanError>(EVENT_SCAN_ERROR, { filename: dirname, root, error });

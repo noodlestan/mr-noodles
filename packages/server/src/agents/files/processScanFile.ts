@@ -22,7 +22,7 @@ const processImageFile = async (event: EventScanFile) => {
     const exif = await readExif(event.filename);
     const buff = await file.toBuffer();
 
-    const image = findNoodleByFilename<ImageNoodle>(event.filename);
+    const image = findNoodleByFilename<ImageNoodle>(event.root, event.filename);
 
     if (image !== undefined) {
         // TODO optional
@@ -40,7 +40,7 @@ const procesVideoFile = async (event: EventScanFile) => {
     const exif = await readExif(event.filename);
     const buff = await file.toBuffer();
 
-    const video = findNoodleByFilename<VideoNoodle>(event.filename);
+    const video = findNoodleByFilename<VideoNoodle>(event.root, event.filename);
 
     if (video !== undefined) {
         // TODO optional

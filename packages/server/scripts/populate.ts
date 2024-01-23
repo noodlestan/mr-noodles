@@ -40,13 +40,11 @@ const main = async () => {
         for (const key in data) {
             const user = data[key] as UserNoodle;
             const { name } = user;
-            const avatarTarget = join(NOODLES_DB_PATH, 'avatars', `${name}.jpg`);
 
-            const filename = join(NOODLES_DB_PATH, 'users', `${name}`);
             const roots = user.roots?.map(root => {
                 return {
                     date: new Date(),
-                    id: md5(`${root.name}${Math.random()}`),
+                    id: md5(`populate:user:${user.name}:root:${root.name}`),
                     name: root.name,
                     path: resolve(join('../../', root.path)),
                 };
@@ -54,14 +52,13 @@ const main = async () => {
 
             const data_ = {
                 ...user,
-                filename,
-                avatar: avatarTarget,
+                avatar: join('/avatars', `${name}.jpg`),
                 roots,
             };
             const noodle = createUser(data_, root);
             await addNoodle(noodle);
 
-            // const exists = findNoodleByFilename(filename);
+            // const exists = findNoodleByFilename(systemRoot, filename);
             // if (exists) {
             //     const updated = { ...exists, roots };
             //     await updateNoodle(updated);

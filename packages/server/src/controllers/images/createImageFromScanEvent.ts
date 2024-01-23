@@ -16,20 +16,17 @@ export const createImageFromScanEvent = async (
 ): Promise<void> => {
     const exifDate = exif && dateFromExifDate(exif);
     const dateTaken = exifDate ? exifDate.toISOString() : undefined;
-
     const location = exif && latLongFromExifGps(exif);
+
     const data = {
         hash,
-        // TODO store hash date
-        // hashDate: new Date(),
-        filename: event.filename,
         dateTaken,
         orientation: meta.orientation || 0,
         width: meta.width,
         height: meta.height,
         location,
     };
-    const image = createImage(data as Partial<ImageNoodle>, event.root);
+    const image = createImage(data as Partial<ImageNoodle>, event.root, event.filename);
 
     await addNoodle(image);
 

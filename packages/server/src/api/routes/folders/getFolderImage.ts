@@ -9,7 +9,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 
 import { addImageToFolder } from '../../../controllers/folders/addImageToFolder';
-import { findNoodles, getNoodleById, noodleExists } from '../../../noodles';
+import { findNoodles, getFilenameOnRoot, getNoodleById, noodleExists } from '../../../noodles';
 import { FOLDER_IMAGE_PROFILES } from '../../../services/images/constants';
 import { imageFileExists } from '../../../services/images/imageFileExists';
 import { makeImage } from '../../../services/images/makeImage';
@@ -43,13 +43,16 @@ export const getFolderImage = async (
             return;
         }
 
-        const photos = findNoodles(n => dirname(n.filename) === folder.filename);
-
+        const photos = findNoodles(
+            n => n.root === folder.root && dirname(n.filename) === folder.filename,
+        );
         if (!photos.length) {
             notFoundHandler(req, res, next);
             return;
         }
-        const image = await makeImage(photos[0].filename, photos[0].id, profile);
+
+        const avatarFilename = getFilenameOnRoot(photos[0].root, photos[0].filename);
+        const image = await makeImage(avatarFilename, photos[0].id, profile);
         await addImageToFolder(folder.id, image);
 
         const imageData = await readImageFile(image.f);
