@@ -1,5 +1,5 @@
-import { ImageFile } from '../ImageProfiles/types';
-import { LatLong, Noodle } from '../types';
+import { ImageFile } from '../ImageProfiles/types.js';
+import { LatLong, Noodle } from '../types.js';
 
 export interface BaseNoodle extends Noodle {
     dateCreated: Date;

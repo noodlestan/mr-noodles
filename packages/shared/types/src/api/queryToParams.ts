@@ -1,4 +1,4 @@
-import { QueryParams } from '../query';
+import { QueryParams } from '../query/index.js';
 
 export const queryToParams = (query?: QueryParams): QueryParams | undefined => {
     const params: QueryParams = {};

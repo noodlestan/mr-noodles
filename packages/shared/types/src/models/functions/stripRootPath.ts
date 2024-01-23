@@ -1,4 +1,4 @@
-import { Root } from '../types';
+import { Root } from '../types.js';
 
 const doubleSlash = /\/\//g;
 

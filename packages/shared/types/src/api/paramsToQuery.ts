@@ -1,4 +1,4 @@
-import { QueryParam, QueryParams } from '../query';
+import { QueryParam, QueryParams } from '../query/index.js';
 
 export const encodeURIValue = (value: QueryParam): string => {
     return encodeURIComponent(value as string);

@@ -15,7 +15,7 @@ export const ModalItem: Component<ModalItemProps> = props => {
         ModalItem: true,
     });
 
-    const url = () => makeImageUrl('files', props.item, 'full.fast');
+    const url = () => makeImageUrl('file', props.item, 'full.fast');
 
     return (
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions

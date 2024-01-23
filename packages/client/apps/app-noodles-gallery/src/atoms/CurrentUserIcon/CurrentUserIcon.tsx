@@ -17,7 +17,7 @@ export const CurrentUserIcon: Component<CurrentUserIconProps> = () => {
 
     const imageUrl = () => {
         const user = currentUser();
-        return user ? makeImageUrl('users', user, 'thumb.small') : '';
+        return user ? makeImageUrl('user', user, 'thumb.small') : '';
     };
 
     const isActive = () => location.pathname === '/' || false;

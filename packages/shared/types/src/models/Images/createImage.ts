@@ -1,8 +1,8 @@
-import { createMediaFile } from '../MediaFiles';
-import { Root } from '../types';
+import { createMediaFile } from '../MediaFiles/index.js';
+import { Root } from '../types.js';
 
-import { importImageData } from './importImageData';
-import { ImageNoodle } from './types';
+import { importImageData } from './importImageData.js';
+import { ImageNoodle } from './types.js';
 
 export const createImage = (
     data: Partial<ImageNoodle>,

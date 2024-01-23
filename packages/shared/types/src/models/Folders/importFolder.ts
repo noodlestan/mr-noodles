@@ -1,7 +1,7 @@
-import { importNoodle } from '../Noodles';
+import { importNoodle } from '../Noodles/index.js';
 
-import { importFolderData } from './importFolderData';
-import { FolderNoodle } from './types';
+import { importFolderData } from './importFolderData.js';
+import { FolderNoodle } from './types.js';
 
 export const importFolder = (data: FolderNoodle): FolderNoodle => {
     const noodle = importNoodle<FolderNoodle>(data);

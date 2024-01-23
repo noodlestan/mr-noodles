@@ -1,4 +1,4 @@
-import { ImageProfile } from '../types';
+import { ImageProfile } from '../types.js';
 
 export const selectProfileByHeight = (
     profiles: ImageProfile[] | undefined,

@@ -1,5 +1,5 @@
-import { FileNoodle } from '../Files';
-import { HashableNoodle, SizeableNoodle } from '../Noodles';
+import { FileNoodle } from '../Files/index.js';
+import { HashableNoodle, SizeableNoodle } from '../Noodles/index.js';
 
 export interface MediaFileNoodle extends FileNoodle, HashableNoodle, SizeableNoodle {
     type: 'file';

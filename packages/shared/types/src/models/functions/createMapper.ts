@@ -1,4 +1,4 @@
-import { Mapper, Noodle, Root } from '../types';
+import { Mapper, Noodle, Root } from '../types.js';
 
 export function createMapper<T extends Noodle>(
     name: string,

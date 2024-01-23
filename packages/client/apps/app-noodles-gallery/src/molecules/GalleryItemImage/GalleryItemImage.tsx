@@ -12,7 +12,7 @@ export type GalleryItemImageProps = {
 };
 
 export const GalleryItemImage: Component<GalleryItemImageProps> = props => {
-    const imageUrl = () => makeImageUrl('files', props.item, 'thumb.small');
+    const imageUrl = () => makeImageUrl('file', props.item, 'thumb.small');
 
     return (
         <div class="GalleryItemImage">

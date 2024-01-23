@@ -1,4 +1,4 @@
-import { ImageFile, ImageProfile } from '../types';
+import { ImageFile, ImageProfile } from '../types.js';
 
 export const selectImageByProfile = (
     images: ImageFile[] | undefined,

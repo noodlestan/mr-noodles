@@ -1,5 +1,5 @@
-import { ISort } from '../../query';
-import { BaseNoodle } from '../Noodles/types';
+import { ISort } from '../../query/index.js';
+import { BaseNoodle } from '../Noodles/types.js';
 
 export type UserRoot = {
     date: Date;

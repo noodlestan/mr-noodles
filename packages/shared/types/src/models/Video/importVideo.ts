@@ -1,7 +1,7 @@
-import { importMediaFile } from '../MediaFiles';
+import { importMediaFile } from '../MediaFiles/index.js';
 
 import { importVideoData } from './importVideoData';
-import { VideoNoodle } from './types';
+import { VideoNoodle } from './types.js';
 
 export const importVideo = (data: VideoNoodle): VideoNoodle => {
     const file = importMediaFile<VideoNoodle>(data);

@@ -1,4 +1,4 @@
-import { ImageProfile } from '../types';
+import { ImageProfile } from '../types.js';
 
 export const selectProfileByName = (profiles: ImageProfile[], name: string): ImageProfile => {
     const sorted = profiles?.sort((a, b) => a.height - b.height) || [];

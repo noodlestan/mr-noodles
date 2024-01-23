@@ -13,7 +13,7 @@ type UserButtonProps = {
 };
 
 export const UserButton: Component<UserButtonProps> = props => {
-    const imageUrl = () => makeImageUrl('users', props.user, 'thumb.small');
+    const imageUrl = () => makeImageUrl('user', props.user, 'thumb.small');
 
     return (
         <button onClick={() => props.onClick(props.user)} class="UserButton">

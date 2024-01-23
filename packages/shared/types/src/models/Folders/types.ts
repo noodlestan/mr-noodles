@@ -1,4 +1,4 @@
-import { BaseNoodle } from '../Noodles/types';
+import { BaseNoodle } from '../Noodles/types.js';
 
 export interface FolderNoodle extends BaseNoodle {
     type: 'folder';

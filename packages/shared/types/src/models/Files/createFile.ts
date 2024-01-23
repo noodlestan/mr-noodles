@@ -1,9 +1,9 @@
-import { createNoodle } from '../Noodles';
-import { stripRootPath } from '../functions/stripRootPath';
-import { Root } from '../types';
+import { createNoodle } from '../Noodles/index.js';
+import { stripRootPath } from '../functions/stripRootPath.js';
+import { Root } from '../types.js';
 
 import { importFileData } from './importFileData';
-import { FileNoodle } from './types';
+import { FileNoodle } from './types.js';
 
 export function createFile<T extends FileNoodle>(
     data: Partial<T>,

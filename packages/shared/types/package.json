@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -11,8 +12,9 @@
     "build-esm": "tsc -p tsconfig.build.esm.json",
     "build-cjs": "tsc -p tsconfig.build.cjs.json",
     "lint": "prettier . -c && eslint . && tsc --noEmit",
-    "watch-ts": "tsc -w -p tsconfig.build.json",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript\" -c \"cyan.bold\" \"npm run watch-ts\""
+    "watch-esm": "tsc -w -p tsconfig.build.esm.json",
+    "watch-cjs": "tsc -w -p tsconfig.build.cjs.json",
+    "watch": "concurrently -k -p \"[{name}]\" -n ESM,CommonJS -c \"cyan.bold\",\"yellow.bold\" \"npm run watch-esm\" \"npm run watch-cjs\""
   },
   "dependencies": {
     "@types/md5": "^2.3.5",

@@ -1,7 +1,7 @@
-import { importNoodle } from '../Noodles';
+import { importNoodle } from '../Noodles/index.js';
 
-import { importUserData } from './importUserData';
-import { UserNoodle } from './types';
+import { importUserData } from './importUserData.js';
+import { UserNoodle } from './types.js';
 
 export const importUser = (data: UserNoodle): UserNoodle => {
     const noodle = importNoodle<UserNoodle>(data);

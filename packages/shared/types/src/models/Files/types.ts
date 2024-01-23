@@ -1,5 +1,5 @@
-import { ISort } from '../../query';
-import { BaseNoodle, LocatableNoodle } from '../Noodles/types';
+import { ISort } from '../../query/index.js';
+import { BaseNoodle, LocatableNoodle } from '../Noodles/types.js';
 
 export interface FileNoodle extends LocatableNoodle, BaseNoodle {
     type: 'file';

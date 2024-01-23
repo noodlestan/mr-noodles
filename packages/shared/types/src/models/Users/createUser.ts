@@ -1,8 +1,8 @@
-import { createNoodle } from '../Noodles';
-import { Root } from '../types';
+import { createNoodle } from '../Noodles/index.js';
+import { Root } from '../types.js';
 
-import { importUserData } from './importUserData';
-import { UserNoodle } from './types';
+import { importUserData } from './importUserData.js';
+import { UserNoodle } from './types.js';
 
 export const createUser = (data: Partial<UserNoodle>, root: Root): UserNoodle => {
     const filename = `/users/${data.name}`;

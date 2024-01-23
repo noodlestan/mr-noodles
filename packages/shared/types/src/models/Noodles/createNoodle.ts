@@ -1,8 +1,8 @@
-import { generateId } from '../functions/generateId';
-import { Root } from '../types';
+import { generateId } from '../functions/generateId.js';
+import { Root } from '../types.js';
 
-import { importNoodleData } from './importNoodleData';
-import { BaseNoodle } from './types';
+import { importNoodleData } from './importNoodleData.js';
+import { BaseNoodle } from './types.js';
 
 export function createNoodle<T extends BaseNoodle>(data: Partial<T>, root: Root): T {
     const { id, filename, dateCreated, dateUpdated, ...rest } = importNoodleData(data);

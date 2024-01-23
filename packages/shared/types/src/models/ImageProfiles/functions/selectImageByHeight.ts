@@ -1,4 +1,4 @@
-import { ImageFile } from '../types';
+import { ImageFile } from '../types.js';
 
 export const selectImageByHeight = (
     images: ImageFile[] | undefined,

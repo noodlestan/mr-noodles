@@ -1,5 +1,5 @@
-import { VideoNoodle, createVideo, exportVideo, importVideo } from './Video';
-import { createMapper } from './functions/createMapper';
+import { VideoNoodle, createVideo, exportVideo, importVideo } from './Video/index.js';
+import { createMapper } from './functions/createMapper.js';
 
 import {
     FolderNoodle,
@@ -14,7 +14,7 @@ import {
     importFolder,
     importImage,
     importUser,
-} from '.';
+} from './index.js';
 
 export const mapUser = createMapper<UserNoodle>(
     'user',

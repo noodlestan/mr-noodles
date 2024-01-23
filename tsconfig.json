@@ -7,7 +7,6 @@
     /* Modules */
     "module": "commonjs",
     "rootDir": ".",
-    "resolveJsonModule": true,
     /* JavaScript Support */
     "allowJs": true,
     /* Emit */

@@ -66,7 +66,7 @@ export const FolderDetails: Component<FolderDetailsProps> = props => {
     const imageUrl = () => {
         const i = item();
         if (i) {
-            return makeImageUrl('folders', i, 'thumb.small');
+            return makeImageUrl('folder', i, 'thumb.small');
         }
     };
 

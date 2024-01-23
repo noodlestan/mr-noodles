@@ -44,7 +44,7 @@ export const FolderCard: Component<FolderCardProps> = props => {
 
     const [searchParams] = useSearchParams();
     const url = () => useUrl(searchParams, `/folders/${props.item.slug}`);
-    const imageUrl = () => makeImageUrl('folders', props.item, 'thumb.small');
+    const imageUrl = () => makeImageUrl('folder', props.item, 'thumb.small');
     const title = () => props.item.title || '';
     const label = () => `Folder. ${title()}. Press to open details.`;
 

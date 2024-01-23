@@ -1,8 +1,8 @@
-import { createMediaFile } from '../MediaFiles';
-import { Root } from '../types';
+import { createMediaFile } from '../MediaFiles/index.js';
+import { Root } from '../types.js';
 
 import { importVideoData } from './importVideoData';
-import { VideoNoodle } from './types';
+import { VideoNoodle } from './types.js';
 
 export const createVideo = (
     data: Partial<VideoNoodle>,

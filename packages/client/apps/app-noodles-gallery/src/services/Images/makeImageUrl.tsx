@@ -1,5 +1,8 @@
 import type { ImageFile } from '@noodlestan/shared-types';
 
+import { ASSETS_BASE_URL } from '@/env';
+import { API_ENDPOINTS } from '@/resources/endpoints';
+
 export const selectImageByProfile = (
     images: ImageFile[] | undefined,
     profile: string,
@@ -9,13 +12,17 @@ export const selectImageByProfile = (
 
 // TODO convert to interface in shared/types
 type ItemWithImages = { id: string; images?: ImageFile[] };
-type ResourceType = 'folders' | 'files' | 'users';
+type ResourceTypeWithImages = 'folder' | 'file' | 'user';
 
 export const makeImageUrl = (
-    resourceType: ResourceType,
+    resourceType: ResourceTypeWithImages,
     item: ItemWithImages,
     profile: string,
 ): string => {
     const image = selectImageByProfile(item.images, profile);
-    return image ? image.f : `http://localhost:8008/${resourceType}/${item.id}/img?p=${profile}`;
+    if (image) {
+        return ASSETS_BASE_URL + '/' + image.f;
+    }
+    const endpoint = `${resourceType}Image` as 'fileImage' | 'folderImage' | 'userImage';
+    return API_ENDPOINTS[endpoint](item.id, profile);
 };

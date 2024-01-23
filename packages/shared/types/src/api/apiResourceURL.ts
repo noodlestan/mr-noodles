@@ -1,4 +1,4 @@
-import type { QueryParams } from '../query';
+import type { QueryParams } from '../query/index.js';
 
 import { paramsToQuery } from './paramsToQuery';
 

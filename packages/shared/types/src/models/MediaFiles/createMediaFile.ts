@@ -1,8 +1,8 @@
-import { createFile } from '../Files';
-import { Root } from '../types';
+import { createFile } from '../Files/index.js';
+import { Root } from '../types.js';
 
-import { importMediaFileData } from './importMediaFileData';
-import { MediaFileNoodle } from './types';
+import { importMediaFileData } from './importMediaFileData.js';
+import { MediaFileNoodle } from './types.js';
 
 export function createMediaFile<T extends MediaFileNoodle>(
     data: Partial<T>,

@@ -1,6 +1,6 @@
-export * from './functions/selectImageByHeight';
-export * from './functions/selectProfileByHeight';
-export * from './functions/selectImageByProfile';
-export * from './functions/selectProfileByName';
+export * from './functions/selectImageByHeight.js';
+export * from './functions/selectProfileByHeight.js';
+export * from './functions/selectImageByProfile.js';
+export * from './functions/selectProfileByName.js';
 
-export * from './types';
+export * from './types.js';
