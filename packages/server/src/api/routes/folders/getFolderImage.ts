@@ -1,6 +1,6 @@
 import { dirname } from 'path';
 
-import type { FolderNoodle } from '@noodlestan/shared-types';
+import type { FolderNoodle, ImageNoodle } from '@noodlestan/shared-types';
 import {
     selectImageByProfile,
     selectProfileByHeight,
@@ -43,16 +43,20 @@ export const getFolderImage = async (
             return;
         }
 
-        const photos = findNoodles(
-            n => n.root === folder.root && dirname(n.filename) === folder.filename,
+        const photos = findNoodles<ImageNoodle>(
+            n =>
+                n.type === 'file' &&
+                n.mediaType === 'image' &&
+                n.root === folder.root &&
+                dirname(n.filename) === folder.filename,
         );
         if (!photos.length) {
             notFoundHandler(req, res, next);
             return;
         }
 
-        const avatarFilename = getFilenameOnRoot(photos[0].root, photos[0].filename);
-        const image = await makeImage(avatarFilename, photos[0].id, profile);
+        const imageFilename = getFilenameOnRoot(photos[0].root, photos[0].filename);
+        const image = await makeImage(imageFilename, photos[0].id, profile);
         await addImageToFolder(folder.id, image);
 
         const imageData = await readImageFile(image.f);

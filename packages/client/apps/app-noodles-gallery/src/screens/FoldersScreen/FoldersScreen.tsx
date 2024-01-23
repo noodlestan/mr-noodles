@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { inject } from '@noodlestan/ui-services';
 import { useNavigate, useParams, useSearchParams } from '@solidjs/router';
-import { Component, Show, createEffect, on } from 'solid-js';
+import { Component, Show, batch, createEffect, on } from 'solid-js';
 
 import { FoldersHomePage } from './pages/FoldersHomePage';
 
@@ -29,27 +29,31 @@ export const FoldersScreen: Component = () => {
     const { createQueryContext } = inject(FoldersQueryService);
     const queryContext = createQueryContext(params.parent, searchParams.search);
 
-    const subFolders = () => searchFolders(params.parent || '', searchParams.search);
+    const subFolders = () => {
+        const subs = searchFolders(params.parent || '', searchParams.search);
+        return subs;
+    };
     const navigationContext = createFoldersNavigationContext(subFolders);
     const { bus } = navigationContext;
 
     createEffect(() => {
-        const parent = params.parent;
+        const { setSearchTerms } = queryContext;
         const { setParent } = queryContext;
-        setParent(parent);
+        const search = searchParams.search;
+        const parent = params.parent;
+        batch(() => {
+            setSearchTerms(search);
+            setParent(parent);
+        });
     });
 
-    createEffect(() => {
-        const search = searchParams.search;
-        const { setSearchTerms } = queryContext;
-        setSearchTerms(search);
-    });
+    createEffect(() => {});
 
     createEffect(
         on(
             () => params.parent,
-            (value, previous) => {
-                if (value !== previous) {
+            (is, was) => {
+                if (is !== was) {
                     bus.emit({ name: 'showSubFolders' });
                     // TODO invstigate better: the setTimeout was needed here because when navigation via links browser sets focus on <body> element
                     window.setTimeout(() => {

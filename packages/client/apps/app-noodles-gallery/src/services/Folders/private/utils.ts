@@ -4,7 +4,7 @@ export const searchByParent = (items: FolderNoodle[], parent: string): FolderNoo
     const parentIndex = (parent && parent.split('/').length) || 0;
     return items.filter(folder => {
         const isSubFolder = folder.filename.startsWith(parent || '');
-        const slugLevel = folder.filename.split('/').length;
+        const slugLevel = folder.filename.split('/').length - 1;
         return isSubFolder && slugLevel === parentIndex + 1;
     });
 };
