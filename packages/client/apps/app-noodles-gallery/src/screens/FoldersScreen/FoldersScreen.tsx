@@ -1,20 +1,21 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { inject } from '@noodlestan/ui-services';
 import { useNavigate, useParams, useSearchParams } from '@solidjs/router';
-import { Component, Show, batch, createEffect, on } from 'solid-js';
+import { Component, Show, batch, createEffect, createMemo, on } from 'solid-js';
 
 import { FoldersHomePage } from './pages/FoldersHomePage';
 
 import { Spinner } from '@/atoms/Spinner/Spinner';
 import { useUrl } from '@/navigation/useUrl';
+import { useCurrentUserContext } from '@/providers/CurrentUser';
 import {
     FoldersNavigationProvider,
     createFoldersNavigationContext,
 } from '@/providers/FoldersNavigation';
 import { FoldersQueryProvider } from '@/providers/FoldersQuery';
+import { createFoldersQueryContext } from '@/providers/FoldersQuery/createFoldersQueryContext';
 import { AppService } from '@/services/App';
 import { FoldersService } from '@/services/Folders';
-import { FoldersQueryService } from '@/services/FoldersQuery';
 
 import './FoldersScreen.css';
 
@@ -22,32 +23,35 @@ export const FoldersScreen: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
     const { ready } = inject(AppService);
-    const { searchFolders } = inject(FoldersService);
+    const { searchFolders, loading: loadingFolders } = inject(FoldersService);
+
+    const { currentUserId } = useCurrentUserContext();
 
     const params = useParams();
     const [searchParams] = useSearchParams();
-    const { createQueryContext } = inject(FoldersQueryService);
-    const queryContext = createQueryContext(params.parent, searchParams.search);
+    const foldersQueryContext = createFoldersQueryContext(
+        params.root,
+        params.parent ? `/${decodeURIComponent(params.parent)}` : undefined,
+        searchParams.search,
+    );
+    const { root, parent, textSearch } = foldersQueryContext;
 
-    const subFolders = () => {
-        const subs = searchFolders(params.parent || '', searchParams.search);
-        return subs;
-    };
+    const subFolders = createMemo(() => {
+        const ownerId = currentUserId();
+        return searchFolders(ownerId, root(), parent(), textSearch());
+    });
+
     const navigationContext = createFoldersNavigationContext(subFolders);
     const { bus } = navigationContext;
 
     createEffect(() => {
-        const { setSearchTerms } = queryContext;
-        const { setParent } = queryContext;
-        const search = searchParams.search;
-        const parent = params.parent;
+        const { setRoot, setParent, setTextSearch } = foldersQueryContext;
         batch(() => {
-            setSearchTerms(search);
-            setParent(parent);
+            setRoot(params.root);
+            setParent(params.parent ? `/${decodeURIComponent(params.parent)}` : undefined);
+            setTextSearch(searchParams.search);
         });
     });
-
-    createEffect(() => {});
 
     createEffect(
         on(
@@ -65,11 +69,12 @@ export const FoldersScreen: Component = () => {
     );
 
     const rootUrl = () => useUrl(searchParams, '/folders');
+
     const parentUrl = () => {
         if (params.parent) {
             const parts = params.parent.split('/');
-            const slug = parts.slice(0, -1).join('/');
-            return useUrl(searchParams, `/folders/${slug}`);
+            const path = '/' + parts.slice(0, -1).join('/');
+            return useUrl(searchParams, `/folders/${root()}${path}`);
         } else {
             return rootUrl();
         }
@@ -93,8 +98,11 @@ export const FoldersScreen: Component = () => {
             <Spinner size="l" when={!ready()} />
             <Show when={ready()}>
                 <FoldersNavigationProvider {...navigationContext}>
-                    <FoldersQueryProvider context={queryContext}>
-                        <FoldersHomePage items={subFolders} />
+                    <FoldersQueryProvider {...foldersQueryContext}>
+                        <Spinner when={loadingFolders()} size="l" />
+                        <Show when={!loadingFolders()}>
+                            <FoldersHomePage folders={subFolders} />
+                        </Show>
                     </FoldersQueryProvider>
                 </FoldersNavigationProvider>
             </Show>

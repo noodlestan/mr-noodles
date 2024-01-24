@@ -4,11 +4,11 @@ import { importVideoData } from './importVideoData';
 import { VideoNoodle } from './types.js';
 
 export const importVideo = (data: VideoNoodle): VideoNoodle => {
-    const file = importMediaFile<VideoNoodle>(data);
-    const video = importVideoData(data);
+    const mediaFile = importMediaFile<VideoNoodle>(data);
+    const video = importVideoData(mediaFile);
 
     return {
-        ...file,
+        ...mediaFile,
         ...video,
     };
 };

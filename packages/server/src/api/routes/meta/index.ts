@@ -1,3 +1,4 @@
+import { exportRoot } from '@noodlestan/shared-types';
 import { Router } from 'express';
 
 import { makeMeta } from '../../../apm';
@@ -11,8 +12,8 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/roots', async (req, res) => {
-    const r = dbRoots();
-    res.json([...r.values()]);
+    const roots = [...dbRoots().values()];
+    res.json({ results: roots.map(exportRoot) });
 });
 
 export { router as metaRouter };

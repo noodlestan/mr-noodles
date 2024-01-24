@@ -34,7 +34,7 @@ export const Routes: Component = () => {
                     <Route path="/" component={TimelineScreen} />
                 </Route>
                 <Route path="/folders">
-                    <Route path="/*parent" component={FoldersScreen} />
+                    <Route path="/:root?/*parent" component={FoldersScreen} />
                 </Route>
             </Route>
         </>

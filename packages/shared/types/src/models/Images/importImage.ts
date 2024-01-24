@@ -4,11 +4,11 @@ import { importImageData } from './importImageData';
 import { ImageNoodle } from './types.js';
 
 export const importImage = (data: ImageNoodle): ImageNoodle => {
-    const file = importMediaFile<ImageNoodle>(data);
-    const image = importImageData(data);
+    const mediaFile = importMediaFile<ImageNoodle>(data);
+    const image = importImageData(mediaFile);
 
     return {
-        ...file,
+        ...mediaFile,
         ...image,
     };
 };

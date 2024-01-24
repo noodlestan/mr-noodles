@@ -5,7 +5,7 @@ import { MediaFileNoodle } from './types.js';
 
 export function importMediaFile<T extends MediaFileNoodle>(data: T): T {
     const file = importFile<T>(data);
-    const mediaFile = importMediaFileData(data);
+    const mediaFile = importMediaFileData(file);
 
     return {
         ...file,

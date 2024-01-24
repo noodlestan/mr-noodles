@@ -3,6 +3,7 @@ import { API_BASE_URL } from '@/env';
 const url = (path: string) => API_BASE_URL + path;
 
 export const API_ENDPOINTS = {
+    roots: (): string => url(`/meta/roots`),
     files: (): string => url(`/files`),
     fileImage: (id: string, profile: string): string => url(`/files/${id}/img?p=${profile}`),
     folders: (): string => url(`/folders`),

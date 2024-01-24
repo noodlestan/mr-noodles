@@ -21,6 +21,8 @@ export const ModalItemHeader: Component<ModalItemHeaderProps> = props => {
 
     // TODO abstract
     // const date = () => (props.item.date ? new Date(props.item.date).toString() : '');
+
+    // TODO show "folder icon + root name" before the file name (requires knowing root name from the root id at props.item.root)
     const name = () => props.item.filename;
 
     const classList = () => ({
@@ -30,7 +32,10 @@ export const ModalItemHeader: Component<ModalItemHeaderProps> = props => {
 
     return (
         <div classList={classList()}>
-            <Display level={4}> size="m"{name()}</Display>
+            <Display level={4} size="m">
+                {' '}
+                {name()}
+            </Display>
             <GallerySelectionBar />
             <IconButton variant="plain" size="s" onClick={handleCloseClick} icon={X} />
         </div>

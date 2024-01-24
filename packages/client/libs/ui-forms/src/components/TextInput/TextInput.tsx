@@ -79,7 +79,11 @@ export const TextInput: Component<TextInputProps> = props => {
         }
     };
 
+    const handleKeyPress = (ev: KeyboardEvent) => {
+        ev.stopPropagation();
+    };
     const handleKeyDown = (ev: KeyboardEvent) => {
+        ev.stopPropagation();
         if (ev.key === 'Escape') {
             cancel();
         } else if (ev.key === 'Enter') {
@@ -112,6 +116,7 @@ export const TextInput: Component<TextInputProps> = props => {
             onInput={handleInput}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            onKeyPress={handleKeyPress}
             onKeyDown={handleKeyDown}
             classList={classList()}
             style={style()}

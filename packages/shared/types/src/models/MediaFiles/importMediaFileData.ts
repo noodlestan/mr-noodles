@@ -6,8 +6,8 @@ export const importMediaFileData = (data: Partial<MediaFileNoodle>): Partial<Med
     const { dateHashed, dateTaken, ...rest } = data;
 
     return {
+        ...rest,
         dateHashed: importDate(dateHashed) || new Date(),
         dateTaken: importDate(dateTaken),
-        ...rest,
     };
 };

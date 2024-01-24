@@ -15,7 +15,7 @@ export type FoldersQueryBarProps = {
 };
 
 export const FoldersQueryBar: Component<FoldersQueryBarProps> = () => {
-    const { searchTerms, setSearchTerms } = useFoldersQueryContext();
+    const { textSearch, setTextSearch } = useFoldersQueryContext();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, setParams] = useSearchParams();
@@ -29,10 +29,10 @@ export const FoldersQueryBar: Component<FoldersQueryBarProps> = () => {
         <Flex classList={classList()} direction="row" gap="m" align="center">
             <TextInput
                 size="s"
-                value={searchTerms()}
+                value={textSearch()}
                 onValueChange={value => {
                     setParams({ search: value });
-                    setSearchTerms(value);
+                    setTextSearch(value);
                 }}
             />
             <IconButton size="s" variant="plain" icon={SearchIcon} onClick={handleClick} />

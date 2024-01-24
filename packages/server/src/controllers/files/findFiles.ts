@@ -17,16 +17,22 @@ export function findFiles<T extends MediaFileNoodle>(
     sort?: ISort[],
     page?: IPagination,
 ): T[] {
-    const { filename, folder, title, dateFrom, dateUntil } = filterBy;
+    const { root, owner, filename, folder, title, dateFrom, dateUntil } = filterBy;
 
     const filter = (n: FileNoodle) => {
         if (n.type !== 'file') {
             return false;
         }
+        if (root !== undefined && n.root !== root) {
+            return false;
+        }
+        if (owner !== undefined && n.owner !== owner) {
+            return false;
+        }
         if (!matchPattern(basename(n.filename), filename)) {
             return false;
         }
-        if (!matchPattern(dirname(n.filename), folder)) {
+        if (folder !== undefined && dirname(n.filename) !== folder) {
             return false;
         }
         if (!matchPattern(n.title, title)) {

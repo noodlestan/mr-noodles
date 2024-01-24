@@ -1,7 +1,8 @@
-import { Display } from '@noodlestan/ui-atoms';
+import { Display, IconButton } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
+import { ArrowLeftIcon } from 'lucide-solid';
 import { Component, Show } from 'solid-js';
 
 import { Spinner } from '@/atoms/Spinner/Spinner';
@@ -17,7 +18,10 @@ export const SettingsPage: Component = () => {
             <Spinner size="l" when={!ready()} />
             <Show when={ready()}>
                 <Flex gap="m" padding="l" align="stretch">
-                    <Display level={2}>Settings</Display>
+                    <Flex direction="row" align="center" justify="between">
+                        <Display level={2}>Settings</Display>
+                        <IconButton href="/" variant="plain" icon={ArrowLeftIcon} />
+                    </Flex>
                     <Surface variant="page">
                         <Flex gap="m" padding="l" align="stretch">
                             Settings

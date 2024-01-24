@@ -6,6 +6,8 @@ export interface FileNoodle extends LocatableNoodle, BaseNoodle {
 }
 
 export interface FileFilter {
+    root?: string;
+    owner?: string;
     id?: string;
     filename?: string;
     mediaType?: string;

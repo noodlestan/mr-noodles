@@ -6,8 +6,8 @@ export const importUserData = (data: Partial<UserNoodle>): Partial<UserNoodle> =
     const { citizen, dateCitizen, ...rest } = data;
 
     return {
+        ...rest,
         citizen: !!citizen,
         dateCitizen: importDate(dateCitizen),
-        ...rest,
     } as UserNoodle;
 };

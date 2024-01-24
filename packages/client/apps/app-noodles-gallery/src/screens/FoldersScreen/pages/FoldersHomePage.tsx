@@ -2,8 +2,9 @@
 import type { FolderNoodle } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { useParams } from '@solidjs/router';
 import { Accessor, Component, Show } from 'solid-js';
+
+import { FoldersPlaceholder } from './components/FoldersPlaceholder';
 
 import { FoldersBar } from '@/molecules/FoldersBar/FoldersBar';
 import { FoldersBreadcrumbs } from '@/molecules/FoldersBreadcrumbs/FoldersBreadcrumbs';
@@ -12,45 +13,59 @@ import { FolderDetails } from '@/organisms/FolderDetails/FolderDetails';
 import { FolderItems } from '@/organisms/FolderItems/FolderItems';
 import { Folders } from '@/organisms/Folders/Folders';
 import { useFoldersNavigationContext } from '@/providers/FoldersNavigation';
-import { createFilesResource } from '@/resources/File/createFilesResource';
+import { useFoldersQueryContext } from '@/providers/FoldersQuery';
+import { createFilesResource } from '@/resources/Files/createFilesResource';
 import { FoldersService } from '@/services/Folders';
 
 import './FoldersHomePage.css';
 
 export type FoldersHomePageProps = {
-    items: Accessor<FolderNoodle[]>;
+    folders: Accessor<FolderNoodle[]>;
 };
 
 export const FoldersHomePage: Component<FoldersHomePageProps> = props => {
-    const { loading } = inject(FoldersService);
+    const { parent, root, textSearch } = useFoldersQueryContext();
 
-    const params = useParams();
-
+    const { getFolderByFilename } = inject(FoldersService);
     const navigationContext = useFoldersNavigationContext();
     const { showAllItems } = navigationContext;
 
-    const query = () => ({ filterBy: { folder: params.parent } });
+    const query = () => ({ filterBy: { root: root(), folder: parent() || '/' } });
     const [filesResource] = createFilesResource(query);
+
+    const showPlaceholder = () =>
+        props.folders().length === 0 && !root() && !parent() && !textSearch();
+
+    const folder = () => {
+        const filename = parent() || '/';
+        return getFolderByFilename(root() as string, filename);
+    };
 
     return (
         <Surface variant="stage">
             <FoldersBar />
             <FoldersScroll>
-                <Show when={loading()}>Loading</Show>
-                <Show when={!loading()}>
-                    <FoldersBreadcrumbs />
-                    <Show when={params.parent}>
-                        <FolderDetails folder={params.parent} items={filesResource} />
+                <FoldersBreadcrumbs />
+                <Show when={root() && folder()}>
+                    <FolderDetails
+                        folder={folder() as FolderNoodle}
+                        items={filesResource}
+                        subfolders={props.folders}
+                    />
+                    <Show when={folder() && parent()}>
                         <FolderItems
-                            folder={params.parent}
+                            folder={parent() as string}
                             items={filesResource}
-                            toggleVisibility={props.items().length > 0}
+                            toggleVisibility={props.folders().length > 0}
                             showAllItems={showAllItems()}
                         />
                     </Show>
-                    <Show when={!showAllItems()}>
-                        <Folders items={props.items} />
-                    </Show>
+                </Show>
+                <Show when={!showAllItems()}>
+                    <Folders items={props.folders} />
+                </Show>
+                <Show when={showPlaceholder()}>
+                    <FoldersPlaceholder />
                 </Show>
             </FoldersScroll>
         </Surface>

@@ -1,6 +1,7 @@
 import type { FolderNoodle } from '@noodlestan/shared-types';
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
+import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
 import { useSearchParams } from '@solidjs/router';
 import { Component, Show, createEffect } from 'solid-js';
@@ -10,6 +11,7 @@ import { FolderTitle } from '@/molecules/FolderTitle/FolderTitle';
 import { useUrl } from '@/navigation/useUrl';
 import { useFoldersNavigationContext } from '@/providers/FoldersNavigation';
 import { makeImageUrl } from '@/services/Images/makeImageUrl';
+import { RootsService } from '@/services/Roots';
 
 import './FolderCard.css';
 
@@ -21,8 +23,10 @@ export const FolderCard: Component<FolderCardProps> = props => {
     let buttonRef: HTMLAnchorElement | undefined;
 
     const { bus, current, isModal } = useFoldersNavigationContext();
+    const { getRootById } = inject(RootsService);
 
     const isCurrent = () => current()?.id === props.item.id;
+    const rootId = () => getRootById(props.item.root)?.id;
 
     const handleOnFocus = () => bus?.emit({ name: 'onFocus', value: props.item.id });
     const handleOnClick = () => {
@@ -43,9 +47,9 @@ export const FolderCard: Component<FolderCardProps> = props => {
     });
 
     const [searchParams] = useSearchParams();
-    const url = () => useUrl(searchParams, `/folders/${props.item.slug}`);
+    const url = () => useUrl(searchParams, `/folders/${rootId()}${props.item.filename}`);
     const imageUrl = () => makeImageUrl('folder', props.item, 'thumb.small');
-    const title = () => props.item.title || '';
+    const title = () => props.item.title || props.item.filename;
     const label = () => `Folder. ${title()}. Press to open details.`;
 
     const classList = () => ({
@@ -68,7 +72,12 @@ export const FolderCard: Component<FolderCardProps> = props => {
                     aria-label={label()}
                 >
                     <div class="FolderCard--Title">
-                        <FolderTitle title={title()} slug={props.item.slug} showIcon />
+                        <FolderTitle
+                            title={props.item.title}
+                            root={props.item.root}
+                            filename={props.item.filename}
+                            showIcon
+                        />
                     </div>
                     <div class="FolderCard--Thumb">
                         <Show when={props.item.id}>

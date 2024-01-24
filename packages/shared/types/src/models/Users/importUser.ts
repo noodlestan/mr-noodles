@@ -5,7 +5,7 @@ import { UserNoodle } from './types.js';
 
 export const importUser = (data: UserNoodle): UserNoodle => {
     const noodle = importNoodle<UserNoodle>(data);
-    const user = importUserData(data);
+    const user = importUserData(noodle);
 
     return {
         ...noodle,

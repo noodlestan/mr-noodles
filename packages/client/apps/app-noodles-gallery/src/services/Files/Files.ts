@@ -3,7 +3,7 @@ import { Accessor } from 'solid-js';
 
 import { filesStore } from './private/store';
 
-import { fetchFiles } from '@/resources/File/fetchFiles';
+import { fetchFiles } from '@/resources/Files/fetchFiles';
 
 type FilesService = {
     loading: Accessor<boolean>;

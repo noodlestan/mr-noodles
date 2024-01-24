@@ -35,7 +35,7 @@ export const Folders: Component<FoldersProps> = props => {
         <div onKeyDown={handleKeyDown}>
             <Show when={items()?.length}>
                 <Flex classList={classList()} gap="m" wrap direction="column">
-                    <Display level={4}>{items()?.length} Subfolders</Display>
+                    <Display level={4}>{items()?.length} Folders</Display>
                     <Flex gap="m" wrap direction="row">
                         <For each={items()}>{item => <FolderCard item={item} />}</For>
                     </Flex>

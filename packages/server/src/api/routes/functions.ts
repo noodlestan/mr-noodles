@@ -47,6 +47,7 @@ export const filterByFromQuery = (query: Request['query']): Record<string, unkno
 
     try {
         const input = decodeURIComponent(filterBy as string);
+        console.log(input);
         return JSON.parse(input);
     } catch (error) {
         return {};

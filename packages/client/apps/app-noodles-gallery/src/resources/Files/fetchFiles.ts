@@ -1,5 +1,10 @@
-import type { APIResponse, FileNoodle, FileQuery, QueryParams } from '@noodlestan/shared-types';
-import { importFile } from '@noodlestan/shared-types';
+import {
+    type APIResponse,
+    type FileNoodle,
+    type FileQuery,
+    type QueryParams,
+    mappers,
+} from '@noodlestan/shared-types';
 
 import { apiGet } from '../../api/apiGet';
 import { API_ENDPOINTS } from '../endpoints';
@@ -13,5 +18,15 @@ export const fetchFiles = async (query: FileQuery): Promise<APIResponse<FileNood
     };
     const { data, meta } = await apiGet<{ results: FileNoodle[] }>(API_ENDPOINTS.files(), params);
 
-    return { data: data.results.map(importFile), meta };
+    return {
+        data: data.results.map((item: FileNoodle) => {
+            const mapper = mappers.find(({ match }) => match(item));
+
+            console.log('item', item.type, 'mapper', mapper?.name);
+            const x = mapper?.import(item) as FileNoodle;
+            console.log(x);
+            return x;
+        }),
+        meta,
+    };
 };

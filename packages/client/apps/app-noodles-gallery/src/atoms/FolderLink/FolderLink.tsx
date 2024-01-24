@@ -8,8 +8,9 @@ import { useUrl } from '@/navigation/useUrl';
 import './FolderLink.css';
 
 type FolderLinkProps = {
-    name: string;
-    path: string;
+    title: string;
+    root: string;
+    filename: string;
     showIcon?: boolean;
     isOpen?: boolean;
 };
@@ -18,7 +19,7 @@ export const FolderLink: Component<FolderLinkProps> = props => {
     const [searchParams] = useSearchParams();
 
     const url = () => {
-        return useUrl(searchParams, `/folders/${props.path}`);
+        return useUrl(searchParams, `/folders/${props.root}${props.filename}`);
     };
 
     const classList = () => ({ FolderLink: true });
@@ -27,9 +28,13 @@ export const FolderLink: Component<FolderLinkProps> = props => {
         <>
             <Link href={url()} classList={classList()}>
                 <Show when={props.showIcon}>
-                    <BreadcrumbFolderIcon hasLink={true} isOpen={true} />
+                    <BreadcrumbFolderIcon
+                        hasLink={true}
+                        isOpen={true}
+                        isRoot={props.filename === '/'}
+                    />
                 </Show>
-                <span class="FolderLink--text">{props.name}</span>
+                <span class="FolderLink--text">{props.title}</span>
             </Link>
         </>
     );

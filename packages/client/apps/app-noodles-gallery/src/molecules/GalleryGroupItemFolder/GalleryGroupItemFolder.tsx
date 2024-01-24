@@ -17,16 +17,15 @@ type GalleryGroupItemFolderProps = {
 };
 
 export const GalleryGroupItemFolder: Component<GalleryGroupItemFolderProps> = props => {
-    const { getFolderBySlug } = inject(FoldersService);
+    const { getFolderByChild: getFolderByFile } = inject(FoldersService);
 
     const attributes = (): GalleryGroupAttributesFolder =>
         props.group().attributes as GalleryGroupAttributesFolder;
 
-    const folderSlug = () => attributes().folder || '';
     const folderName = () => {
         const name = attributes().folder;
         if (name) {
-            return getFolderBySlug(name)?.title || 'no name';
+            return getFolderByFile(name)?.title || 'no name';
         } else {
             return 'no folder';
         }
@@ -40,7 +39,13 @@ export const GalleryGroupItemFolder: Component<GalleryGroupItemFolderProps> = pr
         <Surface variant="card">
             <Flex classList={classList()} direction="column" padding="m">
                 <GalleryGroupHeader group={props.group}>
-                    <FolderTitle slug={folderSlug()} title={folderName()} showLink showIcon />
+                    <FolderTitle
+                        root={folderRoot()}
+                        filename={folderSlug()}
+                        title={folderName()}
+                        showLink
+                        showIcon
+                    />
                 </GalleryGroupHeader>
                 {props.children}
             </Flex>
