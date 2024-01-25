@@ -45,18 +45,6 @@ const DateSpan: Component<DateSpanProps> = props => {
     const hasDates = () => !!props.dateFrom && !!props.dateUntil;
     const sameDay = () => mediumDate(props.dateFrom) === mediumDate(props.dateUntil);
 
-    console.log(
-        'from',
-        typeof props.dateFrom,
-        mediumDate(props.dateFrom),
-        'until',
-        typeof props.dateUntil,
-        mediumDate(props.dateUntil),
-        'has',
-        hasDates(),
-        'same',
-        sameDay(),
-    );
     return (
         <>
             <Show when={!hasDates()}>

@@ -3,59 +3,59 @@ import type { BaseNoodle, IGroup } from '@noodlestan/shared-types';
 import { GalleryGroupList, GalleryGroupTuple, GallerySubGroupTuple } from './types';
 
 function get<T>(object: unknown, field: string): T {
-    return (object as Record<string, unknown>)[field] as T;
+    return (object as Record<string, T>)[field] as T;
 }
 
-const getGroupValue = (groupBy: IGroup, value: string | string): string => {
+const getGroupValues = (groupBy: IGroup, noodle: BaseNoodle, field: string): string[] => {
     const { group } = groupBy;
-    if (!value) {
-        return '';
-    }
+
     if (group === 'year') {
+        const value = get<string>(noodle, field);
         const date = new Date(value);
-        return `${date?.getFullYear()}}`;
+        return [`${date?.getFullYear()}}`];
     }
     if (group === 'month') {
+        const value = get<string>(noodle, field);
         const date = new Date(value);
-        return `${date?.getFullYear()}-${date?.getMonth() + 1}}`;
+        return [`${date?.getFullYear()}-${date?.getMonth() + 1}}`];
     }
     if (group === 'day') {
+        const value = get<string>(noodle, field);
         const date = new Date(value);
-        return `${date?.getFullYear()}-${date?.getMonth() + 1}-${date?.getDate()}`;
-    } else {
-        return value || '';
+        return [`${date?.getFullYear()}-${date?.getMonth() + 1}-${date?.getDate()}`];
+    } else if (group === 'folder') {
+        return [noodle.root, noodle.filename.split('/').slice(0, -1).join('/')];
     }
+    return [];
 };
 
 const accumulateItem = (
     acc: GalleryGroupList,
     isTwoLevels: boolean,
-    value1: string | undefined,
-    value2: string | undefined,
+    values1: string[],
+    values2: string[] | undefined,
     item: BaseNoodle,
 ) => {
-    const key1 = String(value1);
-    const key2 = String(value2);
+    const key1 = values1.join('!');
+    const key2 = values2?.join('!');
     if (isTwoLevels) {
-        const index1 = acc.findIndex(([key]) => key === key1);
+        const index1 = acc.findIndex(([key]) => key.join('!') === key1);
         const group1: GalleryGroupTuple =
-            index1 > -1 ? (acc[index1] as GalleryGroupTuple) : [key1, []];
+            index1 > -1 ? (acc[index1] as GalleryGroupTuple) : [values1, []];
         if (index1 === -1) {
             acc.push(group1);
         }
-        const index2 = group1[1].findIndex(([key]) => key === key2);
+        const index2 = group1[1].findIndex(([key]) => key.join('!') === key2);
         const group2: GallerySubGroupTuple =
-            index2 > -1
-                ? (group1[1][index2] as [string, BaseNoodle[]])
-                : [key2, [] as BaseNoodle[]];
+            index2 > -1 ? group1[1][index2] : [values2 as string[], []];
         if (index2 === -1) {
             group1[1].push(group2);
         }
         group2[1].push(item);
     } else {
-        const index1 = acc.findIndex(([key]) => key === key1);
+        const index1 = acc.findIndex(([key]) => key.join('!') === key1);
         const group1: GallerySubGroupTuple =
-            index1 > -1 ? (acc[index1] as [string, BaseNoodle[]]) : [key1, []];
+            index1 > -1 ? (acc[index1] as GallerySubGroupTuple) : [values1, []];
         if (index1 === -1) {
             acc.push(group1);
         }
@@ -69,9 +69,9 @@ export const reduceNoodlesToGroupTuples = (
     groupBy2: IGroup | undefined,
 ): GalleryGroupList => {
     return items.reduce((acc, item) => {
-        const value1 = getGroupValue(groupBy1, get<string>(item, groupBy1.field));
-        const value2 = groupBy2 && getGroupValue(groupBy2, get<string>(item, groupBy2.field));
-        accumulateItem(acc, !!groupBy2, value1, value2, item);
+        const values1 = getGroupValues(groupBy1, item, groupBy1.field);
+        const values2 = groupBy2 && getGroupValues(groupBy2, item, groupBy2.field);
+        accumulateItem(acc, !!groupBy2, values1, values2, item);
         return acc;
     }, [] as GalleryGroupList);
 };

@@ -7,6 +7,7 @@ import { Component, Show } from 'solid-js';
 import { UserSettingsRoots } from './private/UserSettingsRoots';
 
 import { Spinner } from '@/atoms/Spinner/Spinner';
+import { PageLayout } from '@/molecules/PageLayout/PageLayout';
 import { AppService } from '@/services/App';
 
 import './UserSettingsPage.css';
@@ -15,7 +16,7 @@ export const UserSettingsPage: Component = () => {
     const { ready } = inject(AppService);
 
     return (
-        <div class="UserSettingsPage">
+        <PageLayout classList={{ UserSettingsPage: true }}>
             <Spinner size="l" when={!ready()} />
             <Show when={ready()}>
                 <Flex gap="m" padding="l" align="stretch">
@@ -27,6 +28,6 @@ export const UserSettingsPage: Component = () => {
                     </Surface>
                 </Flex>
             </Show>
-        </div>
+        </PageLayout>
     );
 };

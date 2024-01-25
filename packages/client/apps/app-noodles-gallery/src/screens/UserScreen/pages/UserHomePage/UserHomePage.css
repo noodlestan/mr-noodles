@@ -1,6 +1,2 @@
 .UserHomePage {
-    box-sizing: border-box;
-    height: 100vh;
-    padding-top: var(--space-pad-3);
-    padding-bottom: var(--scale-xl);
 }

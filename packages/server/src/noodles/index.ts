@@ -236,7 +236,10 @@ function findNoodles<T extends Noodle>(
     const skip = page ? (page.page - 1) * page.size : 0;
     const values = [...noodles.values()] as T[];
     const filtered = values.filter(filterFn);
+    console.log(sort);
+    console.log(filtered);
     const sorted = sort ? sortNoodles(filtered, sort) : filtered;
+    console.log(sorted);
     const sliced = limit ? sorted.slice(skip, limit + skip) : sorted;
     return sliced;
 }

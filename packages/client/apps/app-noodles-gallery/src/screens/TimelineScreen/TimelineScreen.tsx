@@ -34,10 +34,9 @@ export const TimelineScreen: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
     const { ready } = inject(AppService);
+    // TODO move to createTimelineScreenContext(groupBy, query) <- arguments are in the createRenderEffect() below
     const { loading, files, query, setQuery } = inject(FilesService);
     const { groupBy, setGroupBy, sortBy } = galleryStore;
-
-    const sort = () => groupByToSortBy(groupBy());
 
     const selectionContext = createGallerySelectionContext();
     const navigationContext = createGalleryNavigationContext(files);
@@ -46,10 +45,11 @@ export const TimelineScreen: Component = () => {
     createRenderEffect(() => {
         // TODO errors here are caught by ErrorBoundary, but errors in the resource fetyching no
         setGroupBy([
-            { field: 'date', group: 'day', dir: 'desc' },
-            { field: 'folder', dir: 'asc' },
+            { field: 'dateTaken', group: 'day', dir: 'desc' },
+            { field: 'filename', group: 'folder', dir: 'asc' },
         ]);
 
+        const sort = () => groupByToSortBy(groupBy());
         setQuery({
             sortBy: [...sort(), ...sortBy()],
         });

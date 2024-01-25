@@ -2,9 +2,11 @@
     box-sizing: border-box;
     height: 100vh;
     padding-top: var(--space-pad-3);
-    padding-bottom: var(--scale-xl);
 }
 
+.WelcomePage > .FadeIn {
+    overflow-y: auto;
+}
 .WelcomePage .UsersButtonList {
     width: 90vw;
     max-width: var(--scale-4xl);

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import type { FolderNoodle } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
-import { Surface } from '@noodlestan/ui-surfaces';
 import { Accessor, Component, Show } from 'solid-js';
 
 import { FoldersPlaceholder } from './components/FoldersPlaceholder';
@@ -9,6 +8,7 @@ import { FoldersPlaceholder } from './components/FoldersPlaceholder';
 import { FoldersBar } from '@/molecules/FoldersBar/FoldersBar';
 import { FoldersBreadcrumbs } from '@/molecules/FoldersBreadcrumbs/FoldersBreadcrumbs';
 import { FoldersScroll } from '@/molecules/FoldersScroll/FoldersScroll';
+import { PageLayout } from '@/molecules/PageLayout/PageLayout';
 import { FolderDetails } from '@/organisms/FolderDetails/FolderDetails';
 import { FolderItems } from '@/organisms/FolderItems/FolderItems';
 import { Folders } from '@/organisms/Folders/Folders';
@@ -42,7 +42,7 @@ export const FoldersHomePage: Component<FoldersHomePageProps> = props => {
     };
 
     return (
-        <Surface variant="stage">
+        <PageLayout classList={{ FoldersHomePage: true }}>
             <FoldersBar />
             <FoldersScroll>
                 <FoldersBreadcrumbs />
@@ -68,6 +68,6 @@ export const FoldersHomePage: Component<FoldersHomePageProps> = props => {
                     <FoldersPlaceholder />
                 </Show>
             </FoldersScroll>
-        </Surface>
+        </PageLayout>
     );
 };

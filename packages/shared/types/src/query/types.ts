@@ -13,8 +13,8 @@ export interface ISort {
 }
 
 export interface IGroup {
+    group: string;
     field: string;
-    group?: string;
     dir: Direction;
 }
 

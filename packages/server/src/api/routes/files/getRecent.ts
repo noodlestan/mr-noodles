@@ -4,8 +4,7 @@ import { getFiles } from './getFiles';
 
 export const getRecent = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { ...filter } = req.query;
-        req.query = { ...filter, sortBy: 'dateCreated', sortDir: 'desc' };
+        req.query = { ...req.query, sortBy: 'dateCreated', sortDir: 'desc' };
         return getFiles(req, res, next);
     } catch (error) {
         next(error);

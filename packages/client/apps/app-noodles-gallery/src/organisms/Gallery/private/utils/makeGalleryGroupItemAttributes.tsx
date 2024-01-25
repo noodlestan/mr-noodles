@@ -4,7 +4,7 @@ import { GalleryGroupAttributesDate, GalleryGroupAttributesFolder } from '@/mode
 
 export const makeGalleryGroupItemAttributes = (
     groupBy: IGroup,
-    value: string,
+    values: string[],
 ): GalleryGroupAttributesFolder | GalleryGroupAttributesDate => {
     const { group, field } = groupBy;
     switch (group) {
@@ -15,20 +15,18 @@ export const makeGalleryGroupItemAttributes = (
                 groupBy: 'date',
                 group,
                 field,
-                value,
-                date: value ? new Date(value) : undefined,
+                value: values[0],
+                date: values[0] ? new Date(values[0]) : undefined,
+            };
+        case 'folder':
+            return {
+                groupBy: 'folder',
+                root: values[0],
+                folder: values[1],
+                value: values[0] + values[1],
             };
 
         default:
-            switch (field) {
-                case 'folder':
-                    return {
-                        groupBy: 'folder',
-                        value,
-                        folder: value || undefined,
-                    };
-                default:
-                    throw new Error(`Unknown ${group}`);
-            }
+            throw new Error(`Unknown group ${group}`);
     }
 };

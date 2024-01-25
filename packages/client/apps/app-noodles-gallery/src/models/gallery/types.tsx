@@ -3,7 +3,8 @@ import type { ImageNoodle } from '@noodlestan/shared-types';
 export type GalleryGroupAttributesFolder = {
     groupBy: 'folder';
     value: string;
-    folder?: string;
+    root: string;
+    folder: string;
 };
 
 export type GalleryGroupAttributesDate = {

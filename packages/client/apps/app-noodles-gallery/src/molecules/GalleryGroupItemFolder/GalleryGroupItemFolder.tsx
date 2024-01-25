@@ -17,18 +17,21 @@ type GalleryGroupItemFolderProps = {
 };
 
 export const GalleryGroupItemFolder: Component<GalleryGroupItemFolderProps> = props => {
-    const { getFolderByChild: getFolderByFile } = inject(FoldersService);
+    const { getFolderByFilename } = inject(FoldersService);
 
-    const attributes = (): GalleryGroupAttributesFolder =>
-        props.group().attributes as GalleryGroupAttributesFolder;
+    const attributes = () => props.group().attributes as GalleryGroupAttributesFolder;
 
     const folderName = () => {
-        const name = attributes().folder;
-        if (name) {
-            return getFolderByFile(name)?.title || 'no name';
-        } else {
-            return 'no folder';
+        const root = attributes().root;
+        const filename = attributes().folder;
+        if (root && filename) {
+            if (filename === '/') {
+                return 'ROOT?';
+            }
+            const folder = getFolderByFilename(root, filename);
+            return folder ? folder.filename.split('/').splice(0, -1).join('/') : 'no name';
         }
+        return ':-/ ?';
     };
 
     const classList = () => ({
@@ -40,8 +43,8 @@ export const GalleryGroupItemFolder: Component<GalleryGroupItemFolderProps> = pr
             <Flex classList={classList()} direction="column" padding="m">
                 <GalleryGroupHeader group={props.group}>
                     <FolderTitle
-                        root={folderRoot()}
-                        filename={folderSlug()}
+                        root={attributes().root}
+                        filename={attributes().folder}
                         title={folderName()}
                         showLink
                         showIcon

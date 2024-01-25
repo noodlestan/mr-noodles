@@ -22,7 +22,7 @@ export const GalleryGroupItemDate: Component<GalleryGroupItemDateProps> = props 
 
     const date = (): string => {
         const d = attributes().date;
-        if (d) {
+        if (d?.valueOf()) {
             return new Intl.DateTimeFormat('en-GB', {
                 dateStyle: 'medium',
                 timeZone: 'Europe/Madrid',

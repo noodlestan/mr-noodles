@@ -21,11 +21,7 @@ export const fetchFiles = async (query: FileQuery): Promise<APIResponse<FileNood
     return {
         data: data.results.map((item: FileNoodle) => {
             const mapper = mappers.find(({ match }) => match(item));
-
-            console.log('item', item.type, 'mapper', mapper?.name);
-            const x = mapper?.import(item) as FileNoodle;
-            console.log(x);
-            return x;
+            return mapper?.import(item) as FileNoodle;
         }),
         meta,
     };

@@ -35,7 +35,7 @@ export function findFiles<T extends MediaFileNoodle>(
         if (folder !== undefined && dirname(n.filename) !== folder) {
             return false;
         }
-        if (!matchPattern(n.title, title)) {
+        if (!matchPattern(n.title, title) || !matchPattern(basename(n.filename), title)) {
             return false;
         }
         if (!matchDateRange(n.dateCreated, dateFrom, dateUntil)) {

@@ -14,7 +14,7 @@ export const RequireNotUser: Component<RequireNotUserProps> = props => {
 
     createEffect(() => {
         if (currentUserId()) {
-            navigate('/user');
+            navigate('/user/home');
         }
     });
 

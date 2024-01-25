@@ -1,4 +1,3 @@
-import { Surface } from '@noodlestan/ui-surfaces';
 import { FadeIn } from '@noodlestan/ui-transitions';
 import { Component, JSX, onMount } from 'solid-js';
 
@@ -27,13 +26,11 @@ export const UserScreen: Component<UserScreenProps> = props => {
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" class="UserScreen" ref={mainRef}>
-            <Surface variant="stage">
-                <FadeIn speed="fast">
-                    <UserBar />
-                </FadeIn>
-                {props.children}
-                <ModalView show={false} onClose={handleModalClose} />
-            </Surface>
+            <FadeIn speed="fast">
+                <UserBar />
+            </FadeIn>
+            {props.children}
+            <ModalView show={false} onClose={handleModalClose} />
         </main>
     );
 };

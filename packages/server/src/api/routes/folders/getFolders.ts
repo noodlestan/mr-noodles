@@ -13,18 +13,17 @@ export const getFolders = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const { ...filter } = req.query;
+        const { ...query } = req.query;
 
-        const page = paginationFromQuery(filter, FOLDERS_PAGE_SIZE_DEFAULT, FOLDERS_PAGE_MAX);
+        const page = paginationFromQuery(query, FOLDERS_PAGE_SIZE_DEFAULT, FOLDERS_PAGE_MAX);
         res.setHeader('x-meta-page-no', `${page?.page}`);
         res.setHeader('x-meta-page-size', `${page?.size}`);
 
-        const sort = sortFromQuery(filter, 'title', 'desc');
+        const sort = sortFromQuery(query, 'title', 'desc');
         res.setHeader('x-meta-sort-by', `${sort}`);
+        res.setHeader('x-meta-filter', `${querystring.encode(query as ParsedUrlQueryInput)}`);
 
-        res.setHeader('x-meta-filter', `${querystring.encode(filter as ParsedUrlQueryInput)}`);
-
-        const folders = findFolders(filter, sort, page);
+        const folders = findFolders(query, sort, page);
         const data = folders.map(exportNoodle);
 
         res.json({ results: data });

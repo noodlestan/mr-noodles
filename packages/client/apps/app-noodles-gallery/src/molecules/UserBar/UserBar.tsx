@@ -1,7 +1,7 @@
 // import { Text } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { HeartIcon, SettingsIcon } from 'lucide-solid';
+import { HeartIcon, HomeIcon, SettingsIcon } from 'lucide-solid';
 import { Component } from 'solid-js';
 
 import { MainNavButton } from '@/navigation/MainNavButton/MainNavButton';
@@ -18,8 +18,11 @@ export const UserBar: Component<UserBarProps> = () => {
             <Flex padding="m">
                 <Flex direction="row" gap="l" justify="between" align="center">
                     <Flex direction="row" gap="m">
-                        <MainNavButton icon={SettingsIcon} href="/user/settings" label="Settings" />
+                        <MainNavButton icon={HomeIcon} href="/user/home" label={`User home`} />
                         <MainNavButton icon={HeartIcon} href="/user/favorites" label="Favorites" />
+                    </Flex>
+                    <Flex direction="row" gap="m">
+                        <MainNavButton icon={SettingsIcon} href="/user/settings" label="Settings" />
                     </Flex>
                 </Flex>
             </Flex>

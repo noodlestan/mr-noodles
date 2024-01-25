@@ -26,7 +26,7 @@ export const Routes: Component = () => {
             </Route>
             <Route path="/" component={RequireUser}>
                 <Route path="/user" component={UserScreen}>
-                    <Route path="/" component={UserHomePage} />
+                    <Route path="/home" component={UserHomePage} />
                     <Route path="/favorites" component={UserFavoritesPage} />
                     <Route path="/settings" component={UserSettingsPage} />
                 </Route>

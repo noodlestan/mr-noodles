@@ -15,8 +15,8 @@ export const groupTuplesToGroups = (
     options: GalleryOptions,
 ): GalleryGroup[] => {
     const is2levels = !!groupBy2;
-    return records.map(([key1, subGroupOrItems]) => {
-        const attributes = makeGalleryGroupItemAttributes(groupBy1, key1);
+    return records.map(([values1, subGroupOrItems]) => {
+        const attributes = makeGalleryGroupItemAttributes(groupBy1, values1);
         if (is2levels) {
             const subGroups = groupTuplesToGroups(
                 subGroupOrItems as GallerySubGroupList,

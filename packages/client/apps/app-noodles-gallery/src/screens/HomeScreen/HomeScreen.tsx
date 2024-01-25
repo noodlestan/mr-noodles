@@ -26,13 +26,11 @@ export const HomeScreen: Component<HomeScreenProps> = props => {
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex
         <main tabindex="0" class="HomeScreen" ref={mainRef}>
-            <Surface variant="stage">
-                <Show when={ready()}>
-                    {props.children}
-                    <HomeBar />
-                </Show>
-                <ModalView show={false} onClose={handleModalClose} />
-            </Surface>
+            <Show when={ready()}>
+                {props.children}
+                <HomeBar />
+            </Show>
+            <ModalView show={false} onClose={handleModalClose} />
         </main>
     );
 };
