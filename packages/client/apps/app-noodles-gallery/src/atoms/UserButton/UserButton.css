@@ -1,5 +1,6 @@
 .UserButton {
     position: relative;
+    width: 100%;
     display: inline-flex;
     flex-direction: column;
     gap: var(--space-gap-0);

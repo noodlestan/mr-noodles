@@ -23,9 +23,25 @@ export const GalleryGroupItemDate: Component<GalleryGroupItemDateProps> = props 
     const date = (): string => {
         const d = attributes().date;
         if (d?.valueOf()) {
+            const g = attributes().group;
+            console.log(g);
+            if (g === 'year') {
+                return '' + d.getFullYear();
+            }
+            if (g === 'month') {
+                const month = new Intl.DateTimeFormat('en-GB', {
+                    timeZone: 'Europe/Madrid',
+                    year: 'numeric',
+                }).format(d);
+                const year = new Intl.DateTimeFormat('en-GB', {
+                    timeZone: 'Europe/Madrid',
+                    month: 'long',
+                }).format(d);
+                return month + ' ' + year;
+            }
             return new Intl.DateTimeFormat('en-GB', {
-                dateStyle: 'medium',
                 timeZone: 'Europe/Madrid',
+                dateStyle: 'medium',
             }).format(d);
         } else {
             return 'no date';

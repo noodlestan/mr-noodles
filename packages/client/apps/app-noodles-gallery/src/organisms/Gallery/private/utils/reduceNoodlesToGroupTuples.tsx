@@ -6,23 +6,34 @@ function get<T>(object: unknown, field: string): T {
     return (object as Record<string, T>)[field] as T;
 }
 
+const pad2 = (v: number | undefined): string => {
+    if (!v) {
+        return '00';
+    }
+    if (v < 10) {
+        return '0' + v;
+    }
+    return '' + v;
+};
+
 const getGroupValues = (groupBy: IGroup, noodle: BaseNoodle, field: string): string[] => {
     const { group } = groupBy;
 
     if (group === 'year') {
         const value = get<string>(noodle, field);
         const date = new Date(value);
-        return [`${date?.getFullYear()}}`];
+        return [`${date?.getFullYear()}`];
     }
     if (group === 'month') {
         const value = get<string>(noodle, field);
         const date = new Date(value);
-        return [`${date?.getFullYear()}-${date?.getMonth() + 1}}`];
+        return [`${date?.getFullYear()}-${pad2(date?.getMonth() + 1)}`];
     }
     if (group === 'day') {
         const value = get<string>(noodle, field);
         const date = new Date(value);
-        return [`${date?.getFullYear()}-${date?.getMonth() + 1}-${date?.getDate()}`];
+
+        return [`${date?.getFullYear()}-${pad2(date?.getMonth() + 1)}-${pad2(date?.getDate())}`];
     } else if (group === 'folder') {
         return [noodle.root, noodle.filename.split('/').slice(0, -1).join('/')];
     }

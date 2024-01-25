@@ -31,7 +31,7 @@ export const UsersButtonList: Component<UsersButtonListProps> = props => {
     });
 
     return (
-        <Flex gap="s" classList={{ UsersButtonList: true }}>
+        <Flex padding="s" gap="s" classList={{ UsersButtonList: true }}>
             <For each={staggered()}>
                 {user => (
                     <FadeIn speed="fast">

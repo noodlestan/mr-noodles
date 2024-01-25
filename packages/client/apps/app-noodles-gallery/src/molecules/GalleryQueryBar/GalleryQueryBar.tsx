@@ -1,5 +1,5 @@
 import type { FileQuery, IGroup, ISort } from '@noodlestan/shared-types';
-import { Button } from '@noodlestan/ui-atoms';
+import { Button, Label } from '@noodlestan/ui-atoms';
 import { Flex } from '@noodlestan/ui-layouts';
 import { inject } from '@noodlestan/ui-services';
 import { Accessor, Component } from 'solid-js';
@@ -69,40 +69,61 @@ export const GalleryQueryBar: Component<GalleryQueryBarProps> = () => {
 
     const handleFoldersOnClick = () => {
         const dateGroup = groupBy()[0];
-        const groups: IGroup[] = [dateGroup];
+        const groups: IGroup[] = [dateGroup, FOLDERS];
         setGroupBy(groups);
     };
 
     const handleFoldersOffClick = () => {
         const dateGroup = groupBy()[0];
-        const groups: IGroup[] = [dateGroup, { field: 'filename', group: 'folder', dir: 'asc' }];
+        const groups: IGroup[] = [dateGroup];
         setGroupBy(groups);
     };
 
+    const isGroup = (group: string) => groupBy()[0].group === group;
+    const isFoldersOn = () => groupBy().length > 1;
+
     return (
-        <Flex classList={classList()} direction="row" gap="s" align="start">
-            <>
-                Group
-                <Button variant="secondary" onClick={handleDayClick}>
-                    Day
-                </Button>
-                <Button variant="secondary" onClick={handleMonthClick}>
-                    Month
-                </Button>
-                <Button variant="secondary" onClick={handleYearClick}>
-                    Year
-                </Button>
-            </>
-            |
-            <>
-                Folders
-                <Button variant="secondary" onClick={handleFoldersOnClick}>
-                    On
-                </Button>
-                <Button variant="secondary" onClick={handleFoldersOffClick}>
-                    Off
-                </Button>
-            </>
+        <Flex classList={classList()} direction="row" gap="xl" align="center" justify="between">
+            <Flex direction="row" gap="m" align="baseline">
+                <Label size="m">Group</Label>
+                <Flex direction="row" align="baseline">
+                    <Button
+                        variant={isGroup('day') ? 'secondary' : 'plain'}
+                        onClick={handleDayClick}
+                    >
+                        Day
+                    </Button>
+                    <Button
+                        variant={isGroup('month') ? 'secondary' : 'plain'}
+                        onClick={handleMonthClick}
+                    >
+                        Month
+                    </Button>
+                    <Button
+                        variant={isGroup('year') ? 'secondary' : 'plain'}
+                        onClick={handleYearClick}
+                    >
+                        Year
+                    </Button>
+                </Flex>
+            </Flex>
+            <Flex direction="row" gap="m" align="baseline">
+                <Label size="m">Folders</Label>
+                <Flex direction="row" align="baseline">
+                    <Button
+                        variant={isFoldersOn() ? 'secondary' : 'plain'}
+                        onClick={handleFoldersOnClick}
+                    >
+                        On
+                    </Button>
+                    <Button
+                        variant={!isFoldersOn() ? 'secondary' : 'plain'}
+                        onClick={handleFoldersOffClick}
+                    >
+                        Off
+                    </Button>
+                </Flex>
+            </Flex>
         </Flex>
     );
 };

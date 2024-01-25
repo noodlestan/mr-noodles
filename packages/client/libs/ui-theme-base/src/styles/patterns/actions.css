@@ -6,23 +6,23 @@
     --action-primary-rest-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-min));
     --action-primary-rest-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-4));
     --action-primary-hover-fg-color: hsl(var(--color-black-hue-sat), var(--color-light-0));
-    --action-primary-hover-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-3));
+    --action-primary-hover-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-6));
     --action-primary-active-fg-color: hsl(var(--color-black-hue-sat), var(--color-light-min));
-    --action-primary-active-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-5));
+    --action-primary-active-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-3));
 
     --action-secondary-border: 3px solid hsl(var(--color-black-hue-sat), var(--action-border-light));
     --action-secondary-rest-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-min));
     --action-secondary-rest-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-7));
     --action-secondary-hover-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-0));
-    --action-secondary-hover-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-6));
+    --action-secondary-hover-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-9));
     --action-secondary-active-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-min));
-    --action-secondary-active-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-8));
+    --action-secondary-active-bg-color: hsl(var(--color-i-rest-hue-sat), var(--color-light-7));
 
     --action-plain-border: none;
     --action-plain-rest-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-fg-light-5));
-    --action-plain-rest-bg-color: transparent;
+    --action-plain-rest-bg-color: var(--surface-bg-overlay-alt);
     --action-plain-hover-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-fg-light-4));
-    --action-plain-hover-bg-color: transparent;
+    --action-plain-hover-bg-color: var(--surface-bg-overlay);
     --action-plain-active-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-fg-light-5));
     --action-plain-active-bg-color: transparent;
 

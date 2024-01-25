@@ -14,6 +14,10 @@ import {
 } from '@/providers/FoldersNavigation';
 import { FoldersQueryProvider } from '@/providers/FoldersQuery';
 import { createFoldersQueryContext } from '@/providers/FoldersQuery/createFoldersQueryContext';
+import {
+    GallerySelectionProvider,
+    createGallerySelectionContext,
+} from '@/providers/GallerySelection';
 import { AppService } from '@/services/App';
 import { FoldersService } from '@/services/Folders';
 
@@ -35,6 +39,7 @@ export const FoldersScreen: Component = () => {
         searchParams.search,
     );
     const { root, parent, textSearch } = foldersQueryContext;
+    const selectionContext = createGallerySelectionContext();
 
     const subFolders = createMemo(() => {
         const ownerId = currentUserId();
@@ -98,12 +103,14 @@ export const FoldersScreen: Component = () => {
             <Spinner size="l" when={!ready()} />
             <Show when={ready()}>
                 <FoldersNavigationProvider {...navigationContext}>
-                    <FoldersQueryProvider {...foldersQueryContext}>
-                        <Spinner when={loadingFolders()} size="l" />
-                        <Show when={!loadingFolders()}>
-                            <FoldersHomePage folders={subFolders} />
-                        </Show>
-                    </FoldersQueryProvider>
+                    <GallerySelectionProvider {...selectionContext}>
+                        <FoldersQueryProvider {...foldersQueryContext}>
+                            <Spinner when={loadingFolders()} size="l" />
+                            <Show when={!loadingFolders()}>
+                                <FoldersHomePage folders={subFolders} />
+                            </Show>
+                        </FoldersQueryProvider>
+                    </GallerySelectionProvider>
                 </FoldersNavigationProvider>
             </Show>
         </main>

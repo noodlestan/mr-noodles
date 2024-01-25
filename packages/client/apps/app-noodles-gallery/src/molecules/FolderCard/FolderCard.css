@@ -28,7 +28,7 @@
     position: absolute;
     width: 100%;
     padding: var(--space-pad-0);
-    background-color: var(--surface-bg-overlay);
+    background-color: var(--surface-bg-overlay-alt);
     border-radius: var(--radius-xs);
     overflow: hidden;
 }

@@ -24,36 +24,17 @@ import { FilesService } from '@/services/Files';
 
 import './TimelineScreen.css';
 
-const groupByToSortBy = (group: IGroup[]): ISort[] => {
-    return group.map(({ field, dir }) => {
-        return { field, dir };
-    });
-};
-
 export const TimelineScreen: Component = () => {
     let mainRef: HTMLDivElement | undefined;
 
     const { ready } = inject(AppService);
     // TODO move to createTimelineScreenContext(groupBy, query) <- arguments are in the createRenderEffect() below
-    const { loading, files, query, setQuery } = inject(FilesService);
-    const { groupBy, setGroupBy, sortBy } = galleryStore;
+    const { loading, files, query } = inject(FilesService);
+    const { groupBy } = galleryStore;
 
     const selectionContext = createGallerySelectionContext();
     const navigationContext = createGalleryNavigationContext(files);
     const { bus: navigationBus, isModal, current } = navigationContext;
-
-    createRenderEffect(() => {
-        // TODO errors here are caught by ErrorBoundary, but errors in the resource fetyching no
-        setGroupBy([
-            { field: 'dateTaken', group: 'day', dir: 'desc' },
-            { field: 'filename', group: 'folder', dir: 'asc' },
-        ]);
-
-        const sort = () => groupByToSortBy(groupBy());
-        setQuery({
-            sortBy: [...sort(), ...sortBy()],
-        });
-    });
 
     onMount(() => window.setTimeout(() => mainRef?.focus()));
 
