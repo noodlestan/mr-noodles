@@ -13,7 +13,7 @@ const chicken = new RegExp(`${NOODLES_DB_EXT}$`);
 
 export const dropDir = async (root: Root, dirname: string): Promise<void> => {
     const files = await readdir(dirname);
-    log().debug('noodlesdropDir', { dir: dirname });
+    log().debug('noodles:dropDir', { dir: dirname });
 
     const drops = files.map(async file => {
         const filename = join(dirname, file);
@@ -27,7 +27,7 @@ export const dropDir = async (root: Root, dirname: string): Promise<void> => {
                 throw Up;
             }
             await rm(filename);
-            log().debug('noodlesdropDir:dropFile', { filename });
+            log().debug('noodles:dropDir:dropFile', { filename });
         }
     });
     await Promise.all(drops);

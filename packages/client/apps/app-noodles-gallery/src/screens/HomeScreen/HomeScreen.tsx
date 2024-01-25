@@ -1,5 +1,4 @@
 import { inject } from '@noodlestan/ui-services';
-import { Surface } from '@noodlestan/ui-surfaces';
 import { Component, JSX, Show, onMount } from 'solid-js';
 
 import { HomeBar } from '@/molecules/HomeBar/HomeBar';

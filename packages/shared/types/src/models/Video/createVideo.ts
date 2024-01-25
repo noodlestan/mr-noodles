@@ -11,7 +11,7 @@ export const createVideo = (
 ): VideoNoodle => {
     const mediaFile = createMediaFile(data, root, absoluteFilename);
 
-    const video = importVideoData(data);
+    const video = importVideoData(mediaFile);
 
     return {
         ...mediaFile,

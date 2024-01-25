@@ -127,7 +127,7 @@ export const FolderDetails: Component<FolderDetailsProps> = props => {
                 <Show when={hasDates()}>
                     <DateSpan dateFrom={dateFrom()} dateUntil={dateUntil()} />
                 </Show>
-                <Show when={isRoot()}>
+                <Show when={false && isRoot()}>
                     <Text>Created on {dateCreated()}</Text>
                 </Show>
 

@@ -5,7 +5,7 @@ import { importNoodleData } from './importNoodleData.js';
 import { BaseNoodle } from './types.js';
 
 export function createNoodle<T extends BaseNoodle>(data: Partial<T>, root: Root): T {
-    const { id, filename, dateCreated, dateUpdated, ...rest } = importNoodleData(data);
+    const { id, filename, dateUpdated, ...rest } = importNoodleData(data);
     if (!filename) {
         throw new Error('Invalid filename');
     }
@@ -26,7 +26,7 @@ export function createNoodle<T extends BaseNoodle>(data: Partial<T>, root: Root)
         id: hashId,
         type: '<unknown>',
         filename,
-        dateCreated,
+        dateCreated: new Date(),
         dateUpdated,
         root: root.id,
         owner: root.owner || 'system',

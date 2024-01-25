@@ -11,7 +11,7 @@ export function createMediaFile<T extends MediaFileNoodle>(
 ): T {
     const file = createFile<T>(data, root, absoluteFilename);
 
-    const { hash, orientation, width, height, ...mediaFile } = importMediaFileData(data);
+    const { hash, orientation, width, height, ...mediaFile } = importMediaFileData(file);
 
     // eslint-disable-next-line security/detect-possible-timing-attacks
     if (hash === undefined) {
@@ -33,7 +33,7 @@ export function createMediaFile<T extends MediaFileNoodle>(
     return {
         ...file,
         ...mediaFile,
-        mediaType: 'image',
+        mediaType: '<unknown>',
         hash,
         orientation,
         width,

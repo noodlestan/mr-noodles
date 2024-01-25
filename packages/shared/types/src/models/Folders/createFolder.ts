@@ -13,14 +13,11 @@ export const createFolder = (
     const filename = stripRootPath(root, absoluteFilename);
     const noodle = createNoodle({ ...data, filename }, root);
 
-    const { type, ...folder } = importFolderData(data);
-    if (type && type !== 'folder') {
-        throw new Error('Invalid arguments');
-    }
+    const folder = importFolderData(noodle);
 
     return {
         ...noodle,
-        type: 'folder',
         ...folder,
+        type: 'folder',
     };
 };

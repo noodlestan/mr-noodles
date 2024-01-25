@@ -13,10 +13,7 @@ export function createFile<T extends FileNoodle>(
     const filename = stripRootPath(root, absoluteFilename);
     const noodle = createNoodle<FileNoodle>({ ...data, filename }, root);
 
-    const { type, ...file } = importFileData(data);
-    if (type && type !== 'file') {
-        throw new Error('Invalid type');
-    }
+    const file = importFileData(data);
 
     return {
         ...noodle,

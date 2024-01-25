@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import type { IGroup, ISort } from '@noodlestan/shared-types';
 import { inject } from '@noodlestan/ui-services';
 import { Surface } from '@noodlestan/ui-surfaces';
-import { Component, Show, createRenderEffect, onMount } from 'solid-js';
+import { Component, Show, onMount } from 'solid-js';
 
 import { galleryStore } from './private/store';
 

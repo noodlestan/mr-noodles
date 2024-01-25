@@ -24,7 +24,6 @@ export const GalleryGroupItemDate: Component<GalleryGroupItemDateProps> = props 
         const d = attributes().date;
         if (d?.valueOf()) {
             const g = attributes().group;
-            console.log(g);
             if (g === 'year') {
                 return '' + d.getFullYear();
             }
