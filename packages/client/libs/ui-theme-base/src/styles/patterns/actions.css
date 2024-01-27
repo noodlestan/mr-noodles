@@ -20,9 +20,9 @@
 
     --action-plain-border: none;
     --action-plain-rest-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-fg-light-5));
-    --action-plain-rest-bg-color: var(--surface-bg-overlay-alt);
+    --action-plain-rest-bg-color: var(--surface-bg);
     --action-plain-hover-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-fg-light-4));
-    --action-plain-hover-bg-color: var(--surface-bg-overlay);
+    --action-plain-hover-bg-color: var(--surface-bg);
     --action-plain-active-fg-color: hsl(var(--color-i-rest-hue-sat), var(--color-fg-light-5));
     --action-plain-active-bg-color: transparent;
 

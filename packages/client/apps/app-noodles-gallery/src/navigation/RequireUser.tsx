@@ -14,7 +14,7 @@ export const RequireUser: Component<RequireUserProps> = props => {
 
     createEffect(() => {
         if (!currentUserId()) {
-            navigate('/');
+            navigate('/', { scroll: true });
         }
     });
 

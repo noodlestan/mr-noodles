@@ -1,6 +1,9 @@
 .FolderLink {
     display: flex;
+    align-items: center;
     gap: var(--space-gap-0);
+    width: min-content;
+    line-height: 1;
 }
 
 .FolderLink--text {

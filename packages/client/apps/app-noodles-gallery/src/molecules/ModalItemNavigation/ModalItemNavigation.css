@@ -15,7 +15,7 @@
 
 .ModalItemNavigation-is-active button {
     color: var(--surface-fg);
-    background-color: var(--surface-bg-overlay-alt);
+    background-color: var(--surface-bg-overlay);
 }
 
 .ModalItemNavigation-previous {

@@ -33,7 +33,7 @@
 }
 
 .UserButton:active {
-    background-color: var(--surface-bg-overlay-alt);
+    background-color: var(--surface-bg-overlay);
 }
 
 .UserButton--image {

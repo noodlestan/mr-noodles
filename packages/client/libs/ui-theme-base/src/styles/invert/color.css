@@ -37,4 +37,11 @@
     --color-fg-light-4: 22%;
     --color-fg-light-5: 29%;
     --color-fg-light-6: 36%;
+
+    --surface-bg-overlay: hsla(
+        var(--color-sw-0-hue),
+        var(--color-sw-0-sat),
+        var(--color-bg-light-0),
+        0.9
+    );
 }

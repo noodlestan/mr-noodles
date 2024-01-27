@@ -7,9 +7,25 @@
     overflow: hidden;
 }
 
-.FoldersBreadcrumbPart--Text {
+.FoldersBreadcrumbPart-has-link .FolderLink--text {
+    display: none;
+}
+
+.FoldersBreadcrumbPart--text {
     display: inline-block;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.FoldersBreadcrumbPart--slash {
+    display: inline-block;
+    text-align: right;
+    width: 0.6em;
+}
+
+@media screen and (min-width: 600px) {
+    .FoldersBreadcrumbPart-has-link .FolderLink--text {
+        display: initial;
+    }
 }

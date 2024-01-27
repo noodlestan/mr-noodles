@@ -1,7 +1,6 @@
 .FolderTitle {
     display: flex;
     gap: var(--space-gap-0);
-    overflow: none;
 }
 
 .FolderTitle .FolderLink {
