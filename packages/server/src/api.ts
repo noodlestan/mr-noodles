@@ -1,9 +1,8 @@
-import { startFilesAgent } from '../agents/files';
-import { startScanAgent } from '../agents/scanner';
-import { connectAllRoots } from '../db';
-import { createLogger } from '../logger';
-
-import { start } from './app';
+import { startFilesAgent } from './agents/files';
+import { startScanAgent } from './agents/scanner';
+import { start } from './api/app';
+import { connectAllRoots } from './db';
+import { createLogger } from './logger';
 
 const logger = createLogger('server/api');
 

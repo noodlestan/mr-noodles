@@ -6,7 +6,7 @@
     "build-ts": "tsc -p tsconfig.build.json",
     "build-assets": "ts-node ./scripts/copyStaticAssets.ts",
     "lint": "prettier . -c && eslint . && tsc --noEmit",
-    "serve": "node dist/api/index.js",
+    "serve": "node dist/api.js",
     "populate": "ts-node scripts/populate.ts",
     "drop-db": "ts-node scripts/dropDb.ts",
     "migrate-db": "ts-node scripts/migrate.ts",
