@@ -36,7 +36,7 @@
     background-color: var(--surface-bg-overlay);
 }
 
-.UserButton--image {
+.UserButton--Image {
     display: flex;
     align-items: center;
     justify-content: center;

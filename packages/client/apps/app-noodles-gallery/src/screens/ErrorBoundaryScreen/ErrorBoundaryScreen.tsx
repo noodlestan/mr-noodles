@@ -43,13 +43,13 @@ export const ErrorScreen: Component = () => {
             <Flex padding="xl" gap="l" align="center">
                 <Flex direction="row" gap="s" justify="around">
                     <div style={{ '--error-icon-hue': color(0) }}>
-                        <Icon icon={icon(0)} classList={{ 'ErrorScreen--icon': true }} />
+                        <Icon icon={icon(0)} classList={{ 'ErrorScreen--Icon': true }} />
                     </div>
                     <div style={{ '--error-icon-hue': color(1) }}>
-                        <Icon icon={icon(1)} classList={{ 'ErrorScreen--icon': true }} />
+                        <Icon icon={icon(1)} classList={{ 'ErrorScreen--Icon': true }} />
                     </div>
                     <div style={{ '--error-icon-hue': color(2) }}>
-                        <Icon icon={icon(2)} classList={{ 'ErrorScreen--icon': true }} />
+                        <Icon icon={icon(2)} classList={{ 'ErrorScreen--Icon': true }} />
                     </div>
                 </Flex>
                 <Display size="xl">Ouch</Display>

@@ -2,7 +2,7 @@ import { RootProvider } from '@noodlestan/ui-root';
 import { BaseTheme } from '@noodlestan/ui-theme-base';
 import { render } from 'solid-js/web';
 
-import { App } from '@/ui/app/App';
+import { App } from '@/app/App';
 
 const root = document.getElementById('root') as HTMLElement;
 

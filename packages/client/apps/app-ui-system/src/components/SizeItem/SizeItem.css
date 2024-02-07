@@ -1,0 +1,38 @@
+.SizeItem {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-gap-0);
+    margin-bottom: var(--space-gap-2);
+}
+
+.SizeItem--Token {
+    margin: 0;
+    width: 7em;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.SizeItem--Value {
+    color: var(--surface-bg);
+    background-color: var(--surface-fg);
+    cursor: pointer;
+}
+
+.SizeItem--Value:hover {
+    opacity: 0.8;
+}
+
+.SizeItem--Source {
+    display: flex;
+    z-index: 1;
+    width: 100%;
+    color: var(--surface-fg);
+    background: var(--surface-bg);
+}
+
+.SizeItem--Source p {
+    margin: 0;
+}

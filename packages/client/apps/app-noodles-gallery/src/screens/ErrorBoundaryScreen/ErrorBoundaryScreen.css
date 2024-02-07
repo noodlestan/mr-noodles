@@ -5,7 +5,7 @@
     width: auto;
 }
 
-.ErrorScreen--icon {
+.ErrorScreen--Icon {
     transition: color 0.2s ease-in-out;
     color: hsl(var(--error-icon-hue), var(--color-sat), var(--color-fg-light-6));
     min-height: var(--scale-l);

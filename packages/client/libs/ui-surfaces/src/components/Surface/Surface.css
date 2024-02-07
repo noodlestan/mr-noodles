@@ -8,7 +8,7 @@
     border-color: hsl(var(--surface-border-hue-sat), var(--surface-border-light));
     border-radius: var(--surface-border-radius);
     box-shadow: var(--surface-box-shadow);
-    transition: background-color 0.5s ease-in;
+    /* transition: background-color 0.5s ease-in; */
 }
 
 .Surface *::selection {

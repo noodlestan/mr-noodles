@@ -68,10 +68,10 @@ export const FolderItems: Component<FolderItemsProps> = props => {
     return (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         <div classList={classList()}>
-            <div class="FolderItems--width">
+            <div class="FolderItems--Width">
                 <div ref={setRef} />
             </div>
-            <Flex gap="m" classList={{ 'FolderItems--flex': true }}>
+            <Flex gap="m" classList={{ 'FolderItems--Flex': true }}>
                 <Flex gap="s" wrap direction="row" align="center" justify="between">
                     <Display level={4}>
                         <Show when={props.items.loading}>

@@ -35,7 +35,7 @@ export const SkeletonImage: Component<SkeletonImageProps> = props => {
         <>
             <Show when={!props.children}>
                 <Dynamic component={tag()} classList={classList()} style={style()}>
-                    <span class="SkeletonImage--highlight">&nbsp;</span>
+                    <span class="SkeletonImage--Highlight">&nbsp;</span>
                 </Dynamic>
             </Show>
             <Show when={props.children}>{props.children}</Show>

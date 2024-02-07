@@ -59,7 +59,7 @@ export const FocusTrap: Component<FocusTrapProps> = props => {
             <input
                 ref={inputRef}
                 type="text"
-                class="FocusTrap--input"
+                class="FocusTrap--Input"
                 id={`before-${id}`}
                 onFocus={handleBeforeFocus}
                 onKeyDown={handleKeyDown}
@@ -68,7 +68,7 @@ export const FocusTrap: Component<FocusTrapProps> = props => {
             <div ref={containerRef}>{props.children}</div>
             <input
                 type="text"
-                class="FocusTrap--input"
+                class="FocusTrap--Input"
                 id={`after-${id}`}
                 onFocus={handleAfterocus}
                 onKeyDown={handleKeyDown}

@@ -29,7 +29,7 @@ const ModalViewContents: Component<ModalViewProps> = () => {
     });
 
     const dialogClassList = () => ({
-        'ModalView--dialog': true,
+        'ModalView--Dialog': true,
     });
 
     const resetQuiet = (time = SHOW_HEADER_DURATION_INITIAL) => {

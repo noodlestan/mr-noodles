@@ -95,7 +95,7 @@ export const GalleryItem: Component<GalleryItemProps> = props => {
                 ref={buttonRef}
                 href={url()}
                 tabindex="0"
-                class="GalleryItem--button"
+                class="GalleryItem--Button"
                 onFocus={handleOnFocus}
                 onClick={handleOnClick}
                 onKeyDown={handleKeyDown}

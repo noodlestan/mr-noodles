@@ -6,7 +6,7 @@
     width: auto;
 } */
 
-.FolderCard--button {
+.FolderCard--Button {
     position: relative;
     display: inline-flex;
     flex-direction: column;
@@ -45,25 +45,25 @@
     overflow: hidden;
 }
 
-.FolderCard--icon .Icon {
+.FolderCard--Icon .Icon {
     max-width: 300px;
     max-height: 300px;
 }
 
-.FolderCard .FolderCard--button {
+.FolderCard .FolderCard--Button {
     outline-offset: var(--outline-offset);
     outline-style: none;
     outline-width: var(--outline-width);
     outline-color: var(--action-disabled-bg-color);
 }
 
-.FolderCard .FolderCard--button:focus,
-.FolderCard .FolderCard--button:focus-visible,
-.FolderCard-is-current .FolderCard--button {
+.FolderCard .FolderCard--Button:focus,
+.FolderCard .FolderCard--Button:focus-visible,
+.FolderCard-is-current .FolderCard--Button {
     outline-style: var(--outline-style);
 }
 
-.FolderCard .FolderCard--button:focus,
-.FolderCard .FolderCard--button:focus-visible {
+.FolderCard .FolderCard--Button:focus,
+.FolderCard .FolderCard--Button:focus-visible {
     outline-color: var(--outline-color);
 }

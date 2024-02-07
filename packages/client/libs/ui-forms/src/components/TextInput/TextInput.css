@@ -45,9 +45,9 @@
 
 .TextInput:focus,
 .TextInput:focus-visible {
-    color: var(--data-focus-color);
-    border-style: solid;
-    border-width: var(--outline-width);
-    border-color: var(--color-interactive);
-    outline: none;
+    border-style: none;
+    outline-offset: calc(-1 * var(--outline-width) + 1px);
+    outline-style: var(--outline-style);
+    outline-width: var(--outline-width);
+    outline-color: var(--outline-color);
 }

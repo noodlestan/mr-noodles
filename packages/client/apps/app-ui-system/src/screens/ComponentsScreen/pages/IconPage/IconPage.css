@@ -1,0 +1,7 @@
+.IconPage .override {
+    color: red !important;
+}
+
+.IconPage--Recoloring {
+    color: orange;
+}

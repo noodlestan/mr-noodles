@@ -39,7 +39,7 @@ export const DeleteUserRootDialog: Component<DeleteUserRootDialogProps> = props 
     return (
         <ModalDialog size="m" show={props.show} onClose={handleDialogClose}>
             <Flex align="stretch" classList={{ DeleteUserRootDialog: true }}>
-                <Flex gap="xl" classList={{ 'DeleteUserRootDialog--content': true }}>
+                <Flex gap="xl" classList={{ 'DeleteUserRootDialog--Content': true }}>
                     <Flex direction="row" gap="l" align="center" justify="between">
                         <Flex direction="row" gap="s">
                             <Icon size="l" icon={AlertTriangleIcon} />

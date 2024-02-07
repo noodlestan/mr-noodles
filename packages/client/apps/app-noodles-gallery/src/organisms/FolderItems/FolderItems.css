@@ -3,11 +3,11 @@
     gap: 16px;
 }
 
-.FolderItems--width {
+.FolderItems--Width {
     padding: 0 var(--space-pad-1);
 }
 
-.FolderItems--flex {
+.FolderItems--Flex {
     padding-top: 8px;
     padding-bottom: 16px;
     gap: 8px;

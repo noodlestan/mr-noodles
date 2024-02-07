@@ -30,7 +30,7 @@ export const SkeletonText: Component<SkeletonTextProps> = props => {
         <>
             <Show when={!props.children}>
                 <Dynamic component={tag()} classList={classList()}>
-                    <span class="SkeletonText--highlight">&nbsp;</span>
+                    <span class="SkeletonText--Highlight">&nbsp;</span>
                 </Dynamic>
             </Show>
             <Show when={props.children}>{props.children}</Show>

@@ -1,0 +1,15 @@
+#root {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.AppMain {
+    display: flex;
+    min-height: 100vh;
+}
+
+.AppMain--Container {
+    flex: 1;
+}

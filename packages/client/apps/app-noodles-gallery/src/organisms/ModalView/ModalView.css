@@ -7,7 +7,7 @@
     background-color: var(--color-black);
 }
 
-.ModalView--dialog {
+.ModalView--Dialog {
     position: absolute;
     z-index: 11;
     inset: 0;

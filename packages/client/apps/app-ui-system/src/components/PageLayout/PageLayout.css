@@ -1,0 +1,31 @@
+.PageLayout {
+    height: 100%;
+}
+
+.PageLayout--Content {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    min-height: 100%;
+}
+
+.PageLayout--Content > * {
+    flex: 1;
+}
+
+@media screen and (orientation: landscape) {
+    .PageLayout {
+        flex-direction: row;
+        justify-content: stretch;
+    }
+
+    .PageLayout--Nav {
+        width: 16em;
+    }
+
+    .PageLayout--Content {
+        flex: 1;
+    }
+}

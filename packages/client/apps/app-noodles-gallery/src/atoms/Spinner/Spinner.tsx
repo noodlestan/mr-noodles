@@ -20,7 +20,7 @@ export const Spinner: Component<SpinnerProps> = props => {
         <Show when={props.when}>
             <span classList={classList()}>
                 <FadeIn delay={0}>
-                    <span class="Spinner--icon">
+                    <span class="Spinner--Icon">
                         <CircleDashed />
                     </span>
                 </FadeIn>

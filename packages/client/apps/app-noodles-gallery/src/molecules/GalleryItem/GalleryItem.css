@@ -22,7 +22,7 @@
     translate: 0;
 }
 
-.GalleryItem--button {
+.GalleryItem--Button {
     position: relative;
     display: inline-flex;
     border: none;
@@ -32,24 +32,24 @@
     cursor: zoom-in;
 }
 
-.GalleryItem--button .ItemCheckbox {
+.GalleryItem--Button .ItemCheckbox {
     position: absolute;
 }
 
-.GalleryItem .GalleryItem--button {
+.GalleryItem .GalleryItem--Button {
     outline-offset: var(--outline-offset);
     outline-style: none;
     outline-width: var(--outline-width);
     outline-color: var(--action-disabled-bg-color);
 }
 
-.GalleryItem .GalleryItem--button:focus,
-.GalleryItem .GalleryItem--button:focus-visible,
-.GalleryItem-is-current .GalleryItem--button {
+.GalleryItem .GalleryItem--Button:focus,
+.GalleryItem .GalleryItem--Button:focus-visible,
+.GalleryItem-is-current .GalleryItem--Button {
     outline-style: var(--outline-style);
 }
 
-.GalleryItem .GalleryItem--button:focus,
-.GalleryItem .GalleryItem--button:focus-visible {
+.GalleryItem .GalleryItem--Button:focus,
+.GalleryItem .GalleryItem--Button:focus-visible {
     outline-color: var(--outline-color);
 }

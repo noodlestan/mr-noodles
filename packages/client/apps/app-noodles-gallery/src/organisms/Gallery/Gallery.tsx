@@ -42,7 +42,7 @@ export const Gallery: Component<GalleryProps> = props => {
 
     return (
         <div classList={classList()}>
-            <div class="Gallery--width">
+            <div class="Gallery--Width">
                 <div ref={setRef} />
             </div>
             <Show when={groups()}>

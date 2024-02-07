@@ -1,7 +1,0 @@
-.FlexPage .override {
-    color: red !important;
-}
-
-.FlexPage--justify-demo label + div {
-    height: 120px;
-}

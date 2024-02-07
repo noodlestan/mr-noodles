@@ -6,7 +6,7 @@
     background-color: var(--color-black);
 }
 
-.ModalItem--frame {
+.ModalItem--Frame {
     width: 100%;
     height: 100%;
     display: flex;
@@ -14,7 +14,7 @@
     align-items: center;
 }
 
-.ModalItem--frame img {
+.ModalItem--Frame img {
     max-width: 100%;
     max-height: 100%;
 }

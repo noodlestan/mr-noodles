@@ -48,7 +48,7 @@ export const Banner: Component<BannerProps> = props => {
 
     return (
         <Surface variant="banner" classList={classList()}>
-            <div class="Banner--contents">
+            <div class="Banner--Contents">
                 <Icon size={size()} icon={svg()} />
                 {props.children}
             </div>

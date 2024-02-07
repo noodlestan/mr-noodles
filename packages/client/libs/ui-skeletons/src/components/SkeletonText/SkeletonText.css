@@ -7,7 +7,7 @@
     --skeleton-dark: transparent;
 }
 
-.SkeletonText--highlight {
+.SkeletonText--Highlight {
     display: inline-block;
     width: 100%;
     background: linear-gradient(

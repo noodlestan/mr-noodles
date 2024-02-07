@@ -6,7 +6,7 @@
     line-height: 1;
 }
 
-.FolderLink--text {
+.FolderLink--Text {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;

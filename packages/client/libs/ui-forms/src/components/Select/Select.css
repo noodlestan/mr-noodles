@@ -18,7 +18,7 @@
 
 .Select option {
     color: var(--surface-fg);
-    background: var(--surface--bg);
+    background: var(--surface-bg);
 }
 
 .Select-size-s {

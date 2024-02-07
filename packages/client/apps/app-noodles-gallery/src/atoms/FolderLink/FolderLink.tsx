@@ -34,7 +34,7 @@ export const FolderLink: Component<FolderLinkProps> = props => {
                         isRoot={props.filename === '/'}
                     />
                 </Show>
-                <span class="FolderLink--text">{props.title}</span>
+                <span class="FolderLink--Text">{props.title}</span>
             </Link>
         </>
     );

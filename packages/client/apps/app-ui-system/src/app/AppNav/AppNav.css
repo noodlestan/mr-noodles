@@ -1,0 +1,10 @@
+.AppNav {
+    flex: 0;
+    padding-bottom: var(--space-gap-1);
+}
+
+.AppNav--Tools {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}

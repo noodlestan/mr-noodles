@@ -10,7 +10,7 @@
     width: var(--banner-width);
 }
 
-.Banner--contents {
+.Banner--Contents {
     display: inline-flex;
     flex-direction: row;
     align-items: center;

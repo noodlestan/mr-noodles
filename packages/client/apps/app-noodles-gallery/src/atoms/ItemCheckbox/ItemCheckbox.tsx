@@ -62,7 +62,7 @@ export const ItemCheckbox: Component<ItemCheckboxProps> = props => {
     return (
         <Flex gap="m" classList={classList()}>
             <div
-                class="ItemCheckbox--control"
+                class="ItemCheckbox--Control"
                 onClick={handleClick}
                 onMouseDown={handleMouseDown}
                 onTouchStart={handleMouseDown}

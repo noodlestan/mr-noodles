@@ -65,7 +65,7 @@ export const FolderCard: Component<FolderCardProps> = props => {
                     ref={buttonRef}
                     href={url()}
                     tabindex="0"
-                    class="FolderCard--button"
+                    class="FolderCard--Button"
                     onFocus={handleOnFocus}
                     onClick={handleOnClick}
                     onKeyDown={handleKeyDown}
@@ -84,7 +84,7 @@ export const FolderCard: Component<FolderCardProps> = props => {
                             <img alt="" src={imageUrl()} />
                         </Show>
                         <Show when={!props.item.id}>
-                            <div class="FolderCard--icon">
+                            <div class="FolderCard--Icon">
                                 <BreadcrumbFolderIcon hasLink={true} isOpen={false} />
                             </div>
                         </Show>

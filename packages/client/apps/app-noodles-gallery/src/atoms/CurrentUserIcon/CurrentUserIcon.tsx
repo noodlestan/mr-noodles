@@ -32,7 +32,7 @@ export const CurrentUserIcon: Component<CurrentUserIconProps> = () => {
     return (
         <Show when={currentUser()}>
             <a href="/" classList={classList()} title={title()}>
-                <span class="CurrentUserIcon--image">
+                <span class="CurrentUserIcon--Image">
                     <img src={imageUrl()} alt="" />
                 </span>
             </a>

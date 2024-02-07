@@ -50,7 +50,7 @@ export const FolderTitle: Component<FolderTitleProps> = props => {
                         />
                     </Show>
                     <Show when={!props.showLink}>
-                        <span class="FolderTitle--text">{title()}</span>
+                        <span class="FolderTitle--Text">{title()}</span>
                     </Show>
                 </Display>
             </Show>

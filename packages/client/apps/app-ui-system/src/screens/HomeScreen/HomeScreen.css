@@ -1,0 +1,10 @@
+.HomeScreen .PageLayout--Content > * {
+    max-width: 50em;
+    padding-bottom: var(--scale-xl);
+}
+
+@media (orientation: landscape) {
+    .HomeScreen--Cards {
+        flex-direction: row;
+    }
+}

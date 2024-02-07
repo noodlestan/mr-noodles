@@ -18,7 +18,7 @@ export const UserButton: Component<UserButtonProps> = props => {
     return (
         <button onClick={() => props.onClick(props.user)} class="UserButton">
             <Flex tag="span" direction="row" gap="l" padding="s" align="center">
-                <div class="UserButton--image">
+                <div class="UserButton--Image">
                     <img src={imageUrl()} alt="" />
                 </div>
                 <Display level={2}>{props.user.name}</Display>

@@ -49,10 +49,10 @@ const FoldersBreadcrumbPart: Component<BreadcrumbPartProps> = props => {
             </Show>
             <Show when={isLast()}>
                 <BreadcrumbFolderIcon isOpen={true} isRoot={props.part.path === '/'} />
-                <span class="FoldersBreadcrumbPart--text">{props.part.title}</span>
+                <span class="FoldersBreadcrumbPart--Text">{props.part.title}</span>
             </Show>
             <Show when={isAllButLast()}>
-                <span class="FoldersBreadcrumbPart--slash">/</span>
+                <span class="FoldersBreadcrumbPart--Slash">/</span>
             </Show>
         </Flex>
     );
