@@ -23,7 +23,7 @@ This is Mr Noodles server.
 - when a scan finds that some file's attributes have changed, it updates them automatically
 - TODO invalidate image automatically
 - stores messages about new scanned files, including processing errors and warnings
-- TODO store `ScanJob` details in `/jobs` instead of individual "filemessages"
+- TODO store `ScanJob` details in `/jobs` instead of individual "file messages"
 - TODO detect if new scanned files actually already exist under a different filename
 - TODO check for duplicates and expose `/noodles/duplicates`
 
@@ -109,7 +109,7 @@ TS Error: Unable to compile TypeScript:
 scripts/populate.ts:4:10 - error TS2305: Module '"@noodlestan/shared-types"' has no exported member 'UserNoodle'.
 ```
 
-**Note:** run that shared build in watch mode if you are activelly changinging those types. See [shared/types/README.md](../shared/types/README.md) for details.
+**Note:** run that shared build in watch mode if you are actively changing those types. See [shared/types/README.md](../shared/types/README.md) for details.
 
 ### Server fails to start
 

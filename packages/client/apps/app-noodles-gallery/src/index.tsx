@@ -14,11 +14,10 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
     );
 }
 
-const themes = () => [BaseTheme];
-const systemUIContext = createSystemUIContext();
-const { colourScheme } = systemUIContext;
-
 render(() => {
+    const themes = () => [BaseTheme];
+    const systemUIContext = createSystemUIContext();
+    const { colourScheme } = systemUIContext;
     return (
         <SystemUIProvider {...systemUIContext}>
             <RootProvider

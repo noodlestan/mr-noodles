@@ -41,7 +41,7 @@ Make sure you are running the prescribed [node version](../../.nvmrc)
 
 Check http://localhost:3000 for health
 
-Is another instance running on same port? Stop it, or use a different por. See [env](../../../../.env.example) for how.
+Is another instance running on same port? Stop it, or use a different port. See [env](../../../../.env.example) for how.
 
 ## License
 

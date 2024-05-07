@@ -31,6 +31,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "spellright.language": [],
-  "spellright.documentTypes": ["latex", "plaintext"]
+  "spellright.language": ["en"],
+  "spellright.documentTypes": ["latex", "plaintext", "markdown"]
 }

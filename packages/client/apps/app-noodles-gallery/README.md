@@ -122,13 +122,13 @@ npm start
 
 Make sure you are running the prescribed [node version](../../.nvmrc)
 
-If the build fails with `@noodlestan/shared-types` errors, you might have pulled changes: rebuild `packages/shared/types`. **Note:** run that shared build in watch mode if you are activelly changinging those types. See [shared/types/README.md](../../../shared/types/README.md) for details.
+If the build fails with `@noodlestan/shared-types` errors, you might have pulled changes: rebuild `packages/shared/types`. **Note:** run that shared build in watch mode if you are actively changing those types. See [shared/types/README.md](../../../shared/types/README.md) for details.
 
 ### Dev server fails to start
 
 Check http://localhost:3000 for health
 
-Is another instance running on same port? Stop it, or use a different por. See [env](../../../../.env.example) for how.
+Is another instance running on same port? Stop it, or use a different port. See [env](../../../../.env.example) for how.
 
 Is the [Mr Noodles API](../../../server/README.md) server running at http://localhost:8008/meta? Check [packages/server/README.md](../../../server/README.md) for more info.
 

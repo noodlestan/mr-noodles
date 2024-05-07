@@ -4,9 +4,9 @@ This is Mr Noodles shared library.
 
 These (simple) types and functions exist because they are needed both in the server (typically `node-ts/express` environment) and browser (typically `vite/solidjs` apps)
 
-## Distributables
+## Distributable
 
-Simple becomes complicated because it's 2024 but still not straightfowrward to build for client and server consumers.
+Simple becomes complicated because it's 2024 but still not straightforward to build for client and server consumers.
 
 - Support for ESM modules in NodeJS comes through `ts-node` (compiles to commonjs). Couldn't make it transpile dependencies (such as this one) alongside the compiled server code. So when the built server encounters the untranspiled ESM module, it chokes with `unexpected "import { ...`
 - Support for consuming CommonJS in Vite is also not straightforward. And obviously, that would be a U-turn (and literally include a U-turn in the pipeline)
